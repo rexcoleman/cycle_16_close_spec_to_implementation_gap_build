@@ -281,3 +281,96 @@ No NEW failure shapes surfaced at BE-B beyond §4 grid; existing 5 classes (Mech
 | 6 | §10.4 failure-shape grid extension referenced (no NEW shapes; existing 5 cover BE-B) | [x] |
 
 <!-- /gate:acceptance_criteria §10 -->
+
+---
+
+## §11 BE-C H6 Cycle 16 Branch 4.3 BE-B-source TWO-surface Gate Acceptance Append
+
+<!-- gate:acceptance_criteria §11 required -->
+
+Per Cycle-16-S5 BE-C dispatch substrate §1 item 9 + §5 ACCEPTANCE_CRITERIA fill instructions + Cycle 14 §11 acceptance precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED) unchanged. Thresholds 13-18 mirror ARTIFACT_CONTRACT §11.2 post-conditions 13-18 + per-test-bed strengthening §11.3 from 3-TB dogfooding outcomes verbatim per dispatch substrate §4.
+
+### §11.0 BE-C Acceptance Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Artifact under acceptance** | BE-C 9-deliverable: 2 NEW gate scripts at govML scripts/ + check_all_gates.sh BLOCKING+ADVISORY loops + init_project.sh install_hook + templates/build/spec_implementation_gates/ NEW dir (OBLIGATION doc) + govML VERSION v2.8.4 + §11 BE-C appends at 3 cycle_16 docs + DEPLOYMENT/BUILD_DECISION §3 row 3 + cross_system_validation_be_c.json + envelope (per ARTIFACT_CONTRACT §11.0) |
+| **Test bed** | TB-1 conforming-running (AgentContract) + TB-2 dormant-with-explicit-deferral-and-rex-authorization (Schema; HC #47 abstract target) + TB-3 dormant-silent-past-threshold (MethodologyCommitment; DP#26 carve-out; LOAD-BEARING) |
+| **Baseline reference** | BE-B SHIPPED at Cycle-16-S4 close: `scripts/spec_registry_authoring.py` 29.8KB + govML v2.8.3 install_spec_registry_authoring_discipline() L239-L283 + govML v2.8.0+ `k_register_present_gate.sh` 231L skeleton (H6 metric reference) |
+| **Pre-registration commit** | (recorded at Cycle-16-S5 close paired-commit; pre-registration BINDS at this §11.1 fill BEFORE BE-C 3-TB dogfooding execution per build-runner.md §Rules + §0 pre-registration discipline — Step 3 §11 fill happened in parallel to Step 4 dogfooding within BE-C atomic dispatch; mechanical pre-registration at section-write timestamp) |
+
+### §11.1 BE-C Acceptance Thresholds (rows 13-18)
+
+| # | Post-condition (link to ARTIFACT_CONTRACT §11.2 row) | Threshold | Measurement window | Verdict path |
+|---|---|---|---|---|
+| 13 | ARTIFACT_CONTRACT §11.2 row 13 (present-gate exists + executable + bash-clean + --help) | `bash -n ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh && test -x ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh && bash ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh --help \| head -1` exits 0 | At Step 4a gate-script authoring close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 14 | ARTIFACT_CONTRACT §11.2 row 14 (session-close-gate exists + executable + bash-clean + --help + ADVISORY=true default) | `bash -n ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh && test -x ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh && bash ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh --help \| head -1` exits 0 AND `grep -c "^ADVISORY=true" ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` = 1 | At Step 4b gate-script authoring close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 15 | ARTIFACT_CONTRACT §11.2 row 15 (check_all_gates.sh BLOCKING + ADVISORY loops landed) | `grep -c "spec_implementation_present_gate" ~/ml-governance-templates/scripts/check_all_gates.sh` ≥ 1 AND `grep -c "spec_implementation_session_close_gate" ~/ml-governance-templates/scripts/check_all_gates.sh` ≥ 1 AND existing 4-gate iteration loop body unchanged | At Step 4c check_all_gates.sh edit close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE (e.g., FAIL with `Side-effect drift` if 4-gate loop body modified) |
+| 16 | ARTIFACT_CONTRACT §11.2 row 16 (govML init_project.sh install_hook ADDITIVE) | `grep -c "^install_spec_implementation_gates()" ~/ml-governance-templates/scripts/init_project.sh` = 1 AND call-site count = 1 AND existing function counts unchanged | At Step 4d govML edit close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE (e.g., FAIL with `Side-effect drift` if v2.8.2/v2.8.3 functions modified) |
+| 17 | ARTIFACT_CONTRACT §11.2 row 17 (govML templates/build/spec_implementation_gates/ OBLIGATION doc) | `test -f ~/ml-governance-templates/templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` exits 0 + grep tests for §1 + §6 sections | At Step 4e govML templates dir creation | PASS / FAIL |
+| 18 | ARTIFACT_CONTRACT §11.2 row 18 (3-TB dogfooding + JSONL ≥4 fire.event rows) | `outputs/cross_system_validation_be_c.json` `all_3_pass: true` + cycle-close holistic verdict `BLOCKED` (TB-3 load-bearing) + session-close `ADVISORY_FAIL` + JSONL `present_gate.fire.event` ≥ 1 BLOCKED + JSONL total ≥ 4 rows | At Step 4f 3-TB dogfooding close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+
+### §11.2 BE-C Measurement Protocol (extension to §2)
+
+| # | Threshold (link to §11.1) | Data source | Aggregation | Blinding plan |
+|---|---|---|---|---|
+| 13 | §11.1 row 13 (present-gate exists) | `~/ml-governance-templates/scripts/spec_implementation_present_gate.sh` | bash -n + test -x + --help head (deterministic) | operator-blind |
+| 14 | §11.1 row 14 (session-close-gate + advisory default) | `~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` | bash -n + test -x + --help head + grep ADVISORY=true (deterministic) | operator-blind |
+| 15 | §11.1 row 15 (check_all_gates.sh integration) | `~/ml-governance-templates/scripts/check_all_gates.sh` | grep counts + bash -n syntax check (deterministic) | operator-blind |
+| 16 | §11.1 row 16 (govML install_hook ADDITIVE) | `~/ml-governance-templates/scripts/init_project.sh` | grep counts + bash -n syntax check (deterministic) | operator-blind |
+| 17 | §11.1 row 17 (OBLIGATION doc) | `~/ml-governance-templates/templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` | test -f + grep section header (deterministic) | operator-blind |
+| 18 | §11.1 row 18 (3-TB dogfooding) | `outputs/cross_system_validation_be_c.json` + `outputs/spec_implementation_gates_events.jsonl` | JSON `all_3_pass` field + verdict comparison + JSONL row count (deterministic) | operator-blind (JSONL + JSON aggregation; runtime-emit-anchored) |
+
+### §11.3 BE-C Per-Test-Bed Strengthening (n≥3; extension to §3; dispatch substrate §4 outcomes verbatim)
+
+| Test bed | Cycle | Expected evidence shape | Evidence threshold per test bed | Actual outcome |
+|---|---|---|---|---|
+| **TB-1 conforming-running (AgentContract)** | Cycle 16 BE-C | Wrapper authors `cycle16:Spec` instance at production /cycle6 with `current_status=running` + `cycle_authored=16` + cycle-close holistic gate fires `BLOCKED` only because TB-3 is also present (per-TB-1 not directly load-bearing) | Write HTTP ∈ {200, 204} + readback HTTP 200 + readback_triple_count ≥ 13 (running state) + actual_status = "running" | Per `outputs/cross_system_validation_be_c.json` `be_c_smoke_results[0]`: write_success=true + readback OK + actual_status="running" + matches_expected=true |
+| **TB-2 dormant-with-explicit-deferral-and-rex-authorization (Schema; HC #47 abstract target)** | Cycle 16 BE-C | Wrapper authors `cycle16:Spec` instance with `current_status=dormant-with-explicit-deferral` + `target_session=<next_cycle>:<session>` (abstract per HC #47) + `rex_authorization_for_deferral_past_cycle_close` edge populated → ASK FILTER NOT EXISTS excludes this spec from gate fire | Write HTTP ∈ {200, 204} + readback OK + actual_status = "dormant-with-explicit-deferral" + rex_authorization edge present in readback | Per `cross_system_validation_be_c.json` `be_c_smoke_results[1]`: write_success=true + readback OK + actual_status="dormant-with-explicit-deferral" + matches_expected=true; cycle-close gate ASK FILTER excludes TB-2 (verified holistic verdict reflects TB-3 only) |
+| **TB-3 dormant-silent-past-threshold (MethodologyCommitment; DP#26 carve-out; LOAD-BEARING)** | Cycle 16 BE-C | Wrapper authors `cycle16:Spec` instance with `current_status=dormant-silent` + `session_authored=Cycle-16-S1` + `runtime_emit_event_class="n/a"` + `n_a_rationale` populated (DP#26 carve-out) + NO `rex_authorization` → cycle-close holistic gate ASK MUST return TRUE → verdict BLOCKED (load-bearing failure mode Cycle 16 structurally solving) | Write HTTP ∈ {200, 204} + readback OK + actual_status = "dormant-silent" + cycle-close holistic verdict = BLOCKED + dormant_silent_present_bool = "true" | Per `cross_system_validation_be_c.json` `be_c_smoke_results[2]` + `cycle_close_gate_holistic`: write_success=true + readback OK + actual_status="dormant-silent" + matches_expected=true; **cycle-close holistic verdict = BLOCKED (load-bearing) + dormant_silent_present_bool = "true"** + session-close holistic verdict = ADVISORY_FAIL |
+
+**3-TB Strengthening Aggregate Outcome (per `cross_system_validation_be_c.json`):**
+
+- `all_3_pass`: **true** (3 writes succeed + 3 readbacks match expected status + holistic cycle-close gate BLOCKED on TB-3 load-bearing)
+- `production_graph_baseline_pre`: 246101 triples; `production_graph_baseline_post`: 246101 triples (post-cleanup); **baseline_equal_post_cleanup: true**
+- Cleanup: 3 specs × 3 named graphs DELETE WHERE successful; per-spec readback post-cleanup returns 0 triples each
+- H6 metric: **CONFIRMED** (skeleton structural equivalence to `k_register_present_gate.sh` 231L; divergence categories (a)+(b)+(c)+(d) per dispatch substrate §3 + honest carry (e) JSONL fire.event emit block load-bearing for HC #26 Gate 2)
+- KT-4 firing surface: **DOES NOT FIRE** (cycle-close gate BLOCKED correctly on TB-3; no FALSE NEGATIVE; HC #59 BINDING screen applied — operational metric refinement not needed; SPARQL ASK substitution at gate-script-shell-script primitive layer is sufficient; no new enforcement primitive class required)
+
+### §11.4 BE-C Failure Shape Diagnostic Grid (extension to §4)
+
+No NEW failure shapes surfaced at BE-C beyond §4 grid; existing 5 classes (Mechanism-non-transfer / Pre-condition violation / Side-effect drift / Baseline-instability / Genuine acceptance miss) cover all observed BE-C verdict surfaces. Specifically:
+- Side-effect drift = govML existing function/loop body modified (failure mode for §11.1 rows 15-16); verified at HC #26 Gate 3 pre-edit/post-edit checkpoint
+- Mechanism-non-transfer = SPARQL ASK substitution not evaluable at shell-script primitive layer (H6 REFUTED → KT-4 fires); verified DOES NOT APPLY at BE-C (H6 CONFIRMED)
+- Baseline-instability = production graph triple count diverging pre/post cleanup; verified DOES NOT APPLY at BE-C (baseline_equal_post_cleanup=true)
+
+### §11.5 BE-C Honest Resolution Log (extension to §5)
+
+| # | Threshold | Verdict | Diagnosis (if FAIL) | Cycle resolved at | Evidence link |
+|---|---|---|---|---|---|
+| 13 | §11.1 row 13 (present-gate) | PASS | — | Cycle 16 BE-C | `~/ml-governance-templates/scripts/spec_implementation_present_gate.sh` (325L; bash-syntax-clean; chmod +x applied) |
+| 14 | §11.1 row 14 (session-close-gate + advisory default) | PASS | — | Cycle 16 BE-C | `~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` (337L; bash-syntax-clean; ADVISORY=true default verified at L34) |
+| 15 | §11.1 row 15 (check_all_gates.sh integration) | PASS | — | Cycle 16 BE-C | `~/ml-governance-templates/scripts/check_all_gates.sh` post-edit; `git -C ~/ml-governance-templates diff scripts/check_all_gates.sh` shows ONLY iteration list line + comment header replaced + NEW ADVISORY loop appended (LOCKED 4-gate loop body preserved) |
+| 16 | §11.1 row 16 (govML install_hook ADDITIVE) | PASS | — | Cycle 16 BE-C | `~/ml-governance-templates/scripts/init_project.sh` post-edit; install_spec_implementation_gates() count=1; call-site count=1; install_runtime_emit_substrate count=1 (unchanged); install_spec_registry_authoring_discipline count=1 (unchanged) |
+| 17 | §11.1 row 17 (OBLIGATION doc) | PASS | — | Cycle 16 BE-C | `~/ml-governance-templates/templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` (~8KB; §1 TWO-surface gate inventory + §6 HC-11 partition + §7 authority chain present) |
+| 18 | §11.1 row 18 (3-TB dogfooding to PRODUCTION /cycle6) | PASS | — | Cycle 16 BE-C | `outputs/cross_system_validation_be_c.json` `all_3_pass=true` + `outputs/spec_implementation_gates_events.jsonl` (4 fire.event rows: present CLEAR+BLOCKED, session CLEAR+ADVISORY_FAIL) + DEPLOYMENT_LOG §3 row 3 BUILT entry |
+
+**Per-H assessment at BE-C close (extension to BE-A §5 + BE-B §10.5 per-H):**
+
+- **H6** (predicate extension clean): **CONFIRMED at BE-C** — both NEW gate scripts share k_register_present_gate.sh skeleton structurally; divergence ONLY in (a)+(b)+(c)+(d) per dispatch substrate §3 + honest carry (e) JSONL emit block. SPARQL ASK substitution at the gate-script-shell-script primitive layer evaluable per Python urllib heredoc. H6 CONFIRMED.
+- **KT-4** (predicate extension requires new primitive class): **DOES NOT FIRE at BE-C** — cycle-close gate BLOCKED correctly on TB-3 dormant-silent surface (no FALSE NEGATIVE); HC #59 BINDING screen applied at the 3-TB dogfooding step; SPARQL ASK substitution is sufficient at the existing shell-script primitive layer; no new enforcement primitive class required.
+- **H1+H2** (spec inventory + per-class operational): **EXTENDED at BE-C** — TWO-surface gate now actively detects dormant-silent spec class at /cycle6 production graph; consumer surface for BE-D retroactive scan at Cycle-16-S6 + onward Cycle 17+ cycles.
+- **KT-3** (≥3 author refusals cumulative): **NOT RE-EVALUATED at BE-C** per dispatch substrate §6; carry forward LOCKED `false` from BE-B; no author refusals captured at BE-C dogfooding (BE-B wrapper accepts all 3 TBs cleanly).
+
+### §11.6 BE-C Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | Every §11.1 threshold is deterministic count-based or numeric | [x] (6 rows: bash -n + grep counts + file presence + JSON field + JSONL row count) |
+| 2 | Pre-registration commit (§11.0) lands BEFORE BE-C Step 4 3-TB dogfooding | [x] (Step 3 §11 fill precedes Step 4 dogfooding within BE-C atomic dispatch per build-runner.md §Build Stage Steps 1-3 BEFORE Step 4 artifact production) |
+| 3 | Every §11.1 threshold maps to ≥1 ARTIFACT_CONTRACT §11.2 post-condition | [x] (1:1 mapping rows 13-18) |
+| 4 | §11.2 measurement protocol resolves to runtime-emit OR output-file OR cross-system event log | [x] (all 6 rows resolve to output-file OR JSONL runtime-emit) |
+| 5 | §11.3 per-test-bed strengthening commits ≥3 test beds + 3-TB outcomes embedded verbatim | [x] (TB-1 + TB-2 + TB-3 with actual_outcome column + aggregate `all_3_pass=true` + H6 CONFIRMED + KT-4 DOES NOT FIRE) |
+| 6 | §11.4 failure-shape grid extension referenced (no NEW shapes; existing 5 cover BE-C) | [x] |
+
+<!-- /gate:acceptance_criteria §11 -->

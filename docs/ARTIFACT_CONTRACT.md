@@ -297,3 +297,100 @@ CONTRACT_CHANGE authority = Rex paradigm ruling per Binding 7 + S155 + BUILD_DEC
 | 10 | HC-11 partition preserved (publishable: interface + 5-state taxonomy + DP#26 design + JSON schemas; ip-private: internal algorithm bodies + classification heuristics) | [x] PASS (project gitignored at root; explicit publishable annotations in wrapper docstring) |
 
 <!-- /gate:artifact_contract §10 -->
+
+---
+
+## §11 BE-C H6 Cycle 16 Branch 4.3 BE-B-source TWO-surface Gate Append
+
+<!-- gate:artifact_contract §11 required -->
+
+Per Cycle-16-S5 BE-C dispatch substrate §1 + §5 ARTIFACT_CONTRACT fill instructions + Cycle 14 §11 BE-class append precedent. APPEND-only; §0-§7 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED at Cycle-16-S4 close) unchanged. Cycle 16 BE-C TWO-surface BLOCKING gate (cycle-close + session-close) + govML v2.8.4 install_hook back-port (Branch 4.3 BE-B-source closure per ROADMAP Phase 4).
+
+### §11.0 BE-C Cycle 16 Branch 4.3 Contract Identity
+
+| Field | Value |
+|---|---|
+| **Artifact** | `~/ml-governance-templates/scripts/spec_implementation_present_gate.sh` (cycle-close BLOCKING) + `~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` (session-close ADVISORY) + `~/ml-governance-templates/scripts/check_all_gates.sh` 5th-gate BLOCKING append + ADVISORY loop append + `~/ml-governance-templates/scripts/init_project.sh` install_hook ADDITIVE-APPEND (`install_spec_implementation_gates()`) + `~/ml-governance-templates/templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` NEW + govML VERSION v2.8.3 → v2.8.4 + 3-TB dogfooding capture `outputs/cross_system_validation_be_c.json` |
+| **Cycle** | 16 (BE-C Branch 4.3 BE-B-source closure per ROADMAP Phase 4 + Done #7 + H6 + KT-4 firing surface evaluation) |
+| **Source** | BE-B SHIPPED at Cycle-16-S4 close: `scripts/spec_registry_authoring.py` (5 Ops + record_author_refusal helper; 29.8KB) + `docs/spec_authoring_discipline.md §4 Operations 3+4` (verbatim consumed) + govML v2.8.3 `install_spec_registry_authoring_discipline()` structural precedent L239-L283 + govML v2.8.0+ `k_register_present_gate.sh` 231L skeleton (verbatim mirrored per H6 metric) |
+| **Architectural choice** | TWO-surface gate authoring with reference-by-shim install_hook (Cycle-14-S9 architectural choice (b) extended). Gate scripts live ONLY at govML canonical `scripts/`; install_hook layers OBLIGATION doc + empty JSONL sink at per-project `docs/` + `outputs/` only. ADDITIVE-APPEND per HC #45 (Cycle-15-S3 + Cycle-15-S7 + Cycle-16-S4 + **Cycle-16-S5** precedent class extended to 4 members) |
+| **Primary mechanism family** | Structural enforcement at gate-fire boundary (consumer-side; cycle-close + session-close) complementing BE-B scaffolding-time install (authoring-side). Dual-surface DP#1 structural > behavioral; Cycle 16 PRIMARY spec-implementation gap closure mechanism INSTALLED at BOTH boundaries. |
+| **Authority chain** | Cycle 16 SI ACTIVE 2026-05-27 (`a2f14d5`) + Amendments 27a/27b + Rex disposition (C) D-S2-1 + S3 D-S3-1 + S4 D-S4-1 + Rex back-port directive STANDING 2026-05-27 (4-repo paired commit) + kc-45 R1 PASS task-context dispatch authorization via Cycle-16-S5 Coach + dispatch substrate `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s5_be_c_dispatch_substrate.md` |
+
+### §11.1 BE-C Pre-Conditions (rows 13-18)
+
+| # | Pre-condition | How verified at runtime | Refusal behavior on FAIL |
+|---|---|---|---|
+| 13 | **BE-A + BE-B artifacts UNMODIFIED at cycle_16/** — BE-A §1-§3 LOCKED bodies + BE-B §10 LOCKED bodies at 3 docs/.md + `scripts/spec_registry_authoring.py` BE-B body unchanged | `git diff` against BE-B SHIPPED HEAD returns 0 line changes on §1-§10 line ranges of 3 docs; `git diff scripts/spec_registry_authoring.py` returns empty | halt-and-surface; refuse-on-missing-precondition per DP#44 + S132; do NOT route around |
+| 14 | **SPARQL endpoint `http://localhost:3030/cycle6/sparql` reachable** for gate-fire dogfooding | `python3 -c "import urllib.request, urllib.parse; req=urllib.request.Request('http://localhost:3030/cycle6/sparql', data=urllib.parse.urlencode({'query':'ASK { ?s ?p ?o }'}).encode()); r=urllib.request.urlopen(req, timeout=5); assert r.status==200"` exits 0 | halt-and-surface as KT-6 substrate-viability candidate; gate scripts emit WARN-class verdict on Check 1 unreachability |
+| 15 | **`k_register_present_gate.sh` skeleton at govML scripts/ UNMODIFIED** for H6 metric reference | `wc -l ~/ml-governance-templates/scripts/k_register_present_gate.sh` = 231L; `git -C ~/ml-governance-templates diff scripts/k_register_present_gate.sh` empty | halt-and-surface; H6 metric depends on skeleton stability; refuse-on-violation |
+| 16 | **govML `~/ml-governance-templates/scripts/init_project.sh` writable** + `install_runtime_emit_substrate()` at L171-L209 + `install_spec_registry_authoring_discipline()` at L239-L283 ABSENT-MUTATION refused | `grep -c "^install_runtime_emit_substrate()" ~/ml-governance-templates/scripts/init_project.sh` = 1 AND `grep -c "^install_spec_registry_authoring_discipline()" ~/ml-governance-templates/scripts/init_project.sh` = 1 | halt-and-surface (Refuse trigger (a) or (b) per dispatch substrate §7); BE-C BUILD does NOT proceed |
+| 17 | **govML `~/ml-governance-templates/scripts/check_all_gates.sh` L2042-L2069 build-class branch 4-gate BLOCKING loop intact** for ADDITIVE 5th-gate append | `grep -c "for gate in hc26_internal_smoke_gate k_register_present_gate" ~/ml-governance-templates/scripts/check_all_gates.sh` ≥1 pre-edit | halt-and-surface (Refuse trigger (f)) |
+| 18 | **govML `templates/build/` writable** for NEW `spec_implementation_gates/` directory creation | `test -w ~/ml-governance-templates/templates/build/` exits 0 + `mkdir -p ~/ml-governance-templates/templates/build/spec_implementation_gates` succeeds | halt-and-surface as govML write-permission blocker |
+
+### §11.2 BE-C Post-Conditions (rows 13-18)
+
+| # | Post-condition | How verified after run | What ACCEPTANCE_CRITERIA §11.1 measures against |
+|---|---|---|---|
+| 13 | **`scripts/spec_implementation_present_gate.sh` EXISTS + EXECUTABLE + BASH-SYNTAX-CLEAN + `--help` clean exit** at govML canonical scripts/ | `bash -n ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh && test -x ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh && bash ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh --help \| head -1` exits 0 | ACCEPTANCE_CRITERIA §11.1 row 13 syntax + executable + help threshold |
+| 14 | **`scripts/spec_implementation_session_close_gate.sh` EXISTS + EXECUTABLE + BASH-SYNTAX-CLEAN + `--help` clean exit** with ADVISORY=true default | `bash -n ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh && test -x ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh && bash ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh --help \| head -1` exits 0 + `grep -c "^ADVISORY=true" ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` = 1 | ACCEPTANCE_CRITERIA §11.1 row 14 syntax + executable + help + advisory-default threshold |
+| 15 | **`check_all_gates.sh` BLOCKING loop extended + ADVISORY loop NEW** — `for gate in ... spec_implementation_present_gate; do` present + `for gate in spec_implementation_session_close_gate; do ... --advisory-mode ...` present | `grep -c "spec_implementation_present_gate" ~/ml-governance-templates/scripts/check_all_gates.sh` ≥1 AND `grep -c "spec_implementation_session_close_gate" ~/ml-governance-templates/scripts/check_all_gates.sh` ≥1 AND existing 4-gate iteration list body unchanged (PASS/FAIL accumulators) | ACCEPTANCE_CRITERIA §11.1 row 15 ADDITIVE-APPEND threshold |
+| 16 | **govML `init_project.sh` install_hook ADDITIVE-APPEND landed** — NEW `install_spec_implementation_gates()` function present + NEW call site at research-build profile branch AFTER `install_spec_registry_authoring_discipline` + existing functions unchanged | `grep -c "^install_spec_implementation_gates()" ~/ml-governance-templates/scripts/init_project.sh` = 1 + `grep -c "^        install_spec_implementation_gates$" ~/ml-governance-templates/scripts/init_project.sh` = 1 + `grep -c "^install_runtime_emit_substrate()" ~/ml-governance-templates/scripts/init_project.sh` = 1 (unchanged) + `grep -c "^install_spec_registry_authoring_discipline()" ~/ml-governance-templates/scripts/init_project.sh` = 1 (unchanged) | ACCEPTANCE_CRITERIA §11.1 row 16 ADDITIVE per HC #45 |
+| 17 | **govML `templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` ships** with TWO-surface gate interface declared + HC-11 partition + authority chain | `test -f ~/ml-governance-templates/templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` exits 0 + grep tests for `## §1 TWO-surface gate inventory` + `## §6 HC-11 partition` | ACCEPTANCE_CRITERIA §11.1 row 17 file + content threshold |
+| 18 | **3-test-bed dogfooding to PRODUCTION /cycle6 PASSES** — TB-1 conforming-running CLEAR / TB-2 dormant-with-explicit-deferral-and-rex-authorization CLEAR / TB-3 dormant-silent-past-threshold BLOCKING-FAIL (load-bearing) + spec_implementation_gates_events.jsonl ≥4 fire.event rows | `outputs/cross_system_validation_be_c.json` `all_3_pass: true` + per-TB verdict + JSONL `grep -c spec_implementation_present_gate.fire.event` ≥3 + `grep -c spec_implementation_session_close_gate.fire.event` ≥3 | ACCEPTANCE_CRITERIA §11.1 row 18 3-TB threshold + H6 + KT-4 firing surface evaluation |
+
+### §11.3 BE-C Invariants (rows 10-13)
+
+| # | Invariant | When checked | If violated |
+|---|---|---|---|
+| 10 | **SPARQL endpoint reachability per check OR skip-WARN** — gate scripts probe `$CYCLE6_QUERY_ENDPOINT` (default `http://localhost:3030/cycle6/sparql`) at Check 1; if HTTP non-200 OR timeout → WARN-class verdict + downstream Checks SKIP | At every gate-script invocation | halt-and-surface as KT-6 substrate-viability candidate per dispatch substrate §7 refuse trigger (d); gate scripts emit fire.event with `ask_http_status: 0` for downstream forensics |
+| 11 | **Skeleton structural equivalence to `k_register_present_gate.sh` per H6 metric** — `set -euo pipefail` + while-loop arg-parse + DIR/ADVISORY init + `--help` block + governance.yaml profile-build check + skip-WARN JSON + `add_check()` helper + PASS/FAIL/WARN accumulators + verdict block + `mkdir -p outputs` + JSON writer + `exit $EXIT_CODE` | At gate-script authoring close + at any re-edit | H6 REFUTED → KT-4 fires → paradigm-class candidate per dispatch substrate §3 + ED §Field 6 KT-4 |
+| 12 | **4-class verdict enum** per gate: `CLEAR / BLOCKED / ADVISORY_FAIL / SKIP_NON_BUILD_PROFILE` | At every gate-script invocation output JSON `verdict` field | halt-and-surface; verdict outside enum is contract violation requiring CONTRACT_CHANGE per Binding 7 |
+| 13 | **`check_all_gates.sh` integration line present** — 5-gate BLOCKING iteration list contains `spec_implementation_present_gate` AND ADVISORY loop contains `spec_implementation_session_close_gate` invoked with `--advisory-mode` explicit | At post-edit verification + at every `check_all_gates.sh` invocation against build-class project | halt-and-surface; missing integration = F-D Discoverability sub-mechanism layer violation per RIDE ED L426-L434 |
+
+### §11.4 BE-C Side Effects (diff vs §10)
+
+| Surface | NEW effect at BE-C | Bounds |
+|---|---|---|
+| Filesystem writes | NEW: `~/ml-governance-templates/scripts/spec_implementation_present_gate.sh` (~325L) + `~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` (~337L) + `~/ml-governance-templates/templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md` (~8KB) + `outputs/cross_system_validation_be_c.json` (NEW); EDITS to govML `init_project.sh` (+44L additive function + 1L call-site) + `check_all_gates.sh` (+16/-2 iteration list extension + NEW ADVISORY loop; LOCKED 4-gate loop body preserved) + govML `VERSION` (+148L v2.8.4 head prepend); §11 BE-C appends at 3 cycle_16 docs (Edit-per-section); DEPLOYMENT_LOG + BUILD_DECISION_LOG §3 row 3 appends; `outputs/spec_implementation_gates_events.jsonl` NEW + `outputs/build_runner_events.jsonl` append-only growth | ≤200KB cumulative new content; no existing-file body modifications outside §11 appends + init_project.sh additive function/call-site + check_all_gates.sh additive iteration extension + VERSION head prepend |
+| Database writes | NEW: SPARQL UPDATE INSERT DATA via BE-B `register_spec()` against PRODUCTION /cycle6 graphs for 3 BE-C dogfooding specs (TB-1 + TB-2 + TB-3); DROP GRAPH cleanup at smoke close per dispatch substrate §4 (analog to BE-A test-graph cleanup discipline; production graph baseline pre/post equal verified via SPARQL COUNT) | 3 specs × ~13-15 triples × 3 named graphs each = ~120 triples written then DROPped; production graph baseline pre/post COUNT-equal post-cleanup |
+| Network egress | localhost-only Fuseki HTTP via Python urllib (BE-B wrapper + 2 NEW gate scripts) | ≤40 localhost HTTP requests across BE-C execution (3 writes × 2 ops + 2 gates × 3 TB × 2 checks + readbacks + smoke verifies + DROP GRAPH cleanup × 3) |
+| Process / thread footprint | python3 subprocess for wrapper invocations + 2 gate scripts via bash + urllib | ≤3 concurrent python3 invocations; ≤30s wall-clock per invocation; gate scripts ≤10s |
+
+### §11.5 BE-C Versioning and Promotion Hooks
+
+| Field | Value |
+|---|---|
+| **Version scheme** | Gate scripts declare no semver yet; promote alongside Cycle 17+ retroactive-scan dispatchees that consume BE-C gates |
+| **govML version** | v2.8.3 → v2.8.4 (Cycle-16-S5 BE-C paired commit; entry at `~/ml-governance-templates/VERSION` head) |
+| **Promotion authority** | build-runner BUILT at BE-C (Cycle-16-S5) → Coach R3 evaluation → build-orchestrator promotion at Cycle 17+ consumer integration OR Cycle-16-S6 BE-D retroactive scan consumer integration → Rex paradigm ruling required on CONTRACT_CHANGE OR KT-N firing |
+| **Promotion gates** | `build_pipeline_gate.sh` + `production_deployment_gate.sh` + `cross_system_validation_gate.sh` + `hc26_internal_smoke_gate.sh` (BE-C inherits BE-A/B gate stack) + NEW at BE-C: `spec_implementation_present_gate.sh` (Op 3) + `spec_implementation_session_close_gate.sh` (Op 4) — BE-C is the consumer **and** the artifact for the NEW gates |
+| **Rollback procedure** | (1) `git -C ~/ml-governance-templates reset --hard HEAD~1` (govML v2.8.4 revert per pre-paired-commit baseline; 5 files affected: VERSION + 2 NEW gate scripts + init_project.sh + check_all_gates.sh + NEW templates dir); (2) DROP GRAPH cleanup at smoke close already performed (no production triples remain post-smoke); (3) `git -C ~/cycle_16_close_spec_to_implementation_gap_build checkout docs/{ARTIFACT_CONTRACT,RUNTIME_EMIT_SPEC,ACCEPTANCE_CRITERIA,DEPLOYMENT_LOG,BUILD_DECISION_LOG}.md` (revert §11 appends); (4) `rm cycle_16/outputs/cross_system_validation_be_c.json cycle_16/outputs/spec_implementation_gates_events.jsonl`; (5) `git -C ~/cycle_6_unified_substrate_build diff runtime/jena/` returns empty (Cycle 6 LOCKED preserved throughout). Rollback NOT end-to-end tested at BE-C (DROP GRAPH cleanup IS end-to-end tested at smoke close; full rollback test deferred to Cycle 17+ if Coach R3 disposition requires) |
+
+### §11.6 BE-C Change Control Triggers
+
+- BE-C 9-deliverable scope per dispatch substrate §1 — any deviation from declared scope is CONTRACT_CHANGE per Binding 7 + S155
+- govML v2.8.4 install_hook signature changes (function name `install_spec_implementation_gates`, target paths under `${DOCS_DIR}/` + `${PROJECT_DIR}/outputs/`, idempotence) — Rex paradigm ruling required
+- SPARQL ASK predicate body changes (Operation 3 or Operation 4 ASK structure) — affects H6 metric + KT-4 firing surface; CONTRACT_CHANGE required
+- CYCLE_N resolution chain changes (governance.yaml → state.json → fallback JSONL) — affects per-project gate firing semantics; CONTRACT_CHANGE required
+- SESSIONS_BETWEEN primitive implementation changes (grep-based shell pre-computation) — affects Operation 4 threshold semantics; CONTRACT_CHANGE required
+- 4-class verdict enum changes (CLEAR / BLOCKED / ADVISORY_FAIL / SKIP_NON_BUILD_PROFILE) — affects JSONL emit schema + check_all_gates.sh accumulator semantics; CONTRACT_CHANGE required
+
+CONTRACT_CHANGE authority = Rex paradigm ruling per Binding 7 + S155 + BUILD_DECISION_LOG §4 verbatim.
+
+### §11.7 BE-C Self-test (BEFORE shipping)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | TWO gate scripts present at govML canonical scripts/ + executable + bash-syntax-clean + --help exits 0 | [x] PASS (`bash -n` exit 0 on both; chmod +x applied; --help returns first line cleanly) |
+| 2 | check_all_gates.sh BLOCKING loop extended to 5 gates (4th-original-gate iteration body unchanged; PASS/FAIL accumulators preserved) + ADVISORY loop NEW appended after BLOCKING | [x] PASS (grep counts match; iteration body verified preserved via `git diff` showing only iteration list line + comment header replaced) |
+| 3 | govML init_project.sh install_hook function added + call-site added + bash-syntax-clean + ADDITIVE per HC #45 (no modification of existing functions) | [x] PASS (`grep -c install_spec_implementation_gates()` returns 2 — function def + call-site; `bash -n` exit 0; install_runtime_emit_substrate count unchanged at 1; install_spec_registry_authoring_discipline count unchanged at 1) |
+| 4 | govML templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md present | [x] PASS (file at canonical path; HC-11 partition declared in §6) |
+| 5 | govML VERSION bumped v2.8.3 → v2.8.4 with substantive entry | [x] PASS (head v2.8.4 entry present; v2.8.3 + v2.8.2 + v2.8.1 + v2.8.0 + v2.7.1 entries preserved below) |
+| 6 | 3-TB dogfooding via BE-B wrapper authors 3 specs at PRODUCTION /cycle6 → 2 NEW gates fire ≥6 fire.event rows → expected verdicts captured per TB | [x] PASS (TB-1 CLEAR + TB-2 CLEAR + TB-3 BLOCKING-FAIL; `outputs/cross_system_validation_be_c.json` `all_3_pass=true`; `outputs/spec_implementation_gates_events.jsonl` ≥6 rows from 3 TB × 2 gates) |
+| 7 | Fresh-scaffold smoke test confirms install_hook lands OBLIGATION + JSONL sink (per-project layer) + 3 prior installs still operational | [x] PASS (`/tmp/be_c_smoke_<ts>/` ships docs/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md + outputs/spec_implementation_gates_events.jsonl + 5 prior install outputs all present) |
+| 8 | BE-A §1-§3 LOCKED + BE-B §10 LOCKED bodies UNMODIFIED across 5 BE-A/BE-B artifacts | [x] PASS (Edit-per-section; only §11 appended; pre-write canonical-marker baseline preserved post-edit) |
+| 9 | Cycle 6 LOCKED ontology body UNMODIFIED throughout BE-C | [x] PASS (`git -C ~/cycle_6_unified_substrate_build diff runtime/jena/ \| wc -l` = 0 pre + post BE-C) |
+| 10 | HC-11 partition preserved (publishable: TWO-surface gate interface + cycle-close/session-close semantic + --advisory-mode/--blocking-mode conventions + 4-class verdict enum + JSONL emit schema + integration shape; ip-private: SPARQL ASK predicate body algorithm + FILTER variable-substitution + SESSIONS_BETWEEN internals + per-role checklists at govML internal-only paths) | [x] PASS (OBLIGATION doc §6 declares partition; project gitignored at root; explicit publishable annotations) |
+
+<!-- /gate:artifact_contract §11 -->

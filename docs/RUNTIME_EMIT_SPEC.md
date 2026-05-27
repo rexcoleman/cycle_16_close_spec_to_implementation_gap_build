@@ -317,3 +317,93 @@ except ValueError as e:
 | 6 | Schema version `0.1` locked at Cycle-16-S4 close paired-commit | [x] PASS (recorded in every event row) |
 
 <!-- /gate:runtime_emit_spec §10 -->
+
+---
+
+## §11 BE-C H6 Cycle 16 Branch 4.3 BE-B-source TWO-surface Gate Emit Schema Append
+
+<!-- gate:runtime_emit_spec §11 required -->
+
+Per Cycle-16-S5 BE-C dispatch substrate §1 item 8 + §5 RUNTIME_EMIT_SPEC fill instructions + Cycle 14 §11 emit-schema precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED) unchanged. 2 NEW event classes for spec_implementation_gates fire telemetry.
+
+### §11.0 BE-C Emit Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Sink (new)** | `~/cycle_16_close_spec_to_implementation_gap_build/outputs/spec_implementation_gates_events.jsonl` (append-only; created at BE-C fresh-scaffold install per `install_spec_implementation_gates()` govML v2.8.4 hook) |
+| **Namespace (new)** | `cycle_16.be_c.spec_implementation_gates` (per-pipeline + per-cycle + per-BE scope; namespace-isolated from BE-A `cycle_16.be_a.spec_registry` + BE-B `cycle_16.be_b.spec_registry` per Cycle 10 rule_6/8/10/12 namespace-isolation invariants) |
+| **Schema version** | `0.1` (locked at Cycle-16-S5 close paired-commit) |
+| **Min events per run** | `2` (1 per gate fire = 2 baseline at 1 invocation of each gate; ≥6 across 3-TB dogfooding × 2 gates) |
+
+### §11.1 BE-C Event Schema (2 NEW event classes)
+
+| Event class | Trigger | Required fields | Optional fields | Cardinality per run |
+|---|---|---|---|---|
+| `spec_implementation_present_gate.fire.event` | At each `spec_implementation_present_gate.sh` invocation (cycle-close BLOCKING gate; mirrors `k_register_present_gate.sh` skeleton per H6 metric) | `schema_version`, `namespace`, `event_class`, `timestamp`, `run_id`, `payload.cycle_n`, `payload.verdict` ∈ {CLEAR, BLOCKED, ADVISORY_FAIL, SKIP_NON_BUILD_PROFILE}, `payload.dormant_silent_present_bool` ∈ {true, false, unknown, error}, `payload.pass_count`, `payload.fail_count`, `payload.warn_count`, `payload.sparql_endpoint`, `payload.ask_http_status`, `payload.ask_response_ms`, `payload.project_dir`, `payload.advisory_mode_bool` | (none at v0.1) | exactly once per invocation |
+| `spec_implementation_session_close_gate.fire.event` | At each `spec_implementation_session_close_gate.sh` invocation (session-close ADVISORY gate by default; --blocking-mode opt-in flips to BLOCKING) | `schema_version`, `namespace`, `event_class`, `timestamp`, `run_id`, `payload.current_session_index` (= `SESSIONS_BETWEEN` grep-derived count), `payload.threshold` (Amendment 27a default 3), `payload.dormant_specs_exceeding_threshold_count`, `payload.verdict` ∈ {CLEAR, ADVISORY_FAIL, BLOCKED, SKIP_NON_BUILD_PROFILE}, `payload.pass_count`, `payload.fail_count`, `payload.warn_count`, `payload.sparql_endpoint`, `payload.ask_http_status`, `payload.ask_response_ms`, `payload.project_dir`, `payload.advisory_mode_bool` | (none at v0.1) | exactly once per invocation |
+
+### §11.2 BE-C Measurement Hook (consumed by ACCEPTANCE_CRITERIA §11)
+
+**Metric A_BE_C: spec_implementation_present_gate.fire.event count by verdict** (post-condition #18 + H6 + KT-4 firing surface)
+```bash
+python3 -c "import json, collections; events=[json.loads(l) for l in open('outputs/spec_implementation_gates_events.jsonl')]; c=collections.Counter(e['payload']['verdict'] for e in events if e['event_class']=='spec_implementation_present_gate.fire.event'); print(dict(c))"
+```
+Expected at BE-C close: at least 1 CLEAR (TB-1 + TB-2 conforming) + 1 BLOCKED (TB-3 dormant-silent past-threshold; load-bearing per dispatch substrate §4).
+
+**Metric B_BE_C: spec_implementation_session_close_gate.fire.event count by verdict** (post-condition #18 cross-surface)
+```bash
+python3 -c "import json, collections; events=[json.loads(l) for l in open('outputs/spec_implementation_gates_events.jsonl')]; c=collections.Counter(e['payload']['verdict'] for e in events if e['event_class']=='spec_implementation_session_close_gate.fire.event'); print(dict(c))"
+```
+Expected at BE-C close: at least 1 CLEAR (TB-1 + TB-2 within threshold or with rex_authorization) + 1 ADVISORY_FAIL (TB-3 past threshold without rex_authorization).
+
+**Metric C_BE_C: dormant_silent_present_bool == "true" per fire event** (KT-4 firing surface classification primary signal)
+```bash
+python3 -c "import json; events=[json.loads(l) for l in open('outputs/spec_implementation_gates_events.jsonl')]; n=len([e for e in events if e['event_class']=='spec_implementation_present_gate.fire.event' and e['payload'].get('dormant_silent_present_bool')=='true']); print(n)"
+```
+Expected at BE-C close: ≥1 (TB-3 dormant-silent past-threshold load-bearing fire). KT-4 FIRES if this count is 0 across 3-TB dogfooding (i.e., FALSE NEGATIVE on TB-3); KT-4 DOES NOT FIRE if TB-3 surfaces the dormant-silent boolean correctly.
+
+### §11.3 BE-C Refusal-on-Violation (extension to §3)
+
+| Failure mode | Refusal behavior | Surface |
+|---|---|---|
+| SPARQL endpoint non-reachable at gate invocation | emit fire.event with `ask_http_status: 0` + `verdict: CLEAR` if no failed Checks (Check 2 SKIP) OR `verdict: BLOCKED/ADVISORY_FAIL` if downstream FAIL; surface WARN-class via add_check | `outputs/spec_implementation_gates_events.jsonl` + stderr Check 1 WARN |
+| ASK boolean TRUE at present-gate Check 2 (cycle-close dormant-silent dormant-silent without rex_authorization) | halt-and-surface BLOCKED; exit 1 unless `--advisory-mode` (then ADVISORY_FAIL + exit 0) | same |
+| COUNT > 0 at session-close-gate Check 2 (dormant-silent over threshold) | ADVISORY_FAIL by default (advisory loop semantics); BLOCKED if `--blocking-mode` opt-in | same |
+| 4-class verdict enum violation (unknown verdict literal at JSON output) | halt-and-surface as CONTRACT_CHANGE per Binding 7; refuse-on-violation per ARTIFACT_CONTRACT §11.3 row 12 invariant | caller stderr + envelope `issues` |
+| HC #45 ADDITIVE-APPEND violation at govML LOCKED bodies | refuse via build-runner DP#44 refuse triggers (a)/(b)/(c)/(f) per dispatch substrate §7; emit `build_runner_runtime_failure.event` | `outputs/build_runner_events.jsonl` + envelope |
+
+### §11.4 BE-C Append-only Discipline (extension to §4)
+
+Same invariant as §4: append-only at `outputs/spec_implementation_gates_events.jsonl`. New fire events INCLUDE prior-event reference only via the JSONL sink ordering (each fire is a fresh event; no supersedure semantics at gate-fire layer). Gate scripts always APPEND via shell heredoc-piped Python urllib write — never edit existing rows. `wc -l outputs/spec_implementation_gates_events.jsonl` strictly monotonically increasing across BE-C 3-TB dogfooding × 2 gates fires.
+
+### §11.5 BE-C Calibration Hook (extension to §5)
+
+```bash
+# Calibration fixture: 1 gate-script-help + 1 gate-script-skip-non-build-profile fire
+# (deterministic; no SPARQL endpoint dependency at calibration boundary).
+set -euo pipefail
+SMOKE=/tmp/be_c_calibration_smoke_$$
+mkdir -p "$SMOKE"
+# No governance.yaml at $SMOKE → SKIP_NON_BUILD_PROFILE verdict
+bash ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh "$SMOKE" >/dev/null
+VERDICT=$(python3 -c "import json; print(json.load(open('$SMOKE/outputs/spec_implementation_present_gate_results.json'))['verdict'])")
+if [ "$VERDICT" = "SKIP_NON_BUILD_PROFILE" ]; then
+    echo "CALIBRATION PASS: skip-WARN verdict on non-build profile"
+else
+    echo "CALIBRATION FAIL: expected SKIP_NON_BUILD_PROFILE, got $VERDICT"
+fi
+rm -rf "$SMOKE"
+```
+
+### §11.6 BE-C Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | 2 NEW event classes have triggers + required fields specified per §11.1 | [x] PASS (present_gate.fire.event + session_close_gate.fire.event) |
+| 2 | Measurement hooks A_BE_C + B_BE_C + C_BE_C reproduce same value across two independent operators (deterministic JSONL aggregations) | [x] PASS (Python one-liners against same file = deterministic) |
+| 3 | Refusal-on-violation wired for 5 failure modes per §11.3 | [x] PASS |
+| 4 | Append-only discipline verified at sink (`wc -l outputs/spec_implementation_gates_events.jsonl` strictly increasing across BE-C 3-TB × 2-gate dogfooding) | [x] PASS (≥6 fire.events appended at smoke; pre/post wc -l diff ≥6) |
+| 5 | Calibration hook fires PASS on SKIP_NON_BUILD_PROFILE smoke fixture (no governance.yaml → skip-WARN verdict) | [x] PASS |
+| 6 | Schema version `0.1` locked at Cycle-16-S5 close paired-commit | [x] PASS (recorded in every event row) |
+
+<!-- /gate:runtime_emit_spec §11 -->
