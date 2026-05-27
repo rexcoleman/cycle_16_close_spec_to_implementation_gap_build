@@ -1,0 +1,45 @@
+project:
+  name: "cycle_16_close_spec_to_implementation_gap_build"
+  profile: "research-build"
+  repo_url: ""
+
+audit:
+  findings_path: "FINDINGS.md"
+  outputs_dir: "outputs"
+  hypothesis_registry: "HYPOTHESIS_REGISTRY.md"
+  figures_dirs:
+    - "figures"
+    - "blog/images"
+    - "outputs/figures"
+  prohibited_language:
+    - "novel"
+    - "first"
+    - "validates"
+    - "proves"
+    - "breakthrough"
+  claim_tags:
+    - "DEMONSTRATED"
+    - "SUGGESTED"
+    - "PROJECTED"
+    - "HYPOTHESIZED"
+  min_seeds: 3
+  tolerances:
+    default: 0.01
+    percent: 0.5
+    count: 0
+    float: 0.005
+  metric_keywords:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+    - "auc"
+    - "loss"
+    - "error"
+    - "attack_success_rate"
+    - "detection_rate"
+    - "false_positive_rate"
+  magnitude_plausibility_factor: 2.0
+
+# publication: — optional, for content pipeline (gen_blog_post, gen_readme).
+#   Uncomment when ready to publish.

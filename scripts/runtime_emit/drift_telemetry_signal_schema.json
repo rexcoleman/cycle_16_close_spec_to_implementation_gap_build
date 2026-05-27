@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonshots/cycle_10/be5/drift_telemetry_signal_schema.json",
+  "title": "Cycle 10 BE#5 Drift Telemetry Signal Schema (v0.1)",
+  "description": "Publishable drift-telemetry signal schema for kernel-coach workflow primitive (apparatus-component-#1). Authored at Cycle-10-S6 BE#5 actual-fire per ROADMAP §2.5 + REQUIREMENTS §1 #3 + Cycle 9 4-class drift cascade (FINDINGS §3.3 + PAT-2). Item 2 (a) BINDING: drift_classes is the extension surface — new classes added by namespace-append (deprecated classes preserved with rank=deprecated per Wikidata pattern + ROADMAP §2.5 (c) verbatim). HC-11 partition: schema PUBLISHABLE; drift-detection internal algorithm + Round 1/3 validation logic = pipeline-IP-private per Binding 8.",
+  "version": "0.1",
+  "namespace": "cycle_10.be5.kernel_coach.drift",
+  "lock_commit": "PENDING (resolves at BE#5 first promotion commit per ACCEPTANCE §0 pre_registration_commit sequence)",
+  "authority": {
+    "tier_1": "~/Moonshots_Career_Thesis_v2/.claude/strategic_frame.md (8 Bindings 2026-05-07 UNCHANGED)",
+    "tier_2": "~/cycle_10_autonomous_cycle_apparatus_build/REQUIREMENTS.md §1 #3 + PROJECT.md §End State e7b27da",
+    "tier_3": "~/cycle_10_autonomous_cycle_apparatus_build/ROADMAP.md §2.5 + docs/LANDSCAPE_ASSESSMENT.md §1.K + §6b.1 row 1 e7b27da + SI ACTIVE bd1e803"
+  },
+  "item_2_evolution_design_binding": {
+    "a_extension_mechanism_live": "New drift class added by namespace-append: kernel-coach consumes new drift_classes[].name without spec edit (namespace-driven dispatch at cycle_10.be5.kernel_coach.drift.*). Base 4 classes preserved per v0.1 lock.",
+    "b_hypothetical_extension_test_passes": "Cycle 11 first-run worked-example adds cycle_11_content_fidelity_drift_signal_X to drift_classes; kernel-coach consumes new class + emits >=1 event of new class at outputs/be5_cycle_11_worked_example_events.jsonl. Test at tests/test_be5_cycle_11_first_run_drift_signal.py asserts PASS.",
+    "c_v01_to_v02_migration_path": "Base 4 drift_classes preserved across v0.1.x patch + v0.2 feature releases; new classes additive (append-only enum positions); deprecated classes marked rank=deprecated (Wikidata pattern; kept in schema; emit only by legacy kc versions). kc-1..kc-17 PD file format preserved per ROADMAP §2.5 (c) verbatim."
+  },
+  "drift_classes": [
+    {
+      "name": "content_fidelity_drift",
+      "rank": "active",
+      "description": "Content authored at session boundary diverges from upstream artifact citation (e.g., quote attributed to source not in source; data substrate stale per S181 freshness BINDING). Detected by Round 1 / Round 3 cross-reference check against canonical sources.",
+      "severity_default": "WARN",
+      "detection_sources": ["round_1_check", "round_3_close", "mid_session_check"],
+      "cycle_9_pat2_class_match": true,
+      "introduced_at": "v0.1",
+      "lineage": "Cycle 9 FINDINGS §3.3 4-class cascade (deepest-cause = wrong-success-metric)"
+    },
+    {
+      "name": "scope_drift",
+      "rank": "active",
+      "description": "Session work drifts beyond cycle SI §3 IN scope into SI §3 OUT items (e.g., Cycle 11+ content fidelity / Cycle 12-13 write-hook bundled into Cycle 10 work). Per Cycle 10 SI §3 + ED §Field 6 (e) single-cycle scope-creep KILL trigger.",
+      "severity_default": "HALT",
+      "detection_sources": ["round_1_check", "round_3_close"],
+      "cycle_9_pat2_class_match": true,
+      "introduced_at": "v0.1",
+      "lineage": "Cycle 9 FINDINGS §3.3 PAT-2 cascade + Cycle 10 SI §3 OUT verbatim"
+    },
+    {
+      "name": "paradigm_misclassification",
+      "rank": "active",
+      "description": "An item is classified operational when it is paradigm (or vice versa) per SI §5 bidirectional pre-escalation gate (end-state test + gotcha #16 + S176 protocol-supersedes-test). Detected at Round 1 by inline 3-test gate fire; HALT severity if gate verdict is 'paradigm_escalate' but session proceeded operationally.",
+      "severity_default": "HALT",
+      "detection_sources": ["round_1_check", "mid_session_check"],
+      "cycle_9_pat2_class_match": true,
+      "introduced_at": "v0.1",
+      "lineage": "SI §5 bidirectional pre-escalation gate + Rex feedback memory paradigm-vs-operational-classification + gotcha #16"
+    },
+    {
+      "name": "phase_scope_violation",
+      "rank": "active",
+      "description": "Session work crosses phase scope (e.g., Stage 3-4 RP authoring drifts into Stage 5 build authoring; carried items mid-research-cycle violate phase discipline per Rex feedback memory phase_scope_discipline S153 'stop drifting ot 006'). Detected at Round 1 by phase scope check against SI §3 + active stage substrate.",
+      "severity_default": "HALT",
+      "detection_sources": ["round_1_check", "round_3_close"],
+      "cycle_9_pat2_class_match": true,
+      "introduced_at": "v0.1",
+      "lineage": "Cycle 9 FINDINGS §3.3 PAT-2 cascade + Rex S153 phase_scope_discipline feedback memory"
+    }
+  ],
+  "schema_extension_rules": {
+    "rule_1_append_only": "New drift classes appended at end of drift_classes array; existing positions unchanged. Per ARTIFACT_CONTRACT §3 row 2 invariant.",
+    "rule_2_rank_lifecycle": "Drift class rank lifecycle: active (default) -> deprecated (kept in schema; emit only by legacy versions; rank=deprecated Wikidata pattern). Removal forbidden per Item 2 (c) backwards-compat.",
+    "rule_3_severity_default_required": "Every drift class declares severity_default in {INFO, WARN, HALT}; calibration-hook per RUNTIME_EMIT_SPEC §5 asserts this at every commit.",
+    "rule_4_lineage_citation_required": "Every drift class cites lineage source (Cycle 9 FINDINGS reference or SI binding or Rex feedback memory item). HC-07 every-claim-to-source BINDING.",
+    "rule_5_cycle_11_extension_example": "Cycle 11 first-run worked-example: append cycle_11_content_fidelity_drift_signal_X with rank=active + severity_default=WARN + lineage=Cycle 11 first-run-under-apparatus content-fidelity validation. Verified by tests/test_be5_cycle_11_first_run_drift_signal.py PASS.",
+    "rule_6_namespace_isolation": "BE#5 kernel-coach drift_classes (top-level drift_classes array) and BE#6 impl-coach drift classes (impl_coach_drift_classes array; namespace cycle_10.be6.impl_coach.drift.*) are namespace-isolated. Edits to BE#5 baseline 4 classes FORBIDDEN per ARTIFACT_CONTRACT §3 row 2 invariant; BE#6 impl-coach classes appended at SEPARATE namespace key, NEVER folded into BE#5 drift_classes array. Per Cycle-10-S8 BE#6 actual-fire 2026-05-18.",
+    "rule_7_be6_cycle_11_extension_example": "Cycle 11 first-run worked-example: append cycle_11_content_fidelity_impl_coach_drift_signal_Y to impl_coach_drift_classes with rank=active + severity_default=WARN + lineage=Cycle 11 first-run-under-apparatus impl-coach content-fidelity validation. Verified by tests/test_be6_cycle_11_first_run_impl_coach.py PASS.",
+    "rule_8_be3_namespace_isolation": "BE#3 actor_trust drift classes (be3_actor_trust_drift.actor_trust_drift_classes array; namespace cycle_10.be3.actor_trust.drift.*) are namespace-isolated from BE#5 (top-level drift_classes) AND BE#6 (be6_impl_coach_drift.impl_coach_drift_classes). Edits to BE#5 baseline 4 classes OR BE#6 baseline 4 classes FORBIDDEN per ARTIFACT_CONTRACT §3 row 2 invariant; BE#3 actor-trust classes appended at SEPARATE namespace key, NEVER folded into BE#5 drift_classes array OR BE#6 impl_coach_drift_classes array. Per Cycle-10-S10 BE#3 actual-fire 2026-05-18.",
+    "rule_9_be3_cycle_11_extension_example": "Cycle 11 first-run worked-example: append cycle_11_content_fidelity_actor_trust_drift_signal_Z to actor_trust_drift_classes with rank=active + severity_default=WARN + lineage=Cycle 11 first-run-under-apparatus actor-trust dispatch-decision content-fidelity validation. Verified by tests/test_be3_cycle_11_first_run_actor_trust.py PASS.",
+    "rule_10_be2_namespace_isolation": "BE#2 action_class drift classes (be2_action_class_drift.action_class_drift_classes array; namespace cycle_10.be2.action_class.drift.*) are namespace-isolated from BE#3 (be3_actor_trust_drift.actor_trust_drift_classes) AND BE#5 (top-level drift_classes) AND BE#6 (be6_impl_coach_drift.impl_coach_drift_classes). Edits to BE#3 baseline 4 OR BE#5 baseline 4 OR BE#6 baseline 4 classes FORBIDDEN per ARTIFACT_CONTRACT §3 row 2 invariant; BE#2 action-class classes appended at SEPARATE namespace key, NEVER folded into other BE namespaces. Per Cycle-10-S12 BE#2 actual-fire 2026-05-19.",
+    "rule_11_be2_cycle_11_extension_example": "Cycle 11 first-run worked-example: append cycle_11_content_fidelity_action_class_drift_signal_W to action_class_drift_classes with rank=active + severity_default=WARN + lineage=Cycle 11 first-run-under-apparatus action-class PreToolUse content-fidelity validation. Verified by tests/test_be2_cycle_11_first_run_action_class.py PASS.",
+    "rule_12_be4_namespace_isolation": "BE#4 destination_class drift classes (be4_destination_class_drift.destination_class_drift_classes array; namespace cycle_10.be4.destination_class.drift.*) are namespace-isolated from BE#2 (be2_action_class_drift.action_class_drift_classes) AND BE#3 (be3_actor_trust_drift.actor_trust_drift_classes) AND BE#5 (top-level drift_classes) AND BE#6 (be6_impl_coach_drift.impl_coach_drift_classes). Edits to BE#2 baseline 4 OR BE#3 baseline 4 OR BE#5 baseline 4 OR BE#6 baseline 4 classes FORBIDDEN per ARTIFACT_CONTRACT §3 row 2 invariant; BE#4 destination-class classes appended at SEPARATE namespace key, NEVER folded into other BE namespaces. Per Cycle-10-S14 BE#4 actual-fire 2026-05-19.",
+    "rule_13_be4_cycle_11_extension_example": "Cycle 11 first-run worked-example: append cycle_11_content_fidelity_destination_class_drift_signal_X to destination_class_drift_classes with rank=active + severity_default=WARN + lineage=Cycle 11 first-run-under-apparatus destination-class integrated PreToolUse hook content-fidelity validation. Verified by tests/test_be4_cycle_11_first_run_destination_class.py PASS."
+  },
+  "calibration_hook_path": "Per RUNTIME_EMIT_SPEC §5 calibration-hook validates: (i) drift_classes >= 4 baseline (BE#5); (ii) impl_coach_drift_classes >= 4 baseline (BE#6); (iii) every emitted drift_class is in schema enum (BE#5 OR BE#6 section per namespace); (iv) rule_1 append-only verified via git diff at schema edit; (v) rule_6 namespace-isolation verified (BE#5 drift_classes UNCHANGED at every BE#6 schema edit); (vi) Item 2 (a)(b)(c) extension-test PASS at every commit touching schema.",
+  "be6_impl_coach_drift": {
+    "namespace": "cycle_10.be6.impl_coach.drift",
+    "version": "0.1",
+    "authored_at": "Cycle-10-S8 BE#6 actual-fire 2026-05-18",
+    "authority": "REQUIREMENTS §1 #4 + #5 + ROADMAP §2.6 + HR §3 H-D + ED §0a + LANDSCAPE §1.K + §1.M + §1.P + §1.Q + §6b.1 rows 2-3",
+    "namespace_isolation_invariant": "BE#5 kernel-coach drift_classes (top-level array) UNCHANGED; BE#6 impl-coach drift classes appended at impl_coach_drift_classes key only. Per rule_6_namespace_isolation + ARTIFACT_CONTRACT §3 row 2 invariant.",
+    "item_2_evolution_design_binding": {
+      "a_extension_mechanism_live": "New impl-coach drift class added by namespace-append to impl_coach_drift_classes array: impl-coach consumes new class without spec edit (namespace-driven dispatch at cycle_10.be6.impl_coach.drift.*). Base 4 BE#6 classes preserved per v0.1 lock; BE#5 baseline UNCHANGED per namespace-isolation.",
+      "b_hypothetical_extension_test_passes": "Cycle 11 first-run worked-example adds cycle_11_content_fidelity_impl_coach_drift_signal_Y to impl_coach_drift_classes + adds new handoff seam variant kc-to-content-impl-coach; impl-coach consumes new class + new handoff variant + emits >=1 event of each at outputs/be6_cycle_11_worked_example_events.jsonl. Test at tests/test_be6_cycle_11_first_run_impl_coach.py asserts PASS.",
+      "c_v01_to_v02_migration_path": "Single impl-coach class at v0.1 (research_impl_coach baseline) preserved; multi-class at v0.2 (e.g., content_impl_coach additive); base 4 BE#6 impl-coach drift classes preserved across v0.1.x patch + v0.2 feature releases; new classes additive (append-only enum positions); deprecated classes marked rank=deprecated (Wikidata pattern; kept in schema; emit only by legacy impl-coach versions). BE#5 baseline 4 kernel-coach classes UNCHANGED across BE#6 v0.1 + future v0.2 (namespace-isolation invariant)."
+    },
+    "impl_coach_drift_classes": [
+      {
+        "name": "handoff_seam_violation",
+        "rank": "active",
+        "description": "Impl-coach proceeds without valid inbound handoff substrate (kc PD §-pointer missing OR malformed OR prior impl-coach handoff path declared but unreadable) OR fails to author outbound substrate at session close OR handoff bracket invariant (>=1 inbound + >=1 outbound per run_id) violated. Per RUNTIME_EMIT_SPEC §3 row 3 refusal mode.",
+        "severity_default": "HALT",
+        "detection_sources": ["handoff_seam_check", "round_3_close"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "REQUIREMENTS §1 #5 verbatim 'kernel-to-impl; impl-to-impl; concurrent impl coaches; failure-mode handoff' + Sub-RQ-3 + RUNTIME_EMIT_SPEC §3 row 3 refusal mode + ARTIFACT_CONTRACT §3 row 3 handoff-seam-integrity invariant"
+      },
+      {
+        "name": "implementation_drift",
+        "rank": "active",
+        "description": "Impl-coach implementation diverges from kc-authored task scope: carried-item violation (analog of S153 phase_scope_discipline at impl-coach layer); scope expansion beyond inbound handoff §-pointer; sub-task substitution without upstream-kc approval. Distinguishes impl-layer drift from kc-layer drift per HR §3 H-D surprise note (Cycle 9 audit chain kc-14-to-15-to-16 implicit-impl-coach work surfaces this class).",
+        "severity_default": "WARN",
+        "detection_sources": ["round_1_check", "round_3_close"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "Cycle 9 audit chain workspace kernel_coach_14/15/16_project_direction.md implicit-impl-coach work (n=3 of 4 sampled at BR fire 2026-05-18; kc-17 absent honest gap §9) + HR §3 H-D surprise note 'surfacing the architectural distinction IS the Cycle 10 contribution' + Rex feedback memory phase_scope_discipline S153"
+      },
+      {
+        "name": "multi_coach_coordination_failure",
+        "rank": "active",
+        "description": "Concurrent impl-coach handoffs conflict (v0.2+) OR sequential impl-coach handoffs miss bracket pair (v0.1) OR impl-to-Coach/BR outbound dispatch substrate malformed OR upstream-kc handoff substrate parse failure. Per REQUIREMENTS §1 #5 'concurrent impl coaches; failure-mode handoff' + Sub-RQ-3 + LANDSCAPE §1.M AutoGen group-chat coordination failure mode.",
+        "severity_default": "HALT",
+        "detection_sources": ["handoff_seam_check", "mid_session_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "REQUIREMENTS §1 #5 + Sub-RQ-3 + LANDSCAPE §1.M.b disconfirming case (homogeneous-agent-class assumption violated in heterogeneous meta-coach pipeline)"
+      },
+      {
+        "name": "framework_pattern_misapplication",
+        "rank": "active",
+        "description": "CrewAI hierarchical-crew / AutoGen group-chat / Temporal Activity-vs-Workflow pattern imported but adapted incorrectly per LANDSCAPE §1.K/M/P boundary conditions: framework runtime adoption instead of pattern import (e.g., attempting to spawn LangGraph or AutoGen runtime under Claude Code); homogeneous-agent-class assumption violated; process-level vs meta-coach-level scope confusion.",
+        "severity_default": "WARN",
+        "detection_sources": ["round_3_close", "mid_session_check"],
+        "cycle_9_pat2_class_match": false,
+        "introduced_at": "v0.1",
+        "lineage": "LANDSCAPE §1.K.b CrewAI disconfirming case + §1.M.b AutoGen disconfirming case + §1.P.b Temporal disconfirming case + Cycle 10 SI §3 OUT 'General multi-agent framework (not the goal; specific to this pipeline)'"
+      }
+    ]
+  },
+  "be3_actor_trust_drift": {
+    "namespace": "cycle_10.be3.actor_trust.drift",
+    "version": "0.1",
+    "authored_at": "Cycle-10-S10 BE#3 actual-fire 2026-05-18",
+    "authority": "REQUIREMENTS §1 #2(d) + #7 + ROADMAP §2.3 + ED §5.3 D-3 + LANDSCAPE §1.J Macaroons + §1.B ocap + §6c row 'D-3 × scoped-subagent × M-10 + M-2 YES load-bear' + §7 RC-L2 HARD STRUCTURAL DP#44 BINDING + kc-17 seed §2.1 4 base actor classes",
+    "namespace_isolation_invariant": "BE#5 kernel-coach drift_classes (top-level array) UNCHANGED + BE#6 impl-coach drift classes (be6_impl_coach_drift.impl_coach_drift_classes) UNCHANGED; BE#3 actor-trust drift classes appended at actor_trust_drift_classes key only. Per rule_8_be3_namespace_isolation + ARTIFACT_CONTRACT §3 row 2 invariant.",
+    "item_2_evolution_design_binding": {
+      "a_extension_mechanism_live": "New actor-trust drift class added by namespace-append to actor_trust_drift_classes array: substrate-driven hook consumes new class without spec edit (namespace-driven dispatch at cycle_10.be3.actor_trust.drift.*). Base 4 BE#3 classes preserved per v0.1 lock; BE#5 + BE#6 baselines UNCHANGED per namespace-isolation.",
+      "b_hypothetical_extension_test_passes": "Cycle 11 first-run worked-example adds cycle_11_content_fidelity_actor_trust_drift_signal_Z to actor_trust_drift_classes + adds new actor class community-engager to runtime/actor_trust_ontology.ttl; substrate-driven hook consumes new actor class + new drift class + emits ≥1 event of each at outputs/be3_cycle_11_worked_example_events.jsonl; HMAC chain verifies through extension class. Test at tests/test_be3_cycle_11_first_run_actor_trust.py asserts PASS.",
+      "c_v01_to_v02_migration_path": "4 base BE#3 actor-trust drift classes preserved across v0.1.x patch + v0.2 feature releases; new classes additive (append-only enum positions); deprecated classes marked rank=deprecated (Wikidata pattern; kept in schema; emit only by legacy hook versions). 4 base actor classes per kc-17 seed §2.1 preserved at runtime/actor_trust_ontology.ttl original RDF positions across v0.1 + v0.2 (Item 2 (c) backwards-compat). Macaroons HMAC key rotation policy: new key minted → overlap window ≤24h (both old + new keys valid for chain verification) → deprecated key marked rank=deprecated. BE#5 baseline 4 kernel-coach + BE#6 baseline 4 impl-coach UNCHANGED across BE#3 v0.1 + future v0.2 (namespace-isolation invariant)."
+    },
+    "actor_trust_drift_classes": [
+      {
+        "name": "frontmatter_parse_failure",
+        "rank": "active",
+        "description": "Frontmatter YAML malformed / required key missing / declared actor_class not matching dispatch.evaluate. Substrate-driven hook cannot resolve dispatch decision without parseable frontmatter. Per RUNTIME_EMIT_SPEC §3 row 4 refusal mode + ARTIFACT_CONTRACT §1 row 2 pre-condition.",
+        "severity_default": "HALT",
+        "detection_sources": ["frontmatter_parse_check", "dispatch_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "RC-L2 LANDSCAPE §7 HARD STRUCTURAL DP#44 BINDING + RUNTIME_EMIT_SPEC §3 row 4 refusal mode + Cycle 9 ED §5.3.6 LANDED capability-propagation architecture (cross-validation per Binding 2)"
+      },
+      {
+        "name": "hmac_chain_break",
+        "rank": "active",
+        "description": "Macaroons HMAC chain verification verdict=BROKEN at capability.propagate event: tamper detected OR chain provenance mismatched (child.parent_macaroon_id != parent.macaroon_id) OR scope-widening attempt at append_caveat. Per ARTIFACT_CONTRACT §3 row 1 attenuation-monotonic invariant + RUNTIME_EMIT_SPEC §3 row 3 refusal mode.",
+        "severity_default": "HALT",
+        "detection_sources": ["chain_verification_check", "dispatch_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "RC-L2 LANDSCAPE §7 HARD STRUCTURAL DP#44 BINDING + LANDSCAPE §1.J.a Birgisson 2014 NDSS Macaroons chain tamper-detection property + Cycle 9 FINDINGS §8.2 SDK inheritance gap evidence"
+      },
+      {
+        "name": "actor_class_unregistered",
+        "rank": "active",
+        "description": "Frontmatter declares actor_class not in runtime/actor_trust_ontology.ttl registered set. Substrate-driven hook returns verdict=REFUSE_UNREGISTERED_CLASS; refuses dispatch. New class requires RDF append + frontmatter spec update BEFORE dispatch per Item 2 (a) BINDING. Per RUNTIME_EMIT_SPEC §3 row 2 refusal mode + ARTIFACT_CONTRACT §3 row 2 invariant (4 base classes preserved).",
+        "severity_default": "HALT",
+        "detection_sources": ["dispatch_boundary_check", "hook_decide_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "kc-17 seed §2.1 4 base actor classes + ROADMAP §2.3 (a) extension-by-append + RUNTIME_EMIT_SPEC §3 row 2 refusal mode"
+      },
+      {
+        "name": "capability_attenuation_violation",
+        "rank": "active",
+        "description": "Child caveat claims grant absent from parent OR scope-widening attempt detected at capability.propagate. Per ARTIFACT_CONTRACT §3 row 1 attenuation-monotonic invariant — caveats only narrow capability, never widen; this drift class fires when invariant breaks. Per RC-L2 HARD STRUCTURAL DP#44 BINDING: scope-widening attempt is paradigm-class halt; Rex paradigm ruling required for any architecture-shape change per Binding 7.",
+        "severity_default": "HALT",
+        "detection_sources": ["chain_verification_check", "hook_decide_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "LANDSCAPE §1.J.a Birgisson attenuation-monotonic property + RC-L2 LANDSCAPE §7 HARD STRUCTURAL DP#44 BINDING + RUNTIME_EMIT_SPEC §3 row 5 refusal mode + ARTIFACT_CONTRACT §3 row 1 invariant"
+      }
+    ]
+  },
+  "be2_action_class_drift": {
+    "namespace": "cycle_10.be2.action_class.drift",
+    "version": "0.1",
+    "authored_at": "Cycle-10-S12 BE#2 actual-fire 2026-05-19",
+    "authority": "REQUIREMENTS §1 #2(b) + #7 + ROADMAP §2.2 + ED §5.2 D-2 + LANDSCAPE §1.H Policy-as-Code + §1.H.a AWS Cedar verbatim + §6c row 'D-2 × any-actor × M-8 YES load-bear' + RC-L3 Fuseki Shiro DESIGN-precondition + kc-17 seed §2.1 5 base action classes",
+    "namespace_isolation_invariant": "BE#3 actor-trust drift classes (be3_actor_trust_drift.actor_trust_drift_classes) UNCHANGED + BE#5 kernel-coach drift_classes (top-level array) UNCHANGED + BE#6 impl-coach drift classes (be6_impl_coach_drift.impl_coach_drift_classes) UNCHANGED; BE#2 action-class drift classes appended at action_class_drift_classes key only. Per rule_10_be2_namespace_isolation + ARTIFACT_CONTRACT §3 row 2 invariant.",
+    "item_2_evolution_design_binding": {
+      "a_extension_mechanism_live": "New action-class drift class added by namespace-append to action_class_drift_classes array: substrate-driven hook consumes new class without spec edit (namespace-driven dispatch at cycle_10.be2.action_class.drift.*). Base 4 BE#2 classes preserved per v0.1 lock; BE#3 + BE#5 + BE#6 baselines UNCHANGED per namespace-isolation.",
+      "b_hypothetical_extension_test_passes": "Cycle 11 first-run worked-example adds cycle_11_content_fidelity_action_class_drift_signal_W to action_class_drift_classes + adds new action class agent-spawn to runtime/action_class_ontology.ttl; substrate-driven hook consumes new action class + new drift class + emits ≥1 event of each at outputs/be2_cycle_11_worked_example_events.jsonl; PaC dispatcher decides through extension class. Test at tests/test_be2_cycle_11_first_run_action_class.py asserts PASS.",
+      "c_v01_to_v02_migration_path": "4 base BE#2 action-class drift classes preserved across v0.1.x patch + v0.2 feature releases; new classes additive (append-only enum positions); deprecated classes marked rank=deprecated (Wikidata pattern; kept in schema; emit only by legacy hook versions). 5 base action classes per kc-17 seed §2.1 preserved at runtime/action_class_ontology.ttl original RDF positions across v0.1 + v0.2 (Item 2 (c) backwards-compat). Shiro auth token rotation policy: new token minted → overlap window ≤24h (both old + new tokens valid for chain verification) → deprecated token marked rank=deprecated. OPA/Cedar optional v0.2 candidate per LANDSCAPE §1.H.b (SPARQL-driven canonical preserved). BE#3 baseline 4 actor-trust + BE#5 baseline 4 kernel-coach + BE#6 baseline 4 impl-coach UNCHANGED across BE#2 v0.1 + future v0.2 (namespace-isolation invariant)."
+    },
+    "action_class_drift_classes": [
+      {
+        "name": "policy_match_violation",
+        "rank": "active",
+        "description": "PaC dispatcher returns match_decision=NO_MATCH (no matched rule for tuple → implicit deny per LANDSCAPE §1.H.a Cedar canonical semantics) OR MULTIPLE_CONFLICTING (≥2 conflicting rules matched → paradigm-class halt per RUNTIME_EMIT_SPEC §3 row 4). Per ARTIFACT_CONTRACT §3 row 1 decision-determinism invariant.",
+        "severity_default": "HALT",
+        "detection_sources": ["policy_match_check", "pretool_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "LANDSCAPE §1.H.a AWS Cedar quote 3 'implicit deny' + RUNTIME_EMIT_SPEC §3 row 3 refusal mode + ARTIFACT_CONTRACT §3 row 1 invariant"
+      },
+      {
+        "name": "action_class_unregistered",
+        "rank": "active",
+        "description": "PreToolUse classifier returns action_class not in runtime/action_class_ontology.ttl registered set (5 base + extensions). Substrate-driven hook returns verdict=REFUSE_UNREGISTERED_CLASS; refuses tool invocation. New class requires RDF append + ontology re-load BEFORE next invocation per Item 2 (a) BINDING. Per RUNTIME_EMIT_SPEC §3 row 2 refusal mode + ARTIFACT_CONTRACT §3 row 2 invariant (5 base classes preserved).",
+        "severity_default": "HALT",
+        "detection_sources": ["pretool_boundary_check", "hook_decide_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "kc-17 seed §2.1 5 base action classes + ROADMAP §2.2 (a) extension-by-append + RUNTIME_EMIT_SPEC §3 row 2 refusal mode"
+      },
+      {
+        "name": "routing_decision_inconsistency",
+        "rank": "active",
+        "description": "Action × actor × destination tuple resolves to ≥2 conflicting decisions at route.compose OR PaC dispatcher returns inconsistent verdicts across replays of same input tuple. Per ARTIFACT_CONTRACT §3 row 1 decision-determinism invariant — same input MUST produce same output. This drift fires when invariant breaks. Per RC-L3 Fuseki Shiro DESIGN-precondition: routing-layer query results may diverge if substrate access not token-verified at v0.2.",
+        "severity_default": "HALT",
+        "detection_sources": ["route_compose_check", "policy_match_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "ARTIFACT_CONTRACT §3 row 1 decision-determinism invariant + LANDSCAPE §1.H.a Cedar request semantics + RUNTIME_EMIT_SPEC §3 row 4 refusal mode"
+      },
+      {
+        "name": "shiro_auth_chain_break",
+        "rank": "active",
+        "description": "Shiro auth verification breaks at hook.decide event: token expired / token tampered / Fuseki returns 401 when v0.2 retrofit active expects 200 / OR any BE#2 code path ASSERTS Shiro pre-LANDED state at v0.1 (DP#44 anchor per ARTIFACT_CONTRACT §3 row 3 RC-L3 invariant). Per Binding 7 strictly-process-guided: Shiro pre-LANDED-assumption is paradigm-class halt; Rex paradigm ruling required.",
+        "severity_default": "HALT",
+        "detection_sources": ["hook_decide_check", "route_compose_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "RC-L3 LANDSCAPE §7 + Cycle 9 FINDINGS §6.2 Agent D verification + ARTIFACT_CONTRACT §3 row 3 RC-L3 invariant + RUNTIME_EMIT_SPEC §3 row 5 refusal mode"
+      }
+    ]
+  },
+  "be4_destination_class_drift": {
+    "namespace": "cycle_10.be4.destination_class.drift",
+    "version": "0.1",
+    "authored_at": "Cycle-10-S14 BE#4 actual-fire 2026-05-19",
+    "authority": "REQUIREMENTS §1 #2(c) + #7 + ROADMAP §2.4 + ED §5.4 D-4 + LANDSCAPE §1.J Macaroons 'where'-caveat + §1.A Zero Trust PDE/PEP + §6c rows 'D-4 × any-actor × M-1 + M-10 YES load-bear' + 'D-4 × scoped-subagent × M-10 YES load-bear' + RC-L2 LANDSCAPE §7 HARD STRUCTURAL DP#44 BINDING carry from BE#3 + RC-L1 Claude Code no-TTL constraint + kc-17 seed §2.1 5 base destination classes + ED §5.4 (ii) verbatim 'currently invisible to the graph' integrated hook replacement of Cycle 9 regex",
+    "namespace_isolation_invariant": "BE#2 action-class drift classes (be2_action_class_drift.action_class_drift_classes) UNCHANGED + BE#3 actor-trust drift classes (be3_actor_trust_drift.actor_trust_drift_classes) UNCHANGED + BE#5 kernel-coach drift_classes (top-level array) UNCHANGED + BE#6 impl-coach drift classes (be6_impl_coach_drift.impl_coach_drift_classes) UNCHANGED; BE#4 destination-class drift classes appended at destination_class_drift_classes key only. Per rule_12_be4_namespace_isolation + ARTIFACT_CONTRACT §3 row 2 invariant.",
+    "item_2_evolution_design_binding": {
+      "a_extension_mechanism_live": "New destination-class drift class added by namespace-append to destination_class_drift_classes array: integrated PreToolUse hook consumes new class without spec edit (namespace-driven dispatch at cycle_10.be4.destination_class.drift.*). Base 4 BE#4 classes preserved per v0.1 lock; BE#2 + BE#3 + BE#5 + BE#6 baselines UNCHANGED per namespace-isolation.",
+      "b_hypothetical_extension_test_passes": "Cycle 11 first-run worked-example adds cycle_11_content_fidelity_destination_class_drift_signal_X to destination_class_drift_classes + adds new destination class external-api-with-egress-audit to runtime/destination_class_ontology.ttl (already in 5 base set per ED §5.4 (iv) worked-example naming); integrated PreToolUse hook consumes new destination class + new drift class + emits ≥1 event of each at outputs/be4_cycle_11_worked_example_events.jsonl; Macaroons 'where'-caveat chain verifies through extension class with Buffer + LinkedIn API endpoints. Test at tests/test_be4_cycle_11_first_run_destination_class.py asserts PASS.",
+      "c_v01_to_v02_migration_path": "4 base BE#4 destination-class drift classes preserved across v0.1.x patch + v0.2 feature releases; new classes additive (append-only enum positions); deprecated classes marked rank=deprecated (Wikidata pattern; kept in schema; emit only by legacy integrated hook versions). 5 base destination classes per kc-17 seed §2.1 D-4 candidates preserved at runtime/destination_class_ontology.ttl original RDF positions across v0.1 + v0.2 (Item 2 (c) backwards-compat). Macaroons 'where'-caveat HMAC key rotation policy: new key minted → overlap window ≤24h (both old + new keys valid for chain verification) → deprecated key marked rank=deprecated. BE#2 baseline 4 + BE#3 baseline 4 + BE#5 baseline 4 + BE#6 baseline 4 UNCHANGED across BE#4 v0.1 + future v0.2 (namespace-isolation invariant)."
+    },
+    "destination_class_drift_classes": [
+      {
+        "name": "class_unregistered",
+        "rank": "active",
+        "description": "PreToolUse hook intercepted tool invocation routing to destination not in runtime/destination_class_ontology.ttl registered set (5 base + extensions). Integrated hook returns verdict=REFUSE_UNREGISTERED_CLASS; refuses tool invocation. New class requires RDF append + ontology re-load BEFORE next invocation per Item 2 (a) BINDING. Per RUNTIME_EMIT_SPEC §3 row 2 refusal mode + ARTIFACT_CONTRACT §3 row 2 invariant (5 base classes preserved).",
+        "severity_default": "HALT",
+        "detection_sources": ["pretool_boundary_check", "hook_intercept_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "kc-17 seed §2.1 5 base destination classes + ROADMAP §2.4 (a) extension-by-append + RUNTIME_EMIT_SPEC §3 row 2 refusal mode"
+      },
+      {
+        "name": "caveat_attenuation_violation",
+        "rank": "active",
+        "description": "Child 'where'-caveat claims destination grant absent from parent OR scope-widening attempt detected at macaroon.caveat. Per ARTIFACT_CONTRACT §3 row 1 attenuation-monotonic invariant — 'where'-caveats only narrow destination scope, never widen; this drift class fires when invariant breaks. Per RC-L2 HARD STRUCTURAL DP#44 BINDING carry from BE#3: scope-widening attempt is paradigm-class halt; Rex paradigm ruling required for any architecture-shape change per Binding 7.",
+        "severity_default": "HALT",
+        "detection_sources": ["chain_verification_check", "hook_intercept_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "LANDSCAPE §1.J.a Birgisson 'where'-caveat attenuation-monotonic property + RC-L2 LANDSCAPE §7 HARD STRUCTURAL DP#44 BINDING carry from BE#3 + RUNTIME_EMIT_SPEC §3 row 3 refusal mode + ARTIFACT_CONTRACT §3 row 1 invariant"
+      },
+      {
+        "name": "hook_decision_failure",
+        "rank": "active",
+        "description": "Integrated PreToolUse hook 4-dimensional composition error: D-1+D-2+D-3+D-4 cannot resolve cleanly (e.g., BE#1 file_classification library missing, BE#2 action_class policy library returns error, BE#3 actor_trust HMAC chain library import fails). Per RUNTIME_EMIT_SPEC §3 row 4 refusal mode + ED §5.4 (ii) verbatim 'currently invisible to the graph' integrated hook replacement of Cycle 9 regex.",
+        "severity_default": "HALT",
+        "detection_sources": ["hook_intercept_check", "pretool_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "RUNTIME_EMIT_SPEC §3 row 4 refusal mode + ED §5.4 (ii) verbatim 'currently invisible to the graph' integrated hook replacement of Cycle 9 minimal regex hc11_exfil_hook.py + ARTIFACT_CONTRACT §1 row 2 pre-condition"
+      },
+      {
+        "name": "policy_match_inconsistency",
+        "rank": "active",
+        "description": "Integrated hook policy.match returns MULTIPLE_CONFLICTING (≥2 conflicting rules matched for composed 4D tuple → paradigm-class halt per RUNTIME_EMIT_SPEC §3 row 5) OR NO_MATCH (no matched rule for tuple → implicit deny per LANDSCAPE §1.H.a Cedar canonical semantics from BE#2 carry). Per ARTIFACT_CONTRACT §3 row 1 attenuation-monotonic invariant: if policy resolution invariant breaks, every downstream tool invocation decision is structurally invalid (chain inherits the violation).",
+        "severity_default": "HALT",
+        "detection_sources": ["policy_match_check", "hook_intercept_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "LANDSCAPE §1.H.a AWS Cedar quote 3 'implicit deny' (BE#2 carry) + RUNTIME_EMIT_SPEC §3 row 5 refusal mode + ARTIFACT_CONTRACT §3 row 1 invariant"
+      }
+    ]
+  },
+  "be7_integrated_apparatus_drift": {
+    "_comment": "BE#7 integrated apparatus drift namespace (NS-isolated from BE#1-#6). Cycle-10-S16 actual-fire. Apparatus composes BE#5 kc + BE#6 impl + permission decision D-1..D-4 via BE#4 integrated hook + discipline-upgrade fire surfaces per LS §1.Q+§1.O+REQ §1 #6. Position H integration only — no new B SHADOW agent-spec.",
+    "namespace": "cycle_10.be7.integrated_apparatus.drift",
+    "schema_version": "0.1",
+    "introduced_at_commit": "PENDING (Cycle-10-S16+ BE#7 actual-fire under kc-23; lock_commit substituted at promotion-PASS per ACCEPTANCE §0 sequence)",
+    "integrated_apparatus_drift_classes": [
+      {
+        "name": "apparatus_cycle_entry_failure",
+        "rank": "active",
+        "description": "Apparatus cycle entry precondition violation: kc spec missing OR impl spec missing OR integrated hook missing OR CSV resolver not PROMOTED-cand OR apparatus-component-completeness < 6 LANDED. Per ARTIFACT_CONTRACT §1 row 1 pre-condition + RUNTIME_EMIT_SPEC §3 row 2 refusal mode + ED §5 D-1..D-4 + LS §1.K LangGraph stateful-agent CONCEPT YES domain-distance 3 + §1.M AutoGen + §1.P Temporal + §6b.1 mechanism-transfer rows 1-3.",
+        "severity_default": "HALT",
+        "detection_sources": ["apparatus_entry_check", "pretool_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "ARTIFACT_CONTRACT §1 row 1 pre-condition + RUNTIME_EMIT_SPEC §3 row 2 refusal mode + substrate §0 #4 apparatus-component-completeness BE#1-#6 LANDED prereq"
+      },
+      {
+        "name": "kc_impl_handoff_seam_violation",
+        "rank": "active",
+        "description": "kc+impl handoff seam violation: kc dispatch_seq not preceding impl dispatch_seq (handoff bracket invariant broken); OR LS §1.P fail-and-retry primitive failed (impl reports back with FAILED status; kc cannot retry); OR S141 BINDING violation (SendMessage attempted; subagent_type != general-purpose). Per ARTIFACT_CONTRACT §3 row 2 invariant + RUNTIME_EMIT_SPEC §3 row 3 refusal mode + LANDSCAPE §1.M AutoGen group-chat manager-agent + §1.P Temporal Worker-Activity fail-and-retry + §6b.1 mechanism-transfer rows 1-3.",
+        "severity_default": "HALT",
+        "detection_sources": ["handoff_seam_check", "pretool_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "ARTIFACT_CONTRACT §3 row 2 invariant + RUNTIME_EMIT_SPEC §3 row 3 refusal mode + LANDSCAPE §1.M+§1.P+§6b.1 rows 1-3 + S141 BINDING"
+      },
+      {
+        "name": "permission_decision_composition_failure",
+        "rank": "active",
+        "description": "Permission decision 4D composition failure (D-1+D-2+D-3+D-4 cannot resolve cleanly): BE#1 file_classification library missing OR BE#2 action_class policy library returns error OR BE#3 actor_trust HMAC chain library import fails OR BE#4 integrated hook fails OR dimensions_composed != 4. Per RUNTIME_EMIT_SPEC §3 row 4 refusal mode + ARTIFACT_CONTRACT §3 row 3 RC-L2 HARD STRUCTURAL DP#44 BINDING carry from BE#3 (NEVER native-inheritance assumption) + LANDSCAPE §1.J Macaroons (BE#4 carry) + §1.B ocap (BE#3 carry) + §6b.1 row 3 Temporal Activity side-effect-bounded.",
+        "severity_default": "HALT",
+        "detection_sources": ["permission_decision_check", "hook_intercept_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "RUNTIME_EMIT_SPEC §3 row 4 refusal mode + ARTIFACT_CONTRACT §3 row 3 RC-L2 HARD STRUCTURAL DP#44 BINDING carry from BE#3 + LANDSCAPE §7 + Cycle 9 FINDINGS §8.2 + ED §5.3.6 LANDED architecture"
+      },
+      {
+        "name": "discipline_upgrade_fire_failure",
+        "rank": "active",
+        "description": "Discipline-upgrade fire failure: ≥1 of {drift / executive Minto/SCQA/BLOT format / per-model session-budget / pre-emptive transition} fails to fire OR fires with paradigm-class trigger requiring Rex ruling. Per RUNTIME_EMIT_SPEC §3 row 5 refusal mode + ARTIFACT_CONTRACT §3 row 2 invariant + LS §1.Q supervisor-fade + §1.O executive format + REQ §1 #6 evolution discipline. Pattern G failure-shape: if discipline-upgrade fire invariant breaks, every downstream apparatus invocation is structurally invalid.",
+        "severity_default": "HALT",
+        "detection_sources": ["discipline_upgrade_check", "pretool_boundary_check"],
+        "cycle_9_pat2_class_match": true,
+        "introduced_at": "v0.1",
+        "lineage": "RUNTIME_EMIT_SPEC §3 row 5 refusal mode + ARTIFACT_CONTRACT §3 row 2 invariant + LS §1.Q+§1.O+REQ §1 #6 evolution discipline"
+      }
+    ]
+  }
+}

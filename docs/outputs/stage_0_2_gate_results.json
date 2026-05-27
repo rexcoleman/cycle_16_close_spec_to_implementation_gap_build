@@ -1,0 +1,23 @@
+{
+  "gate": "landscape",
+  "timestamp": "2026-05-27T13:45:05Z",
+  "checks": [
+    {"id": 1, "name": "LANDSCAPE_ASSESSMENT exists", "level": "FAIL", "result": "PASS"},
+    {"id": 2, "name": "Search Protocol filled", "level": "FAIL", "result": "PASS"},
+    {"id": 3, "name": "≥5 prior works", "level": "FAIL", "result": "PASS", "count": 20},
+    {"id": 4, "name": "≥1 gaps identified", "level": "FAIL", "result": "PASS", "count": 5},
+    {"id": 5, "name": "Baseline Knowledge filled", "level": "WARN", "result": "PASS"},
+    {"id": 6, "name": "Frontier Moat 3 checks", "level": "FAIL", "result": "PASS", "count": 3},
+    {"id": 7, "name": "Cross-Engine Context filled", "level": "FAIL", "result": "PASS"},
+    {"id": 8, "name": "EDA Readiness (type unknown)", "level": "CONDITIONAL", "result": "PASS"},
+    {"id": 9, "name": "DB cross-check", "level": "WARN", "result": "PASS", "count": 9},
+    {"id": 10, "name": "Citation verification", "level": "WARN", "result": "WARN", "count": 0},
+    {"id": 11, "name": "Search strategy documentation", "level": "WARN", "result": "PASS", "count": 4},
+    {"id": 12, "name": "Characterization source", "level": "WARN", "result": "WARN", "count": 0},
+    {"id": 13, "name": "Placeholder residue", "level": "FAIL", "result": "PASS", "count": 0}
+  ],
+  "pass": 11,
+  "fail": 0,
+  "warn": 2,
+  "verdict": "CLEAR"
+}

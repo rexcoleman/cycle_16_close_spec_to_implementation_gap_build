@@ -1,0 +1,18 @@
+project: cycle_16_close_spec_to_implementation_gap_build
+quality_target: 8.0
+profile: research-build
+research_type: build
+sharing_tier: 3
+# govml_lock_commit: SHA of ~/ml-governance-templates HEAD at scaffold time.
+# Per Cycle-14-S9 Builder ARCH back-port architectural choice (b) — captures the
+# specific govML rubric/script version this project was scaffolded against, so
+# rubric updates that propagate via reference-by-shim can be reproduced at the
+# original commit by `git -C ~/ml-governance-templates checkout <govml_lock_commit>`.
+# Value 'unknown' = govML absent at scaffold time (non-fatal).
+govml_lock_commit: efaf6ae6e37265028fe7f6925db03210a72cfcb7
+gates:
+  - gate_minus_1: pending
+  - gate_0: pending
+templates:
+  - EXPERIMENTAL_DESIGN.md
+  - FINDINGS.md
