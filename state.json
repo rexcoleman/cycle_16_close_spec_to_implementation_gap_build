@@ -1,7 +1,7 @@
 {
     "cycle_id": 16,
     "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-    "current_phase": "stage_5_be_class_build_pending",
+    "current_phase": "stage_5_be_a_built_pending_promotion_s4_be_b_authoring_discipline_next",
     "current_stage_orchestrator": "build",
     "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b)",
     "stage_0_2_complete": true,
@@ -60,6 +60,14 @@
             "encoded_at": "ED section Field 6 KT-1 row refined + ED section 17.3+17.5 + LA section 6.X.1+6.X.2 + DECISION_LOG D-S2-1",
             "calibration_delta": "HC-RP-S2-6 NEW: Coach R3 anchoring-slip - operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii) but escalated as paradigm; kc-44 inbound gate rubber-stamped instead of disposing per Discipline #10; surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
             "applied_at": "Cycle-16-S2 R3 close-eval"
+        },
+        "kc45_r1_pass_cycle_16_s3_disposition_a_stage_5_be_a_close": {
+            "authority": "kc-45 R1 PASS task-context dispatch 2026-05-27 via Rex paste-bridge",
+            "scope": "Cycle-16-S3 Stage 5 BE-A schema + SPARQL write-boundary build (ROADMAP Phase 2 + Branch 4.1 + Done #5)",
+            "verdict": "S3 close LANDED with 13 artifacts shipped (5 BE-class templates + 3 docs/ build artifacts + 5 outputs/ supporting artifacts); R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS; H6+H7 CONFIRMATION CANDIDATES surfaced; KT-4 + KT-6 DO NOT FIRE; D-S2-1 refined-metric KT-1 disposition preserved; HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path α",
+            "rex_step_3_5_disposition": "Path A approval for Brief 2 SPARQL UPDATE verification at curl-harness-denial — operational cheapest-empirical-first per S178 + HC #59 default-operational countermeasure; NOT a paradigm escalation",
+            "calibration_delta": "HC #50 zero-Rex-escalation baseline MAINTAINED at S3 (0 genuine paradigm escalations + 1 Rex Step 3.5 disposition Path A operational approval); HC #48 (a) single-Write at compose CONFIRMED sufficient at BE-A dispatch substrate density (first-arc-WITHIN-CAP 15940B/0.7970×) — recovers first-arc-within-cap discipline broken at S2 n=24",
+            "applied_at": "Cycle-16-S3 close"
         }
     },
     "decisions_log": [
@@ -70,9 +78,17 @@
         {"id": "S2-D1", "decision": "Stage 3-4 RP fill complete: 5 canonicals at root + LA section 6 addendum +47L surgical filled to 0 placeholders within line bands", "timestamp": "2026-05-27", "evidence": "T1-T13 + DP#43 + Coach Check #23 ALL PASS at R3 close-eval per Coach independent verification"},
         {"id": "S2-D2", "decision": "Rex paradigm-ruling 2026-05-27 disposition (C) metric-revision-within-intent: KT-1 DOES NOT FIRE under refined operational metric; Cycle 16 proceeds with full SI scope", "timestamp": "2026-05-27", "evidence": "DECISION_LOG D-S2-1 paradigm-ruling entry; ED Field 6 KT-1 row refined; LA section 6.X.1+6.X.2 updated; ED section 17.3+17.5 updated; HC-RP-S2-6 NEW carry"},
         {"id": "S2-D3", "decision": "Pattern 19 trajectory n=24 (S2 substrate) + n=25 (S3 transition prompt) - both first-arc-OVER-CAP; recovered via Edit compression within HC #34 cap. HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 density; (b)+(c) content disciplines load-bearing", "timestamp": "2026-05-27", "encoded_at": "S2 22-PRC Items 14+15 + handoff section 1dj Pattern Calibration"},
-        {"id": "S2-D4", "decision": "HC-RP-S2-3 + S2-4 + S2-5 + S2-6 NEW honest carries encoded at HR + ED + REQUIREMENTS + DECISION_LOG D-S2-1", "timestamp": "2026-05-27", "evidence": "Cycle 6 Wikidata supersedure PARTIAL (S2-3) + Cycle 6 PARTIAL-CLOSED + Cycle 7 OPEN (S2-4) + KG-primary n/a over-use risk (S2-5) + kc-44 calibration delta Discipline #10 anchoring-slip (S2-6)"}
+        {"id": "S2-D4", "decision": "HC-RP-S2-3 + S2-4 + S2-5 + S2-6 NEW honest carries encoded at HR + ED + REQUIREMENTS + DECISION_LOG D-S2-1", "timestamp": "2026-05-27", "evidence": "Cycle 6 Wikidata supersedure PARTIAL (S2-3) + Cycle 6 PARTIAL-CLOSED + Cycle 7 OPEN (S2-4) + KG-primary n/a over-use risk (S2-5) + kc-44 calibration delta Discipline #10 anchoring-slip (S2-6)"},
+        {"id": "S3-D1", "decision": "Cycle-16-S3 Stage 5 BE-A close: KG-resident 14-field schema TTL + SHACL constraints + SPARQL UPDATE authoring discipline doc + 5 BE-class templates filled. 13 artifacts shipped. Build-Runner status=completed. R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS. HC #50 zero-Rex-escalation baseline MAINTAINED.", "timestamp": "2026-05-27", "evidence": "DECISION_LOG D-S3-1 + 13 artifacts at cycle_16/docs/ + outputs/ + Build-Runner envelope.yaml at outputs/build_runner_envelope.yaml"},
+        {"id": "S3-D2", "decision": "HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path α (reuse c6:rank + c6:supersedesRef via cycle16:Spec rdfs:subClassOf c6:Statement inheritance). Wikidata-canonical-namespace-absence documented at FINDINGS Layer 4 carry. Path γ (modify Cycle 6 LOCKED ontology) NOT TAKEN per Binding 7.", "timestamp": "2026-05-27", "evidence": "DECISION_LOG D-S3-1 HC-BE-A-2 + Cycle 6 LOCKED body git diff = 0"},
+        {"id": "S3-D3", "decision": "Live SPARQL UPDATE write-boundary smoke ALL_PASS at 3 test beds (TB-1 AgentContract + TB-2 Schema + TB-3 MethodologyCommitment). pyshacl conforms=True for conforming fixture + 8 violations for non-conforming fixture (≥4 threshold). H6 + H7 CONFIRMATION CANDIDATES surfaced; KT-4 + KT-6 DO NOT FIRE; KT-1 D-S2-1 refined-metric disposition preserved.", "timestamp": "2026-05-27", "evidence": "outputs/cross_system_validation_be_a.json + outputs/build_runner_events.jsonl SHA256 18c832ed..."},
+        {"id": "S3-D4", "decision": "Pattern 19 trajectory n=25 cumulative: BE-A dispatch substrate first-arc 15,940B/0.7970× (first-arc-WITHIN-CAP); 2-pass added Brief 3 carry-forward +591B → final 16,531B/0.8266×. HC #48 (a) single-Write at compose CONFIRMED sufficient at BE-A dispatch substrate density (lighter than Stage 3-4 RP substrate at S2 which required 7-round Edit recovery). Recovers first-arc-within-cap discipline broken at S2 n=24.", "timestamp": "2026-05-27", "encoded_at": "S3 22-PRC Items 14+15"},
+        {"id": "S3-D5", "decision": "3 NEW honest carries from BE-A: HC-BE-A-1 (AC §1 row 4 readback wording over-specification) + HC-BE-A-2 (HC-RP-S2-3 RESOLVED via Path α) + HC-BE-A-3 (scaffolded templates at docs/ vs Cycle 14 root path divergence; operationally correct architectural disclosure). All FLAG+CARRY non-blocking per Mechanical Check #22 classifier.", "timestamp": "2026-05-27", "evidence": "DECISION_LOG D-S3-1 + Build-Runner envelope issues row"}
     ],
     "honest_carries_open": [
+        "HC-BE-A-1 NEW at S3: ACCEPTANCE_CRITERIA section 1 row 4 wording over-specifies readback threshold to >=14 triples; actual is 13 (running specs without conditional-nullable cycle_implemented/session_implemented/deferral_reason) or 14 (dormant-with-explicit-deferral including deferral_reason); structurally correct per nullable-field design; wording refinement candidate for BE-B contract amendment OR FINDINGS Layer 4 documentation",
+        "HC-BE-A-2 NEW at S3: HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path α (reuse c6:rank + c6:supersedesRef predicates via cycle16:Spec rdfs:subClassOf c6:Statement SHACL polymorphism inheritance); sub-KT-6 candidate disposed; main KT-6 DOES NOT FIRE; FINDINGS Layer 4 carry for namespace-canonicity documentation",
+        "HC-BE-A-3 NEW at S3: Scaffolded BE-class templates at docs/ vs Cycle 14 precedent at project root; Cycle 16 init_project.sh scaffolding path divergence; operationally correct architectural disclosure per build-runner.md Canonical marker preservation BINDING; potential govML template scaffolding-path normalization candidate at future cycle if pattern recurs",
         "HC-RP1: RQS line count 498L vs target 380-460 (+38 over upper band; FLAG+CARRY per Mechanical Check #22)",
         "HC #55 candidate: Stage-gate scripts gate-design mismatch; Stage 3-4 canonicals at project root resolve at S2; refinement carry for kc-44 PD inheritance",
         "HC #56 candidate: Question gate Check 2 regex artifact; advisory non-blocking",
@@ -82,5 +98,5 @@
         "HC-RP-S2-6 NEW at S2 R3: kc-44 calibration delta - Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27 (operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii); Amendment 2026-05-27b structural encoding already supplied refinement substrate); kc-44 inbound gate rubber-stamped Coach paradigm verdict instead of disposing per Discipline #10; Rex disposition (C) corrected via metric-revision-within-intent (DECISION_LOG D-S2-1); surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
         "Coach HC-1+HC-2 (S2 Pattern 19 n=24+n=25 first-arc-OVER-CAP + Edit recovery): HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 substrate density; (b)+(c) content disciplines load-bearing for recovery; carry to handoff section 1dj Pattern Calibration for kc-44 PD inheritance refinement candidate (d)+(e) consideration"
     ],
-    "next_action": "cycle_16_s2_coach_close_eval_then_s3_stage_5_be_a_schema_sparql_write_boundary_per_kc44_task_context_step_6_routing_BE_A_ARTIFACT_CONTRACT_per_ROADMAP_Phase_2_with_Rex_disposition_C_metric_revision_within_intent_OPERATIONALIZED"
+    "next_action": "cycle_16_s4_stage_5_be_b_sparql_update_authoring_discipline_build_per_ROADMAP_Phase_3_consumes_be_a_spec_authoring_discipline_md_5_substrate_operations_plus_DP26_carve_out_KT_3_firing_surface_evaluation_no_spec_lands_without_registry_row_target_session_emit_event_wired"
 }

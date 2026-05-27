@@ -1,0 +1,55 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix c6:     <http://cycle6.local/ontology#> .
+@prefix cycle16: <http://cycle16.local/ontology#> .
+
+# BE-A CONFORMING smoke fixture — 3 test beds (TB-1 + TB-2 + TB-3)
+# Per ACCEPTANCE_CRITERIA §3 per-test-bed strengthening n=3 + spec_authoring_discipline.md §6
+
+# TB-1 AgentContract
+cycle16:spec_be_a_tb_1_agent_contract a cycle16:Spec ;
+    cycle16:specType cycle16:AgentContract ;
+    cycle16:owner "research-orchestrator" ;
+    cycle16:acceptanceCriteria "Role invoked at >=1 session; agent_dispatch_event observed within 3 sessions" ;
+    cycle16:targetSession "Cycle-16-S5" ;
+    cycle16:currentStatus cycle16:running ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "agent_dispatch_event" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:auditTrailLink cycle16:activity_be_a_tb_1 ;
+    c6:accessPermission c6:publishable ;
+    c6:rank "normal" .
+
+# TB-2 Schema
+cycle16:spec_be_a_tb_2_schema a cycle16:Spec ;
+    cycle16:specType cycle16:Schema ;
+    cycle16:owner "cycle_16_be_a_authoring" ;
+    cycle16:acceptanceCriteria "Schema parseable; validation fires at runtime; validation_event JSONL emit observable" ;
+    cycle16:targetSession "Cycle-16-S4" ;
+    cycle16:currentStatus cycle16:running ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "validation_event" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:auditTrailLink cycle16:activity_be_a_tb_2 ;
+    c6:accessPermission c6:publishable ;
+    c6:rank "normal" .
+
+# TB-3 MethodologyCommitment (DP#26 carve-out)
+cycle16:spec_be_a_tb_3_methodology a cycle16:Spec ;
+    cycle16:specType cycle16:MethodologyCommitment ;
+    cycle16:owner "cycle_16_methodology_layer_5" ;
+    cycle16:acceptanceCriteria "Documented in cycle-close FINDINGS Layer-5; cited at downstream session warmup OR explicit deferral" ;
+    cycle16:targetSession "cycle-16-close" ;
+    cycle16:currentStatus cycle16:dormant-with-explicit-deferral ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "n/a — citation-based activation per DP#26" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:deferralReason "Methodology commitment for forward cycles 17-18 longitudinal verdict per HR §3 H8" ;
+    cycle16:auditTrailLink cycle16:activity_be_a_tb_3 ;
+    c6:accessPermission c6:publishable ;
+    c6:rank "normal" .

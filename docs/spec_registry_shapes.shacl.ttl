@@ -1,0 +1,162 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix c6:   <http://cycle6.local/ontology#> .
+@prefix cycle16: <http://cycle16.local/ontology#> .
+
+#
+# Cycle 16 SHACL constraint shapes for cycle16:Spec — per substrate §5 + ARTIFACT_CONTRACT §3 invariants
+# Inheritance: SHACL targetClass polymorphism via cycle16:Spec rdfs:subClassOf c6:Statement carries:
+#   - c6:StatementAccessPermissionShape (per-edge HC-11 enum {publishable, ip-private, ephemeral}; MIN_COUNT 1)
+#   - c6:StatementRankShape (Wikidata rank IN {preferred, normal, deprecated}; MAX_COUNT 1)
+#   - c6:ClaimProvenanceShape (PROV-O orphan-refusal at c6:Claim subclass; applies only if cycle16:Spec instance also asserts c6:Claim)
+# These shapes are NOT redefined here; SHACL polymorphism via subclass applies operationally.
+#
+
+#
+# cycle16:SpecShape — 14-field non-nullable + 3 conditional-nullable constraints
+#
+cycle16:SpecShape a sh:NodeShape ;
+    sh:targetClass cycle16:Spec ;
+    rdfs:label "Spec 14-field SHACL shape" ;
+    rdfs:comment "Enforces 11 non-nullable + 3 conditional-nullable fields on cycle16:Spec instances. Inherits c6:StatementAccessPermissionShape + c6:StatementRankShape via subclass polymorphism." ;
+
+    # Field 2: spec_type (non-nullable; enum enforced via separate shape)
+    sh:property [
+        sh:path cycle16:specType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Field 2 violation: cycle16:Spec MUST declare exactly one cycle16:specType." ;
+    ] ;
+
+    # Field 3: owner (non-nullable)
+    sh:property [
+        sh:path cycle16:owner ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Field 3 violation: cycle16:Spec MUST declare cycle16:owner (xsd:string)." ;
+    ] ;
+
+    # Field 4: acceptance_criteria (non-nullable)
+    sh:property [
+        sh:path cycle16:acceptanceCriteria ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Field 4 violation: cycle16:Spec MUST declare cycle16:acceptanceCriteria (xsd:string)." ;
+    ] ;
+
+    # Field 5: target_session (non-nullable)
+    sh:property [
+        sh:path cycle16:targetSession ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Field 5 violation: cycle16:Spec MUST declare cycle16:targetSession (xsd:string, format Cycle-N-Sm or cycle-N-close)." ;
+    ] ;
+
+    # Field 6: current_status (non-nullable; enum enforced via separate shape)
+    sh:property [
+        sh:path cycle16:currentStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Field 6 violation: cycle16:Spec MUST declare exactly one cycle16:currentStatus." ;
+    ] ;
+
+    # Field 7: cycle_authored (non-nullable)
+    sh:property [
+        sh:path cycle16:cycleAuthored ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:message "Field 7 violation: cycle16:Spec MUST declare cycle16:cycleAuthored (xsd:integer)." ;
+    ] ;
+
+    # Field 8: session_authored (non-nullable)
+    sh:property [
+        sh:path cycle16:sessionAuthored ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Field 8 violation: cycle16:Spec MUST declare cycle16:sessionAuthored (xsd:string, format Cycle-N-Sm)." ;
+    ] ;
+
+    # Field 9: cycle_implemented (NULLABLE; sh:minCount 0)
+    sh:property [
+        sh:path cycle16:cycleImplemented ;
+        sh:datatype xsd:integer ;
+        sh:message "Field 9 violation: if cycle16:cycleImplemented present, MUST be xsd:integer." ;
+    ] ;
+
+    # Field 10: session_implemented (NULLABLE; conditional fire below at SpecRunningConditionalShape)
+    sh:property [
+        sh:path cycle16:sessionImplemented ;
+        sh:datatype xsd:string ;
+        sh:message "Field 10 violation: if cycle16:sessionImplemented present, MUST be xsd:string." ;
+    ] ;
+
+    # Field 11: runtime_emit_event_class (non-nullable; DP#26 carve-out allows 'n/a' literal)
+    sh:property [
+        sh:path cycle16:runtimeEmitEventClass ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Field 11 violation: cycle16:Spec MUST declare cycle16:runtimeEmitEventClass (xsd:string). DP#26 carve-out: methodology commitments may use 'n/a — citation-based activation per DP#26'." ;
+    ] ;
+
+    # Field 12: dormancy_detection_threshold_sessions (non-nullable; default 3)
+    sh:property [
+        sh:path cycle16:dormancyDetectionThresholdSessions ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:message "Field 12 violation: cycle16:Spec MUST declare cycle16:dormancyDetectionThresholdSessions (xsd:integer, default 3 per Amendment 2026-05-27a)." ;
+    ] ;
+
+    # Field 13: deferral_reason (NULLABLE; conditional fire at SpecDeferralConditionalShape below)
+    sh:property [
+        sh:path cycle16:deferralReason ;
+        sh:datatype xsd:string ;
+        sh:message "Field 13 violation: if cycle16:deferralReason present, MUST be xsd:string." ;
+    ] ;
+
+    # Field 14: rex_authorization_for_deferral_past_cycle_close (NULLABLE)
+    sh:property [
+        sh:path cycle16:rexAuthorizationForDeferralPastCycleClose ;
+        sh:datatype xsd:string ;
+        sh:message "Field 14 violation: if cycle16:rexAuthorizationForDeferralPastCycleClose present, MUST be xsd:string." ;
+    ] ;
+
+    # Audit trail link (co-located field; non-nullable per ED §1 #1)
+    sh:property [
+        sh:path cycle16:auditTrailLink ;
+        sh:minCount 1 ;
+        sh:message "Audit trail violation: cycle16:Spec MUST declare cycle16:auditTrailLink (PROV-O typed-edge target reifying spec-authoring activity)." ;
+    ] .
+
+#
+# cycle16:SpecTypeShape — sh:in 4-class enum
+#
+cycle16:SpecTypeShape a sh:NodeShape ;
+    sh:targetClass cycle16:Spec ;
+    rdfs:label "Spec type enum SHACL shape" ;
+    rdfs:comment "Enforces cycle16:specType value ∈ {AgentContract, Schema, DesignDecision, MethodologyCommitment} per HR §3c per-spec-class binding." ;
+    sh:property [
+        sh:path cycle16:specType ;
+        sh:in ( cycle16:AgentContract cycle16:Schema cycle16:DesignDecision cycle16:MethodologyCommitment ) ;
+        sh:message "Spec type enum violation: cycle16:specType MUST be one of {AgentContract, Schema, DesignDecision, MethodologyCommitment}." ;
+    ] .
+
+#
+# cycle16:CurrentStatusShape — sh:in 5-state enum
+#
+cycle16:CurrentStatusShape a sh:NodeShape ;
+    sh:targetClass cycle16:Spec ;
+    rdfs:label "Current status 5-state taxonomy SHACL shape" ;
+    rdfs:comment "Enforces cycle16:currentStatus value ∈ {running, dormant-with-explicit-deferral, dormant-silent, killed, long-running} per Amendment 2026-05-27a 5-state taxonomy." ;
+    sh:property [
+        sh:path cycle16:currentStatus ;
+        sh:in ( cycle16:running cycle16:dormant-with-explicit-deferral cycle16:dormant-silent cycle16:killed cycle16:long-running ) ;
+        sh:message "Current status enum violation: cycle16:currentStatus MUST be one of {running, dormant-with-explicit-deferral, dormant-silent, killed, long-running}." ;
+    ] .
+
+# End of cycle16:Spec SHACL constraint shapes.
+# Inherited shapes (NOT redefined; subclass polymorphism applies):
+#   - c6:StatementAccessPermissionShape (HC-11 per-edge enum) at /home/azureuser/cycle_6_unified_substrate_build/runtime/jena/shapes/access_permission.shacl.ttl
+#   - c6:StatementRankShape (Wikidata rank) at same path
+#   - c6:ClaimProvenanceShape (PROV-O orphan-refusal) at /home/azureuser/cycle_6_unified_substrate_build/runtime/jena/shapes/provo_orphan_refusal.shacl.ttl

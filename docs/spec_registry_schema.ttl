@@ -1,0 +1,199 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix c6:     <http://cycle6.local/ontology#> .
+@prefix cycle16: <http://cycle16.local/ontology#> .
+
+#
+# Cycle 16 Spec Registry — 14-field schema per Cycle 16 SI Branch 4.1 + Amendments 2026-05-27a + 2026-05-27b
+# Inheritance: cycle16:Spec rdfs:subClassOf c6:Statement (Path α RECOMMENDED per substrate §3)
+# Reuses Cycle 6 BE#1 predicates (c6:rank, c6:supersedesRef, c6:accessPermission, c6:wasGeneratedBy, c6:wasAttributedTo, c6:wasInformedBy)
+# HC-RP-S2-3 disposition: Wikidata-canonical-namespace-absence RESOLVED-VIA-NAMESPACE-EQUIVALENCE (c6:rank ≡ wikibase:rank semantically; c6:supersedesRef ≡ prov:wasRevisionOf semantically)
+# Path γ FORBIDDEN per Binding 7 — Cycle 6 LOCKED ontology body UNMODIFIED
+#
+
+cycle16: a owl:Ontology ;
+    rdfs:label "Cycle 16 Spec Registry Ontology" ;
+    rdfs:comment "14-field per-spec lifecycle registry materialized as nanopublication 3-graph triplets at Apache Jena Fuseki /cycle6 endpoint. Composes 7 external disciplines (IETF/PEP/OpenAPI/DbC/feature-flag-governance/ADR/Parnas) into unified schema at AI-agent-built-systems engineering methodology grain." ;
+    owl:versionInfo "0.1 (Cycle 16 BE-A)" ;
+    owl:imports <http://cycle6.local/ontology#> .
+
+#
+# CORE CLASS: Spec (subclass of c6:Statement for inheritance of HC-11 + PROV-O + Wikidata-rank + supersedure)
+#
+cycle16:Spec a owl:Class ;
+    rdfs:subClassOf c6:Statement ;
+    rdfs:label "Spec" ;
+    rdfs:comment "Cycle 16 spec registry entry per Branch 4.1 14-field schema. Inherits c6:accessPermission (HC-11 per-edge enum) + c6:rank (Wikidata rank IN {preferred, normal, deprecated}) + c6:supersedesRef (non-destructive supersedure) + PROV-O 4 typed-edges from c6:Statement." .
+
+#
+# SPEC TYPE ENUM (4 classes per H2 + H6 per-class binding; Branch 1.2)
+#
+cycle16:SpecType a owl:Class ;
+    rdfs:label "SpecType" ;
+    rdfs:comment "Enum of 4 spec classes: AgentContract, Schema, DesignDecision, MethodologyCommitment. Each has distinct operational definition of 'implemented' per HR §3c." .
+
+cycle16:AgentContract a cycle16:SpecType ;
+    rdfs:label "AgentContract" ;
+    rdfs:comment "Agent prompt spec at canonical .claude/agents/<name>.md. Operationally implemented = role invoked at ≥1 session (logged via agent_dispatch_event runtime emit)." .
+
+cycle16:Schema a cycle16:SpecType ;
+    rdfs:label "Schema" ;
+    rdfs:comment "Schema spec (JSON Schema OR pydantic model OR dataclass) + validation code. Operationally implemented = validation fires at runtime (validation_event JSONL emit observable)." .
+
+cycle16:DesignDecision a cycle16:SpecType ;
+    rdfs:label "DesignDecision" ;
+    rdfs:comment "Design decision spec (ADR-class). Operationally implemented = code embodies the decision OR explicit retraction ADR exists with audit trail." .
+
+cycle16:MethodologyCommitment a cycle16:SpecType ;
+    rdfs:label "MethodologyCommitment" ;
+    rdfs:comment "Layer-5 methodology commitment spec. Operationally implemented = documented in cycle-close FINDINGS Layer-5 + cited at downstream session warmup OR explicit deferral per 5-state taxonomy. DP#26 carve-out: runtime_emit_event_class may be 'n/a — citation-based activation per DP#26'." .
+
+#
+# CURRENT STATUS ENUM (5-state taxonomy per Amendment 2026-05-27a; LaunchDarkly precedent + ADR 4-state extended)
+#
+cycle16:Status a owl:Class ;
+    rdfs:label "Status" ;
+    rdfs:comment "5-state spec lifecycle taxonomy. Mirrors LaunchDarkly per-flag lifecycle state machine (Live / Ready for code removal / Ready to archive / Archived / Deprecated) adapted to spec-implementation grain." .
+
+cycle16:running a cycle16:Status ;
+    rdfs:label "running" ;
+    rdfs:comment "Spec is authored AND implementation is wired AND runtime_emit_event_class fires at session cadence." .
+
+cycle16:dormant-with-explicit-deferral a cycle16:Status ;
+    rdfs:label "dormant-with-explicit-deferral" ;
+    rdfs:comment "Spec is authored BUT implementation deferred to a NAMED target_session (cycle close or session ID) WITH documented deferral_reason. Acceptable per discipline; gate fires PASS." .
+
+cycle16:dormant-silent a cycle16:Status ;
+    rdfs:label "dormant-silent" ;
+    rdfs:comment "Spec is authored BUT no implementation wiring AND no deferral_reason AND no target_session set. Detected via runtime_emit absence at session-close gate (≤3-session dormancy threshold per Amendment 2026-05-27a). Gate fires BLOCKING." .
+
+cycle16:killed a cycle16:Status ;
+    rdfs:label "killed" ;
+    rdfs:comment "Spec explicitly retired with audit trail (retraction ADR OR Rex paradigm-ruling disposition). Implementation either never authored OR rolled back. Gate fires PASS." .
+
+cycle16:long-running a cycle16:Status ;
+    rdfs:label "long-running" ;
+    rdfs:comment "Spec authored as multi-cycle planned implementation (cycle_authored + N ≤ cycle_implemented per design). Acceptable per discipline IF rex_authorization_for_deferral_past_cycle_close is set. Added as 5th state per Amendment 2026-05-27a (Cycle 16 EXTENSION-3 over ADR 4-state baseline)." .
+
+#
+# 14 FIELDS (per substrate §2 table verbatim + ROADMAP §1 Tasks task 1)
+#
+
+# Field 1: spec_id (IRI; UUID v7 OR canonical hash)
+# IRI is the subject of every cycle16:Spec — declared structurally, not as a separate predicate
+
+# Field 2: spec_type (enum)
+cycle16:specType a owl:ObjectProperty ;
+    rdfs:label "spec_type" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range cycle16:SpecType ;
+    rdfs:comment "Field 2: Spec class enum ∈ {AgentContract, Schema, DesignDecision, MethodologyCommitment} per H2 + H6 per-class binding. SHACL MIN_COUNT 1 + sh:in enforced." .
+
+# Field 3: owner (string OR IRI)
+cycle16:owner a owl:DatatypeProperty ;
+    rdfs:label "owner" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 3: Agent/role identifier responsible for spec implementation. SHACL MIN_COUNT 1. Examples: 'research-orchestrator', 'build-runner', 'cycle_16_be_a_authoring'." .
+
+# Field 4: acceptance_criteria (string)
+cycle16:acceptanceCriteria a owl:DatatypeProperty ;
+    rdfs:label "acceptance_criteria" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 4: Free-text acceptance criteria string. SHACL MIN_COUNT 1. Consumed by ACCEPTANCE_CRITERIA §1 thresholds at downstream verification." .
+
+# Field 5: target_session (string)
+cycle16:targetSession a owl:DatatypeProperty ;
+    rdfs:label "target_session" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 5: Target session for implementation completion. Format 'Cycle-N-Sm' OR 'cycle-N-close'. SHACL MIN_COUNT 1. Default = close of authoring cycle per Amendment 2026-05-27a." .
+
+# Field 6: current_status (enum)
+cycle16:currentStatus a owl:ObjectProperty ;
+    rdfs:label "current_status" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range cycle16:Status ;
+    rdfs:comment "Field 6: 5-state taxonomy enum ∈ {running, dormant-with-explicit-deferral, dormant-silent, killed, long-running} per Amendment 2026-05-27a. SHACL MIN_COUNT 1 + sh:in enforced." .
+
+# Field 7: cycle_authored (int)
+cycle16:cycleAuthored a owl:DatatypeProperty ;
+    rdfs:label "cycle_authored" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Field 7: Cycle integer at which spec was authored. SHACL MIN_COUNT 1." .
+
+# Field 8: session_authored (string)
+cycle16:sessionAuthored a owl:DatatypeProperty ;
+    rdfs:label "session_authored" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 8: Session identifier 'Cycle-N-Sm' at which spec was authored. SHACL MIN_COUNT 1." .
+
+# Field 9: cycle_implemented (int OR null)
+cycle16:cycleImplemented a owl:DatatypeProperty ;
+    rdfs:label "cycle_implemented" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Field 9: Cycle integer at which spec implementation completed. NULLABLE: null until status transitions out of dormant-*. SHACL MIN_COUNT 0 + sh:if conditional (required if current_status = running OR killed)." .
+
+# Field 10: session_implemented (string OR null)
+cycle16:sessionImplemented a owl:DatatypeProperty ;
+    rdfs:label "session_implemented" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 10: Session identifier at which implementation completed. NULLABLE; SHACL conditional MIN_COUNT 1 if current_status = 'running'." .
+
+# Field 11: runtime_emit_event_class (string OR 'n/a — citation-based activation per DP#26')
+cycle16:runtimeEmitEventClass a owl:DatatypeProperty ;
+    rdfs:label "runtime_emit_event_class" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 11: Runtime emit event class name that fires when spec is operationally invoked. SHACL MIN_COUNT 1. DP#26 carve-out (HR §3d): methodology commitments may use 'n/a — citation-based activation per DP#26' literal." .
+
+# Field 12: dormancy_detection_threshold_sessions (int; default 3)
+cycle16:dormancyDetectionThresholdSessions a owl:DatatypeProperty ;
+    rdfs:label "dormancy_detection_threshold_sessions" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Field 12: Number of sessions after session_authored at which dormancy is detected via runtime_emit absence. Default 3 per Amendment 2026-05-27a. SHACL MIN_COUNT 1." .
+
+# Field 13: deferral_reason (string OR null)
+cycle16:deferralReason a owl:DatatypeProperty ;
+    rdfs:label "deferral_reason" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 13: Free-text deferral rationale. NULLABLE; SHACL conditional MIN_COUNT 1 if current_status = 'dormant-with-explicit-deferral'." .
+
+# Field 14: rex_authorization_for_deferral_past_cycle_close (string OR null)
+cycle16:rexAuthorizationForDeferralPastCycleClose a owl:DatatypeProperty ;
+    rdfs:label "rex_authorization_for_deferral_past_cycle_close" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Field 14: Rex paradigm-ruling authorization reference for past-cycle-close deferral per Amendment 2026-05-27a. NULLABLE; SHACL conditional MIN_COUNT 1 if target_session > cycle_authored close OR current_status = 'long-running'." .
+
+# Field 15 (co-located audit_trail_link per ED §1 #1; PROV-O typed-edge target reified)
+cycle16:auditTrailLink a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasGeneratedBy ;
+    rdfs:label "audit_trail_link" ;
+    rdfs:domain cycle16:Spec ;
+    rdfs:comment "PROV-O typed-edge target reifying the spec-authoring activity. Co-located alongside 14 fields per ED §1 #1; SHACL MIN_COUNT 1 (every spec has audit trail). Provenance materialized in <spec_iri>:provenance named graph per nanopub 3-graph pattern." .
+
+#
+# INHERITED PREDICATES (Cycle 6 BE#1; reused per Path α RECOMMENDED per substrate §3; NOT redefined here)
+#
+# c6:accessPermission (HC-11 per-edge enum {publishable, ip-private, ephemeral}; SHACL polymorphism via c6:StatementAccessPermissionShape applies to cycle16:Spec via subclass)
+# c6:rank (Wikidata rank IN {preferred, normal, deprecated}; SHACL polymorphism via c6:StatementRankShape; default "normal" at registry-write)
+# c6:supersedesRef (non-destructive supersedure; new spec receives c6:rank "preferred"; superseded spec receives c6:rank "deprecated"; both queryable)
+# c6:wasDerivedFrom (PROV-O orphan-refusal at c6:Claim subclass; cycle16:Spec instances that also assert c6:Claim inherit HC-07 binding)
+# c6:wasAttributedTo (PROV-O attribution: spec → owner agent/role)
+# c6:wasGeneratedBy (PROV-O generation: spec → spec-authoring session activity; audit_trail_link is subProperty)
+# c6:wasInformedBy (PROV-O information: spec → upstream spec or paradigm disposition)
+# c6:assertion / c6:provenance / c6:publicationInfo (nanopublication 3-graph pattern; assertion = field triples; provenance = PROV-O triples; publicationInfo = signer + publishedAtCycle)
+
+# End of cycle16: ontology declarations.

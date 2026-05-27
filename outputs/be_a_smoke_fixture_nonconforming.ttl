@@ -1,0 +1,66 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix c6:     <http://cycle6.local/ontology#> .
+@prefix cycle16: <http://cycle16.local/ontology#> .
+
+# BE-A NON-CONFORMING smoke fixture — 4 distinct violation classes
+# Per ACCEPTANCE_CRITERIA §1 row 5: SHACL MUST refuse with >=4 violations
+
+# Violation 1: missing cycle16:owner (Field 3 non-nullable)
+cycle16:spec_be_a_violation_1_missing_owner a cycle16:Spec ;
+    cycle16:specType cycle16:AgentContract ;
+    cycle16:acceptanceCriteria "Missing owner field" ;
+    cycle16:targetSession "Cycle-16-S5" ;
+    cycle16:currentStatus cycle16:running ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "agent_dispatch_event" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:auditTrailLink cycle16:activity_violation_1 ;
+    c6:accessPermission c6:publishable ;
+    c6:rank "normal" .
+
+# Violation 2: invalid spec_type (outside 4-class enum)
+cycle16:spec_be_a_violation_2_invalid_spec_type a cycle16:Spec ;
+    cycle16:specType cycle16:NotAValidSpecType ;
+    cycle16:owner "test-owner" ;
+    cycle16:acceptanceCriteria "Invalid spec_type" ;
+    cycle16:targetSession "Cycle-16-S5" ;
+    cycle16:currentStatus cycle16:running ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "test_event" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:auditTrailLink cycle16:activity_violation_2 ;
+    c6:accessPermission c6:publishable ;
+    c6:rank "normal" .
+
+# Violation 3: dormant-silent WITHOUT target_session (target_session non-nullable; also a separate violation class re: dormant-silent state surfacing)
+cycle16:spec_be_a_violation_3_dormant_silent_no_target a cycle16:Spec ;
+    cycle16:specType cycle16:Schema ;
+    cycle16:owner "test-owner" ;
+    cycle16:acceptanceCriteria "Dormant-silent without target_session" ;
+    cycle16:currentStatus cycle16:dormant-silent ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "test_event" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:auditTrailLink cycle16:activity_violation_3 ;
+    c6:accessPermission c6:publishable ;
+    c6:rank "normal" .
+
+# Violation 4: missing c6:accessPermission (inherited HC-11 per-edge enum)
+cycle16:spec_be_a_violation_4_missing_access_permission a cycle16:Spec ;
+    cycle16:specType cycle16:AgentContract ;
+    cycle16:owner "test-owner" ;
+    cycle16:acceptanceCriteria "Missing accessPermission" ;
+    cycle16:targetSession "Cycle-16-S5" ;
+    cycle16:currentStatus cycle16:running ;
+    cycle16:cycleAuthored 16 ;
+    cycle16:sessionAuthored "Cycle-16-S3" ;
+    cycle16:runtimeEmitEventClass "test_event" ;
+    cycle16:dormancyDetectionThresholdSessions 3 ;
+    cycle16:auditTrailLink cycle16:activity_violation_4 ;
+    c6:rank "normal" .
