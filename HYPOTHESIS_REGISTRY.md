@@ -1,4 +1,148 @@
-# Hypothesis Registry
+# Hypothesis Registry: Cycle 16 — Close the spec-to-implementation gap
 
-> Pre-register hypotheses with lock_commit before Phase 1 compute.
-> See `~/ml-governance-templates/` for templates.
+<!-- version: 0.1 -->
+<!-- created: 2026-05-27 -->
+<!-- stage: 3 -->
+<!-- source: Cycle 16 SI ACTIVE 2026-05-27 + Amendment 2026-05-27a (kc-44) + Amendment 2026-05-27b (kc-44; KG-primary registry storage) -->
+<!-- source: Cycle-16-S2 RP Dispatch 2 substrate §4 H1-H8 + KT-1..KT-6 matrix; substrate §6 5-source HYBRID PRIMARY VERBATIM CARRY chain + Cycle 16 EXTENSION-3 -->
+<!-- gate:hypothesis_registry pre_registered_primary:8 -->
+<!-- gate:hypothesis_registry kt_n_binding required -->
+<!-- gate:hypothesis_registry §3a hybrid_primary_carry required -->
+
+> Pre-registered BEFORE Stage 5 Build-Runner BE-class compute per RP agent spec §Dispatch 2 + Cycle-16-S2 substrate §7. KT-1..KT-6 reversal triggers cross-referenced VERBATIM into ED §Field 6 pre-registration matrix + §4 Kill Shots surprise criteria per substrate §4 STRUCTURAL BINDING. Resolution Log entries CONFIRMED / REFUTED / INCONCLUSIVE / SUPERSEDED updated by Build-Runner per BE-class session.
+
+## §0 Authority Chain
+
+Rex 2026-05-27 mid-Cycle-15 pivot + 2nd-pass deadline-tightening (Amendment 2026-05-27a) + 3rd-pass KG-primary storage authorization (Amendment 2026-05-27b) > Cycle 16 SI ACTIVE 2026-05-27 (Moonshots `a2f14d5` + `be54a97` + `badd749`) > Cycle-16-S1 close `9300c86` (Stage 0-2 RP fill ALL_PASS; KT-1 DOES NOT FIRE at ≈70% internal-substrate coverage) > Cycle 6 substrate-as-governance-kernel PRIMARY thesis + Q-γ Option 2 unification 2026-05-13b (Apache Jena Fuseki PID 479112 RUNNING since 2026-05-14; 246,048 quads / 46 named graphs verified at Coach probe 2026-05-27) > kc-44 PD §1.4 #1 + §3 + §6.1.
+
+## §1 Lock Commit
+
+Set at Cycle-16-S2 transition close — commits Stage 3-4 artifacts (this HR + ED + PROJECT + REQUIREMENTS + ROADMAP at project root + LANDSCAPE_ASSESSMENT §6 addendum at docs/) as paired set per Discipline #11 + kc-44 PD inheritance.
+
+## §2 Format
+
+| Field | Description |
+|---|---|
+| **ID** | H1-H8 per substrate §4 H1-H8 specialization (carry from RQS §3a L242-L253) |
+| **Statement** | Cycle 16 specialization of RQS §3a hypothesis, tightened to KG-primary substrate + same-cycle deadline + ≤3-session dormancy detection per Amendments 2026-05-27a + 2026-05-27b |
+| **Falsification** | Specific empirical surface that REFUTES the hypothesis (binds to KT-N trigger where applicable) |
+| **Metric** | The structural measurement at Cycle 16 close that resolves the hypothesis |
+| **Field surprise** | Named domain expert(s) who would be surprised by confirmation |
+| **Resolution** | OPEN initially; CONFIRMED / REFUTED / INCONCLUSIVE / SUPERSEDED at Build-Runner BE-class session OR FINDINGS Layer 4 |
+| **Evidence** | Direct file path / runtime emit / query result cited by Build-Runner |
+
+## §3 Pre-Registered Hypotheses (H1-H8 Cycle 16 specialization)
+
+| ID | Statement | Falsification | Metric | Field surprise | Resolution | Evidence |
+|---|---|---|---|---|---|---|
+| **H1** | **Branch 1.1+1.2 enumeration (per substrate §4 H1).** Spec inventory across Cycles 1-15 enumerates ≥N specs across 4 spec-classes — agent contracts (~9 from Moonshots `.claude/agents/*.md` per OBS-2; HC #52 broader scope `ls` direct), schemas (~5 from runtime_emit + drift_telemetry + JSONL classes), design decisions (~30+ from DECISION_LOG / ADR / paradigm-disposition records cross-cycle), methodology commitments (~50+ from cycle-close FINDINGS Layer-5 cross-cycle). KG-primary registry per Amendment 2026-05-27b: each spec row materialized as nanopublication 3-graph triplet (assertion / provenance / publicationInfo) at Fuseki `/cycle6` endpoint with 14-field schema (per kc-44 corrected count) + per-edge HC-11 access-permission enum + PROV-O 4 typed-edges {wasGeneratedBy, wasAttributedTo, generatedAtTime, wasInformedBy}. | <N specs enumerable at retroactive scan close, OR enumeration cannot complete within Cycle 16 (≤6 sessions per disposed paradigm question #1). | Count of distinct `spec_id` rows in KG registry at Cycle 16 mid-cycle retroactive scan close. Estimate N≈90-100 across 4 classes per RQS §3a + LA §6 EDA scope. | (a) An IETF working-group chair familiar with RFC 6982 Implementation Status discipline — surprise that a research pipeline of 15 cycles' standing carries ~100 specs WITHOUT any per-spec lifecycle registry analogous to RFC 6982. (b) A LaunchDarkly enterprise customer engineer — surprise at the spec inventory order-of-magnitude (~100 specs is small by their thousands-of-flags-per-enterprise benchmark) being unmanageable without a registry. | OPEN | — |
+| **H2** | **Branch 1.2 operational definitions (per substrate §4 H2).** Per-type operational definitions of "implemented" hold structurally across 4 spec-classes: agent contract = prompt file at canonical `.claude/agents/<name>.md` + role invoked at ≥1 session (logged); schema = schema file + code-side check fires at runtime (JSONL emit observable); design decision = code embodies the decision OR explicit retraction ADR exists; methodology commitment = documented in cycle-close FINDINGS Layer-5 + cited at downstream session warmup OR explicit deferral per 5-state taxonomy. Each spec class has a distinct STRUCTURAL VERIFIER per Branch 2.3 gate-script pattern. | ≥1 spec class lacks a structural verifier that can be implemented within Cycle 16's gate-script skeleton (Cycle 14 four-gate pattern extension) — KT-4 firing surface (Branch 2.3 + §4.3). | Per-class verifier specification at ED §Field 6 + reference implementation skeleton at Stage 5 BE-class. 4-of-4 classes operationally defined and structurally verified within Cycle 16 close = CONFIRMED. | (a) A Meyer DbC researcher — surprise that 4 distinct spec-class verifiers can be unified under a single gate-predicate skeleton (registry_row_exists ∧ target_session_set ∧ runtime_emit_event_class_set ∧ status ∈ acceptable_set) without per-class bespoke logic. (b) A Python static-analysis tooling author (mypy/pyright maintainer) — surprise at the per-class predicate body extending cleanly from Cycle 14 artifact-EXISTS predicate via SPARQL UPDATE substitution at Fuseki `/cycle6` endpoint (per Cycle 6 BE#1 schema contract). | OPEN | — |
+| **H3** | **Branch 1.3+1.4 retroactive dormancy (per substrate §4 H3).** At least 3 of the enumerated specs (Cycle 16 mid-cycle retroactive scan; per H1 enumeration) classify as `dormant-silent` per 5-state taxonomy {running, dormant-with-explicit-deferral, dormant-silent, killed, long-running}. The Cycle 10 RUNTIME_EMIT_SPEC.md case is one such spec by construction (5-cycle gap; ran out as `dormant-silent` Cycles 11-14 until Cycle-15-S7 closure). | <3 dormant-silent specs at retroactive scan close = **KT-2 FIRES** → problem smaller than hypothesized → HALT + Rex paradigm re-disposition per substrate §4 KT-2 disposition row. | Count of rows where `current_status = 'dormant-silent'` in KG registry at retroactive scan close. SPARQL: `SELECT (COUNT(*) AS ?n) WHERE { ?spec cycle16:current_status "dormant-silent" }`. | (a) A LaunchDarkly Code References engineer — partial surprise: feature-flag governance data suggests 20-40% of flags become stale within 6 months at typical enterprise; 3-of-100 (≈3%) is at the low end of the field-observed range, which would be surprising if confirmed (suggests pipeline is more disciplined than feature-flag-norm) and equally surprising if much higher (suggests worse). (b) A Parnas documentation-discipline researcher — surprise either direction: the 39% up-to-dateness literature finding (LA §1 row 7) would predict ~30-40 dormant-silent at this scale; substantially fewer suggests structural-discipline already inherits from Cycle 14 four-gate. | OPEN | — |
+| **H4** | **Branch 1.5 Cycle 10 counterfactual (per substrate §4 H4 + §9 T13).** Root cause of Cycle 10 RUNTIME_EMIT_SPEC.md 5-cycle dormancy = no authoring-time discipline forced (a) registry row + (b) `target_session` = "close of Cycle 10" + (c) `runtime_emit_event_class` = "drift_telemetry event fires when telemetry collector emits to outputs/*_events.jsonl sink" at BE#5+BE#6 authoring. The proposed Cycle 16 mechanism (per-spec registry write via SPARQL UPDATE to `/cycle6` at authoring time + TWO-surface BLOCKING gate at cycle-close + session-close + ≤3-session dormancy threshold per Amendment 2026-05-27a) would have surfaced the dormancy at Cycle 10 close — NOT Cycle 15-S7 (5-cycle gap). | Counterfactual analysis (FINDINGS Layer 4) shows that even with the Cycle 16 mechanism in place, the Cycle 10 spec would NOT have been detectable as dormant at the cycle-close gate (e.g., because `runtime_emit_event_class = 'n/a'` would have been a defensible disposition, defeating the mechanism). | Counterfactual reasoning at FINDINGS Layer 4: apply Cycle 16 gate predicate body to Cycle 10 BE#5+BE#6 substrate state (using runtime_emit infrastructure now landed at Cycle-15-S7 as the wiring target). If gate would have FAILED at Cycle 10 close → mechanism CONFIRMED for the case study; else REFUTED. | (a) A LaunchDarkly Flag Health engineer — surprise IF the counterfactual REFUTES (because the LaunchDarkly precedent at 30d/7d stale-detection threshold has caught dormant flags at enterprise scale for ≥5 years; structural mechanism should transfer). (b) A Cycle 10 BE#5+BE#6 author (Coach circa 2026-04) — surprise either direction: CONFIRMS supports the diagnosis; REFUTES surfaces that the mechanism is necessary-but-not-sufficient. | OPEN | — |
+| **H5** | **Branch 2 substrate coverage (per substrate §4 H5; KT-1 surface).** RIDE F-D Hybrid composition (~30% mechanism scope per LA §6b.2) + research_depth_enforcement_automation cycle 1 (~20%) + Cycle 14 four-gate pattern (~20%) + **Cycle 6 unified KG substrate** (per Amendment 2026-05-27b + LA §6 addendum) collectively cover ≥80% of Cycle 16 mechanism scope. Cycle 6 KG adds ~20-25% mechanism inheritance: per-edge HC-11 access-permission enum (11,223 ip-private + 1 publishable + 1 ephemeral usages verified at Coach probe 2026-05-27) + PROV-O 4 typed-edges orphan-refusal discipline + Wikidata supersedure pattern (PARTIAL — HC-RP-S2-3 carry) + nanopublication 3-graph pattern operational across 46 named graphs + SPARQL query endpoint substrate. | Per LA §6 addendum aggregate coverage assessment: if revised coverage ≥80%, **KT-1 NOW FIRES** → Cycle 16 narrows to gap-filling + retroactive inventory only (NOT full registry framework). If <80%, KT-1 DOES NOT FIRE → Cycle 16 proceeds with full SI scope. | LA §6 addendum aggregate coverage % (per substrate §5 task; this S2 RP authoring decision). Coverage = mechanism-scope inheritance from 4 internal sources, NOT external grounding. **Coach independent verification at R3 close-eval.** | (a) The RIDE PROJECT.md author (Cycle prior) — partial surprise either direction: the F-D Hybrid composition was authored for infrastructure-USE (does the pipeline USE the gate after it's built); applying to spec-IMPLEMENTATION (does the spec become a runtime artifact) is an extension the original framing did not anchor. (b) A Cycle 6 BE#1 schema author — surprise IF the Cycle 6 KG primitives (PROV-O + HC-11 + nanopub + Wikidata) compose into spec-implementation governance without schema extension; surprise the other direction IF Wikidata supersedure PARTIAL (HC-RP-S2-3) blocks full inheritance until Stage 5 BE#1 schema author. | OPEN | — |
+| **H6** | **Branch 2.3 gate predicate extension (per substrate §4 H6; KT-4 surface).** Cycle 14 four-gate gate-script-shape (`artifact_exists($spec) ∧ placeholder_count($spec) == 0 ∧ H_disconfirmation_subsection_count($spec) ≥ 1`) EXTENDS CLEANLY via SPARQL UPDATE body substitution to the spec-implementation predicate: `registry_row_exists($spec) ∧ target_session_set($spec) ∧ runtime_emit_event_class_set($spec) ∧ (current_status ∈ {running, dormant-with-explicit-deferral, killed, long-running} ∨ session_authored + dormancy_threshold_sessions ≥ current_session)` — where `acceptable_set` excludes only `dormant-silent`. Same gate-script skeleton (`scripts/check_all_gates.sh` invocation pattern); new SPARQL ASK body querying Fuseki `/cycle6` endpoint per Cycle 6 BE#1 contract. | Gate predicate substitution requires structurally different primitive than the Cycle 14 four-gate skeleton supports (e.g., gate must maintain per-spec state across invocations rather than per-invocation stateless query) = **KT-4 FIRES** → new enforcement primitive class warranted; surface as paradigm-class scope expansion candidate OR proceed within cycle if scope still bounded per Branch 2.3 disposition. | Stage 5 BE-class build: implement `scripts/spec_implementation_present_gate.sh` mirroring `k_register_present_gate.sh` skeleton; predicate body = SPARQL ASK against `/cycle6`. CONFIRMED iff skeleton mirrors cleanly without primitive-class extension. | (a) The Cycle 14 four-gate author (Coach + Builder Cycle 14) — partial surprise: predicate extension was anticipated at Cycle 14 Amendment 2026-05-24c done-criterion #8(g)+(h) but not validated empirically; CONFIRMATION would close the open hypothesis from Cycle 14 close. (b) A Cycle 6 BE#1 Fuseki/SPARQL engineer — surprise that the gate-script-shell-script primitive can host a SPARQL ASK body via `curl` against `/cycle6` endpoint cleanly (latency probes verified 0.066-0.495s at Coach probe 2026-05-27; 10-256× margin to ≤5s threshold). | OPEN | — |
+| **H7** | **Branch 4.2 authoring discipline (per substrate §4 H7; KT-3 surface).** Spec-authoring discipline at Branch 4.2 (no spec lands without registry row materialized at Fuseki `/cycle6` endpoint via SPARQL UPDATE + `target_session` set + `runtime_emit_event_class` set OR `n/a` with documented rationale) produces 0 author refusals during Cycle 16 itself (forward-apply dogfooding window: Cycle 16 Stages 3-5 + close session). Every new spec authored within Cycle 16 (the registry schema itself + KT-trigger registry + retroactive scan spec + per-class verifier specs + gate-script spec) passes authoring discipline cleanly. | n=3+ author refusals during Cycle 16 (acceptance criteria unclear at authoring OR same-cycle backlog unmanageable) = **KT-3 FIRES** → registry shape needs structural refinement OR same-cycle default needs relaxation for specific spec types per substrate §4 KT-3 disposition row. | Count of distinct spec-authoring events within Cycle 16 where Coach OR RP OR Builder rejected the registry-row-required gate body. Tracked via `outputs/build_runner_events.jsonl` runtime emit + Coach handoff log review. | (a) A LaunchDarkly enterprise customer engineer responsible for flag-authoring discipline — partial surprise: LaunchDarkly's per-flag tagging-at-creation discipline runs at enterprise scale without refusal cascade; Cycle 16's 14-field registry schema is heavier-weight per-spec but pipeline cadence (per-session) gives more time. (b) A research-researcher-planner (this agent) — surprise either direction at the dogfooding: CONFIRMS = discipline is operationally compatible with multi-session per-spec authoring; REFUTES = discipline is too heavy → KT-3 narrows scope at runtime. | OPEN | — |
+| **H8** | **Branch 4.5 forward-apply longitudinal (per substrate §4 H8; KT-5 surface).** Forward-apply infrastructure observed across ≥2 subsequent cycles post-Cycle-16-close (Cycle 17 + Cycle 18 per kc-44 Amendment 2026-05-27a renumbering) produces 0 NEW dormant-silent specs accumulated + ≥1 positive same-cycle implementation event observed (spec authored at cycle N, runtime_emit_event_class fires within ≤3 sessions OR by cycle N close). | ≥2 NEW dormant-silent specs accumulate during Cycle 16 itself (mid-cycle observation) OR across Cycles 17-18 forward-apply window = **KT-5 FIRES** → H_main REFUTED; FINDINGS Layer 5 honest-gap + paradigm escalation candidate per substrate §4 KT-5 disposition row. | Count of dormant-silent classifications WITHIN Cycle 16 (forward-apply observation; runtime emit + session-close gate firing log) + cumulative across Cycles 17-18 longitudinal window. Done definition #10 longitudinal verdict. | (a) An IETF "running code" tradition advocate — partial surprise either direction: Clark 1992 "rough consensus and running code" predicts forward-apply discipline gradually accumulates running-code evidence; ≥2 NEW dormant-silent suggests the mechanism's structural BLOCKING surface is insufficient under pipeline cadence. (b) An organizational-singularity (MSCS) researcher — surprise the other direction: full prevention is rare in 1-year observation windows for first-cycle mechanism introductions; intermediate outcomes (1 NEW dormant-silent + ≥3 prevented) may be the practical CONFIRM bound. | OPEN | — |
+
+<!-- /gate:hypothesis_registry pre_registered_primary -->
+
+## §3a HYBRID PRIMARY VERBATIM CARRY (forward-compat envelope + 4 LOCKED sources + Cycle 16 EXTENSION-3)
+
+<!-- gate:hypothesis_registry §3a hybrid_primary_carry source_count:5 -->
+<!-- source: substrate §6 5-source CARRY chain by reference (HC #48 (c) compression discipline) -->
+
+**Forward-compat envelope.** The HYBRID PRIMARY outcome shape is the binding pre-registration of EXPECTED-OUTCOME SHAPE for this research line (Cycle 1 onward). Per Rex S2 sharpening 2026-05-07 ORIGINAL: success metric is BOUNDARY-CONDITION-MAP RICHNESS at progressively-refined cell granularity, NOT a clean H-vs-B disposition. Sources 1-4 below are the LOCKED canonical carriers; Cycle 16 EXTENSION-3 is THIS S2 RP authoring extending the granularity per Amendment 2026-05-27a + 2026-05-27b paradigm tightening.
+
+### Source 1 — Cycle 1 LOCKED HR §3a L105 (Rex S2 sharpening 2026-05-07 ORIGINAL)
+
+Canonical path: `/home/azureuser/cycle_1_engineering_methodology_for_agent_built_systems_research/docs/HYPOTHESIS_REGISTRY.md` §3a L105. Reference VERBATIM per substrate §6 carry-by-reference discipline (HC #48 (c) compression). Source 1 establishes: HYBRID PRIMARY as expected outcome shape; success metric = BOUNDARY-CONDITION-MAP RICHNESS not clean H-vs-B disposition; both H_main confirmation AND B (boundary-case) refutation are PRIMARY-EXPECTED outcomes simultaneously.
+
+### Source 2 — Cycle 4 LOCKED RQS §0a L45 (EXTENSION-1)
+
+Canonical path: `/home/azureuser/cycle_4_*/docs/RESEARCH_QUESTION_SPEC.md` §0a L45. EXTENSION-1 at per-substrate-operation PS-3 axis cell granularity.
+
+### Source 3 — Cycle 5 LOCKED RQS §0a L43 (EXTENSION-2)
+
+Canonical path: `/home/azureuser/cycle_5_*/docs/RESEARCH_QUESTION_SPEC.md` §0a L43. EXTENSION-2 at per-output-class × per-substrate-operation × per-PS-3' cell granularity.
+
+### Source 4 — Cycle 5 LOCKED ED §0a L97-99+L113 (CARRY DISCIPLINE)
+
+Canonical path: `/home/azureuser/cycle_5_*/docs/EXPERIMENTAL_DESIGN.md` §0a L97-99 + L113. CARRY DISCIPLINE clause VERBATIM: "no re-authoring; preserve HYBRID PRIMARY pre-registration. Semantic fidelity > stylistic edit." References Sources 1+2+3 explicitly. Per Source 4 binding: this Cycle 16 EXTENSION-3 extends — does NOT replace — the prior 4 LOCKED carriers.
+
+### Cycle 16 EXTENSION-3 NEW (THIS S2 RP authoring)
+
+**HYBRID PRIMARY: BOTH satisfied → boundary-condition map per discipline AND per failure mode AND per-spec × per-substrate-operation × per-discipline-state cell granularity — PRIMARY EXPECTED outcome shape per Rex S2 sharpening 2026-05-07 BINDING CARRY VERBATIM from 4 LOCKED sources + Cycle 4/5/6 extensions. Cycle 16 success metric = BOUNDARY-CONDITION-MAP RICHNESS at per-spec × per-substrate-operation × per-discipline-state cell granularity across 4 spec-classes × 4 substrate-operations × 5 discipline-states = up to 80 cells.**
+
+Cell-granularity axes for Cycle 16:
+
+- **4 spec-classes** (per Branch 1.2): agent contracts / schemas / design decisions / methodology commitments
+- **4 substrate-operations** (per Cycle 6 BE#1 KG-primary contract; Amendment 2026-05-27b): registry-write (SPARQL UPDATE INSERT DATA against `/cycle6` endpoint per nanopub 3-graph triplet) / registry-read (SPARQL SELECT for per-spec status enum + lifecycle state) / cycle-close-gate-fire (SPARQL ASK at cycle-close gate boundary; structural BLOCKING discipline) / session-close-gate-fire (SPARQL ASK at session-close gate boundary; ≤3-session dormancy threshold)
+- **5 discipline-states** (per Amendment 2026-05-27a 5-state taxonomy): running / dormant-with-explicit-deferral / dormant-silent / killed / long-running
+
+Total cell space = 4 × 4 × 5 = 80 cells. Cycle 16 success metric: at FINDINGS Layer 4, characterize the boundary conditions at this cell granularity. Empirical sparsity is acceptable (not all 80 cells will be populated by Cycle 16 evidence); the framework's discriminative capacity for the cells that ARE populated is the load-bearing measurement.
+
+**Binding 2 strict.** Cycle 6 KG inheritance is mechanism-class inheritance (Q-γ Option 2 unification carried from Cycle 6 BE#1 ship state) — NOT design anchor. The cell-granularity axes are derived from Cycle 16 research question + 4 branches + 5-state taxonomy + 4-substrate-operation enumeration — NOT mirror of Cycle 6 BE#1-#4 sequencing.
+
+<!-- /gate:hypothesis_registry §3a hybrid_primary_carry -->
+
+## §3b Lakatos-Symmetric Pre-Registration (substrate §6 + RQS §0a Lakatos test)
+
+Per RQS §0a Lakatos test (paradigm challenge): the result space spans full PASS / REFUTE / PARTIAL / SUPERSEDED outcomes. KT-1..KT-6 pre-registration is the structural commitment to REVERSAL DISPOSITION before evidence arrives.
+
+| Lakatos test | RQS §0a answer carried | Cycle 16 binding |
+|---|---|---|
+| Result could go EITHER WAY | yes — KT-1..KT-6 span full reversal disposition surface | Pre-registered structurally at §3 surprise criteria + ED §Field 6 |
+| Expert SURPRISED by any possible outcome | yes — Meyer DbC / Nygard ADR / LaunchDarkly engineers each named per H1-H8 surprise column | At least one named expert per hypothesis per §3 surprise column |
+| Applying KNOWN method to NEW domain (predictable) | partially — composition is non-standard; 7-discipline external grounding LOCKED at LA §1 + Cycle 6 KG mechanism-class inheritance from §6 addendum | N ceiling acknowledged at ~7 (composition); N=9 reserved for KT-5 paradigm escalation surface |
+
+## §3c Per-Spec-Class Hypothesis Rows (4-class × per-KT cross-binding)
+
+Per substrate §4 + DP#26 BINDING (Rex S107): every pattern-finding instruction includes "where pattern does NOT apply." Per-spec-class binding rows:
+
+| Spec class | Operational "implemented" definition (per H2) | Structural verifier sketch (per H6) | KT-N firing risk | Where pattern does NOT apply (DP#26) |
+|---|---|---|---|---|
+| **Agent contracts** | Prompt file at canonical `.claude/agents/<name>.md` + role invoked ≥1 session (runtime emit log entry: `agent_dispatch_event` event class) | SPARQL ASK: `?spec a cycle16:AgentContract . ?spec cycle16:invocation_event ?ev . FILTER(?ev > spec.session_authored)` | KT-3 if 6-of-9 gitignored agent specs (HC #52 broader scope per OBS-2) cannot be enumerated by `git ls-files` — must use `ls` direct | LLM-monkeypatched at-runtime agent contracts (no canonical .md file); boundary-document at `docs/known_boundaries.md` |
+| **Schemas** | Schema file (JSON Schema OR pydantic model OR dataclass) + validation code exists + validation fires at runtime (JSONL emit event observable) | SPARQL ASK: `?spec a cycle16:Schema . ?spec cycle16:validation_event ?ev . FILTER(?ev > spec.session_authored)` | KT-4 if validation event surface requires per-schema-instance event class rather than per-schema-definition event class | Schemas defined for hypothetical/draft data classes never instantiated at runtime (pre-implementation drafts); boundary-document |
+| **Design decisions** | Code embodies the decision (ad-hoc — verified by Coach/RP review at downstream session) OR explicit retraction ADR exists with audit trail | SPARQL ASK: `?spec a cycle16:DesignDecision . ?spec cycle16:embodiment_evidence ?ev` — evidence link is a code reference (file:line) OR retraction ADR reference | KT-4 if "code embodies the decision" cannot be operationalized as a structurally-checkable predicate (may require LLM-judge as F2-class supplement, deferring to research_depth_enforcement_automation primitive class) | Decisions whose embodiment is structurally invisible (e.g., a decision NOT to do something has no positive code reference); boundary-document |
+| **Methodology commitments** | Documented in cycle-close FINDINGS Layer-5 + cited at downstream session warmup OR explicit deferral with `target_session` + Rex authorization if past cycle close | SPARQL ASK: `?spec a cycle16:MethodologyCommitment . ?spec cycle16:downstream_citation ?cite . FILTER(?cite > spec.session_authored)` | KT-3 if methodology commitments at Layer-5 may need different `runtime_emit_event_class` than agent contracts (per DP#26 + substrate §7 HR §3d) | Methodology commitments superseded by paradigm-class re-disposition mid-cycle (e.g., Rex pivot 2026-05-27 retiring Cycles 13-15 rubric-refinement); boundary-document |
+
+## §3d DP#26 Permission-to-Disagree: Layer-5 Methodology Commitments
+
+<!-- source: kc-44 PD §3.3 + substrate §7 HR §3d -->
+
+**Methodology commitments at Layer-5 may need a DIFFERENT `runtime_emit_event_class` than agent contracts.** Per DP#26 BINDING: agent contracts emit on per-invocation (operational); methodology commitments emit on per-citation-at-downstream-session-warmup (advisory — citation IS the runtime activation surface). The 14-field registry schema (per kc-44 corrected count; Amendment 2026-05-27b) allows documented `runtime_emit_event_class = 'n/a — citation-based activation per DP#26'` for methodology commitments where per-invocation emit is structurally not the right grain.
+
+This DP#26 carve-out is the KT-3 firing risk surface for methodology commitments (per H7). If the carve-out is over-used (≥30% of methodology commitments take `n/a`), the mechanism's structural detection capability collapses to subset-of-specs only. KT-3 + KT-5 cross-binding: if `n/a` over-use produces ≥2 NEW dormant-silent specs across Cycles 17-18, KT-5 fires (H_main REFUTED, paradigm escalation candidate).
+
+## §4 Resolution Log
+
+<!-- gate:hypothesis_registry resolution_log required -->
+
+| ID | Status | Evidence | Date |
+|---|---|---|---|
+| H1 | OPEN | — | — |
+| H2 | OPEN | — | — |
+| H3 | OPEN | — | — |
+| H4 | OPEN | — | — |
+| H5 | OPEN | — | — |
+| H6 | OPEN | — | — |
+| H7 | OPEN | — | — |
+| H8 | OPEN | — | — |
+
+<!-- /gate:hypothesis_registry resolution_log -->
+
+> Build-Runner updates per BE-class session: CONFIRMED (mechanism shipped + verified at retroactive scan + forward-apply event firing) / REFUTED (KT-N reversal trigger fires empirically) / INCONCLUSIVE (mixed evidence; partial sub-cell confirmation only) / SUPERSEDED (paradigm escalation triggered by KT-5 firing). Per `feedback_honest_evaluation.md` BINDING: KT-N empirical firing is honest-gap signal, surfaced at FINDINGS Layer 5 — does NOT auto-reopen Amendment 2026-05-27a/b (Rex paradigm ruling per S155 BINDING).
+
+## §5 Honest Carries Open (from S1 + S2 RP discovery)
+
+<!-- source: Cycle-16-S1 state.json honest_carries_open + Cycle-16-S2 RP newly-discovered substrate-viability carries -->
+
+| HC ID | Description | Disposition surface |
+|---|---|---|
+| HC-RP1 (S1 carry) | RQS §3a +38L over upper band — load-bearing 4-branch × KT decomposition; non-truncable per DP#44 + substrate §6+§8 T5+T8 mandate. NOT blocking. | FLAG+CARRY per Mechanical Check #22; future-cycle template refinement |
+| HC #55 candidate (S1 carry) | Stage-gate file-path mismatch (gate expects project-root; scaffold places stage 0-2 canonicals at docs/). Stage 3-4 canonicals at root resolve at S2; HC #55-class refinement for kc-44 PD inheritance | Fix at S3+ OR kc-44 PD inheritance |
+| HC-RP-S2-3 (NEW at S2) | Wikidata supersedure pattern PARTIAL at Cycle 6 KG ground state: only `cycle6:rankingRationale` predicate present; `wikibase:rank` + `prov:wasRevisionOf` absent at 2026-05-27 Coach probe. ED §4a constraint #4 binds Cycle 16 to author these predicates at Stage 5 BE#1 schema extension OR detect at close as honest gap. Sub-KT-6 candidate; does NOT fire main KT-6 (4-PROV-O typed-edges + per-edge HC-11 enum + nanopublication 3-graph primitives ARE operational at Coach probe) | ED §4a constraint #4 + Stage 5 BE-class schema extension OR FINDINGS Layer 4 honest gap |
+| HC-RP-S2-4 (NEW at S2) | Cycle 6 PARTIAL-CLOSED at S7 2026-05-14h per Rex Decisions 1-4: 3 of 4 BEs PROMOTED + BE#4 BUILT-NOT-PROMOTED HOLD pending Cycle 7 substrate-viability research-class cycle (PC #95 generalized; absolute latency <100ms p95 replaces ratio metric). Forward dependency: if Cycle 7 KG-vendor pivot surfaces, Cycle 16 mechanism would need vendor-portable abstraction layer above Fuseki-specific SPARQL | FINDINGS Layer 4 forward-dependency carry; H5 KT-1 surface explicit acknowledgment |
+| HC-RP-S2-6 (NEW at S2 R3) | **kc-44 calibration delta: Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27.** Coach R3 escalated KT-1 literal-vs-intent ambiguity as paradigm to Rex; was operationally-disposable per foundational threshold-metric pre-registration discipline §10 (i)+(ii) — Amendment 2026-05-27b structural encoding already supplied refinement substrate. kc-44 inbound gate rubber-stamped Coach paradigm verdict instead of disposing per Discipline #10. Rex disposition (C) 2026-05-27 corrected via metric-revision-within-intent (DECISION_LOG D-S2-1). | kc-45 PD inheritance — Discipline #10 anchoring-slip countermeasure refinement at inbound gate |
+
+> Coach independent verification of all 5 HC entries at R3 close-eval per kc-44 §3.3 T1-T13 mechanical tests.

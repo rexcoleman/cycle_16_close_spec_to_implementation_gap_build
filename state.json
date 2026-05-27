@@ -1,75 +1,86 @@
 {
-  "cycle_id": 16,
-  "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "stage_3_4_rp_fill_pending",
-  "current_stage_orchestrator": "research",
-  "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a)",
-  "stage_0_2_complete": true,
-  "stage_0_2_complete_at": "Cycle-16-S1",
-  "stage_0_2_close_timestamp": "2026-05-27",
-  "artifact_inventory": [
-    "docs/OBSERVATION_LOG.md (260L, 0 placeholders, 10 canonical markers)",
-    "docs/RESEARCH_QUESTION_SPEC.md (498L, 0 placeholders, 18 canonical markers; +38 over upper target band HONEST CARRY HC-RP1 — load-bearing 4-branch × KT decomposition per substrate §6 + §8 T5+T8)",
-    "docs/LANDSCAPE_ASSESSMENT.md (565L, 0 placeholders, 24 canonical markers; 7 disciplines × ≥3 verbatim quotes; 36 verbatim quotes total ≥30 floor; ratio ≈ 0.79-0.83 external)"
-  ],
-  "scoring_state": {
-    "quality_loop_score": null,
-    "dimension_scores": {},
-    "last_scored": null,
-    "note": "T3 scoring at Cycle 16 close FINDINGS authoring (Stage 5)"
-  },
-  "paradigm_dispositions": {
-    "rex_2026_05_27_mid_cycle_15_pivot_to_cycle_16": {
-      "authority": "Rex 2026-05-27 verbatim 'we spent 3 cycles attacking the wrong problem' + 'spec-implementation gap is the dominant failure mode' + 'stop work on cycle 15 after s7'",
-      "lock_commit": "Moonshots a2f14d5 + be54a97 (Amendment 2026-05-27a); EMABS e4cc3d1 (PC #100 mirror)",
-      "applied_at": "Cycle-16-S1 entry"
+    "cycle_id": 16,
+    "project_name": "cycle_16_close_spec_to_implementation_gap_build",
+    "current_phase": "stage_5_be_class_build_pending",
+    "current_stage_orchestrator": "build",
+    "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b)",
+    "stage_0_2_complete": true,
+    "stage_0_2_complete_at": "Cycle-16-S1",
+    "stage_0_2_close_timestamp": "2026-05-27",
+    "stage_3_4_complete": true,
+    "stage_3_4_complete_at": "Cycle-16-S2",
+    "stage_3_4_close_timestamp": "2026-05-27",
+    "artifact_inventory": [
+        "docs/OBSERVATION_LOG.md (260L, 0 placeholders; Stage 0-2 LOCKED preserved per Binding 7 + S2 substrate section 9 T2)",
+        "docs/RESEARCH_QUESTION_SPEC.md (498L, 0 placeholders; Stage 0-2 LOCKED preserved; +38 over upper target band HC-RP1)",
+        "docs/LANDSCAPE_ASSESSMENT.md (612L, 0 placeholders; was 565L Stage 0-2 + surgical section 6 addendum +47L at S2 per Cycle 14 Amendment 2026-05-24c precedent; section 6 addendum = Cycle 6 KG substrate row + revised aggregate coverage REFINED per Rex disposition (C) + KT-1 reassessment DOES NOT FIRE + KT-6 NEW row)",
+        "HYPOTHESIS_REGISTRY.md (148L, 0 placeholders; H1-H8 specialized to Cycle 16 + KG-primary substrate + same-cycle deadline + HC-RP-S2-3..6 carries at section 5; Stage 3-4 LOCKED at S2 close)",
+        "EXPERIMENTAL_DESIGN.md (576L, 0 placeholders; section 0a HYBRID PRIMARY VERBATIM CARRY 4 LOCKED + Cycle 16 EXTENSION-3 + section 4a 6 BINDING constraints + section Field 6 KT-1..KT-6 (KT-1 row refined per Rex disposition (C)) + section 17 KT-1 disposition detail + section 16 H4 counterfactual; Stage 3-4 LOCKED at S2 close)",
+        "PROJECT.md (79L, 0 placeholders; Cycle 16 scope summary)",
+        "REQUIREMENTS.md (101L, 0 placeholders; 10 deliverables + T1-T13 mechanical tests + Honest Carries Open)",
+        "ROADMAP.md (184L, 0 placeholders; 7 phases + per-phase tasks + risk register + close definition)",
+        "DECISION_LOG.md (26L; D-S2-1 paradigm-ruling entry: Rex disposition (C) metric-revision-within-intent + authority + context + rationale + encoded surfaces + forward-cycle inheritance + non-destructive supersedure pattern)"
+    ],
+    "scoring_state": {
+        "quality_loop_score": null,
+        "dimension_scores": {},
+        "last_scored": null,
+        "note": "T3 scoring at Cycle 16 close FINDINGS authoring (Stage 5 Phase 7 close-arc)"
     },
-    "rex_2026_05_27_cycle_16_si_amendment_deadline_tightening_same_cycle_default_with_runtime_emit_detection": {
-      "authority": "Rex 2026-05-27 second-pass authorization 'i agree with your recommendation please update'",
-      "lock_commit": "Moonshots be54a97 (kc-44 Step 3.5 Draft-for-Approval)",
-      "framing": "by close of authoring cycle (default) + explicit deferral to named target session as exception (deferral past cycle close requires Rex authorization) + dormancy detection <=3 sessions via runtime emit",
-      "applied_at": "Cycle-16-S1 RQS section 0 + LA section 0 1 6 HYBRID PRIMARY VERBATIM CARRY"
+    "paradigm_dispositions": {
+        "rex_2026_05_27_mid_cycle_15_pivot_to_cycle_16": {
+            "authority": "Rex 2026-05-27 verbatim 'we spent 3 cycles attacking the wrong problem' + 'spec-implementation gap is the dominant failure mode' + 'stop work on cycle 15 after s7'",
+            "lock_commit": "Moonshots a2f14d5 + be54a97 (Amendment 2026-05-27a); EMABS e4cc3d1 (PC #100 mirror)",
+            "applied_at": "Cycle-16-S1 entry"
+        },
+        "rex_2026_05_27_cycle_16_si_amendment_deadline_tightening_same_cycle_default_with_runtime_emit_detection": {
+            "authority": "Rex 2026-05-27 second-pass authorization 'i agree with your recommendation please update'",
+            "lock_commit": "Moonshots be54a97 (kc-44 Step 3.5 Draft-for-Approval)",
+            "framing": "by close of authoring cycle (default) + explicit deferral to named target session as exception (deferral past cycle close requires Rex authorization) + dormancy detection <=3 sessions via runtime emit",
+            "applied_at": "Cycle-16-S1 RQS section 0 + LA section 0 1 6 HYBRID PRIMARY VERBATIM CARRY"
+        },
+        "kc44_r1_pass_cycle_16_s1_disposition_a": {
+            "authority": "kc-44 R1 PASS task-context dispatch 2026-05-27 via Rex paste-bridge",
+            "scope": "Cycle-16-S1 Stage 0-2 RP fill entry",
+            "verdict": "S1 close LANDED with 3 artifacts filled to 0 placeholders + 3 stage gates CLEAR + R3 T1-T8 ALL PASS"
+        },
+        "rex_2026_05_27_cycle_16_si_amendment_27b_kg_primary_storage_substrate": {
+            "authority": "Rex 2026-05-27 third-pass authorization 'approve' post-Cycle-16-S1 close + Cycle 6 substrate-as-governance-kernel PRIMARY thesis verified against ground truth (Fuseki PID 479112 RUNNING + 12GB TDB + Cycle 6 BE#1 SHIPPED foundation)",
+            "lock_commit": "Moonshots badd749 (Amendment 2026-05-27b); EMABS 96d2fa3 (PC #100 mirror)",
+            "framing": "spec registry primary storage substrate = unified knowledge graph (Apache Jena Fuseki at /cycle6 endpoint) per Cycle 6 substrate-as-governance-kernel PRIMARY thesis + strategic substrate migration roadmap; SQL/YAML fallback only on KT-6 substrate-viability blocker",
+            "applied_at": "Cycle-16-S2 LANDSCAPE section 6 addendum + ED Field 6 KT-6 + HR/ED/REQUIREMENTS/ROADMAP 14-field schema"
+        },
+        "kc44_r1_pass_cycle_16_s2_disposition_c_metric_revision_within_intent": {
+            "authority": "Rex 2026-05-27 fourth-pass paradigm-ruling disposition (C) per foundational threshold-metric pre-registration discipline section 10 (i)+(ii)",
+            "scope": "Cycle-16-S2 Stage 3-4 RP fill close-eval + KT-1 literal-vs-intent ambiguity resolution",
+            "context": "S2 RP raw initial estimate ~90-95% aggregate coverage post-Amendment-27b + Cycle 6 KG inheritance under unrefined 'any inheritance' metric. RP surfaced literal-vs-intent ambiguity. Coach R3 3-test pre-escalation gate returned 3/3 PARADIGM. Coach escalated to Rex via Pattern 14 executive format. Rex disposition (C): metric-revision-within-intent. Amendment 2026-05-27b already encoded substrate-vs-mechanism distinction structurally; KT-1 resolves operationally by refining metric to measure intent faithfully. Substrate availability != mechanism redundancy.",
+            "refined_metric": ">=80% of MECHANISM-LAYER scope, excluding pure substrate-layer inheritance (storage primitives + access-permission enum + provenance edges + endpoint substrate)",
+            "refined_coverage": "pre-Amendment-27b ~70% mechanism-layer + Cycle 6 KG mechanism-layer inheritance ~5-15% = ~75-85% net mechanism-layer",
+            "verdict": "KT-1 DOES NOT FIRE under refined metric; Cycle 16 proceeds with full SI scope (Branches 1-4 all in-scope)",
+            "encoded_at": "ED section Field 6 KT-1 row refined + ED section 17.3+17.5 + LA section 6.X.1+6.X.2 + DECISION_LOG D-S2-1",
+            "calibration_delta": "HC-RP-S2-6 NEW: Coach R3 anchoring-slip - operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii) but escalated as paradigm; kc-44 inbound gate rubber-stamped instead of disposing per Discipline #10; surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
+            "applied_at": "Cycle-16-S2 R3 close-eval"
+        }
     },
-    "kc44_r1_pass_cycle_16_s1_disposition_a": {
-      "authority": "kc-44 R1 PASS task-context dispatch 2026-05-27 via Rex paste-bridge",
-      "scope": "Cycle-16-S1 Stage 0-2 RP fill entry (research-shape; scaffold cycle_16 project + compose Stage 0-2 RP dispatch substrate + fire RP foreground per S141)",
-      "verdict": "S1 close LANDED with 3 artifacts filled to 0 placeholders + 3 stage gates CLEAR + R3 T1-T8 ALL PASS"
-    }
-  },
-  "decisions_log": [
-    {
-      "id": "S1-D1",
-      "decision": "Cycle 16 project scaffolded fresh at /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/ via scaffold_research_project.py --research-type build + init_project.sh --profile research-build",
-      "timestamp": "2026-05-27",
-      "evidence": "20 scaffold artifacts + 18 docs/ build-class canonical templates + 3 scripts/runtime_emit/ + 4 outputs/ JSONL sinks + governance.yaml.govml_lock_commit: efaf6ae6 (v2.8.2 lock_commit captured)"
-    },
-    {
-      "id": "S1-D2",
-      "decision": "HC #45 closure verified-in-vivo (k_register + known_boundaries + h_pattern_dispositions present in research-build profile per #46 DISPOSED at Cycle-15-S3)",
-      "timestamp": "2026-05-27",
-      "evidence": "ls docs/ shows all 3 templates present"
-    },
-    {
-      "id": "S1-D3",
-      "decision": "HC #23 closure verified-in-vivo (runtime emit substrate auto-installs at scaffold time per Cycle-15-S7 wire-in to v2.8.2)",
-      "timestamp": "2026-05-27",
-      "evidence": "scripts/runtime_emit/{emit.py,drift_telemetry_signal_schema.json,__init__.py} + outputs/{kernel_coach,impl_coach,coach,build_runner}_events.jsonl present at scaffold"
-    },
-    {
-      "id": "S1-D4",
-      "decision": "KT-1 disposition recommendation: DOES NOT FIRE (RP self-report + LANDSCAPE section 6 evidence: aggregate internal-substrate coverage ~70% — RIDE ~30% + research_depth_enforcement_automation ~20% + Cycle 14 four-gate ~20%; net-NEW Cycle 16 contribution ~30%); Cycle 16 proceeds with full SI scope (Branches 1-4 all in-scope)",
-      "timestamp": "2026-05-27",
-      "verifier": "Coach at R3 close-eval per kc-44 section 3.3 T1-T8 mechanical tests"
-    }
-  ],
-  "honest_carries_open": [
-    "HC-RP1: RQS line count 498L vs target 380-460 (+38 over upper band; load-bearing 4-branch x KT decomposition non-truncable per DP#44 + substrate section 6+section 8 T5+T8 mandate; FLAG+CARRY per Mechanical Check #22)",
-    "HC-RP2: Stage-gate scripts at Moonshots scripts/ NOT govML scripts/ — HC #45-class gate-design mismatch finding (build-class scaffold places artifacts at docs/; gates expect project-root); analogous to k_register_present_gate Cycle 14/15 inheritance design; surfaced for kc-44 PD inheritance + future-cycle refinement",
-    "HC-RP3: Question gate Check 2 initially FAILed (get_section regex captured section 0a as next-section delimiter); RP fixed in-session by adding 1-paragraph summary statement at section 0 with verbatim research question + traceability sentence; gate now PASSes 9/1",
-    "HC-RP4: Question gate Check 6 WARN: 0 paper references found by grep heuristic (advisory; non-academic citations don't match Author+Year+venue heuristic; >=8 substantive citations present)",
-    "HC-RP5: Landscape gate Check 10+12 WARN: citation-verification markers + characterization-source markers not embedded structurally (advisory; ED section 3 Comparison Baselines at Stage 3-4 can add markers if Coach disposition requires)",
-    "HC-RP6: OBSERVATION_LOG section 1.1 question lineage table covers 4 of 8 OBS rows (OBS-1, OBS-2, OBS-5, OBS-7); derivative-of relationship documented for OBS-3/4/6/8 (Coach disposition if full 8-of-8 lineage required at S2 ED section Field 6 RP fill)",
-    "Coach HC-1: HC #48 (a) 2-pass discipline NOT structurally applied at substrate compose (single Write per S7 pattern; (b)+(c) content disciplines load-bearing for first-arc-within-cap at 0.7559 ratio); carry to handoff section 1di Pattern Calibration for kc-44 PD inheritance #48 BINDING UPDATE empirical lesson"
-  ],
-  "next_action": "cycle_16_s1_coach_close_eval_then_s2_stage_3_4_rp_fill_per_kc44_task_context_step_6_routing_HR_ED_PROJECT_REQ_ROADMAP_with_Amendment_encoded_at_ED_Field_6_KT_pre_registrations"
+    "decisions_log": [
+        {"id": "S1-D1", "decision": "Cycle 16 project scaffolded fresh", "timestamp": "2026-05-27", "evidence": "20 scaffold + 18 docs/ canonicals + 3 scripts/runtime_emit/ + 4 outputs/ JSONL sinks + governance.yaml.govml_lock_commit: efaf6ae6"},
+        {"id": "S1-D2", "decision": "HC #45 closure verified-in-vivo", "timestamp": "2026-05-27", "evidence": "k_register + known_boundaries + h_pattern_dispositions present in research-build profile"},
+        {"id": "S1-D3", "decision": "HC #23 closure verified-in-vivo", "timestamp": "2026-05-27", "evidence": "runtime_emit substrate auto-installs at scaffold time per Cycle-15-S7 wire-in to v2.8.2"},
+        {"id": "S1-D4", "decision": "KT-1 disposition at S1 close: DOES NOT FIRE (~70% pre-27b)", "timestamp": "2026-05-27", "verifier": "Coach at S1 R3 close-eval"},
+        {"id": "S2-D1", "decision": "Stage 3-4 RP fill complete: 5 canonicals at root + LA section 6 addendum +47L surgical filled to 0 placeholders within line bands", "timestamp": "2026-05-27", "evidence": "T1-T13 + DP#43 + Coach Check #23 ALL PASS at R3 close-eval per Coach independent verification"},
+        {"id": "S2-D2", "decision": "Rex paradigm-ruling 2026-05-27 disposition (C) metric-revision-within-intent: KT-1 DOES NOT FIRE under refined operational metric; Cycle 16 proceeds with full SI scope", "timestamp": "2026-05-27", "evidence": "DECISION_LOG D-S2-1 paradigm-ruling entry; ED Field 6 KT-1 row refined; LA section 6.X.1+6.X.2 updated; ED section 17.3+17.5 updated; HC-RP-S2-6 NEW carry"},
+        {"id": "S2-D3", "decision": "Pattern 19 trajectory n=24 (S2 substrate) + n=25 (S3 transition prompt) - both first-arc-OVER-CAP; recovered via Edit compression within HC #34 cap. HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 density; (b)+(c) content disciplines load-bearing", "timestamp": "2026-05-27", "encoded_at": "S2 22-PRC Items 14+15 + handoff section 1dj Pattern Calibration"},
+        {"id": "S2-D4", "decision": "HC-RP-S2-3 + S2-4 + S2-5 + S2-6 NEW honest carries encoded at HR + ED + REQUIREMENTS + DECISION_LOG D-S2-1", "timestamp": "2026-05-27", "evidence": "Cycle 6 Wikidata supersedure PARTIAL (S2-3) + Cycle 6 PARTIAL-CLOSED + Cycle 7 OPEN (S2-4) + KG-primary n/a over-use risk (S2-5) + kc-44 calibration delta Discipline #10 anchoring-slip (S2-6)"}
+    ],
+    "honest_carries_open": [
+        "HC-RP1: RQS line count 498L vs target 380-460 (+38 over upper band; FLAG+CARRY per Mechanical Check #22)",
+        "HC #55 candidate: Stage-gate scripts gate-design mismatch; Stage 3-4 canonicals at project root resolve at S2; refinement carry for kc-44 PD inheritance",
+        "HC #56 candidate: Question gate Check 2 regex artifact; advisory non-blocking",
+        "HC-RP-S2-3 NEW at S2: Wikidata supersedure pattern PARTIAL at Cycle 6 KG ground state; ED section 4a constraint #4 binds Cycle 16 to author at Stage 5 BE-A schema extension OR detect at close as honest gap; sub-KT-6 candidate does NOT fire main KT-6",
+        "HC-RP-S2-4 NEW at S2: Cycle 6 PARTIAL-CLOSED at S7 + Cycle 7 substrate-viability research-class cycle OPEN; forward dependency at FINDINGS Layer 4; vendor-portable abstraction if Cycle 7 surfaces vendor pivot",
+        "HC-RP-S2-5 candidate at S2: KG-primary runtime_emit_event_class = n/a over-use risk for methodology commitments per DP#26 carve-out - KT-3 firing surface (per H7) if >=30% of methodology commitments take n/a",
+        "HC-RP-S2-6 NEW at S2 R3: kc-44 calibration delta - Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27 (operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii); Amendment 2026-05-27b structural encoding already supplied refinement substrate); kc-44 inbound gate rubber-stamped Coach paradigm verdict instead of disposing per Discipline #10; Rex disposition (C) corrected via metric-revision-within-intent (DECISION_LOG D-S2-1); surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
+        "Coach HC-1+HC-2 (S2 Pattern 19 n=24+n=25 first-arc-OVER-CAP + Edit recovery): HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 substrate density; (b)+(c) content disciplines load-bearing for recovery; carry to handoff section 1dj Pattern Calibration for kc-44 PD inheritance refinement candidate (d)+(e) consideration"
+    ],
+    "next_action": "cycle_16_s2_coach_close_eval_then_s3_stage_5_be_a_schema_sparql_write_boundary_per_kc44_task_context_step_6_routing_BE_A_ARTIFACT_CONTRACT_per_ROADMAP_Phase_2_with_Rex_disposition_C_metric_revision_within_intent_OPERATIONALIZED"
 }
