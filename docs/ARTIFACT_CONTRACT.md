@@ -202,3 +202,98 @@ CONTRACT_CHANGE authority = Rex paradigm ruling per Binding 7 + S155 + BUILD_DEC
 
 > If any check is `[ ]` unchecked, this contract is not ready for
 > ACCEPTANCE_CRITERIA verification. Halt-and-surface (per refuse-on-missing-precondition).
+
+---
+
+## §10 BE-B H7 Cycle 16 Branch 4.2 BE-A-source Authoring Discipline Append
+
+<!-- gate:artifact_contract §10 required -->
+
+Per Cycle-16-S4 BE-B dispatch substrate §1 + §5 ARTIFACT_CONTRACT fill instructions + Cycle 14 §10 precedent. APPEND-only; §0-§7 (BE-A LOCKED `6c7c62d`) unchanged. Cycle 16 BE-B SPARQL UPDATE authoring discipline wrapper + govML v2.8.3 install_hook back-port (Branch 4.2 BE-A-source closure per ROADMAP Phase 3 task 2).
+
+### §10.0 BE-B Cycle 16 Branch 4.2 Contract Identity
+
+| Field | Value |
+|---|---|
+| **Artifact** | `scripts/spec_registry_authoring.py` (cycle_16 BE-B Python wrapper) + `scripts/install_spec_registry_authoring_discipline.sh` (cycle_16 standalone shell wrapper) + `~/ml-governance-templates/scripts/init_project.sh` install_hook (govML v2.8.3 ADDITIVE-APPEND) + `~/ml-governance-templates/templates/build/spec_registry/` NEW directory (5 files) |
+| **Cycle** | 16 (BE-B Branch 4.2 BE-A-source closure per ROADMAP Phase 3 task 2 + Done #6 + H7 + KT-3 firing surface evaluation) |
+| **Source** | BE-A SHIPPED `6c7c62d`: 5 substrate-operations at `docs/spec_authoring_discipline.md` (213L; verbatim consumed) + 14-field schema TTL at `docs/spec_registry_schema.ttl` (199L; copied verbatim to govML templates) + SHACL constraints at `docs/spec_registry_shapes.shacl.ttl` (162L; copied verbatim to govML templates) + govML v2.8.2 `install_runtime_emit_substrate()` structural precedent L171-L209 |
+| **Architectural choice** | Brief 1: ADDITIVE-APPEND at govML init_project.sh per HC #45 (Cycle-15-S3 + Cycle-15-S7 precedent) — NEW function `install_spec_registry_authoring_discipline()` added AFTER `install_runtime_emit_substrate()` + NEW call site added to research-build profile branch AFTER existing call. NO modification of existing functions or arrays. (b) Imported-library + reference-by-shim pattern matches Cycle-14-S9 ARCH precedent + govML build_rubrics/ + runtime_emit/ |
+| **Primary mechanism family** | Structural enforcement at scaffolding-time install (DP#1 structural > behavioral); Cycle 16 PRIMARY spec-implementation gap closure mechanism INSTALLED |
+| **Authority chain** | Cycle 16 SI ACTIVE 2026-05-27 (`a2f14d5`) + Amendment 27a (`be54a97`) + Amendment 27b (`badd749`) + Rex disposition (C) D-S2-1 + S3 close D-S3-1 + Rex back-port directive 2026-05-27 (4-repo paired commit) + kc-45 R1 PASS task-context dispatch via Cycle-16-S4 Coach + dispatch substrate `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s4_be_b_dispatch_substrate.md` |
+
+### §10.1 BE-B Pre-Conditions (rows 6-10)
+
+| # | Pre-condition | How verified at runtime | Refusal behavior on FAIL |
+|---|---|---|---|
+| 6 | **BE-A artifacts UNMODIFIED at cycle_16/docs/** — `spec_registry_schema.ttl` + `spec_registry_shapes.shacl.ttl` + `spec_authoring_discipline.md` + BE-A §1-§3 LOCKED bodies at 5 scaffolded templates | `git diff` against BE-A SHIPPED `6c7c62d` HEAD returns empty for §1-§3 line ranges + 3 NEW BE-A artifact files unchanged | halt-and-surface; refuse-on-missing-precondition per DP#44 + S132; do NOT route around |
+| 7 | **pyshacl + rdflib Python libraries importable** at runtime | `python3 -c "import pyshacl, rdflib; print('ok')"` exits 0 | halt-and-surface; install via `pip install pyshacl rdflib` (build-orchestrator scope); BE-B refuses |
+| 8 | **govML `~/ml-governance-templates/scripts/init_project.sh` writable** + no git lock + no concurrent-write detection | `test -w ~/ml-governance-templates/scripts/init_project.sh && test ! -f ~/ml-governance-templates/.git/index.lock` exits 0 | halt-and-surface as Rex back-port directive blocker; surface to Coach |
+| 9 | **govML `~/ml-governance-templates/templates/build/` writable** for NEW `spec_registry/` directory creation | `test -w ~/ml-governance-templates/templates/build/` exits 0 + `mkdir -p ~/ml-governance-templates/templates/build/spec_registry` succeeds | halt-and-surface as govML write-permission blocker |
+| 10 | **Fuseki `/cycle6` UPDATE write-boundary OPERATIONAL** for production-graph dogfooding (regression vs BE-A 19:25 UTC verification) | ASK probe at `http://localhost:3030/cycle6/query` returns HTTP 200 + UPDATE INSERT DATA probe returns HTTP 200/204 | halt-and-surface as KT-6 substrate-viability candidate per Binding 7 + ED §Field 6 |
+
+### §10.2 BE-B Post-Conditions (rows 7-12)
+
+| # | Post-condition | How verified after run | What ACCEPTANCE_CRITERIA §10.1 measures against |
+|---|---|---|---|
+| 7 | **`scripts/spec_registry_authoring.py` EXISTS + IMPORTABLE** with 5 functions per spec_authoring_discipline §4 Ops 1-5 + `record_author_refusal` helper | `python3 -c "import sys; sys.path.insert(0,'scripts'); import spec_registry_authoring as sra; assert all(hasattr(sra, f) for f in ['register_spec','read_spec_status','fire_cycle_close_gate','fire_session_close_gate','supersede_spec','record_author_refusal'])"` exits 0 | ACCEPTANCE_CRITERIA §10.1 row 7 wrapper-import + function-presence threshold |
+| 8 | **`scripts/install_spec_registry_authoring_discipline.sh` EXISTS + EXECUTABLE** + bash-syntax-clean + idempotent | `bash -n scripts/install_spec_registry_authoring_discipline.sh && test -x scripts/install_spec_registry_authoring_discipline.sh` exits 0 | ACCEPTANCE_CRITERIA §10.1 row 8 shell-syntax + executable-bit threshold |
+| 9 | **govML `init_project.sh` install_hook ADDITIVE-APPEND landed** — NEW `install_spec_registry_authoring_discipline()` function present + NEW call site at research-build profile branch + `bash -n init_project.sh` exits 0 + existing functions unchanged | `grep -c "^install_spec_registry_authoring_discipline()" ~/ml-governance-templates/scripts/init_project.sh` returns ≥1 + `grep -c "install_runtime_emit_substrate$" ~/ml-governance-templates/scripts/init_project.sh` UNCHANGED | ACCEPTANCE_CRITERIA §10.1 row 9 ADDITIVE-APPEND threshold per HC #45 |
+| 10 | **govML `templates/build/spec_registry/` directory ships 5 files** — `spec_registry_authoring.py` + `spec_registry_schema.ttl` + `spec_registry_shapes.shacl.ttl` + `spec_authoring_discipline.md` + `SPEC_AUTHORING_DISCIPLINE.md` obligation doc | `ls ~/ml-governance-templates/templates/build/spec_registry/` returns 5 files; obligation doc parses + is `c6:publishable` per HC-11 partition | ACCEPTANCE_CRITERIA §10.1 row 10 file-count + content threshold |
+| 11 | **3-test-bed dogfooding to PRODUCTION registry graphs PASSES** — TB-1 AgentContract + TB-2 Schema + TB-3 MethodologyCommitment (DP#26 carve-out) all write HTTP 200/204 + readback ≥11 mandatory triples + TB-3 includes `n_a_rationale` literal + spec_registry.write.event JSONL rows ≥3 | `outputs/be_b_dogfooding_results.json` `all_3_pass: true` + per-TB rows with `success: true` + JSONL grep `spec_registry.write.event` count ≥3 | ACCEPTANCE_CRITERIA §10.1 row 11 3-TB threshold + Brief 4 KT-3 firing surface evaluation |
+| 12 | **govML v2.8.3 VERSION bump + CHANGELOG entry** at `~/ml-governance-templates/VERSION` head; backwards-compat preserved (17 legacy projects unmodified) | `head -1 ~/ml-governance-templates/VERSION` matches v2.8.3 header; `git -C ~/ml-governance-templates status --short` shows only VERSION + scripts/init_project.sh + templates/build/spec_registry/ additions | ACCEPTANCE_CRITERIA §10.1 row 12 version-bump + backwards-compat threshold |
+
+### §10.3 BE-B Invariants (rows 7-9)
+
+| # | Invariant | When checked | If violated |
+|---|---|---|---|
+| 7 | **govML `install_spec_registry_authoring_discipline()` is idempotent** — re-running install on same project_dir leaves state unchanged + does not error (subsequent runs are no-ops on already-installed files) | At fresh-scaffold smoke + at any re-install operation | halt-and-surface; idempotence is structural requirement per HC #45 (Cycle-15-S3 array-extension precedent) |
+| 8 | **Wrapper enforces DP#26 n_a_rationale per HC-07** — `register_spec(..., runtime_emit_event_class="n/a")` REFUSES if `n_a_rationale` empty/absent; emits `spec_registry.shacl_refusal.event` with `refusal_class: dp26_n_a_rationale_missing` | At every `register_spec` invocation where field 11 starts with "n/a" | refuse-on-violation per DP#44 halt-and-surface; ValueError raised; no partial write to /cycle6 |
+| 9 | **Author refusals categorized per 4-class taxonomy + JSONL-recorded** per substrate §3 (a)/(b)/(c)/(d) — `record_author_refusal()` validates `refusal_class` against REFUSAL_CLASSES enum + emits `spec_registry.author_refusal.event` with `kt_3_candidate_bool` derived | At every `record_author_refusal` invocation | refuse-on-violation if `refusal_class` outside enum; ValueError raised; Coach R3 R3 close-eval reads aggregated counts for Brief 4 KT-3 firing surface threshold |
+
+### §10.4 BE-B Side Effects (diff vs BE-A §4)
+
+| Surface | NEW effect at BE-B | Bounds |
+|---|---|---|
+| Filesystem writes | NEW: `cycle_16/scripts/spec_registry_authoring.py` (29.8KB) + `cycle_16/scripts/install_spec_registry_authoring_discipline.sh` (3.4KB) + `cycle_16/outputs/be_b_dogfooding_results.json` (new); EDITS to BE-A §10 appends at 5 scaffolded templates (Edit-per-section; canonical markers preserved); NEW govML `~/ml-governance-templates/scripts/init_project.sh` install_hook function (~76L additive) + call-site append (1L); NEW govML `~/ml-governance-templates/templates/build/spec_registry/` (5 files; ~70KB cumulative); govML `VERSION` v2.8.2 → v2.8.3 prepend; cycle_16 `outputs/spec_registry_events.jsonl` NEW + `outputs/build_runner_events.jsonl` append-only growth | ≤200KB cumulative new content; no existing-file body modifications outside §10 appends + init_project.sh additive call-site |
+| Database writes | NEW: SPARQL UPDATE INSERT DATA against PRODUCTION registry graphs at `/cycle6` for 3 dogfooding specs (TB-1+TB-2+TB-3); written to `<http://cycle16.local/registry/assertion>` + `<http://cycle16.local/registry/provenance>` + `<http://cycle16.local/registry/publicationInfo>` named graphs (NOT test graphs — forward-apply per "no spec lands without registry row" discipline) | 3 specs × ~13-15 triples per spec × 3 graphs = ~120 triples persisted at production registry; NO cleanup (forward-apply discipline) |
+| Network egress | Unchanged from BE-A: localhost-only Fuseki HTTP | ≤30 localhost HTTP requests across BE-B execution (3 writes × 2 ops + readbacks + smoke verifies + SHACL pre-validation HTTP calls = 0; SHACL fires in-process via pyshacl) |
+| Process / thread footprint | Unchanged from BE-A: python3 subprocess for wrapper + pyshacl + urllib | ≤2 concurrent python3 invocations; ≤30s wall-clock per invocation |
+
+### §10.5 BE-B Versioning and Promotion Hooks
+
+| Field | Value |
+|---|---|
+| **Version scheme** | Wrapper module declares no semver yet; promotes alongside BE-C gate scripts at Cycle-16-S5 (BE-C inherits BE-B `spec_registry_authoring.py` as runtime dep) |
+| **govML version** | v2.8.2 → v2.8.3 (Cycle-16-S4 BE-B paired commit; entry at `~/ml-governance-templates/VERSION`) |
+| **Promotion authority** | build-runner BUILT at BE-B (Cycle-16-S4) → Coach R3 evaluation → build-orchestrator promotion at Cycle-16-S5 BE-C consumer integration → Rex paradigm ruling required on CONTRACT_CHANGE OR KT-N firing |
+| **Promotion gates** | `build_pipeline_gate.sh` + `production_deployment_gate.sh` + `cross_system_validation_gate.sh` + `hc26_internal_smoke_gate.sh` (BE-B inherits BE-A gate stack) + NEW at BE-C: `spec_implementation_present_gate.sh` (Op 3) + `spec_implementation_session_close_gate.sh` (Op 4) |
+| **Rollback procedure** | (1) `git -C ~/ml-governance-templates reset --hard HEAD~1` (govML v2.8.3 revert per pre-paired-commit baseline); (2) `rm cycle_16/scripts/spec_registry_authoring.py cycle_16/scripts/install_spec_registry_authoring_discipline.sh cycle_16/outputs/be_b_dogfooding_results.json`; (3) `git -C ~/cycle_16_close_spec_to_implementation_gap_build checkout docs/{ARTIFACT_CONTRACT,RUNTIME_EMIT_SPEC,ACCEPTANCE_CRITERIA,DEPLOYMENT_LOG,BUILD_DECISION_LOG}.md` (revert §10 appends); (4) production registry rollback: 3 DELETE DATA queries per dogfooding spec against `/cycle6` (each removes spec's 3-graph triples); (5) `git -C ~/cycle_6_unified_substrate_build diff runtime/jena/` returns empty (Cycle 6 LOCKED preserved). Rollback NOT end-to-end tested at BE-B (forward-apply production writes are intentional per "no spec lands without registry row" discipline); rollback test deferred to BE-C if Coach R3 disposition requires |
+
+### §10.6 BE-B Change Control Triggers
+
+- BE-B 11-deliverable scope per substrate §1 — any deviation from declared scope is CONTRACT_CHANGE per Binding 7 + S155
+- govML v2.8.3 install_hook signature changes (function name, target paths, idempotence) — Rex paradigm ruling required
+- 4-class refusal taxonomy enum changes (REFUSAL_CLASSES const) — affects Coach R3 KT-3 firing-surface evaluation; CONTRACT_CHANGE required
+- 11 MANDATORY_FIELDS tuple changes — affects all downstream BE-C + per-project consumer assumptions; CONTRACT_CHANGE required
+- DP#26 n_a-rationale enforcement logic change (`_validate_dp26_carve_out`) — DP#26 carve-out BINDING per HR §3d; CONTRACT_CHANGE required
+- Production-graph forward-apply vs test-graph isolation (3-TB dogfooding writes) — affects spec-implementation-gap closure semantics; CONTRACT_CHANGE required
+
+CONTRACT_CHANGE authority = Rex paradigm ruling per Binding 7 + S155 + BUILD_DECISION_LOG §4 verbatim.
+
+### §10.7 BE-B Self-test (BEFORE shipping)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | Python wrapper imports cleanly + 5 Ops functions + record_author_refusal helper present | [x] PASS (verified: MANDATORY_FIELDS=11 / SPEC_TYPES=4 / STATUSES=5 / REFUSAL_CLASSES=4) |
+| 2 | Shell wrapper bash-syntax-clean + executable | [x] PASS (`bash -n` exit 0; chmod +x applied) |
+| 3 | govML init_project.sh install_hook function added + call-site added + bash-syntax-clean + ADDITIVE per HC #45 | [x] PASS (`grep -c install_spec_registry_authoring_discipline` returns 2; `bash -n` exit 0) |
+| 4 | govML templates/build/spec_registry/ ships 5 files | [x] PASS (`ls` shows 5 files: 4 copied + 1 obligation doc) |
+| 5 | govML VERSION bumped v2.8.2 → v2.8.3 | [x] PASS (head -1 returns v2.8.3 header) |
+| 6 | 3-TB dogfooding to PRODUCTION /cycle6 graphs all PASS (write HTTP 200/204 + readback ≥11 triples + TB-3 includes n_a_rationale) | [x] PASS (TB-1 244ms 13 triples / TB-2 218ms 13 triples / TB-3 200ms 15 triples + n_a_rationale_present=true) |
+| 7 | Fresh-scaffold smoke test confirms install_hook lands all 7 expected files | [x] PASS (`/tmp/be_b_smoke_<ts>/` ships scripts/spec_registry/{__init__.py, spec_registry_authoring.py} + docs/{schema, shapes, discipline, obligation} + outputs/spec_registry_events.jsonl empty sink + wrapper imports cleanly) |
+| 8 | BE-A §1-§3 LOCKED bodies UNMODIFIED across 5 BE-A artifacts (git diff = 0 on §1-§3 line ranges) | [x] PASS (Edit-per-section; only §10 appended) |
+| 9 | Cycle 6 LOCKED ontology body UNMODIFIED | [x] PASS (no Edits to ~/cycle_6_unified_substrate_build/runtime/jena/) |
+| 10 | HC-11 partition preserved (publishable: interface + 5-state taxonomy + DP#26 design + JSON schemas; ip-private: internal algorithm bodies + classification heuristics) | [x] PASS (project gitignored at root; explicit publishable annotations in wrapper docstring) |
+
+<!-- /gate:artifact_contract §10 -->

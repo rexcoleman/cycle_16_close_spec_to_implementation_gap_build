@@ -104,6 +104,7 @@ record the disposition decision.
 | # | Threshold (link to [ACCEPTANCE_CRITERIA](ACCEPTANCE_CRITERIA.tmpl.md) §1 row) | Verdict | Failure shape (from §4 grid) | Decision | Owner | Evidence link |
 |---|---|---|---|---|---|---|
 | — | (no FAIL or FAILS-WITH-DIAGNOSED-SHAPE rows at BE-A close — all 6 ACCEPTANCE_CRITERIA §1 thresholds PASS per 3-test-bed smoke + pyshacl conforming/non-conforming verdicts) | PASS-all | n/a | n/a | build-runner | `outputs/cross_system_validation_be_a.json` |
+| 2 | ACCEPTANCE_CRITERIA §10.1 rows 7-12 (BE-B 6 thresholds) | PASS-all | n/a (all 6 PASS; no FAIL diagnosed) | BE-B BUILT verdict at Cycle-16-S4 paired-commit; ROADMAP Phase 3 task 2 closed; Branch 4.2 BE-A-source closure landed; Brief 4 KT-3 firing surface 0 refusals → DOES NOT FIRE; Brief 3 HC-BE-A-1 refined at §10.3 (per-state conditional-readback table); govML v2.8.3 install_hook lands via fresh-scaffold smoke (7-file install per /tmp/be_b_smoke_<ts>). Pending Cycle-16-S5 BE-C TWO-surface BLOCKING gate consumer integration. | build-runner | `outputs/be_b_dogfooding_results.json` (all_3_pass=true) + `outputs/spec_registry_events.jsonl` (≥3 spec_registry.write.event rows) + `~/ml-governance-templates/VERSION` v2.8.3 + DEPLOYMENT_LOG §2 row 2 BUILT entry |
 
 <!-- /gate:build_decision_log §2 -->
 

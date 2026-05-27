@@ -2,116 +2,169 @@ gpd_return:
   agent_id: build-runner
   status: completed
   files_written:
+    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/scripts/spec_registry_authoring.py
+    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/scripts/install_spec_registry_authoring_discipline.sh
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/ARTIFACT_CONTRACT.md
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/RUNTIME_EMIT_SPEC.md
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/ACCEPTANCE_CRITERIA.md
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/DEPLOYMENT_LOG.md
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/BUILD_DECISION_LOG.md
-    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/spec_registry_schema.ttl
-    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/spec_registry_shapes.shacl.ttl
-    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/spec_authoring_discipline.md
+    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/spec_registry_events.jsonl
+    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/be_b_dogfooding_results.json
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_events.jsonl
-    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/cross_system_validation_be_a.json
-    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/be_a_smoke_fixture_conforming.ttl
-    - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/be_a_smoke_fixture_nonconforming.ttl
     - /home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_envelope.yaml
+    - /home/azureuser/ml-governance-templates/scripts/init_project.sh
+    - /home/azureuser/ml-governance-templates/VERSION
+    - /home/azureuser/ml-governance-templates/templates/build/spec_registry/spec_registry_authoring.py
+    - /home/azureuser/ml-governance-templates/templates/build/spec_registry/spec_registry_schema.ttl
+    - /home/azureuser/ml-governance-templates/templates/build/spec_registry/spec_registry_shapes.shacl.ttl
+    - /home/azureuser/ml-governance-templates/templates/build/spec_registry/spec_authoring_discipline.md
+    - /home/azureuser/ml-governance-templates/templates/build/spec_registry/SPEC_AUTHORING_DISCIPLINE.md
   confidence: HIGH
   provenance:
-    parent_cycle_lock_commit: "9300c86 (Cycle-16-S1 close: Stage 0-2 LOCKED) + Cycle-16-S2 lock at SI Amendments a2f14d5 + be54a97 + badd749"
-    build_lock_commit: "(recorded at Cycle-16-S3 close paired-commit per Discipline #11 + PC #100)"
-    test_bed_id: "TB-1 AgentContract + TB-2 Schema + TB-3 MethodologyCommitment (n=3 per ACCEPTANCE_CRITERIA §3)"
+    parent_cycle_lock_commit: "6c7c62d (Cycle-16-S3 close: BE-A SHIPPED; EMABS mirror 163263b) + Cycle 16 SI ACTIVE 2026-05-27 (a2f14d5) + Amendments 2026-05-27a (be54a97) + 2026-05-27b (badd749)"
+    build_lock_commit: "(recorded at Cycle-16-S4 close 4-repo paired-commit per Rex back-port directive: cycle_16 + EMABS + Moonshots + govML)"
+    test_bed_id: "TB-1 AgentContract + TB-2 Schema + TB-3 MethodologyCommitment (n=3 per ACCEPTANCE_CRITERIA §10.3; PRODUCTION /cycle6 registry graphs forward-apply)"
     cycle_id: 16
-    artifact_kind: "schema-and-write-boundary-protocol (TTL schema + SHACL constraints + SPARQL UPDATE authoring discipline doc)"
-    invocation_interface: "SPARQL UPDATE INSERT DATA against http://localhost:3030/cycle6/update per docs/spec_authoring_discipline.md Operation 1; readback via SPARQL SELECT against http://localhost:3030/cycle6/query"
+    artifact_kind: "python-wrapper + shell-install-script + govML-install_hook + govML-templates-directory + 5-doc-§10-appends"
+    invocation_interface: "import spec_registry_authoring as sra; sra.register_spec(...) / sra.read_spec_status(...) / sra.fire_cycle_close_gate(...) / sra.fire_session_close_gate(...) / sra.supersede_spec(...) / sra.record_author_refusal(...); CLI: python3 scripts/spec_registry_authoring.py {register,read,cycle-close-gate,session-close-gate}; install: bash scripts/install_spec_registry_authoring_discipline.sh <project_dir> OR fresh-scaffold via bash ~/ml-governance-templates/scripts/init_project.sh <project_dir> --profile research-build"
     runtime_targets:
-      - "Apache Jena Fuseki PID 479112 on azure-vm-7gb (12d uptime; --config /home/azureuser/cycle_6_unified_substrate_build/runtime/jena/run/cycle6.ttl)"
-      - "/cycle6 SPARQL endpoint (Coach-verified 2026-05-27 ~19:00 UTC + Build-Runner re-verified at smoke 2026-05-27 ~19:25 UTC)"
+      - "Apache Jena Fuseki PID 479112 on azure-vm-7gb (12d uptime; /cycle6 SPARQL endpoint at http://localhost:3030/cycle6; Coach-verified 2026-05-27 + Build-Runner re-verified at BE-B 3-TB dogfooding 2026-05-27 ~19:51 UTC; HTTP 200 across 6 UPDATE + readback requests; SHACL pre-validation in-process via pyshacl 0 errors)"
+      - "Python 3.10+ with pyshacl + rdflib + urllib stdlib (verified pyshacl + rdflib importable per ARTIFACT_CONTRACT §10.1 row 7)"
+      - "Bash 5.x (verified bash -n syntax-clean on install_spec_registry_authoring_discipline.sh + govML init_project.sh post-edit)"
     smoke_test_passed: true
-    smoke_test_emit_count: 17
+    smoke_test_emit_count: 7  # cycle_16.be_b namespace events (session.start + dispatch.received + 2×phase.start + 2×phase.complete + session.end)
     smoke_test_emit_schema_valid: true
     smoke_test_details:
       tb_1_agent_contract:
         write_http: 200
-        write_ms: 257
-        readback_http: 200
-        readback_ms: 10
-        readback_triple_count: 13
-        success: true
-      tb_2_schema:
-        write_http: 200
-        write_ms: 222
+        write_ms: 244
         readback_http: 200
         readback_ms: 5
         readback_triple_count: 13
+        n_a_rationale_present: false
         success: true
-      tb_3_methodology:
+        spec_class: "AgentContract"
+        production_graph_write: true
+      tb_2_schema:
         write_http: 200
-        write_ms: 222
+        write_ms: 218
         readback_http: 200
-        readback_ms: 12
-        readback_triple_count: 14
+        readback_ms: 5
+        readback_triple_count: 13
+        n_a_rationale_present: false
         success: true
-      drop_graph_cleanup_http: 200
-      drop_graph_cleanup_ms: 186
-      shacl_conforming_fixture_conforms: true
-      shacl_nonconforming_fixture_conforms: false
-      shacl_nonconforming_violation_count: 8
+        spec_class: "Schema"
+        production_graph_write: true
+      tb_3_methodology_dp26:
+        write_http: 200
+        write_ms: 200
+        readback_http: 200
+        readback_ms: 5
+        readback_triple_count: 15
+        n_a_rationale_present: true
+        success: true
+        spec_class: "MethodologyCommitment"
+        production_graph_write: true
+      all_3_pass: true
+      spec_registry_write_event_count: 3
+      spec_registry_shacl_refusal_event_count: 0
+      spec_registry_author_refusal_event_count: 0
+      production_registry_graphs_used: true
+      govml_fresh_scaffold_smoke:
+        smoke_dir: "/tmp/be_b_smoke_1779911534"
+        files_installed_count: 7
+        wrapper_import_ok: true
+        mandatory_fields_count: 11
+        spec_types_count: 4
+        statuses_count: 5
+        refusal_classes_count: 4
+        runtime_emit_substrate_unaffected: true
     canonical_markers_baseline:
-      ARTIFACT_CONTRACT.md: 4
-      RUNTIME_EMIT_SPEC.md: 5
-      ACCEPTANCE_CRITERIA.md: 4
-      DEPLOYMENT_LOG.md: 3
-      BUILD_DECISION_LOG.md: 6
-    canonical_markers_post_edit:
       ARTIFACT_CONTRACT.md: 5
       RUNTIME_EMIT_SPEC.md: 6
       ACCEPTANCE_CRITERIA.md: 5
       DEPLOYMENT_LOG.md: 4
       BUILD_DECISION_LOG.md: 7
+    canonical_markers_post_edit:
+      ARTIFACT_CONTRACT.md: 6
+      RUNTIME_EMIT_SPEC.md: 7
+      ACCEPTANCE_CRITERIA.md: 6
+      DEPLOYMENT_LOG.md: 4
+      BUILD_DECISION_LOG.md: 7
     zero_marker_loss: true
-    max_edit_new_string_chars: 5800
+    canonical_markers_added_at_§10_close: 3  # ARTIFACT_CONTRACT + RUNTIME_EMIT_SPEC + ACCEPTANCE_CRITERIA each gained 1 new gate close-tag at §10
+    max_edit_new_string_chars: 11800  # largest §10 append (ACCEPTANCE_CRITERIA §10 with conditional-readback table); well under 15K soft + 20K hard
     artifact_metrics:
-      spec_registry_schema_ttl_triples: 112
-      spec_registry_shapes_shacl_ttl_triples: 103
-      spec_authoring_discipline_md_operations: 5
-      build_runner_events_jsonl_sha256: "18c832edb5a797106fb77ff1f2b6b088659b8ae37d842cd2b660748c2242e95d"
-    wikidata_supersedure_path_selected: "Path α (reuse c6:rank + c6:supersedesRef via subclass inheritance per substrate §3 RECOMMENDED)"
-    wikidata_supersedure_path_alternatives_considered:
-      - "Path β (additive cycle16:specRank + cycle16:supersedesSpec mirroring c6: semantics) — not needed; Path α smoke PASSED"
-      - "Path γ (modify Cycle 6 LOCKED ontology body) — FORBIDDEN per Binding 7; build-runner refused by construction"
-    hc_rp_s2_3_disposition: "RESOLVED-VIA-NAMESPACE-EQUIVALENCE (c6:rank ≡ wikibase:rank semantically; c6:supersedesRef ≡ prov:wasRevisionOf semantically; documented at FINDINGS Layer 4 honest gap candidate)"
+      spec_registry_authoring_py_bytes: 29767
+      spec_registry_authoring_py_functions_exposed: 6  # register_spec + read_spec_status + fire_cycle_close_gate + fire_session_close_gate + supersede_spec + record_author_refusal
+      install_spec_registry_authoring_discipline_sh_bytes: 3400
+      govml_install_hook_function_bytes_added: 76
+      govml_templates_build_spec_registry_files: 5
+      govml_version_bump: "v2.8.2 -> v2.8.3"
+      govml_init_project_sh_diff_numstat: "75 added, 0 removed (purely ADDITIVE per HC #45)"
+      production_cycle6_triples_persisted: 39  # 3 specs × 13 triples avg (TB-3 had 15 + TB-1+TB-2 had 13)
     cycle_6_locked_body_unmodified: true
-    govml_unmodified: true
-    moonshots_repo_only_pre_existing_modifications: true
+    govml_runtime_emit_substrate_unaffected: true
+    moonshots_repo_only_pre_existing_modifications: true  # Moonshots .claude/{agents, strategic_frame, identity}/ UNCHANGED
     hc26_internal_smoke_3_gates_all_pass: true
+    hc26_internal_smoke_details:
+      gate_1_fresh_scaffold_findability: "PASS — /tmp/be_b_smoke_<ts>/ ships 7 expected files (scripts/spec_registry/{__init__.py, spec_registry_authoring.py} + docs/{schema, shapes, discipline, SPEC_AUTHORING_DISCIPLINE.md} + outputs/spec_registry_events.jsonl) per govML install_hook"
+      gate_2_jsonl_sinks_operational: "PASS — spec_registry.write.event success_bool=true count = 3 across BE-B 3-TB dogfooding (one per TB-1 / TB-2 / TB-3); no shacl_refusal.event + no author_refusal.event captured on clean run"
+      gate_3_upstream_repos_clean: "PASS — Cycle 6 ~/cycle_6_unified_substrate_build/runtime/jena/ UNMODIFIED (git diff empty); Moonshots ~/Moonshots_Career_Thesis_v2/.claude/{agents, strategic_frame.md, identity/} UNMODIFIED"
+    brief_4_kt_3_firing_surface_classification:
+      class_a_acceptance_criteria_unclear_count: 0
+      class_b_backlog_from_same_cycle_default_count: 0
+      class_c_dp44_honest_gap_count: 0
+      class_d_n_a_rationale_unclear_count: 0
+      cumulative_a_plus_b_plus_d: 0
+      threshold_for_kt_3_fire: 3
+      kt_3_fires_at_be_b: false
+      rationale: "BE-B 3-TB dogfooding completed with 0 author refusals captured (all 3 TBs PASSED structural-enforcement + SHACL pre-validation + SPARQL UPDATE per spec_authoring_discipline §5 BIND). Cumulative (a)+(b)+(d) = 0 < threshold 3 → KT-3 DOES NOT FIRE per Brief 4 R3 threshold per substrate §3. HC #59 BINDING countermeasure: literal-vs-intent metric ambiguity NOT triggered (no refusals captured; metric unambiguous)."
     s141_binding_compliance:
       sendmessage_invocations: 0
       research_executor_invocations: 0
       run_in_background_true_invocations: 0
+    pattern_19_n_26_substrate_trajectory_observation: "BE-B internal smoke 3-gate verification fired in foreground via Bash tool against canonical-marker preservation + placeholder residue + BE-A LOCKED-body preservation + Cycle 6 LOCKED preservation + ADDITIVE-only govML diff numstat. All 5 verifications PASSED first-pass; no second-pass remediation needed within BE-B atomic dispatch. Pattern 19 evidence: n=26 cumulative kc-* PD-state-write second-pass discipline appears to extend to internal smoke verification within build-stage as well — but BE-B was a single Build-Runner dispatch (not a multi-pass kernel-coach interaction) so direct Pattern 19 extension is HYPOTHESIZED not CONFIRMED."
+    hc_be_a_1_disposition_brief_3: "REFINED at ACCEPTANCE_CRITERIA §10.3 per Brief 3 substrate §1 item 7. The BE-A acceptance criterion wording 'readback returns all 14 fields' for §1 row 4 was over-specified (actual semantics is per-state conditional-nullable). BE-B §10.3 embeds a 5-row conditional-readback table mapping each current_status enum to expected readback_triple_count: running=13, dormant-with-explicit-deferral=14, DP#26 MethodologyCommitment dormant=15, long-running=14, killed=13-14. BE-C consumer inherits this refined per-state expected count for spec_implementation_present_gate.sh + spec_implementation_session_close_gate.sh gate-fire thresholds."
+    govml_v2_8_3_landing_evidence:
+      version_file_header: "head -1 ~/ml-governance-templates/VERSION returns 'govML version log'; head -3 includes 'v2.8.3 (2026-05-27) — Cycle-16-S4 BE-B spec_registry authoring discipline deployment: spec-implementation gap closure via scaffolding-time install'"
+      init_project_sh_install_hook_function_present: true
+      init_project_sh_research_build_call_site_present: true
+      init_project_sh_bash_syntax_clean: true
+      init_project_sh_diff_purely_additive: true  # 75+ 0- per git diff --numstat
+      templates_build_spec_registry_directory_files: 5
+      fresh_scaffold_smoke_passed: true
+      backwards_compat_runtime_emit_substrate_unaffected: true
   placeholder_residue_count:
     ARTIFACT_CONTRACT.md: 0
     RUNTIME_EMIT_SPEC.md: 0
     ACCEPTANCE_CRITERIA.md: 0
     DEPLOYMENT_LOG.md: 0
     BUILD_DECISION_LOG.md: 0
-    spec_registry_schema.ttl: 0
-    spec_registry_shapes.shacl.ttl: 0
-    spec_authoring_discipline.md: 0
+    spec_registry_authoring.py: 0
+    install_spec_registry_authoring_discipline.sh: 0
+    govml_init_project_sh_install_hook: 0
+    govml_VERSION: 0
+    govml_templates_build_spec_registry_SPEC_AUTHORING_DISCIPLINE_md: 0
   self_assessment:
     AC_self_score: 8
     RE_self_score: 8
     AT_self_score: 8
     BA_self_score: 8
-    DE_self_score: 7
-    biggest_gap: "Acceptance threshold §1 row 4 originally specified 'readback_triple_count ≥ 14' but actual smoke returned 13 triples for TB-1+TB-2 (cycle16:Spec instances in 'running' state without conditional-nullable cycle_implemented/session_implemented/deferral_reason fields). Per the conditional-nullable design at §3 fields 9/10/13, this is correct — 'running' specs without implementation-complete fields return 12 non-nullable + audit_trail_link = 13; 'dormant-with-explicit-deferral' specs return 14 (adds deferral_reason). The acceptance criterion is structurally CORRECT but the threshold WORDING was over-specified. Refined in cross_system_validation_be_a.json (success = readback ≥ 13 captures the conditional-nullable semantics)."
-    contract_amendment_candidates: "§2 post-condition row 4 threshold 'readback returns all 14 fields' should be refined to 'readback returns all non-nullable fields + applicable conditional-nullable fields per current_status' for downstream BE consumer clarity. Surface to build-orchestrator at Workflow step 3 Validate."
+    DE_self_score: 8
+    biggest_gap: "BE-B forward-applies to PRODUCTION /cycle6 registry graphs (TB-1+TB-2+TB-3 specs PERSIST in <http://cycle16.local/registry/assertion> + provenance + publicationInfo named graphs without cleanup). This is intentional per the 'no spec lands without registry row' discipline + ROADMAP Phase 3 Branch 4.5 — but it means BE-B rollback procedure cannot fully restore production-registry pre-BE-B state without 3 DELETE DATA queries per spec (rollback procedure documented at ARTIFACT_CONTRACT §10.5 but NOT end-to-end tested at BE-B; deferred to BE-C if Coach R3 disposition requires). If a defect surfaces in the 3 dogfooding specs post-BE-B (e.g., wrong audit_trail_link IRI), supersedure per Operation 5 is the correct repair path (non-destructive) rather than rollback."
+    contract_amendment_candidates: "(none flagged at BE-B; Brief 3 HC-BE-A-1 wording refinement landed operationally at §10.3 rather than as CONTRACT_CHANGE per Coach pre-substrate disposition; Coach R3 may surface NEW candidates if KT-3 fires or if BE-C consumer integration finds gate-script-fire ambiguities. Open candidate: §10.3 conditional-readback table may need extension for 'killed' state retraction-audit field if BE-D retroactive scan discovers active killed specs in registry — defer to BE-D Phase 5.)"
   issues:
-    - "Acceptance criterion §1 row 4 wording over-specifies readback to '≥14 triples' when conditional-nullable fields per current_status make the correct count 13 (running) or 14 (dormant-with-explicit-deferral) — see biggest_gap. Not a FAIL; structural semantics correct; wording refinement candidate at build-orchestrator Validate step."
-    - "HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE disposition is a Build-Runner operational disposition (Path α inheritance accepted; namespace-canonicity gap documented as honest gap not function-class gap). If downstream BE-B or BE-C surfaces that consumers expect Wikidata-canonical namespace, Path β fallback is available without Cycle 6 LOCKED body modification."
-    - "Scaffolded templates at docs/ (not project root as task-context wording suggested) — Edit-per-section per build-runner.md §Canonical marker preservation BINDING preferred over Write-from-scratch; recorded as architectural choice per S132 + DP#44 surface-finding-on-write discipline. Task-context wording 'Create file (new; not yet scaffolded)' was contradicted by discovered scaffold state; build-runner.md spec overrides."
+    - "Brief 4 KT-3 firing surface classification: 0 author refusals captured at BE-B dogfooding; cumulative (a)+(b)+(d) = 0 < threshold 3 → KT-3 DOES NOT FIRE at BE-B. Coach R3 evaluates whether 0-refusal evidence is itself meaningful (BE-B authored 3 synthetic test specs against a well-specified contract; refusal threshold is intended for adversarial / real-world authoring against ambiguous specs which BE-D Phase 5 retroactive scan will exercise)."
+    - "Pattern 19 n=26 second-pass evidence: BE-B internal smoke 3-gate verification fired in single-pass without second-pass remediation. Pattern 19 directly extends from kernel-coach PD-state-write multi-pass discipline; BE-B is a single Build-Runner dispatch so observation is HYPOTHESIZED not directly CONFIRMED. Surface to Coach R3 for cumulative-arc evaluation."
+    - "HC-BE-A-1 disposition (Brief 3): REFINED at ACCEPTANCE_CRITERIA §10.3 conditional-readback per-state table (5 rows: running=13 / dormant-with-explicit-deferral=14 / DP#26-dormant=15 / long-running=14 / killed=13-14). Operational refinement (no CONTRACT_CHANGE required) per Coach pre-substrate disposition (substrate §5)."
+    - "govML v2.8.3 landing evidence: VERSION header present + install_hook function added L210+ + call-site at research-build profile branch + bash -n exit 0 + numstat 75+ 0- (purely ADDITIVE per HC #45) + fresh-scaffold smoke `/tmp/be_b_smoke_1779911534` ships 7 expected files + wrapper imports + 11 mandatory fields + 4 spec-classes + 5 statuses + 4 refusal classes. runtime_emit_substrate UNAFFECTED at fresh-scaffold smoke (verified: outputs/{kernel_coach, impl_coach, coach, build_runner}_events.jsonl all present alongside outputs/spec_registry_events.jsonl)."
+    - "Production-graph forward-apply: 3 dogfooding specs (TB-1 + TB-2 + TB-3) PERSIST at <http://cycle16.local/registry/assertion> + provenance + publicationInfo named graphs at /cycle6 endpoint. Per 'no spec lands without registry row' discipline (substrate §4 + ROADMAP Phase 3 Branch 4.5). Rollback documented but NOT end-to-end tested at BE-B; supersedure (Operation 5) is the correct repair path for defects in the 3 specs."
+    - "Task-context dispatch substrate sized at 19,591B (within HC #34 ≤20,000B cap by margin 409B). HC #51 substrate trajectory continues; first-arc-target preserved."
   next_actions:
-    - "build-orchestrator runs Workflow step 3 Validate Build-Runner Output: verify placeholder_residue_count: 0 per artifact via grep; verify canonical_markers_post_edit ≥ baseline per artifact; verify smoke_test_passed: true; verify 3-test-bed cross_system_validation_be_a.json all PASS; verify HC #26 internal smoke 3 gates all PASS at BUILD_DECISION_LOG §1.5."
-    - "Coach R3 close-eval at Cycle-16-S3 close: T1-T13 mechanical (per kc-44 PD §3.3) + DP#43 content-verification + Check #23 placeholder + HC #26 internal smoke 3-gate + HC #59 BINDING countermeasure + refuse-on-missing-precondition per DP#44."
-    - "Cycle-16-S4 BE-B dispatch: consume ARTIFACT_CONTRACT §2 post-conditions + spec_authoring_discipline.md 5-substrate-operations + run forward-apply dogfooding on the spec_authoring_check.sh gate body authoring (no spec lands without registry row + target_session + emit-event wired); KT-3 firing surface evaluation."
-    - "Cycle-16-S5 BE-C dispatch: author scripts/spec_implementation_present_gate.sh + scripts/spec_implementation_session_close_gate.sh per ROADMAP Phase 4; H6 + KT-4 evaluation surface."
-    - "Cross-System-Validator at Workflow step 4 + Promotion-Gate Stack at Workflow step 5 (build-orchestrator scope; NOT Build-Runner per build-runner.md §Step 6)."
+    - "Coach R3 close-eval at Cycle-16-S4 close: T1-T13 mechanical (per kc-44 PD §3.3 + Cycle 16 T9-T13 KT-1..KT-6 matrix) + DP#43 content-verification (`grep -c '{{'` = 0 verified on all §10 appends; spot-read ≥3 rows per appended §10 verified) + Coach Check #23 (placeholder + spot-check at §10 appends verified) + HC #26 internal smoke 3-gate (scaffold + JSONL sinks + upstream repos clean — all PASS verified) + Brief 4 KT-3 firing surface evaluation (classify 0 refusals; (a)+(b)+(d) cumulative = 0 < threshold 3 → KT-3 DOES NOT FIRE) + HC #59 BINDING countermeasure operative at any threshold-metric ambiguity (no ambiguity at BE-B) + refuse-on-missing-precondition per DP#44 + S132 (no refusals; clean dispatch)."
+    - "Cycle-16-S4 close 4-repo paired-commit per Rex back-port directive 2026-05-27: (a) cycle_16 §10 appends at 5 BE-A artifacts + 2 NEW scripts + 3 NEW outputs/ files + state.json transition + DECISION_LOG D-S4-N entry; (b) EMABS state.json mirror per PC #100; (c) Moonshots handoff §1dl + S4 substrate (already present) + S4 22-PRC + S5 transition prompt + coach_warmup.md S4 update; (d) govML init_project.sh install_hook + templates/build/spec_registry/ NEW directory + VERSION v2.8.3 bump. Pre-commit `git pull --rebase origin main` per repo. Push-verify per repo."
+    - "Cycle-16-S5 BE-C TWO-surface BLOCKING gate build dispatch per ROADMAP Phase 4 + Branch 4.3 + Done #7: author `scripts/spec_implementation_present_gate.sh` (Operation 3 ASK wrap) + `scripts/spec_implementation_session_close_gate.sh` (Operation 4 ASK wrap) per Cycle 14 four-gate skeleton extension. Same govML back-port hardening (NEW install_spec_implementation_gates() at init_project.sh v2.8.4). BE-B §10 ARTIFACT_CONTRACT post-conditions 7-12 + spec_registry_authoring.py wrapper are S5 BE-C inputs. Brief 3 §10.3 conditional-readback table feeds BE-C gate-fire per-state thresholds."
+    - "Cross-System-Validator at Workflow step 4 + Promotion-Gate Stack at Workflow step 5 (build-orchestrator scope; NOT Build-Runner per build-runner.md §Step 6). BE-A + BE-B combined validation surface at Cycle-16-S5 BE-C close (TB-1+TB-2+TB-3 dogfooding evidence + production-registry triples + govML v2.8.3 smoke)."
+    - "HC-BE-A-2 Layer 4 namespace-equivalence honest-gap documentation carry: TB-3 MethodologyCommitment dogfooding spec PERSISTS at /cycle6 production registry as `cycle16:spec_<UUID>` with `current_status=cycle16:dormant-with-explicit-deferral` + `deferral_reason='Layer 4 promotion lives in citation chain not code per DP#26 carve-out'` + `n_a_rationale='Methodology promotion lives entirely in documentation+citation chain per DP#26'` — registry row CONFIRMS Layer 4 carry binding structurally; FINDINGS Layer 4 documentation update at cycle-16-close is the operational consequence."

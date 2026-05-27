@@ -213,3 +213,107 @@ print('CALIBRATION PASS')
 | 6 | Schema version (§0) is locked at promotion commit | [x] (schema_version `0.1` in every event row; locked at Cycle-16-S3 close paired-commit per Discipline #11) |
 
 > If any check is `[ ]`, halt-and-surface; do NOT promote to production.
+
+---
+
+## §10 BE-B H7 Cycle 16 Branch 4.2 BE-A-source Authoring Discipline Emit Schema Append
+
+<!-- gate:runtime_emit_spec §10 required -->
+
+Per Cycle-16-S4 BE-B dispatch substrate §1 item 6 + §3 4-class refusal taxonomy + Cycle 14 §10 emit-schema precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) unchanged. 3 NEW event classes for spec_registry authoring discipline.
+
+### §10.0 BE-B Emit Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Sink (new)** | `~/cycle_16_close_spec_to_implementation_gap_build/outputs/spec_registry_events.jsonl` (append-only; created at BE-B fresh-scaffold install per `install_spec_registry_authoring_discipline()` govML v2.8.3 hook) |
+| **Namespace (new)** | `cycle_16.be_b.spec_registry` (per-pipeline + per-cycle + per-BE scope; namespace-isolated from BE-A `cycle_16.be_a.spec_registry` per Cycle 10 rule_6 + rule_8 + rule_10 + rule_12 namespace-isolation invariants) |
+| **Schema version** | `0.1` (locked at Cycle-16-S4 close paired-commit) |
+| **Min events per run** | `3` (≥1 per dogfooding TB write = 3 baseline; plus 0-N shacl_refusal / author_refusal events depending on dogfooding success path) |
+
+### §10.1 BE-B Event Schema (3 NEW event classes)
+
+| Event class | Trigger | Required fields | Optional fields | Cardinality per run |
+|---|---|---|---|---|
+| `spec_registry.write.event` | At each successful `register_spec()` invocation (UPDATE INSERT DATA HTTP 200/204; SHACL pre-validation PASS; structural-enforcement PASS) | `schema_version`, `namespace`, `event_class`, `timestamp`, `run_id`, `payload.spec_id`, `payload.graph_iri`, `payload.sparql_query_hash` (sha256 of query body), `payload.http_status_code`, `payload.response_time_ms`, `payload.triple_count_delta`, `payload.accessPermission_value_set`, `payload.success_bool` | `payload.test_bed_id` ∈ {TB-1, TB-2, TB-3} | at-least-once per `register_spec` PASS |
+| `spec_registry.shacl_refusal.event` | At `register_spec()` refuse-on-violation: missing mandatory field / enum violation / DP#26 n_a_rationale absent / SHACL polymorphism violation | `schema_version`, `namespace`, `event_class`, `timestamp`, `run_id`, `payload.refusal_class` ∈ {missing_mandatory_fields, enum_violation, dp26_n_a_rationale_missing, shacl_violation}, `payload.spec_partial` (sanitized dict) | `payload.shacl_report_excerpt` (≤2000 chars), `payload.missing_fields`, `payload.errors`, `payload.error`, `payload.spec_iri` | 0 expected on clean run; 1+ per refused write |
+| `spec_registry.author_refusal.event` | At `record_author_refusal()` invocation per Brief 4 KT-3 firing surface (author-side, NOT wrapper-side) | `schema_version`, `namespace`, `event_class`, `timestamp`, `run_id`, `payload.refusal_class` ∈ REFUSAL_CLASSES {acceptance_criteria_unclear, backlog_from_same_cycle_default, dp44_honest_gap, n_a_rationale_unclear}, `payload.rationale`, `payload.spec_partial`, `payload.kt_3_candidate_bool` | n/a | 0+ per session; Coach R3 close-eval aggregates per class |
+
+### §10.2 BE-B Measurement Hook (consumed by ACCEPTANCE_CRITERIA §10)
+
+**Metric A_BE_B: Total spec_registry.write.event success count** (post-condition #11 + 3-TB threshold)
+```bash
+python3 -c "import json; events=[json.loads(l) for l in open('outputs/spec_registry_events.jsonl')]; n=len([e for e in events if e['event_class']=='spec_registry.write.event' and e['payload'].get('success_bool')==True]); print(n)"
+```
+Expected at BE-B close: ≥3 (one per TB-1+TB-2+TB-3 dogfooding write).
+
+**Metric B_BE_B: Per-refusal-class distribution** (Brief 4 KT-3 firing-surface evaluation)
+```bash
+python3 -c "import json, collections; events=[json.loads(l) for l in open('outputs/spec_registry_events.jsonl')]; c=collections.Counter(e['payload'].get('refusal_class','UNSET') for e in events if e['event_class']=='spec_registry.author_refusal.event'); print(dict(c))"
+```
+Coach R3: (a) acceptance_criteria_unclear + (b) backlog_from_same_cycle_default + (d) n_a_rationale_unclear cumulative ≥3 → KT-3 FIRES; only (c) dp44_honest_gap → KT-3 DOES NOT FIRE.
+
+**Metric C_BE_B: shacl_refusal count by class** (DP#26 carve-out enforcement evidence)
+```bash
+python3 -c "import json, collections; events=[json.loads(l) for l in open('outputs/spec_registry_events.jsonl')]; c=collections.Counter(e['payload'].get('refusal_class','UNSET') for e in events if e['event_class']=='spec_registry.shacl_refusal.event'); print(dict(c))"
+```
+
+### §10.3 BE-B Refusal-on-Violation (extension to §3)
+
+| Failure mode | Refusal behavior | Surface |
+|---|---|---|
+| `register_spec` missing mandatory field | halt-and-surface; emit `spec_registry.shacl_refusal.event` with `refusal_class: missing_mandatory_fields` + `missing_fields` list; ValueError raised; no write to /cycle6 | `outputs/spec_registry_events.jsonl` + caller stderr |
+| `register_spec` enum violation (spec_type / current_status / access_permission outside enum) | halt-and-surface; emit `spec_registry.shacl_refusal.event` with `refusal_class: enum_violation`; ValueError raised | same |
+| `register_spec` DP#26 carve-out violation (`runtime_emit_event_class` starts "n/a" AND `n_a_rationale` empty) | halt-and-surface per HC-07 every-claim-traces-to-evidence BINDING; emit `spec_registry.shacl_refusal.event` with `refusal_class: dp26_n_a_rationale_missing`; ValueError raised | same |
+| `register_spec` SHACL polymorphism violation at write boundary | halt-and-surface per `spec_authoring_discipline §5 BIND`; emit `spec_registry.shacl_refusal.event` with `refusal_class: shacl_violation` + truncated SHACL report; ValueError raised | same |
+| `record_author_refusal` refusal_class outside REFUSAL_CLASSES enum | ValueError raised; no JSONL emit (refusal-class validation is wrapper-entry) | caller stderr |
+| HTTP non-200/204 on `register_spec` UPDATE write | halt-and-surface; emit `spec_registry.write.event` with `success_bool: false` (still recorded for audit) + raise per Operation 1 invocation contract | same |
+
+### §10.4 BE-B Append-only Discipline (extension to §4)
+
+Same invariant as §4: append-only at `outputs/spec_registry_events.jsonl`. New events INCLUDE prior-event `supersedes:` field only when a write needs correction (e.g., per-spec re-author after refusal). Per spec_authoring_discipline §4 Operation 5 supersedure pattern, non-destructive supersedure at the registry layer preserves audit trail; emit-event layer mirrors structurally.
+
+### §10.5 BE-B Calibration Hook (extension to §5)
+
+```bash
+# Calibration fixture: 3 BE-B dogfooding TBs + n_a_rationale enforcement smoke
+python3 -c "
+import sys; sys.path.insert(0, 'scripts')
+import spec_registry_authoring as sra
+
+# DP#26 enforcement smoke: should refuse
+try:
+    sra.register_spec({
+        'spec_type':'MethodologyCommitment',
+        'owner':'calibration_smoke',
+        'acceptance_criteria':'calibration_check',
+        'target_session':'cycle-16-close',
+        'current_status':'dormant-with-explicit-deferral',
+        'cycle_authored':16,
+        'session_authored':'Cycle-16-S4',
+        'runtime_emit_event_class':'n/a',
+        'dormancy_detection_threshold_sessions':3,
+        'audit_trail_link':'activity_calibration_smoke',
+        'access_permission':'publishable',
+    }, project_dir='.')
+    print('CALIBRATION FAIL: DP#26 enforcement skipped n_a_rationale check')
+except ValueError as e:
+    if 'n_a_rationale' in str(e) or 'DP#26' in str(e):
+        print('CALIBRATION PASS')
+    else:
+        print(f'CALIBRATION FAIL: unexpected ValueError: {e}')
+"
+```
+
+### §10.6 BE-B Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | 3 NEW event classes have triggers + required fields specified | [x] PASS (write.event + shacl_refusal.event + author_refusal.event) |
+| 2 | Measurement hooks A_BE_B + B_BE_B + C_BE_B reproduce same value across two independent operators (deterministic JSONL aggregations) | [x] PASS (Python one-liners against same file = deterministic) |
+| 3 | Refusal-on-violation wired for 6 failure modes (4 SHACL refusal subclasses + author refusal + HTTP non-200) | [x] PASS (per §10.3 table) |
+| 4 | Append-only discipline verified at sink (`wc -l outputs/spec_registry_events.jsonl` strictly increasing across BE-B 3-TB dogfooding) | [x] PASS (3 write.events appended at smoke) |
+| 5 | Calibration hook fires PASS on DP#26 carve-out smoke fixture | [x] PASS (ValueError raised + DP#26 keyword match) |
+| 6 | Schema version `0.1` locked at Cycle-16-S4 close paired-commit | [x] PASS (recorded in every event row) |
+
+<!-- /gate:runtime_emit_spec §10 -->
