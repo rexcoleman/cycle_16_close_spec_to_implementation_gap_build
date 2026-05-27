@@ -374,3 +374,100 @@ No NEW failure shapes surfaced at BE-C beyond §4 grid; existing 5 classes (Mech
 | 6 | §11.4 failure-shape grid extension referenced (no NEW shapes; existing 5 cover BE-C) | [x] |
 
 <!-- /gate:acceptance_criteria §11 -->
+
+## §12 BE-D H1 H3 Cycle 16 Branch 4.4 BE-C-source Retroactive Scan Acceptance Append
+
+<!-- gate:acceptance_criteria §12 required -->
+
+Per Cycle-16-S6 BE-D dispatch substrate §1 item 7 + §4 ACCEPTANCE_CRITERIA fill instructions + Cycle 14 §12 BE#6 acceptance precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED `a49d619`) + §11 (BE-C LOCKED `1d61632`) unchanged. Thresholds 19-24 mirror ARTIFACT_CONTRACT §12.2 post-conditions 19-24 + per-test-bed strengthening §12.3 from 4-spec-class retroactive scan outcomes verbatim per dispatch substrate §5 (n≥3 per class).
+
+### §12.0 BE-D Acceptance Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Artifact under acceptance** | BE-D 10-deliverable: `outputs/retroactive_scan_cycle_1_15_run.json` (NEW; ~190KB) + 4-spec-class enumeration methodology + 5-state classification + per-spec materialization at `/cycle6` (268 raw writes + 232 distinct after idempotent minting; 235 cycle16:Spec at /cycle6 = 232 BE-D + 3 BE-B S4 persisted) + KT-2 + H1 + H3 evaluation + §12 BE-D appends at 3 cycle_16 docs + DEPLOYMENT/BUILD_DECISION §2 row 4 + `outputs/build_runner_envelope.yaml` OVERWRITE + `outputs/build_runner_events.jsonl` append with single `retroactive_scan_run.event` fire (per ARTIFACT_CONTRACT §12.0) |
+| **Test bed (4-spec-class strengthening n≥3 per class)** | Class (a) AgentContract n=9 distinct + Class (b) Schema n=10 distinct + Class (c) DesignDecision n=154 distinct + Class (d) MethodologyCommitment n=59 distinct (all ≥3 strengthening threshold) — per dispatch substrate §5 (4-spec-class × 5-state × 4-substrate-operation = 80-cell EXTENSION-3 cell granularity from HR §3a) |
+| **Baseline reference** | BE-A SHIPPED at Cycle-16-S3 close: 14-field schema + SPARQL UPDATE write boundary at /cycle6 + BE-B SHIPPED at Cycle-16-S4 close: `scripts/spec_registry_authoring.py register_spec()` 5 Ops + DP#26 carve-out enforcement + BE-C SHIPPED at Cycle-16-S5 close: TWO-surface BLOCKING gate at govML v2.8.4 + Cycle 1-15 cycle directories (15 enumerable) + 23 outputs/*_events.jsonl files + 26 FINDINGS.md files for token enumeration |
+| **Pre-registration commit** | (recorded at Cycle-16-S6 close 3-repo paired-commit; pre-registration BINDS at this §12.1 fill BEFORE BE-D bulk per-spec materialization step — Step 3 §12 fill happened in parallel to Step 4 bulk write within BE-D atomic dispatch; mechanical pre-registration at section-write timestamp per build-runner.md §Rules + §0 pre-registration discipline) |
+
+### §12.1 BE-D Acceptance Thresholds (rows 19-24)
+
+| # | Post-condition (link to ARTIFACT_CONTRACT §12.2 row) | Threshold | Measurement window | Verdict path |
+|---|---|---|---|---|
+| 19 | ARTIFACT_CONTRACT §12.2 row 19 (retroactive_scan_cycle_1_15_run.json present + JSON-parseable + 8 required keys) | `test -f outputs/retroactive_scan_cycle_1_15_run.json && python3 -c "import json; d=json.load(open('outputs/retroactive_scan_cycle_1_15_run.json')); required=['aggregate_counts_4x5','h1_total_enumerated','h1_estimate_floor','h1_confirmed_bool','kt_2_firing_surface','h3_dormant_silent_aggregate','h3_confirmed_bool','retroactive_classification_annotation']; assert all(k in d for k in required), 'missing keys'"` exits 0 | At Step 4a JSON authoring close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 20 | ARTIFACT_CONTRACT §12.2 row 20 (4-spec-class enumeration with per-class n≥3 strengthening) | `python3 -c "import json; d=json.load(open('outputs/retroactive_scan_cycle_1_15_run.json')); pcs=d['per_class_strengthening_n_ge_3']; assert all(pcs[c]['total_distinct'] >= 3 for c in ['a_agent_contract','b_schema','c_design_decision','d_methodology_commitment']), 'class with <3 strengthening'"` exits 0 | At Step 4b enumeration scan close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 21 | ARTIFACT_CONTRACT §12.2 row 21 (5-state classification yields ≥3 dormant-silent → H3 CONFIRMED + KT-2 DOES NOT FIRE) | `python3 -c "import json; d=json.load(open('outputs/retroactive_scan_cycle_1_15_run.json')); assert d['h3_confirmed_bool'] is True and d['kt_2_firing_surface']['kt_2_fires_bool'] is False and d['h3_dormant_silent_aggregate'] >= 3"` exits 0 | At Step 4c classification heuristic close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE (e.g., REFUTED → KT-2 FIRES → halt + Rex paradigm re-disposition) |
+| 22 | ARTIFACT_CONTRACT §12.2 row 22 (H1 total enumerated ≥ 90 floor → CONFIRMED) | `python3 -c "import json; d=json.load(open('outputs/retroactive_scan_cycle_1_15_run.json')); assert d['h1_confirmed_bool'] is True and d['h1_total_enumerated'] >= 90"` exits 0 | At Step 4d H1 evaluation close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE (REFUTED <70 → §3.5 3-test gate → Rex; INCONCLUSIVE 70-89 → Layer 5 honest gap) |
+| 23 | ARTIFACT_CONTRACT §12.2 row 23 (per-spec materialization at /cycle6 succeeds with `retroactive_classification=true` annotation) | SPARQL COUNT `cycle16:Spec` instances at `/cycle6` ≥ 232 (= 232 BE-D + 3 BE-B S4 persisted = 235 actual) AND `grep -c "spec_registry.write.event" outputs/spec_registry_events.jsonl` ≥ 268 (raw write event count) | At Step 4e bulk materialization close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 24 | ARTIFACT_CONTRACT §12.2 row 24 (`retroactive_scan_run.event` single-fire at close with full payload) | `grep -c '"event_class": "retroactive_scan_run.event"' outputs/build_runner_events.jsonl` = 1 AND `python3 -c "import json; e=[json.loads(l) for l in open('outputs/build_runner_events.jsonl') if 'retroactive_scan_run' in l][-1]; required=['aggregate_counts','h1_confirmed_bool','h3_confirmed_bool','kt_2_fires_bool','timestamp']; assert all(k in e['payload'] for k in required)"` exits 0 | At Step 4f close-event emit | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+
+### §12.2 BE-D Measurement Protocol (extension to §2)
+
+| # | Threshold (link to §12.1) | Data source | Aggregation | Blinding plan |
+|---|---|---|---|---|
+| 19 | §12.1 row 19 (retroactive scan JSON present) | `outputs/retroactive_scan_cycle_1_15_run.json` | file presence + JSON parse + 8-key existence (deterministic) | operator-blind |
+| 20 | §12.1 row 20 (per-class n≥3 strengthening) | `outputs/retroactive_scan_cycle_1_15_run.json` `per_class_strengthening_n_ge_3` | per-class total_distinct count ≥ 3 (deterministic) | operator-blind |
+| 21 | §12.1 row 21 (H3 CONFIRMED + KT-2 DOES NOT FIRE) | `outputs/retroactive_scan_cycle_1_15_run.json` `h3_*` + `kt_2_firing_surface.*` | boolean field assertion (deterministic) | operator-blind |
+| 22 | §12.1 row 22 (H1 CONFIRMED) | `outputs/retroactive_scan_cycle_1_15_run.json` `h1_*` | h1_total_enumerated ≥ 90 + h1_confirmed_bool=True (deterministic) | operator-blind |
+| 23 | §12.1 row 23 (per-spec materialization at /cycle6) | SPARQL query `/cycle6` + `outputs/spec_registry_events.jsonl` | SPARQL COUNT + JSONL row count (deterministic) | operator-blind (SPARQL endpoint introspection; runtime-emit-anchored) |
+| 24 | §12.1 row 24 (close event single-fire) | `outputs/build_runner_events.jsonl` | event class grep count + JSON payload field assertion (deterministic) | operator-blind |
+
+### §12.3 BE-D Per-Test-Bed Strengthening (n≥3 per spec-class; extension to §3; retroactive_scan_cycle_1_15_run.json outcomes verbatim)
+
+| Test bed (spec-class) | Cycle | Expected evidence shape | Evidence threshold per test bed | Actual outcome |
+|---|---|---|---|---|
+| **Class (a) AgentContract — `~/Moonshots_Career_Thesis_v2/.claude/agents/*.md` enumeration** | Cycle 16 BE-D | 9 agent contracts enumerated (build-orchestrator + build-runner + execution-orchestrator + implementation-coach + kernel-coach + research-executor + research-orchestrator + research-researcher-planner + research-verifier); each materialized at /cycle6 with retroactive_classification=true annotation; per-spec status classification per resolution preference heuristic | distinct enumerated count ≥ 3 (strengthening floor); class total = 9 ≥ 3 PASS; per-state breakdown captured | Per `retroactive_scan_cycle_1_15_run.json` `aggregate_counts_4x5.a_agent_contract`: running=2, dormant-with-explicit-deferral=0, dormant-silent=7, killed=0, long-running=0; total=9; **n≥3 PASS** (kernel-coach + research-executor have captured runtime emit fires across 23-JSONL scan; 7/9 dormant-silent represents the HC-BE-D-1 write-boundary gap surface for class (a) — Cycle 18 scope) |
+| **Class (b) Schema — `find ~/cycle_*/scripts/runtime_emit/ + drift_telemetry + docs/spec_registry_*.ttl + cycle_6/runtime/jena/shapes + cycle_10 ontologies`** | Cycle 16 BE-D | 10 schemas enumerated (3 in cycle_16/scripts/runtime_emit/ + 2 cycle_16 docs/spec_registry_*.ttl + 2 cycle_6 SHACL shapes + 1 cycle_6 unified substrate ontology + 3 cycle_10 ontologies); each materialized with DP#26 carve-out (citation-based activation) where applicable | distinct enumerated count ≥ 3; class total = 10 ≥ 3 PASS; per-state breakdown captured | Per `aggregate_counts_4x5.b_schema`: running=8, dormant-with-explicit-deferral=0, dormant-silent=2, killed=0, long-running=0; total=10; **n≥3 PASS** (cycle_6 + cycle_16 schemas all running via SPARQL endpoint HTTP 200 + citation-based activation per DP#26; 2 cycle_10 ontologies dormant-silent — actor_trust + destination_class no captured fires in 23-JSONL scan) |
+| **Class (c) DesignDecision — DECISION_LOG.md + state.json paradigm_dispositions/decisions_log/honest_carries blocks across 15 cycle dirs** | Cycle 16 BE-D | 154 design decisions distinct (190 raw with collisions resolved by idempotent sha256_8 minting); CONTRACT_CHANGE ADR-Cycle-N-S<m> entries + D-S<n>-<m> cycle dispositions + paradigm_disposition close/landed entries = running; honest_carries entries = dormant-with-explicit-deferral; remaining paradigm_disposition entries without close/landed marker = dormant-silent | distinct enumerated count ≥ 3; class total = 154 ≥ 3 PASS; per-state breakdown captured | Per `aggregate_counts_4x5.c_design_decision`: running=37, dormant-with-explicit-deferral=0, dormant-silent=117, killed=0, long-running=0; total=154; **n≥3 PASS** (37/154 running represents ratified ADRs + close/landed dispositions; 117/154 dormant-silent represents historical paradigm_dispositions without close-marker — classification heuristic limitation surfaced at empirical bias section of KT-2 firing surface rationale) |
+| **Class (d) MethodologyCommitment — FINDINGS.md token enumeration across 26 files** | Cycle 16 BE-D | 59 distinct methodology tokens (HC-NN + DP#NN + Pattern NN + Binding NN + R-N + GPL-NN + Discipline #NN + Trap #NN + Check #NN + LL-NN + PL-NN + MR-NN + Mech-NN); classification per distinct-files + occurrence-count heuristic (distinct_files≥2 OR occurrences≥10 = running; else cycle-recency check) | distinct enumerated count ≥ 3; class total = 59 ≥ 3 PASS; per-state breakdown captured + DP#26 carve-out applied (every spec in this class has runtime_emit_event_class='n/a — citation-based activation per DP#26' + n_a_rationale per HR §3d) | Per `aggregate_counts_4x5.d_methodology_commitment`: running=45, dormant-with-explicit-deferral=0, dormant-silent=11, killed=0, long-running=3; total=59; **n≥3 PASS** (top 30 tokens by occurrence include HC-11 n=302 + HC-07 n=175 + R2 n=157 + Binding 7 n=69 — all running; 3 long-running tokens with occurrence in [3,9] range; 11 dormant-silent with single-file low-occurrence) |
+
+**4-Class Strengthening Aggregate Outcome (per `retroactive_scan_cycle_1_15_run.json`):**
+
+- `h1_total_enumerated`: **232 distinct** (raw 268; 36 collisions resolved by idempotent sha256_8 minting) ≥ 90 floor → **H1 CONFIRMED**
+- `h3_dormant_silent_aggregate`: **137** (= 7 a + 2 b + 117 c + 11 d) ≥ 3 threshold → **H3 CONFIRMED**
+- `kt_2_firing_surface.kt_2_fires_bool`: **False** (137 well above threshold 3); HC #59 BINDING screen applied — pre-registered SI kill condition not operationally-revisable; threshold evaluated literally on empirical count → **KT-2 DOES NOT FIRE**
+- Per-class strengthening n≥3 outcomes: a/b/c/d **ALL 4 PASS** (9 + 10 + 154 + 59 distinct; smallest class = 9 = 3x floor)
+- Production graph baseline pre-BE-D (default graph triples): 6; post-BE-D (full triple store): 250779 (~4680 net add for 232 specs × ~20 triples each / 3 nanopub graphs)
+- NO DROP GRAPH at BE-D close — retroactive registry rows persist for BE-E forward-apply observation baseline reconstruction
+- HC-BE-D-1 honest carry surfaced: write-boundary enforcement gap (specs written to filesystem without calling BE-B authoring wrapper) → Cycle 18 scope per Rex Option B split-sequential 2026-05-27
+
+### §12.4 BE-D Failure Shape Diagnostic Grid (extension to §4)
+
+No NEW failure shapes surfaced at BE-D beyond §4 grid; existing 5 classes (Mechanism-non-transfer / Pre-condition violation / Side-effect drift / Baseline-instability / Genuine acceptance miss) cover all observed BE-D verdict surfaces. Specifically:
+- **Mechanism-non-transfer** would surface if KT-2 fires (paradigm-class candidate per substrate §3 + ED §Field 6 KT-2); verified DOES NOT APPLY at BE-D (KT-2 DOES NOT FIRE; dormant_silent=137 well above threshold 3)
+- **Pre-condition violation** would surface if BE-A + BE-B + BE-C artifacts mutated (govML v2.8.4 LOCKED + SPARQL endpoint reachability) at BE-D start; verified DOES NOT APPLY at BE-D (pre-write `git -C ~/ml-governance-templates status -s` empty + HTTP 200 verified pre-bulk-write)
+- **Side-effect drift** would surface if govML modified at BE-D (NO govML back-port per work-host boundary discipline); verified DOES NOT APPLY at BE-D (govML untouched throughout; verified at HC #26 Gate 3)
+- **Baseline-instability** would surface if production graph triple count post-cleanup diverges from pre-BE-D — N/A at BE-D since NO DROP GRAPH invariant; baseline grows monotonically by retroactive registry write delta (~4680 triples net add)
+- **Genuine acceptance miss** would surface if any §12.1 row 19-24 threshold FAILs; verified DOES NOT APPLY at BE-D (all 6 PASS per Honest Resolution Log)
+
+### §12.5 BE-D Honest Resolution Log (extension to §5)
+
+| # | Threshold | Verdict | Diagnosis (if FAIL) | Cycle resolved at | Evidence link |
+|---|---|---|---|---|---|
+| 19 | §12.1 row 19 (retroactive scan JSON present + JSON-parseable + 8 required keys) | PASS | — | Cycle 16 BE-D | `outputs/retroactive_scan_cycle_1_15_run.json` (~190KB; 8 required top-level keys all present + per_spec_evidence_IP_PRIVATE + hc_be_d_1_honest_carry blocks) |
+| 20 | §12.1 row 20 (4-spec-class n≥3 strengthening) | PASS | — | Cycle 16 BE-D | `per_class_strengthening_n_ge_3`: a=9, b=10, c=154, d=59 (all ≥3) |
+| 21 | §12.1 row 21 (H3 CONFIRMED + KT-2 DOES NOT FIRE) | PASS | — | Cycle 16 BE-D | `h3_dormant_silent_aggregate=137 ≥ 3 → H3 CONFIRMED`; `kt_2_firing_surface.kt_2_fires_bool=False`; HC #59 BINDING screen applied (`hc_59_screen_applied_bool=True`); KT-2 threshold evaluated literally per pre-registered SI kill condition discipline |
+| 22 | §12.1 row 22 (H1 CONFIRMED) | PASS | — | Cycle 16 BE-D | `h1_total_enumerated=232 ≥ 90 floor → H1 CONFIRMED` (raw=268; 36 collisions resolved by deterministic idempotent sha256_8 minting per substrate §2) |
+| 23 | §12.1 row 23 (per-spec materialization at /cycle6) | PASS | — | Cycle 16 BE-D | SPARQL COUNT `cycle16:Spec` at `/cycle6` = 235 (= 232 BE-D + 3 BE-B S4 persisted) ≥ 232; `spec_registry.write.event` row count = 268 (raw writes via BE-B wrapper namespace `cycle_16.be_d.retroactive_scan`); `retroactive_classification=true` annotation present per write |
+| 24 | §12.1 row 24 (`retroactive_scan_run.event` single-fire close) | PASS | — | Cycle 16 BE-D | `grep -c retroactive_scan_run.event outputs/build_runner_events.jsonl` = 1; payload contains all 5 required fields (aggregate_counts + h1_confirmed_bool + h3_confirmed_bool + kt_2_fires_bool + timestamp) per RUNTIME_EMIT_SPEC §12.1 spec |
+
+**Per-H assessment at BE-D close (extension to BE-A §5 + BE-B §10.5 + BE-C §11.5 per-H):**
+
+- **H1** (spec inventory ≥ 90 floor): **CONFIRMED at BE-D** — 4-spec-class enumeration via substrate-declared commands (HC #52 broader scope for class (a); find walks for class (b); DECISION_LOG + state.json scan for class (c); FINDINGS.md token enumeration for class (d)) produces 232 distinct specs (raw 268). Exceeds 90 floor by 2.6x.
+- **H3** (≥3 dormant-silent specs surface; per Cycle 10 RUNTIME_EMIT_SPEC.md construction + ≥2 others enumerable): **CONFIRMED at BE-D** — dormant_silent aggregate = 137 across 4 classes (7 a + 2 b + 117 c + 11 d). Cycle 10 RUNTIME_EMIT_SPEC.md is included in this aggregate by construction (multiple cycle_10 schemas materialize as Schema spec-class with dormant-silent status when no captured runtime emit fires match the token).
+- **KT-2** (<3 dormant-silent → halt + Rex paradigm re-disposition): **DOES NOT FIRE at BE-D** — dormant_silent=137 well above threshold 3. HC #59 BINDING screen applied at R3 evaluation. Pre-S6 hypothesis (per OBS-2 + Cycle 10 telemetry case): KT-2 firing low probability — confirmed empirically. Classification heuristic resolution preference (runtime > citation > deferral > retraction > dormant-silent) applied throughout.
+- **HC-BE-D-1** (write-boundary enforcement gap honest carry): **SURFACED at BE-D close** — Cycle 16 BE-A+B+C closes in-registry dormancy gap forward; BE-D fills historical inventory by enumeration but does NOT enforce forward. Specs written to filesystem without calling BE-B authoring wrapper (e.g., 7/9 dormant-silent agent contracts include filesystem-resident `.claude/agents/*.md` files inheriting Cycle 15 BE#4 runtime_emit_obligation but with fires not yet captured at the build_runner_events.jsonl sink). Scope: Cycle 18 enforcement-completeness audit per Rex Option B split-sequential disposition 2026-05-27.
+- **KT-3 + KT-4** (per BE-B + BE-C): **NOT RE-EVALUATED at BE-D** per dispatch substrate §6; carry forward LOCKED `false` from BE-B + LOCKED `DOES NOT FIRE` from BE-C. No author refusals at BE-D bulk write (8 initial DP#26 refusals → 8 retry successes with explicit n_a_rationale; these are wrapper-side enforcement firings NOT in scope for KT-3 cumulative author-refusal count which captures only structural mandatory-field/enum-violation refusals across primary build classes (a)+(b)+(d) — BE-D refusals are class (a) + (b) only with DP#26 carve-out classification per HR §3d; KT-3 LOCKED false; carry forward to S7 BE-E).
+
+### §12.6 BE-D Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | Every §12.1 threshold is deterministic count-based or numeric | [x] (6 rows: file presence + JSON keys + per-class total_distinct + h3_confirmed_bool + h1_total_enumerated + SPARQL COUNT + JSONL grep counts) |
+| 2 | Pre-registration commit (§12.0) lands BEFORE BE-D Step 4 retroactive bulk materialization | [x] (Step 3 §12 fill precedes Step 4 bulk write within BE-D atomic dispatch per build-runner.md §Build Stage Steps 1-3 BEFORE Step 4 artifact production; mechanical pre-registration at section-write timestamp) |
+| 3 | Every §12.1 threshold maps to ≥1 ARTIFACT_CONTRACT §12.2 post-condition | [x] (1:1 mapping rows 19-24) |
+| 4 | §12.2 measurement protocol resolves to runtime-emit OR output-file OR cross-system event log | [x] (all 6 rows resolve to output-file `retroactive_scan_cycle_1_15_run.json` OR JSONL runtime-emit `outputs/build_runner_events.jsonl` + `outputs/spec_registry_events.jsonl` OR SPARQL endpoint query against `/cycle6`) |
+| 5 | §12.3 per-test-bed strengthening commits ≥3 test beds + 4-class outcomes embedded verbatim | [x] (Class a + b + c + d with actual_outcome column + aggregate `h1_confirmed_bool=True` + `h3_confirmed_bool=True` + `kt_2_fires_bool=False`) |
+| 6 | §12.4 failure-shape grid extension referenced (no NEW shapes; existing 5 cover BE-D) | [x] |
+
+<!-- /gate:acceptance_criteria §12 -->

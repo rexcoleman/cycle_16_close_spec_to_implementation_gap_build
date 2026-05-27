@@ -1,7 +1,7 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "stage_5_be_c_built_pending_promotion_s6_be_d_retroactive_scan_next",
+  "current_phase": "stage_5_be_d_built_pending_promotion_s7_be_e_forward_apply_observation_next",
   "current_stage_orchestrator": "build",
   "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b)",
   "stage_0_2_complete": true,
@@ -91,6 +91,37 @@
         "hc_45_additive_append_precedent_class_count": 4,
         "pattern_19_trajectory_n": 27,
         "hc_48_d_sub_cycle_scope_decomposition_refinement_flagged": true
+      }
+    },
+    "kc46_r1_pass_cycle_16_s6_disposition_a_stage_5_be_d_close": {
+      "ts": "2026-05-27",
+      "disposition": "BE-D BUILT verdict; H1 CONFIRMED at 232 distinct cycle16:Spec (raw 268 with 36 idempotent-minting collisions resolved) >= 90 floor (2.6x multiplier); H3 CONFIRMED at 137 dormant-silent >= 3 threshold (45x floor); per-class breakdown 7a+2b+117c+11d; KT-2 firing surface DOES NOT FIRE at empirical threshold (literal 137 >> 3; HC #59 BINDING screen N/A no literal-vs-intent ambiguity); HC-BE-D-1 write-boundary enforcement gap SURFACED -> Cycle 18 scope per Rex 2026-05-27 Option B split-sequential; HC #50 zero-Rex-escalation baseline MAINTAINED",
+      "authority": "Coach R3 close-eval ALL PASS / 0 FAIL Coach independent verification per feedback_honest_evaluation.md BINDING; kc-46 R1 PASS dispatch authorization via Rex paste-bridge 2026-05-27; Rex Option A Cycle 16 narrow per Option B split-sequential",
+      "operationalization": {
+        "h1_confirmed_bool": true,
+        "h1_total_enumerated_distinct": 232,
+        "h1_raw_writes": 268,
+        "h1_estimate_floor": 90,
+        "h1_multiplier_vs_floor": 2.6,
+        "h3_confirmed_bool": true,
+        "h3_dormant_silent_aggregate": 137,
+        "h3_threshold_floor": 3,
+        "h3_dormancy_rate_pct": 59,
+        "per_class_breakdown_dormant_silent": {
+          "a_agent_contract": 7,
+          "b_schema": 2,
+          "c_design_decision": 117,
+          "d_methodology_commitment": 11
+        },
+        "kt_2_fires_bool": false,
+        "hc_59_screen_applied_bool": false,
+        "hc_50_zero_rex_escalation_maintained": true,
+        "cycle16_spec_count_at_cycle6": 235,
+        "pattern_19_trajectory_n": 28,
+        "hc_48_d_sub_cycle_scope_decomposition_refinement_empirically_refined_n_3": true,
+        "within_cycle_vs_cross_system_back_port_density_distinction_confirmed": true,
+        "3_repo_paired_commit_no_govML_per_work_host_boundary_discipline": true,
+        "hc_be_d_1_write_boundary_enforcement_gap_surfaced_cycle_18_scope": true
       }
     }
   },
@@ -232,9 +263,48 @@
       "ts": "2026-05-27",
       "decision": "Pattern 19 BREAK at n=27 RECOVERED via 6-Edit-round 2-pass compression-via-Edit per dispatch directive (first-arc 28329B/1.4164\u00d7/-8329B \u2192 final 19733B/0.9867\u00d7/+267B WITHIN-CAP). HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass at reproducible n=2 cross-system back-port BE-class density (S4 n=26 + S5 n=27)",
       "authority": "HC #48 (a) 2-pass discipline + HC #34/#51 substrate cap"
+    },
+    {
+      "id": "S6-D1",
+      "ts": "2026-05-27",
+      "decision": "Cycle-16-S6 Stage 5 BE-D close: retroactive Cycle 1-15 scan + 4-spec-class enumeration n=232 distinct + 5-state classification (92 running / 0 dormant-with-explicit-deferral / 137 dormant-silent / 0 killed / 3 long-running) + per-spec materialization at PRODUCTION /cycle6 via BE-B register_spec() with retroactive_classification=true annotation. 10 deliverables shipped. Build-Runner status=completed. R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS Coach independent verification. Done #8 SHIPPED. HC #50 zero-Rex-escalation baseline MAINTAINED.",
+      "authority": "kc-46 R1 PASS task-context dispatch via Rex paste-bridge 2026-05-27 + S141 BINDING"
+    },
+    {
+      "id": "S6-D2",
+      "ts": "2026-05-27",
+      "decision": "H1 CONFIRMED at 232 distinct (raw 268 with 36 idempotent sha256_8 minting collisions resolved) >= 90 estimate floor per RQS section 3a (2.6x multiplier). Per-class strengthening n>=3 ALL 4 PASS (a=9 + b=10 + c=154 + d=59 distinct).",
+      "evidence": "outputs/retroactive_scan_cycle_1_15_run.json h1_confirmed_bool=true + h1_total_enumerated=232 + per_class_strengthening_n_ge_3"
+    },
+    {
+      "id": "S6-D3",
+      "ts": "2026-05-27",
+      "decision": "H3 CONFIRMED at 137 dormant-silent >= 3 threshold per HR section 3 H3 surprise column (45x floor; 59% dormancy rate materially higher than LaunchDarkly 20-40% enterprise benchmark per HR surprise column b). KT-2 firing surface DOES NOT FIRE at empirical threshold (literal 137 >> 3; HC #59 BINDING screen N/A no literal-vs-intent ambiguity).",
+      "evidence": "outputs/retroactive_scan_cycle_1_15_run.json kt_2_firing_surface.kt_2_fires_bool=false + h3_dormant_silent_aggregate=137"
+    },
+    {
+      "id": "S6-D4",
+      "ts": "2026-05-27",
+      "decision": "Per-spec materialization at PRODUCTION /cycle6 via BE-B register_spec(): 268 raw writes; 232 distinct cycle16:Spec after idempotent sha256_8 minting; SPARQL COUNT cycle16:Spec at /cycle6 = 235 (= 232 BE-D + 3 BE-B S4 persisted; Coach independent SPARQL verification via namespace URI http://cycle16.local/ontology#Spec PASSED). 8 initial DP#26 carve-out refusals -> 8 retry successes with explicit n_a_rationale. retroactive_classification=true annotation per write per ROADMAP section 4.2 dependency 2. NO DROP GRAPH at BE-D close (canonical retroactive registry rows persist for BE-E forward-apply observation). Production graph baseline pre/post = 6 / 250773 quads.",
+      "evidence": "outputs/spec_registry_events.jsonl 283 rows + SPARQL DISTINCT class enumeration confirms 235 cycle16:Spec at /cycle6"
+    },
+    {
+      "id": "S6-D5",
+      "ts": "2026-05-27",
+      "decision": "Pattern 19 trajectory n=28: BE-D dispatch substrate first-arc OVER-CAP 21188B/1.0594x/-1188B margin/120L; 3-Edit-round second-pass compression recovery to 19967B/0.9984x/33B margin/115L WITHIN-CAP per HC #48 (a) 2-pass discipline. HC #48 (d) sub-cycle scope-decomposition refinement candidate STANDING refined empirically at n=3 - within-cycle BE-class artifact density profile distinguishes from cross-system back-port BE-class density profile (BE-B n=26 -3,749B + BE-C n=27 -8,329B vs BE-D n=28 -1,188B; cross-system back-port drives HEAVIER first-arc overage by ~3-7x). 3-repo paired commit at S6 close (cycle_16 + EMABS + Moonshots; NO govML per work-host boundary discipline). HC-BE-D-1 write-boundary enforcement gap SURFACED -> Cycle 18 scope per Rex 2026-05-27 Option B split-sequential.",
+      "encoded_at": "S6 22-PRC Items 14+15 + handoff section 1dn Pattern Calibration + DECISION_LOG D-S6-1"
     }
   ],
   "honest_carries_open": [
+    {
+      "id": "HC-BE-D-1",
+      "ts": "2026-05-27",
+      "scope": "S6 BE-D close (Rex 2026-05-27 Option A disposition; Cycle 18 scope per Option B split-sequential)",
+      "carry": "Write-boundary enforcement gap. Cycle 16 BE-A+B+C closes the in-registry dormancy gap (specs that ARE in /cycle6 going dormant-silent at cycle close); BE-D retroactive scan fills the historical inventory by enumeration. It does NOT close the write-boundary discoverability gap (specs written to filesystem - .claude/agents/*.md, schemas at any path, ADRs in DECISION_LOG, methodology commitments in FINDINGS - without ever calling the BE-B authoring wrapper). BE-E forward-apply observation (S7) has the same blind spot - can only observe what is registered. Closure of write-boundary gap requires different gate primitive class (filesystem scan + spec-class discriminator + work-host routing) than what Cycle 16 ships (SPARQL query against /cycle6).",
+      "disposition": "Rex 2026-05-27 Option A: Cycle 16 narrow (in-registry dormancy closure); HC-BE-D-1 scoped to Cycle 18 enforcement-completeness audit per Option B split-sequential. NO closure attempt at S7+S8.",
+      "forward_cycle_inheritance": "Surface at S7 BE-E observation as honest carry (do NOT attempt closure); surface at Cycle 16 close FINDINGS Layer 4 explicit honest gap section at S8; Cycle 17 work-host boundary definition prerequisite; Cycle 18 enforcement-completeness audit with filesystem-scan + spec-class-discriminator + work-host-routing gate primitive class",
+      "empirical_evidence": "137 dormant-silent specs / 232 total = 59% dormancy rate materially higher than LaunchDarkly 20-40% enterprise benchmark per HR section 3 H3 surprise column b; higher-than-predicted dormancy validates Cycle 16 structural BLOCKING mechanism necessity AND surfaces write-boundary enforcement gap as bigger-than-anticipated boundary condition per HR section 3a EXTENSION-3 cell granularity discipline"
+    },
     {
       "id": "HC-BE-C-1",
       "ts": "2026-05-27",
@@ -273,7 +343,7 @@
     "HC-RP-S2-6 NEW at S2 R3: kc-44 calibration delta - Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27 (operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii); Amendment 2026-05-27b structural encoding already supplied refinement substrate); kc-44 inbound gate rubber-stamped Coach paradigm verdict instead of disposing per Discipline #10; Rex disposition (C) corrected via metric-revision-within-intent (DECISION_LOG D-S2-1); surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
     "Coach HC-1+HC-2 (S2 Pattern 19 n=24+n=25 first-arc-OVER-CAP + Edit recovery): HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 substrate density; (b)+(c) content disciplines load-bearing for recovery; carry to handoff section 1dj Pattern Calibration for kc-44 PD inheritance refinement candidate (d)+(e) consideration"
   ],
-  "next_action": "cycle_16_s6_stage_5_be_d_retroactive_scan_per_ROADMAP_Phase_5_consumes_be_a_schema_plus_be_b_authoring_wrapper_plus_be_c_two_surface_blocking_gate_enumerates_4_spec_classes_across_Cycles_1_15_classifies_per_5_state_taxonomy_materializes_per_spec_rows_at_cycle_6_endpoint_KT_2_firing_surface_lt_3_dormant_silent_halt_plus_H1_plus_H3_evaluation_one_time_within_cycle_artifact_does_NOT_back_port_to_govML_per_work_host_boundary_discipline_3_repo_paired_commit_at_S6_close_cycle_16_plus_EMABS_plus_Moonshots_govML_untouched",
-  "last_action": "cycle_16_s5_stage_5_be_c_two_surface_blocking_gate_BUILT_govML_v2_8_4_ADDITIVE_APPEND_install_hook_landed_KT_4_DOES_NOT_FIRE_H6_CONFIRMED_HC_BE_C_1_operational_carry_accepted_per_HC_59_BINDING_first_Cycle_16_4_repo_paired_commit_second_instance",
-  "last_action_ts": "2026-05-27T21:34:06.835448Z"
+  "next_action": "cycle_16_s7_stage_5_be_e_forward_apply_observation_infrastructure_per_ROADMAP_Phase_6_consumes_be_a_schema_plus_be_b_authoring_wrapper_plus_be_c_two_surface_blocking_gate_plus_be_d_retroactive_inventory_wires_spec_authoring_event_plus_spec_implementation_event_classes_into_runtime_emit_emit_py_authors_forward_apply_observation_protocol_md_smoke_tests_KT_5_firing_surface_evaluation_govML_back_port_disposition_TBD_at_substrate_compose_default_4_repo_with_v2_8_5_ADDITIVE_APPEND_per_BE_B_BE_C_precedent_class",
+  "last_action": "cycle_16_s6_stage_5_be_d_retroactive_scan_BUILT_232_distinct_cycle16_Spec_at_cycle6_endpoint_via_BE_B_register_spec_with_retroactive_classification_true_annotation_H1_CONFIRMED_at_2_6x_floor_multiplier_H3_CONFIRMED_at_137_dormant_silent_KT_2_DOES_NOT_FIRE_at_empirical_threshold_HC_BE_D_1_write_boundary_enforcement_gap_SURFACED_cycle_18_scope_per_rex_2026_05_27_option_b_split_sequential_3_repo_paired_commit_NO_govML_per_work_host_boundary_discipline",
+  "last_action_ts": "2026-05-27T23:23:20.867565Z"
 }

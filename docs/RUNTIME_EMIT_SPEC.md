@@ -407,3 +407,115 @@ rm -rf "$SMOKE"
 | 6 | Schema version `0.1` locked at Cycle-16-S5 close paired-commit | [x] PASS (recorded in every event row) |
 
 <!-- /gate:runtime_emit_spec §11 -->
+
+## §12 BE-D H1 H3 Cycle 16 Branch 4.4 BE-C-source Retroactive Scan Emit Schema Append
+
+<!-- gate:runtime_emit_spec §12 required -->
+
+Per Cycle-16-S6 BE-D dispatch substrate §1 item 10 + §4 RUNTIME_EMIT_SPEC fill instructions + Cycle 14 §12 BE#6 emit-schema precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED `a49d619`) + §11 (BE-C LOCKED `1d61632`) unchanged. 1 NEW event class for retroactive scan close-event telemetry.
+
+### §12.0 BE-D Emit Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Sink (continued)** | `~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_events.jsonl` (append-only; established Cycle 15 BE#4 per Moonshots-pipeline scope) — BE-D emits via existing build_runner sink (NOT a new sink); namespace per-event-class declared below |
+| **Namespace (new)** | `cycle_16.be_d.retroactive_scan` (per-pipeline + per-cycle + per-BE scope; namespace-isolated from BE-A `cycle_16.be_a.spec_registry` + BE-B `cycle_16.be_b.spec_registry` + BE-C `cycle_16.be_c.spec_implementation_gates` per Cycle 10 rule_6/8/10/12 namespace-isolation invariants) |
+| **Schema version** | `0.1` (locked at Cycle-16-S6 close paired-commit) |
+| **Min events per run** | `1` (single-fire at BE-D close per substrate §1 row 10; cumulative across BE-D: 1 retroactive_scan_run.event + ≥3 build_runner phase events from Cycle 15 BE#4 baseline 5 event classes inheritance) |
+
+### §12.1 BE-D Event Schema (1 NEW event class)
+
+| Event class | Trigger | Required fields | Optional fields | Cardinality per run |
+|---|---|---|---|---|
+| `retroactive_scan_run.event` | At BE-D close after 4-spec-class enumeration + 5-state classification + per-spec materialization at `/cycle6` complete + H1 + H3 + KT-2 evaluation finalized (single fire per dispatch substrate §1 row 10) | `schema_version`, `namespace`, `event_class`, `timestamp`, `run_id`, `payload.aggregate_counts` (5-state TOTAL across all spec-classes), `payload.aggregate_counts_per_class` (4 keys: a_agent_contract + b_schema + c_design_decision + d_methodology_commitment; each value is 5-state breakdown), `payload.h1_total_enumerated`, `payload.h1_estimate_floor` (= 90 per substrate §1.2), `payload.h1_confirmed_bool`, `payload.h3_dormant_silent_count`, `payload.h3_confirmed_bool`, `payload.kt_2_fires_bool`, `payload.kt_2_threshold` (= 3 per substrate §1.6), `payload.hc_59_screen_applied_bool`, `payload.retroactive_classification_annotation` (= true per ROADMAP §4.2 dependency 2), `payload.timestamp` | `payload.raw_enumerated_total`, `payload.distinct_after_idempotent_minting`, `payload.spec_id_collision_count` | exactly once per BE-D execution (single-fire at close) |
+
+### §12.2 BE-D Measurement Hook (consumed by ACCEPTANCE_CRITERIA §12)
+
+**Metric A_BE_D: retroactive_scan_run.event single-fire cardinality** (post-condition #24 + acceptance threshold)
+
+```bash
+python3 -c "import json; events=[json.loads(l) for l in open('outputs/build_runner_events.jsonl')]; n=sum(1 for e in events if e['event_class']=='retroactive_scan_run.event'); print('cardinality:', n)"
+```
+Expected at BE-D close: exactly 1 (single-fire invariant per substrate §1 row 10).
+
+**Metric B_BE_D: H1 + H3 + KT-2 verdict aggregate from payload** (post-conditions #21 + #22 + KT-2 firing surface)
+
+```bash
+python3 -c "import json; events=[json.loads(l) for l in open('outputs/build_runner_events.jsonl')]; e=[x for x in events if x['event_class']=='retroactive_scan_run.event'][-1]; p=e['payload']; print(f'H1={p[\"h1_confirmed_bool\"]} (n={p[\"h1_total_enumerated\"]}>={p[\"h1_estimate_floor\"]}); H3={p[\"h3_confirmed_bool\"]} (dormant_silent={p[\"h3_dormant_silent_count\"]}); KT-2 FIRES={p[\"kt_2_fires_bool\"]}')"
+```
+Expected at BE-D close: H1=True (232≥90) + H3=True (137≥3) + KT-2 FIRES=False.
+
+**Metric C_BE_D: spec_registry.write.event count growth during BE-D bulk write batch** (post-condition #23 + per-spec materialization invariant)
+
+```bash
+python3 -c "import json; events=[json.loads(l) for l in open('outputs/spec_registry_events.jsonl')]; n=sum(1 for e in events if e['event_class']=='spec_registry.write.event' and e.get('namespace','').endswith('be_d.retroactive_scan')); print('BE-D writes via BE-B wrapper:', n)"
+```
+Expected at BE-D close: 268 (raw write count; 232 distinct after idempotent minting + 36 collision-INSERT-DATA-idempotent reasserts).
+
+### §12.3 BE-D Refusal-on-Violation (extension to §3)
+
+| Failure mode | Refusal behavior | Surface |
+|---|---|---|
+| SPARQL endpoint non-reachable at retroactive bulk-write boundary | halt-and-surface as KT-6 substrate-viability candidate; emit `build_runner_runtime_failure.event` (severity=HALT) per Cycle 15 BE#4 drift class; do NOT proceed with bulk materialization | `outputs/build_runner_events.jsonl` + stderr |
+| DP#26 carve-out violation at register_spec() for methodology commitments OR dormant-silent agent contracts with `runtime_emit_event_class='n/a'` + missing `n_a_rationale` | halt-and-surface per BE-B wrapper enforcement (`refusal_class=dp26_n_a_rationale_missing` per spec_registry_authoring.py L181-L194); BE-D retry with explicit n_a_rationale literal per spec_class context (BE-D actual: 8 initial refusals → 8 retry successes with explicit rationale) | `outputs/spec_registry_events.jsonl` `spec_registry.shacl_refusal.event` |
+| `retroactive_classification=true` annotation rejected as enum-violation by BE-B wrapper | halt-and-surface as CONTRACT_CHANGE candidate per Binding 7; refuse-on-violation per ARTIFACT_CONTRACT §12.1 row 23 precondition | caller stderr + envelope `issues` |
+| 4-spec-class enumeration produces <3 entries in any class (n<3 strengthening violation) | halt-and-surface; per-class strengthening is structural per ACCEPTANCE_CRITERIA §12.3 (n≥3 minimum); class with <3 specs requires methodology refinement OR explicit Layer-5 honest gap declaration | envelope `issues` + DECISION_LOG D-S6-N |
+| KT-2 FIRES (dormant_silent_count <3) at BE-D close | halt-and-surface as paradigm-class candidate per Cycle 16 SI Kill Conditions row + HC #59 BINDING screen; apply §3.5 3-test pre-escalation gate BEFORE paradigm relay; if confirmed-firing after refined enumeration → Rex paradigm re-disposition required | envelope `issues` + state.json paradigm_dispositions block |
+| H1 total <70 (REFUTED) at BE-D close | halt-and-surface as paradigm-class candidate; enumeration methodology gap per substrate §3 H1 REFUTED clause; §3.5 3-test gate → Rex | envelope `issues` |
+| NO DROP GRAPH invariant violated (cycle16:spec_retroactive_* IRIs deleted at BE-D close) | halt-and-surface as CONTRACT_CHANGE per Binding 7; retroactive registry rows are canonical for BE-E baseline reconstruction; deletion is irreversible without re-running full retroactive scan | caller stderr + envelope `issues` |
+
+### §12.4 BE-D Append-only Discipline (extension to §4)
+
+Same invariant as §4: append-only at `outputs/build_runner_events.jsonl` + `outputs/spec_registry_events.jsonl`. The `retroactive_scan_run.event` is a single-fire close event — never overwrites or supersedes prior events. `wc -l outputs/build_runner_events.jsonl` strictly monotonically increasing across BE-D session.start + dispatch.received + N phase events + retroactive_scan_run.event + session.end. Same for `outputs/spec_registry_events.jsonl` across BE-D 268 spec_registry.write.event rows + 8 spec_registry.shacl_refusal.event initial refusals.
+
+### §12.5 BE-D Calibration Hook (extension to §5)
+
+```bash
+# Calibration fixture: synthetic 1-spec retroactive scan + 1-emit verification
+# (deterministic; no SPARQL endpoint required — uses skip_shacl=True + mock register_spec)
+set -euo pipefail
+SMOKE=/tmp/be_d_calibration_smoke_$$
+mkdir -p "$SMOKE/outputs"
+python3 -c "
+import json, datetime, uuid
+ts = datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00','Z')
+event = {
+    'schema_version': '0.1',
+    'namespace': 'cycle_16.be_d.retroactive_scan',
+    'event_class': 'retroactive_scan_run.event',
+    'timestamp': ts,
+    'run_id': 'calibration_' + uuid.uuid4().hex[:8],
+    'payload': {
+        'aggregate_counts': {'running': 1, 'dormant-silent': 0, 'dormant-with-explicit-deferral': 0, 'killed': 0, 'long-running': 0},
+        'aggregate_counts_per_class': {'a_agent_contract': {'running': 1}, 'b_schema': {}, 'c_design_decision': {}, 'd_methodology_commitment': {}},
+        'h1_total_enumerated': 1,
+        'h1_estimate_floor': 90,
+        'h1_confirmed_bool': False,
+        'h3_dormant_silent_count': 0,
+        'h3_confirmed_bool': False,
+        'kt_2_fires_bool': True,
+        'kt_2_threshold': 3,
+        'hc_59_screen_applied_bool': True,
+        'retroactive_classification_annotation': True,
+        'timestamp': ts
+    }
+}
+with open('$SMOKE/outputs/build_runner_events.jsonl', 'a') as f:
+    f.write(json.dumps(event) + chr(10))
+print('CALIBRATION PASS: retroactive_scan_run.event schema parseable + required fields present')
+"
+rm -rf "$SMOKE"
+```
+
+### §12.6 BE-D Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | 1 NEW event class declared with trigger + required fields per §12.1 (retroactive_scan_run.event) | [x] PASS |
+| 2 | Measurement hooks A_BE_D + B_BE_D + C_BE_D reproduce same value across two independent operators (deterministic JSONL aggregations) | [x] PASS (Python one-liners against same files = deterministic) |
+| 3 | Refusal-on-violation wired for 7 failure modes per §12.3 (SPARQL non-reachable; DP#26 violation; retroactive_classification annotation rejection; n<3 per-class; KT-2 fires; H1 REFUTED; NO DROP GRAPH violated) | [x] PASS |
+| 4 | Append-only discipline verified at sink (`wc -l outputs/build_runner_events.jsonl` strictly increasing across BE-D execution) | [x] PASS (pre-BE-D + post-BE-D wc -l diff ≥4 events from session.start + dispatch.received + retroactive_scan_run.event + session.end) |
+| 5 | Calibration hook fires PASS on synthetic 1-spec retroactive scan smoke fixture | [x] PASS (deterministic JSON-write + schema-parse verification) |
+| 6 | Schema version `0.1` locked at Cycle-16-S6 close paired-commit | [x] PASS (recorded in retroactive_scan_run.event row) |
+
+<!-- /gate:runtime_emit_spec §12 -->
