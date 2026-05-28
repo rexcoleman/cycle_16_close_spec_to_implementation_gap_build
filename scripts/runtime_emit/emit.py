@@ -70,6 +70,61 @@ from typing import Optional
 SCHEMA_VERSION_DEFAULT = "0.1"
 
 
+# --- Cycle 16 BE-E forward-apply observation event class registration constants -------
+#
+# Added per Cycle-16-S7 BE-E dispatch substrate §1 item 1 (additive extension;
+# emit.py core `emit_event()` signature UNCHANGED per Cycle 10 §0 schema_version=0.1
+# LOCKED). Two NEW event classes wired into the existing emit primitive — call sites
+# pass these constants as `event_class` argument; no API break.
+#
+# Namespace: `cycle_16.be_e.forward_apply_observation` (per-pipeline + per-cycle
+# + per-BE scope; namespace-isolated from BE-A/B/C/D namespaces per Cycle 10
+# rule_6/8/10/12 invariants). Sink: `outputs/forward_apply_observation_events.jsonl`
+# (NEW; empty at scaffold; refuse-on-violation per RUNTIME_EMIT_SPEC §3 if absent).
+#
+# Authority: Cycle-16-S7 BE-E dispatch substrate + Rex disposition (C) D-S2-1 +
+# kc-46 R1 PASS task-context dispatch authorization 2026-05-27.
+SPEC_AUTHORING_EVENT_CLASS = "spec_authoring_event"
+SPEC_IMPLEMENTATION_EVENT_CLASS = "spec_implementation_event"
+
+# Cycle 16 BE-E sink-routing convention (publishable per HC-11 partition;
+# per-host enforcement routing internals are IP-private per forward_apply_observation_protocol.md §6)
+FORWARD_APPLY_OBSERVATION_NAMESPACE = "cycle_16.be_e.forward_apply_observation"
+FORWARD_APPLY_OBSERVATION_SINK_DEFAULT = "outputs/forward_apply_observation_events.jsonl"
+
+
+def forward_apply_emit(
+    sink_path: str = FORWARD_APPLY_OBSERVATION_SINK_DEFAULT,
+    event_class: str = SPEC_AUTHORING_EVENT_CLASS,
+    **extra_fields,
+) -> dict:
+    """Cycle 16 BE-E sink-routing helper for forward-apply observation events.
+
+    Convenience wrapper around `emit_event()` with BE-E namespace + sink defaults
+    bound. Accepts either `SPEC_AUTHORING_EVENT_CLASS` or `SPEC_IMPLEMENTATION_EVENT_CLASS`
+    (validated; refuses other strings per refuse-on-missing-precondition discipline).
+    Required payload fields per forward_apply_observation_protocol.md §1 are
+    caller-provided via `**extra_fields` merged into the event payload.
+
+    Refusal-on-violation: per RUNTIME_EMIT_SPEC §3 + BE-E §5, if event_class is
+    not in the 2 BE-E classes, raise ValueError (halt-and-surface). Do NOT
+    swallow the failure — orphan event class fires are evidence of write-boundary
+    bypass per HC-BE-D-1 (Cycle 18 scope).
+    """
+    if event_class not in (SPEC_AUTHORING_EVENT_CLASS, SPEC_IMPLEMENTATION_EVENT_CLASS):
+        raise ValueError(
+            f"forward_apply_emit: event_class must be one of "
+            f"{{{SPEC_AUTHORING_EVENT_CLASS!r}, {SPEC_IMPLEMENTATION_EVENT_CLASS!r}}}, "
+            f"got {event_class!r} (refuse-on-missing-precondition per RUNTIME_EMIT_SPEC §3 + BE-E §5)"
+        )
+    return emit_event(
+        sink_path=sink_path,
+        namespace=FORWARD_APPLY_OBSERVATION_NAMESPACE,
+        event_class=event_class,
+        **extra_fields,
+    )
+
+
 def _utc_ts() -> str:
     """ISO 8601 UTC timestamp with microseconds (per Cycle 10 RUNTIME_EMIT_SPEC §4 row 2)."""
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")

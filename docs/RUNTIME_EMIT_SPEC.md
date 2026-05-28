@@ -519,3 +519,129 @@ rm -rf "$SMOKE"
 | 6 | Schema version `0.1` locked at Cycle-16-S6 close paired-commit | [x] PASS (recorded in retroactive_scan_run.event row) |
 
 <!-- /gate:runtime_emit_spec §12 -->
+
+## §13 BE-E H8 Cycle 16 Branch 4.5 BE-D-source Forward-Apply Observation Emit Schema Append
+
+<!-- gate:runtime_emit_spec §13 required -->
+
+Per Cycle-16-S7 BE-E dispatch substrate §1 item 1 + §4 RUNTIME_EMIT_SPEC fill instructions + Cycle 14 §12 BE#6 emit-schema precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED `a49d619`) + §11 (BE-C LOCKED `1d61632`) + §12 (BE-D LOCKED `902f222`) unchanged. 2 NEW event classes for forward-apply observation infrastructure (`spec_authoring_event` + `spec_implementation_event`) wired into existing `scripts/runtime_emit/emit.py` primitive (additive extension; `emit_event()` core signature UNCHANGED per Cycle 10 §0 schema_version=0.1 LOCKED).
+
+### §13.0 BE-E Emit Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Sink (NEW)** | `~/cycle_16_close_spec_to_implementation_gap_build/outputs/forward_apply_observation_events.jsonl` (NEW; sink-exists invariant established at BE-E build step 4 via `touch` before first smoke emit; append-only; refuse-on-violation per RUNTIME_EMIT_SPEC §3 fires if absent at first emit attempt) — separate from BE-A/B/C/D sinks per Cycle 10 namespace-isolation invariants |
+| **Namespace (NEW)** | `cycle_16.be_e.forward_apply_observation` (per-pipeline + per-cycle + per-BE scope; namespace-isolated from BE-A `cycle_16.be_a.spec_registry` + BE-B `cycle_16.be_b.spec_registry` + BE-C `cycle_16.be_c.spec_implementation_gates` + BE-D `cycle_16.be_d.retroactive_scan` per Cycle 10 rule_6/8/10/12 invariants) |
+| **Schema version** | `0.1` (locked at Cycle-16-S7 close paired-commit; aligned with Cycle 10 BE#5 baseline schema_version) |
+| **Min events per run** | `4` (smoke-test fires 1 `spec_authoring_event` + 1 `spec_implementation_event` per synthetic spec; TB-1 + TB-2 = 4 total at BE-E close per dispatch substrate §1 row 3) |
+| **Emit primitive** | `scripts/runtime_emit/emit.py` extended ADDITIVELY with 2 NEW event class registration constants (`SPEC_AUTHORING_EVENT_CLASS` + `SPEC_IMPLEMENTATION_EVENT_CLASS`) + sink-routing helper `forward_apply_emit()` + namespace constant `FORWARD_APPLY_OBSERVATION_NAMESPACE` + sink default `FORWARD_APPLY_OBSERVATION_SINK_DEFAULT`; `emit_event()` core signature UNCHANGED per Cycle 10 §0 schema_version=0.1 LOCKED |
+
+### §13.1 BE-E Event Schema (2 NEW event classes)
+
+| Event class | Trigger | Required fields | Optional fields | Cardinality per run |
+|---|---|---|---|---|
+| `spec_authoring_event` | At every BE-B `register_spec()` SPARQL UPDATE write boundary (Operation 1 per spec_authoring_discipline.md §4); fires AFTER the write succeeds (HTTP 200 OR 204) and BEFORE the wrapper returns to caller | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_e.forward_apply_observation`), `event_class` (= `spec_authoring_event`), `timestamp` (ISO 8601 UTC), `run_id` (UUID), `payload.spec_iri`, `payload.spec_type` ∈ {AgentContract, Schema, DesignDecision, MethodologyCommitment}, `payload.cycle_authored` (integer), `payload.target_session` (string; e.g., `S7` or `n/a — retroactive`), `payload.current_status` (= `cycle16:dormant-silent` at first-write per BE-B wrapper default), `payload.access_permission` ∈ {`c6:publishable`, `c6:ip-private`} per HC-11 enforcement, `payload.prov_o_typed_edges` (4-edge object: `wasGeneratedBy` + `wasAttributedTo` + `generatedAtTime` + `wasInformedBy` per Cycle 6 BE#1 contract) | `payload.runtime_emit_event_class` (string OR `n/a — citation-based activation per DP#26` carve-out literal + `payload.n_a_rationale` per HR §3d), `payload.retroactive_classification` (boolean; true at BE-D historical scan path; false at BE-E forward-apply path) | one event per BE-B `register_spec()` invocation (1:1 with `spec_registry.write.event` in BE-B's own namespace) |
+| `spec_implementation_event` | When a spec's `cycle16:currentStatus` transitions from `cycle16:dormant-silent` (or `cycle16:dormant-with-explicit-deferral`) to `cycle16:running` via the spec's declared `cycle16:runtimeEmitEventClass` firing within the spec's declared `cycle16:dormancyDetectionThresholdSessions` window per Amendment 2026-05-27a (default ≤3 sessions) | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_e.forward_apply_observation`), `event_class` (= `spec_implementation_event`), `timestamp` (ISO 8601 UTC), `run_id` (UUID), `payload.spec_iri`, `payload.spec_type`, `payload.runtime_emit_event_class` (the class that fired; matches the spec's declared field 10), `payload.first_fire_timestamp` (ISO 8601 UTC), `payload.sessions_between_authoring_and_first_fire` (integer ≥0), `payload.dormancy_detection_threshold_sessions` (integer per spec's declared field 13), `payload.within_threshold_bool` (true if `sessions_between` ≤ threshold), `payload.status_transition` (= `dormant-silent -> running` OR `dormant-with-explicit-deferral -> running`), `payload.prov_o_typed_edges` (4-edge object per Cycle 6 BE#1) | `payload.access_permission` (carry-forward from `spec_authoring_event` for the same spec_iri), `payload.first_fire_sink_path` (e.g., `outputs/build_runner_events.jsonl`), `payload.first_fire_event_iri` (nanopub-style reference to the firing event for provenance traceback) | one event per spec status transition to `running` (single-fire per spec lifetime; spec lifecycle is monotonic: `dormant-silent -> running` once; subsequent fires of the same event_class do NOT re-fire `spec_implementation_event`) |
+
+### §13.2 BE-E Measurement Hook (consumed by ACCEPTANCE_CRITERIA §13)
+
+**Metric A_BE_E: forward_apply_observation_events.jsonl event count + class enumeration** (post-conditions #27 + smoke-test cardinality)
+
+```bash
+python3 -c "import json; events=[json.loads(l) for l in open('outputs/forward_apply_observation_events.jsonl')]; classes=sorted(set(e['event_class'] for e in events)); print('total:', len(events), 'classes:', classes)"
+```
+Expected at BE-E close: total = 4; classes = `['spec_authoring_event', 'spec_implementation_event']`.
+
+**Metric B_BE_E: PROV-O 4-typed-edges per-spec at smoke-test test graph** (post-condition #28 + Cycle 6 BE#1 inheritance verification)
+
+```bash
+python3 -c "
+import urllib.request, urllib.parse, json
+def q(query):
+    req = urllib.request.Request('http://localhost:3030/cycle6/sparql?query=' + urllib.parse.quote(query), headers={'Accept': 'application/sparql-results+json'})
+    return json.loads(urllib.request.urlopen(req, timeout=5).read().decode())
+# (note: pre-DROP measurement during smoke run only; post-BE-E close the test graph is empty per DROP cleanup)
+result = q('PREFIX prov: <http://www.w3.org/ns/prov#> SELECT (COUNT(?p) AS ?n) WHERE { GRAPH <http://cycle16.local/test/be_e_smoke> { ?spec ?p ?o . FILTER (?p IN (prov:wasGeneratedBy, prov:wasAttributedTo, prov:generatedAtTime, prov:wasInformedBy)) } }')
+print('PROV-O typed-edges count at test graph (pre-DROP):', result['results']['bindings'][0]['n']['value'])
+"
+```
+Expected during smoke run: 8 (4 typed-edges × 2 synthetic specs); at BE-E close post-DROP: 0 (test graph cleaned).
+
+**Metric C_BE_E: KT-5 firing surface evaluation count** (post-condition #30 + dispatch substrate §5 + task context Step 7)
+
+```bash
+python3 -c "
+import urllib.request, urllib.parse, json
+def q(query):
+    req = urllib.request.Request('http://localhost:3030/cycle6/sparql?query=' + urllib.parse.quote(query), headers={'Accept': 'application/sparql-results+json'})
+    return json.loads(urllib.request.urlopen(req, timeout=5).read().decode())
+result = q('''PREFIX cycle16: <http://cycle16.local/ontology#>
+SELECT (COUNT(DISTINCT ?spec) AS ?n) WHERE { GRAPH <http://cycle16.local/registry/assertion> {
+  ?spec a cycle16:Spec ; cycle16:currentStatus cycle16:dormant-silent ; cycle16:cycleAuthored 16 .
+  FILTER (!STRSTARTS(STR(?spec), \"http://cycle16.local/ontology#spec_retroactive_\"))
+} }''')
+print('KT-5 NEW Cycle-16-authored dormant-silent (BE-D IRI-prefix discriminator excluded):', result['results']['bindings'][0]['n']['value'])
+"
+```
+Expected at BE-E close: 0 (no NEW dormant-silent Cycle-16-authored specs accumulated; KT-5 DOES NOT FIRE per pre-S7 hypothesis confirmed empirically).
+
+### §13.3 BE-E Refusal-on-Violation (extension to §3)
+
+| Failure mode | Refusal behavior | Surface |
+|---|---|---|
+| `outputs/forward_apply_observation_events.jsonl` sink unwritable at first emit attempt | halt-and-surface; emit `build_runner_runtime_failure.event` (severity=HALT) per Cycle 15 BE#4 drift class; do NOT proceed with `spec_authoring_event` OR `spec_implementation_event` fires | caller stderr + envelope `issues` |
+| `forward_apply_emit()` invoked with `event_class` outside the 2 BE-E classes (`SPEC_AUTHORING_EVENT_CLASS` or `SPEC_IMPLEMENTATION_EVENT_CLASS`) | halt-and-surface; emit.py guard raises ValueError per refuse-on-missing-precondition discipline | caller stderr + envelope `issues` |
+| SHACL refuses the smoke-test synthetic spec (BE-A 14-field schema rejection at conforming fixture) | halt-and-surface per BE-A §3 SHACL refusal contract; do NOT route around with relaxed shapes; document refusal at envelope `issues` and re-author the synthetic fixture | caller stderr + envelope `issues` |
+| PROV-O typed-edge fails to propagate (`wasGeneratedBy` OR `wasAttributedTo` OR `generatedAtTime` OR `wasInformedBy` missing from `spec_authoring_event` OR `spec_implementation_event` payload OR from smoke-test test-graph spec materialization) | halt-and-surface per Cycle 6 BE#1 contract; PROV-O typed-edges are LOAD-BEARING for downstream provenance traceback; document refusal at envelope `issues` | caller stderr + envelope `issues` |
+| HC-11 access-permission enum violation at smoke-test (neither `c6:publishable` nor `c6:ip-private`) | halt-and-surface per BE-A §1 per-edge HC-11 enforcement contract; HC-11 partition declaration is structural; document refusal at envelope `issues` | caller stderr + envelope `issues` |
+| `spec_implementation_event` fires for a spec_iri that has NO prior `spec_authoring_event` in the same JSONL sink (orphan firing) | halt-and-surface per BE-E ordering invariant (authoring precedes implementation by construction); orphan implementation events are evidence of write-boundary bypass per HC-BE-D-1; surface as Cycle 18 evidence | caller stderr + envelope `issues` |
+| KT-5 FIRES (≥2 NEW Cycle-16-authored dormant-silent specs at BE-E close evaluation) | halt-and-surface per HC #59 BINDING screen + §3.5 3-test pre-escalation gate per kc-46 PD §3.5; if all 3 confirm paradigm-class, halt + executive-format surface to Rex (≤200 words per Pattern 14 + HC #43); do NOT proceed to §13 BE-E appends or commit | envelope `status: blocked` + paradigm escalation candidate |
+| Test graph DROP GRAPH cleanup fails at smoke-test close (post-DROP COUNT > 0) | halt-and-surface; smoke-test test graph leakage contaminates production registry observation; document refusal at envelope `issues` | caller stderr + envelope `issues` |
+
+### §13.4 BE-E Append-only Discipline (extension to §4)
+
+Same invariant as §4: append-only at `outputs/forward_apply_observation_events.jsonl` + `outputs/build_runner_events.jsonl` + `outputs/spec_registry_events.jsonl`. The 2 NEW event classes (`spec_authoring_event` + `spec_implementation_event`) are append-only per emit primitive contract — never overwrites or supersedes prior events. `wc -l outputs/forward_apply_observation_events.jsonl` strictly monotonically increasing across BE-E execution (0 at scaffold → 4 at BE-E smoke close → ≥4 per future cycle's forward-apply emit fires). Same for `outputs/build_runner_events.jsonl` across BE-E session.start + dispatch.received + N phase events + 1 `forward_apply_smoke.event` single-fire + session.end. Test-graph SPARQL UPDATE writes at `<http://cycle16.local/test/be_e_smoke>` are NOT append-only (DROP cleanup at smoke close); canonical production registry rows at `<http://cycle16.local/registry/assertion>` are NOT touched by BE-E smoke.
+
+### §13.5 BE-E Calibration Hook (extension to §5)
+
+```bash
+# Calibration fixture: synthetic 2-spec forward-apply emit + PROV-O typed-edges verification
+# (deterministic; SPARQL endpoint required for full smoke; test-graph scoped)
+set -euo pipefail
+SMOKE=/tmp/be_e_calibration_smoke_$$
+mkdir -p "$SMOKE/outputs"
+cd /home/azureuser/cycle_16_close_spec_to_implementation_gap_build
+python3 -c "
+import sys, os
+sys.path.insert(0, 'scripts/runtime_emit')
+from emit import forward_apply_emit, SPEC_AUTHORING_EVENT_CLASS, SPEC_IMPLEMENTATION_EVENT_CLASS, FORWARD_APPLY_OBSERVATION_NAMESPACE, FORWARD_APPLY_OBSERVATION_SINK_DEFAULT
+# Refuse-on-orphan smoke
+try:
+    forward_apply_emit(sink_path='$SMOKE/outputs/calibration.jsonl', event_class='bogus')
+    print('FAIL: should have raised ValueError')
+except ValueError as e:
+    print('CALIBRATION PASS: refuse-on-orphan-event-class triggers ValueError')
+# 1 authoring + 1 implementation emit to calibration sink
+forward_apply_emit(sink_path='$SMOKE/outputs/calibration.jsonl', event_class=SPEC_AUTHORING_EVENT_CLASS, payload={'spec_iri': 'urn:calibration:spec1', 'spec_type': 'AgentContract', 'access_permission': 'c6:publishable'})
+forward_apply_emit(sink_path='$SMOKE/outputs/calibration.jsonl', event_class=SPEC_IMPLEMENTATION_EVENT_CLASS, payload={'spec_iri': 'urn:calibration:spec1', 'status_transition': 'dormant-silent -> running'})
+import json
+events = [json.loads(l) for l in open('$SMOKE/outputs/calibration.jsonl')]
+assert len(events) == 2, f'expected 2 events, got {len(events)}'
+assert all(e['namespace'] == FORWARD_APPLY_OBSERVATION_NAMESPACE for e in events), 'namespace mismatch'
+print('CALIBRATION PASS: 2 events emitted with BE-E namespace + schema parseable')
+"
+rm -rf "$SMOKE"
+```
+
+### §13.6 BE-E Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | 2 NEW event classes declared with trigger + required fields per §13.1 (`spec_authoring_event` + `spec_implementation_event`) | [x] PASS |
+| 2 | Measurement hooks A_BE_E + B_BE_E + C_BE_E reproduce same value across two independent operators (deterministic JSONL + SPARQL aggregations) | [x] PASS (Python one-liners against same files = deterministic; SPARQL endpoint introspection deterministic for a given graph state) |
+| 3 | Refusal-on-violation wired for 8 failure modes per §13.3 (sink-unwritable + orphan event_class + SHACL refuses + PROV-O missing + HC-11 enum violation + orphan implementation event + KT-5 fires + DROP cleanup fails) | [x] PASS |
+| 4 | Append-only discipline verified at NEW sink (`wc -l outputs/forward_apply_observation_events.jsonl` = 4 strictly increasing from 0 at scaffold) | [x] PASS (pre-BE-E + post-BE-E wc -l diff = 4 events from smoke-test) |
+| 5 | Calibration hook fires PASS on synthetic 2-event smoke fixture (refuse-on-orphan + 2 valid emits to calibration sink) | [x] PASS (refuse-on-orphan raises ValueError + 2 valid events emitted with BE-E namespace + schema parseable) |
+| 6 | Schema version `0.1` locked at Cycle-16-S7 close paired-commit | [x] PASS (recorded in each forward_apply_observation event row) |
+
+<!-- /gate:runtime_emit_spec §13 -->

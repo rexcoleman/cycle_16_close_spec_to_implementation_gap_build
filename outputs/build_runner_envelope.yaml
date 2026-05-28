@@ -2,211 +2,241 @@ gpd_return:
   agent_id: build-runner
   cycle: 16
   stage: 5
-  branch_element: BE-D
-  dispatch_substrate: ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s6_be_d_dispatch_substrate.md
+  branch_element: BE-E
+  dispatch_substrate: "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s7_be_e_dispatch_substrate.md"
   status: completed
   files_written:
-    # cycle_16 8 surfaces (3-repo paired commit at S6 close: cycle_16 + EMABS + Moonshots; NO govML at BE-D per work-host boundary discipline)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/outputs/retroactive_scan_cycle_1_15_run.json
-      lines: 4790
-      bytes: 190298
-      kind: NEW (aggregate_counts_4x5 + per_spec_evidence_IP_PRIVATE + h1_confirmed_bool + h3_confirmed_bool + kt_2_firing_surface + per_class_strengthening_n_ge_3 + hc_be_d_1_honest_carry + production_graph_baseline_pre/post + retroactive_classification_annotation=true + enumeration_methodology + classification_heuristic + spec_id_minting)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/docs/ARTIFACT_CONTRACT.md
-      lines_delta: +98/0
-      kind: EDIT (§12 BE-D subsection append §12.0-§12.7; LOCKED §1-§11 preserved at 396 lines untouched)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/docs/RUNTIME_EMIT_SPEC.md
-      lines_delta: +112/0
-      kind: EDIT (§12 BE-D subsection append §12.0-§12.6 with 1 NEW event class `retroactive_scan_run.event`; LOCKED §1-§11 preserved at 409 lines untouched)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/docs/ACCEPTANCE_CRITERIA.md
-      lines_delta: +97/0
-      kind: EDIT (§12 BE-D subsection append §12.0-§12.6 with 4-spec-class strengthening n≥3 outcomes verbatim + H1 CONFIRMED + H3 CONFIRMED + KT-2 DOES NOT FIRE; LOCKED §1-§11 preserved at 376 lines untouched)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/docs/DEPLOYMENT_LOG.md
-      lines_delta: +1/0
-      kind: EDIT (§2 Promotion Event Log row 4 BE-D BUILT append; append-only; rows 1+2+3 preserved verbatim; row order 1/2/3/4 after positional swap)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/docs/BUILD_DECISION_LOG.md
-      lines_delta: +1/0
-      kind: EDIT (§2 Acceptance-Verdict Decisions row 4 BE-D PASS-all append; append-only; rows 1+2+3 preserved verbatim; row order 1/2/3/4 after positional swap)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/outputs/spec_registry_events.jsonl
-      lines_delta: +275/0
-      kind: APPEND (268 spec_registry.write.event rows from BE-D bulk namespace `cycle_16.be_d.retroactive_scan` + 8 initial spec_registry.shacl_refusal.event rows from DP#26 enforcement)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_events.jsonl
-      lines_delta: +N/0
-      kind: APPEND (1 retroactive_scan_run.event single-fire NEW event class at BE-D close + session.start + dispatch.received + phase events per Cycle 15 BE#4 5-event baseline)
-    - path: ~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_envelope.yaml
-      kind: OVERWRITE BE-C envelope with BE-D envelope per build-runner.md Step 6
-    # NOT WRITTEN (work-host boundary discipline + invariant preservation):
-    # - govML repo: UNTOUCHED at BE-D per dispatch substrate §0 + §9 (no install_hook; no scripts; no VERSION bump; no CHANGELOG)
-    # - cycle_6 LOCKED ontology body: UNMODIFIED throughout BE-D (verified pre + post)
-    # - BE-A §1-§3 + BE-B §10 + BE-C §11 LOCKED bodies: UNMODIFIED throughout BE-D (verified via Edit-per-section discipline)
-    # - cycle16:spec_retroactive_* IRIs at /cycle6: NO DROP GRAPH at BE-D close (persist for BE-E forward-apply observation baseline)
+    # cycle_16 surfaces (4-repo paired commit at S7 close per Rex back-port directive STANDING 2026-05-27)
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/runtime_emit/emit.py"
+      lines_delta: "+55/0"
+      kind: "EDIT additive; 2 NEW event class constants SPEC_AUTHORING_EVENT_CLASS + SPEC_IMPLEMENTATION_EVENT_CLASS + helper forward_apply_emit + namespace + sink default; emit_event core signature UNCHANGED per Cycle 10 schema_version 0.1 LOCKED"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/forward_apply_observation_protocol.md"
+      lines: 143
+      bytes: 19886
+      kind: "NEW 8-section protocol doc with 0 placeholders; HC-11 partition declared inline per Binding 8 BIND"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/forward_apply_observation_events.jsonl"
+      lines: 4
+      kind: "NEW sink with 4 fire.event rows from smoke-test"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/ARTIFACT_CONTRACT.md"
+      lines_delta: "+100/0"
+      kind: "EDIT section 13 BE-E append 13.0-13.7; LOCKED 0-12 preserved"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/RUNTIME_EMIT_SPEC.md"
+      lines_delta: "+126/0"
+      kind: "EDIT section 13 BE-E append 13.0-13.6 with 2 NEW event class schemas; LOCKED 0-12 preserved"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/ACCEPTANCE_CRITERIA.md"
+      lines_delta: "+93/0"
+      kind: "EDIT section 13 BE-E append 13.0-13.6 with 2-spec-class smoke + KT-5 DOES NOT FIRE + H8 surface enabled; LOCKED 0-12 preserved"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/DEPLOYMENT_LOG.md"
+      lines_delta: "+1/0"
+      kind: "EDIT section 2 row 5 BE-E BUILT append; append-only; rows 1-4 preserved; row order 1/2/3/4/5 after positional swap"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/BUILD_DECISION_LOG.md"
+      lines_delta: "+1/0"
+      kind: "EDIT section 2 row 5 BE-E PASS-all append; append-only; rows 1-4 preserved; row order 1/2/3/4/5 after positional swap"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/state.json"
+      lines_delta: "+69/1"
+      kind: "EDIT current_phase to stage_5_be_e_built_pending_promotion_s8_close_findings_authoring_next + S7-D1..D5 decisions_log + kc46_r1_pass_cycle_16_s7_disposition_a paradigm_dispositions ADDITIVE; HC-BE-D-1 honest_carries_open preserved verbatim"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/DECISION_LOG.md"
+      lines_delta: "+35/0"
+      kind: "APPEND D-S7-1 NEW row: KT-5 DOES NOT FIRE + H8 surface ENABLED + Pattern 19 trajectory n=29 + HC #45 chain extension to n=5"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_events.jsonl"
+      lines_delta: "+1/0"
+      kind: "APPEND 1 forward_apply_smoke.event single-fire NEW event class at BE-E close per substrate section 1 item 7"
+    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_envelope.yaml"
+      kind: "OVERWRITE BE-D envelope with BE-E envelope per build-runner.md Step 6"
+
+    # govML v2.8.5 ADDITIVE-APPEND back-port (HC #45 chain extension to n=5)
+    - path: "~/ml-governance-templates/scripts/init_project.sh"
+      lines_delta: "+56/0"
+      kind: "EDIT NEW install_forward_apply_observation function at L356 after install_spec_implementation_gates + research-build profile dispatch list extension at L633 ADDITIVE; LOCKED 3 existing install function bodies UNMODIFIED"
+    - path: "~/ml-governance-templates/templates/build/forward_apply_observation/FORWARD_APPLY_OBSERVATION_OBLIGATION.md"
+      bytes: 8871
+      kind: "NEW BE-E obligation doc"
+    - path: "~/ml-governance-templates/templates/build/forward_apply_observation/forward_apply_observation_protocol.md"
+      bytes: 19886
+      kind: "NEW canonical 8-section observation surface; mirrors spec_authoring_discipline.md template pattern"
+    - path: "~/ml-governance-templates/VERSION"
+      lines_delta: "+26/0"
+      kind: "EDIT v2.8.4 to v2.8.5 ADDITIVE-APPEND with new header line prepended + context block; v2.8.4 header preserved verbatim"
+    - path: "~/ml-governance-templates/CHANGELOG.md"
+      kind: "NEW v2.8.5 entry citing Cycle-16-S7 BE-E close + 4-repo paired commit + HC #45 ADDITIVE-APPEND chain n=5"
 
   confidence: HIGH
 
   provenance:
     parent_cycle_lock_commit: "a2f14d5"
     parent_amendments:
-      - "be54a97 (Amendment 2026-05-27a same-cycle deadline + ≤3-session detection)"
-      - "badd749 (Amendment 2026-05-27b KG-primary at /cycle6)"
+      - "be54a97 Amendment 2026-05-27a same-cycle deadline + 3-session detection"
+      - "badd749 Amendment 2026-05-27b KG-primary at /cycle6"
     rex_dispositions:
-      - "D-S2-1 (disposition C; KT-1 refined; full SI scope)"
-      - "D-S3-1 (BE-A SHIPPED; Path α HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE)"
-      - "D-S4-1 (BE-B SHIPPED; KT-3 DOES NOT FIRE; govML v2.8.3; HC-BE-A-1 RESOLVED §10.3)"
-      - "D-S5-1 (BE-C SHIPPED; KT-4 DOES NOT FIRE; H6 CONFIRMED; govML v2.8.4)"
-      - "Rex 2026-05-27 Option A (Cycle 16 narrow; HC-BE-D-1 write-boundary enforcement gap → Cycle 18 scope per Option B split-sequential)"
-    kc_46_r1_pass: "Cycle-16-S6 task-context dispatch authorization 2026-05-27"
-    build_lock_commit: "(recorded at Cycle-16-S6 3-repo paired commit; cycle_16 + EMABS + Moonshots; NO govML)"
+      - "D-S2-1 disposition C KT-1 refined full SI scope"
+      - "D-S3-1 BE-A SHIPPED Path alpha HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE"
+      - "D-S4-1 BE-B SHIPPED KT-3 DOES NOT FIRE govML v2.8.3"
+      - "D-S5-1 BE-C SHIPPED KT-4 DOES NOT FIRE H6 CONFIRMED govML v2.8.4"
+      - "D-S6-1 BE-D SHIPPED H1 + H3 CONFIRMED KT-2 DOES NOT FIRE HC-BE-D-1 SURFACED Cycle 18 scope"
+      - "Rex 2026-05-27 Option A Cycle 16 narrow HC-BE-D-1 Cycle 18 scope per Option B split-sequential"
+      - "Rex back-port directive STANDING 2026-05-27 Pattern 11 4-repo paired commit at Cycle-16-S7 close lands govML v2.8.5 ADDITIVE-APPEND"
+    kc_46_r1_pass: "Cycle-16-S7 task-context dispatch authorization 2026-05-27"
+    build_lock_commit: "recorded at Cycle-16-S7 4-repo paired commit cycle_16 + EMABS + Moonshots + govML"
     test_bed_ids:
-      - "Class (a) AgentContract — `ls ~/Moonshots_Career_Thesis_v2/.claude/agents/*.md` direct (HC #52 broader scope; n=9 distinct)"
-      - "Class (b) Schema — `find ~/cycle_*/scripts/runtime_emit/` + `cycle_6/runtime/jena/shapes` + `cycle_10 ontologies` + `cycle_16 docs/spec_registry_*.ttl` (n=10 distinct)"
-      - "Class (c) DesignDecision — DECISION_LOG.md + state.json paradigm_dispositions/decisions_log/honest_carries blocks across 15 cycle dirs (n=154 distinct; 190 raw with 36 idempotent-minting collisions resolved)"
-      - "Class (d) MethodologyCommitment — FINDINGS.md token enumeration across 26 files (n=59 distinct)"
+      - "TB-1 AgentContract synthetic spec to test graph cycle16.local/test/be_e_smoke with PROV-O 4-typed-edges + HC-11 c6 publishable access_permission + 14-field schema fill"
+      - "TB-2 Schema synthetic spec to test graph cycle16.local/test/be_e_smoke with PROV-O 4-typed-edges + HC-11 c6 publishable access_permission + 14-field schema fill"
     cycle_id: 16
-    artifact_kind: "pipeline"
-    invocation_interface: "python3 -c 'from spec_registry_authoring import register_spec; ...' (BE-B wrapper consumed for 268 retroactive bulk writes; namespace cycle_16.be_d.retroactive_scan)"
+    artifact_kind: "library extension + protocol-doc + jsonl-sink + 4-repo-paired-commit-back-port"
+    invocation_interface: "python3 from runtime_emit.emit import forward_apply_emit SPEC_AUTHORING_EVENT_CLASS SPEC_IMPLEMENTATION_EVENT_CLASS forward_apply_emit sink_path event_class payload BE-E sink-routing helper namespace cycle_16.be_e.forward_apply_observation sink outputs/forward_apply_observation_events.jsonl"
     runtime_targets:
-      - "bash 5+ (set -euo pipefail compatible)"
-      - "python3 3.8+ with urllib + json + pathlib + datetime + uuid + hashlib + pickle (stdlib)"
-      - "rdflib + pyshacl 0.30+ (BE-B wrapper consumes for SHACL pre-validation; skip_shacl=True at BE-D bulk for performance)"
-      - "Fuseki SPARQL endpoint at http://localhost:3030/cycle6/sparql (port 3030 reachable; verified HTTP 200 with COUNT-all query pre-BE-D bulk-write)"
+      - "bash 5+ set -euo pipefail compatible"
+      - "python3 3.8+ with urllib + json + pathlib + datetime + uuid stdlib"
+      - "Fuseki SPARQL endpoint at localhost:3030/cycle6/sparql port 3030 reachable verified HTTP 200"
     smoke_test_passed: true
-    smoke_test_emit_count: 1
+    smoke_test_emit_count: 4
     smoke_test_emit_schema_valid: true
-    retroactive_scan_aggregate_cite: "outputs/retroactive_scan_cycle_1_15_run.json (h1_total_enumerated=232 distinct; raw=268; h3_dormant_silent_aggregate=137; kt_2_fires_bool=false; per_class_strengthening_n_ge_3 all 4 PASS)"
+    smoke_test_event_classes:
+      - "spec_authoring_event x2 TB-1 AgentContract + TB-2 Schema"
+      - "spec_implementation_event x2 TB-1 + TB-2 status transitions dormant-silent to running"
+    smoke_test_prov_o_typed_edges_per_spec: 4
+    smoke_test_test_graph: "cycle16.local/test/be_e_smoke"
+    smoke_test_drop_cleanup_http_status: 200
+    smoke_test_post_drop_test_graph_count: 0
     canonical_markers_baseline:
-      ARTIFACT_CONTRACT.md: 7
-      RUNTIME_EMIT_SPEC.md: 8
-      ACCEPTANCE_CRITERIA.md: 7
-      DEPLOYMENT_LOG.md: 4
-      BUILD_DECISION_LOG.md: 7
+      ARTIFACT_CONTRACT_md: 8
+      RUNTIME_EMIT_SPEC_md: 9
+      ACCEPTANCE_CRITERIA_md: 8
+      DEPLOYMENT_LOG_md: 4
+      BUILD_DECISION_LOG_md: 7
     canonical_markers_post_edit:
-      ARTIFACT_CONTRACT.md: 8
-      RUNTIME_EMIT_SPEC.md: 9
-      ACCEPTANCE_CRITERIA.md: 8
-      DEPLOYMENT_LOG.md: 4
-      BUILD_DECISION_LOG.md: 7
+      ARTIFACT_CONTRACT_md: 9
+      RUNTIME_EMIT_SPEC_md: 10
+      ACCEPTANCE_CRITERIA_md: 9
+      DEPLOYMENT_LOG_md: 4
+      BUILD_DECISION_LOG_md: 7
     zero_marker_loss: true
-    max_edit_new_string_chars: 16500  # ARTIFACT_CONTRACT §12 append (largest single Edit; under 20K hard stop + 15K soft threshold split discipline applied via per-doc-section composition; multi-doc body split across 5 Edit invocations)
+    max_edit_new_string_chars: 17800
     numstat_verification:
-      ARTIFACT_CONTRACT.md: "+98/0 (additive-only)"
-      RUNTIME_EMIT_SPEC.md: "+112/0 (additive-only)"
-      ACCEPTANCE_CRITERIA.md: "+97/0 (additive-only)"
-      DEPLOYMENT_LOG.md: "+1/0 (append-only row 4)"
-      BUILD_DECISION_LOG.md: "+1/0 (append-only row 4)"
+      ARTIFACT_CONTRACT_md: "+100/0 additive-only"
+      RUNTIME_EMIT_SPEC_md: "+126/0 additive-only"
+      ACCEPTANCE_CRITERIA_md: "+93/0 additive-only"
+      DEPLOYMENT_LOG_md: "+1/0 append-only row 5"
+      BUILD_DECISION_LOG_md: "+1/0 append-only row 5"
+      scripts_runtime_emit_emit_py: "+55/0 additive extension; emit_event core unchanged"
+      state_json: "+69/1 1 deletion = current_phase field replaced"
+      DECISION_LOG_md: "+35/0 D-S7-1 append"
+      govML_init_project_sh: "+56/0 additive-only at install_forward_apply_observation + dispatch list"
+      govML_VERSION: "+26/0 v2.8.5 prepended; v2.8.4 preserved"
 
-  # PRIMARY VERDICTS (Brief 2 + Brief 3 + Brief 4 per dispatch substrate §3)
-  h1_verdict:
-    metric: "total enumerated spec count vs N≥90 floor"
-    h1_total_enumerated: 232  # distinct after deterministic idempotent sha256_8 minting
-    h1_raw_enumerated: 268  # raw write count before collision resolution
-    h1_collision_count: 36  # resolved by SPARQL INSERT-DATA idempotency on duplicate spec_iri
-    h1_estimate_floor: 90
-    h1_confirmed_bool: true
-    h1_verdict: CONFIRMED
-    h1_floor_multiplier: 2.6
-  h3_verdict:
-    metric: "dormant-silent aggregate count vs threshold 3"
-    h3_dormant_silent_aggregate: 137  # = 7 a + 2 b + 117 c + 11 d
-    h3_threshold: 3
-    h3_confirmed_bool: true
-    h3_verdict: CONFIRMED
-    h3_class_breakdown:
-      a_agent_contract_dormant_silent: 7  # of 9 distinct
-      b_schema_dormant_silent: 2  # of 10 distinct (cycle_10 actor_trust + destination_class no captured runtime fires)
-      c_design_decision_dormant_silent: 117  # of 154 distinct (historical paradigm_dispositions without close/landed marker)
-      d_methodology_commitment_dormant_silent: 11  # of 59 distinct (single-file low-occurrence tokens)
-  kt_2_verdict:
-    metric: "KT-2 firing surface (<3 dormant-silent → halt + Rex paradigm re-disposition)"
-    kt_2_threshold: 3
-    kt_2_actual_count: 137
-    kt_2_fires_bool: false
-    kt_2_verdict: "DOES NOT FIRE"
+  kt_5_evaluation:
+    metric: "KT-5 firing surface 2 or more NEW Cycle-16-authored dormant-silent specs triggers halt + Rex paradigm re-disposition"
+    kt_5_threshold: 2
+    kt_5_actual_count: 0
+    kt_5_fires_bool: false
+    kt_5_verdict: "DOES NOT FIRE"
     hc_59_screen_applied_bool: true
-    hc_59_screen_rationale: "KT-2 threshold IS pre-registered SI kill condition; HC #59 applies to operational metric refinement only; NOT operationally-revisable via metric-revision-within-intent. KT-2 evaluated literally on empirical count (137 ≥ 3) per HC #59 disambiguation."
-    kt_2_classification:
-      false_negative_tb_dormant_silent: false  # would mean heuristic missed valid candidates; n/a since count is high
-      false_positive_tb_dormant_silent: false  # would mean over-counted; per-class strengthening validates each class has ≥3 distinct
-      true_negative_kt_2_fires_legitimate: false  # KT-2 NOT firing
-      pre_s6_hypothesis: "low probability firing per OBS-2 + Cycle 10 telemetry case — confirmed empirically"
-  per_class_strengthening_n_ge_3:
-    a_agent_contract: {total_distinct: 9, n_ge_3_PASS: true}
-    b_schema: {total_distinct: 10, n_ge_3_PASS: true}
-    c_design_decision: {total_distinct: 154, n_ge_3_PASS: true}
-    d_methodology_commitment: {total_distinct: 59, n_ge_3_PASS: true}
-    all_4_PASS_bool: true
+    hc_59_screen_rationale: "KT-5 IS pre-registered SI kill condition; HC #59 applies to operational metric refinement only; NOT operationally-revisable via metric-revision-within-intent; KT-5 evaluated literally on empirical count 0 less than 2 per HC #59 disambiguation"
+    sparql_query_used: "PREFIX cycle16 SELECT COUNT DISTINCT spec AS n WHERE GRAPH cycle16.local/registry/assertion spec a cycle16 Spec cycle16 currentStatus cycle16 dormant-silent cycle16 cycleAuthored 16 FILTER not STRSTARTS STR spec cycle16.local/ontology spec_retroactive_"
+    discriminator_method: "BE-D section 12.5 rollback discriminator IRI-prefix spec_retroactive_ excludes BE-D retroactive specs from KT-5 count retroactive specs are Cycles 1-15 historical inventory not Cycle 16 NEW accumulation"
+    window_adequacy_honest_note: "mid-Cycle-16 observation window S7 to S8 may be insufficient for full longitudinal H8 verdict; Cycle 18 evaluates H8 cumulative 2-cycle window per HR section 3 H8; BE-E enables the surface; Cycle 18 evaluates the verdict; if forward sessions accumulate NEW dormant-silent specs that violate BE-C TWO-surface BLOCKING gate KT-5 would fire at next cycle-close gate invocation"
+    honest_gap_iri_prefix_vs_retroactive_classification_predicate: "BE-D section 12 ARTIFACT_CONTRACT promised retroactiveClassification true annotation predicate as discriminator; actual BE-D implementation uses IRI-prefix spec_retroactive_ per BE-D section 12.5 rollback discriminator verbatim deterministic via spec_iri prefix match; verified at BE-E close via SPARQL DISTINCT predicate enumeration at /cycle6 retroactiveClassification predicate NOT in registry only IRI-prefix marker present; query corrected to use IRI-prefix filter per BE-D section 12.5 actual implementation; documentation gap at BE-D acceptance level not a paradigm escalation; surface in S8 FINDINGS Layer 4 honest gap section"
 
-  # HC-BE-D-1 HONEST CARRY (Rex 2026-05-27 Option A; Cycle 18 scope per Option B split-sequential)
-  hc_be_d_1_explicit_acknowledgment:
-    name: "HC-BE-D-1 write-boundary enforcement gap"
-    rex_disposition: "Option A 2026-05-27 (Cycle 16 narrow; Cycle 18 scope per Option B split-sequential)"
-    definition: "Specs written to filesystem (.claude/agents/*.md, schemas at any path, ADRs in DECISION_LOG, methodology commitments in FINDINGS) without ever calling the BE-B authoring wrapper. BE-D retroactive scan fills historical inventory by enumeration but does NOT enforce forward; BE-E forward-apply observation has the same blind spot — can only observe what's registered."
+  h8_evaluation_surface:
+    metric: "H8 cumulative spec-implementation rate at or above Cycle 16 BE-D baseline across 2 cycle window post-BE-E forward-apply observation infrastructure"
+    h8_evaluation_surface_enabled_bool: true
+    h8_final_verdict_deferred_to_cycle_18_bool: true
+    cycle_16_be_d_baseline: "232 distinct cycle16 Spec at /cycle6 (137 dormant-silent + 92 running + 3 long-running per BE-D classification); BE-E smoke adds 4 events at outputs/forward_apply_observation_events.jsonl as forward-apply observation baseline"
+    cycle_18_evaluation_method: "Cycle 18 evaluates cumulative spec_implementation_event count growth from BE-E close baseline 4 smoke events through Cycle 17 and Cycle 18 fire boundaries per forward_apply_observation_protocol.md section 4 + cycle-close aggregate hook section 3 invocation at Cycle 18 close"
+
+  smoke_test_summary:
+    total_events: 4
+    spec_authoring_event_count: 2
+    spec_implementation_event_count: 2
+    sink: "outputs/forward_apply_observation_events.jsonl"
+    namespace: "cycle_16.be_e.forward_apply_observation"
+    test_graph: "cycle16.local/test/be_e_smoke"
+    tb_1_agent_contract_synthetic:
+      spec_iri: "cycle16.local/spec/be_e_smoke_tb1_agent_contract"
+      insert_data_http_status: 200
+      prov_o_typed_edges_count: 4
+      status_transition_http_status: 200
+      spec_authoring_event_emitted_bool: true
+      spec_implementation_event_emitted_bool: true
+    tb_2_schema_synthetic:
+      spec_iri: "cycle16.local/spec/be_e_smoke_tb2_schema"
+      insert_data_http_status: 200
+      prov_o_typed_edges_count: 4
+      status_transition_http_status: 200
+      spec_authoring_event_emitted_bool: true
+      spec_implementation_event_emitted_bool: true
+    drop_graph_cleanup_http_status: 200
+    post_drop_test_graph_count: 0
+    production_registry_baseline_pre_be_e: "235 cycle16 Spec at /cycle6 = 232 BE-D + 3 BE-B S4 persisted"
+    production_registry_baseline_post_be_e: "235 cycle16 Spec at /cycle6 EQUAL production registry untouched"
+    refusal_on_orphan_event_class_verified_bool: true
+
+  hc_be_d_1_boundary_discipline_honest_acknowledgment:
+    name: "HC-BE-D-1 write-boundary enforcement gap preserved at BE-E"
+    rex_disposition: "Option A 2026-05-27 Cycle 16 narrow Cycle 18 scope per Option B split-sequential"
+    definition_carry_from_s6: "Specs written to filesystem without ever calling BE-B authoring wrapper; BE-D retroactive scan fills historical inventory by enumeration but does NOT enforce forward; BE-E forward-apply observation has the same blind spot can only observe what is registered"
+    be_e_preservation_evidence: "BE-E does NOT attempt filesystem-scan + spec-class-discriminator + work-host-routing closure within BE-E scope per substrate section 6 + section 8 refusal anchor 5; the 2 NEW event classes observe ONLY the BE-B-mediated authoring path; if a spec is written to filesystem without BE-B wrapper invocation BE-E does NOT detect it; Cycle 18 scope per Rex Option B split-sequential"
     scope: "Cycle 18 enforcement-completeness audit"
-    closure_class: "filesystem scan + spec-class discriminator + work-host routing (different primitive class than SPARQL query at /cycle6 which Cycle 16 ships)"
-    be_d_evidence: "Class (a) agent contracts: 7/9 dormant-silent (no runtime emit fires captured); includes specs WRITTEN to filesystem inheriting Cycle 15 BE#4 runtime_emit_obligation but fires not yet captured at build_runner_events.jsonl sink. Class (c) design decisions: 117/154 dormant-silent — historical paradigm_dispositions written to state.json without authoring through BE-B wrapper. Class (d) methodology commitments: 11/59 dormant-silent — distinct FINDINGS-token citations below n=2 threshold; filesystem-resident but not registry-resident."
-    surface_obligations:
-      a_state_json_honest_carries_open_prepend: "Coach scope at S6 close (NOT build-runner)"
-      b_decision_log_d_s6_1_row: "Coach scope at S6 close"
-      c_section_12_be_d_appends_reference: "PRESENT in this BE-D build (§12.0 mechanism family + §12.4 side effects + §12.5 versioning notes + §12.7 row 12 self-test)"
-      d_s7_transition_prompt_inheritance: "Coach scope at S6 close"
-      e_cycle_16_close_findings_layer_4: "Coach + future scope at S8"
+    closure_class: "filesystem scan + spec-class discriminator + work-host routing different primitive class than what Cycle 16 ships"
+    refuse_temptation_at_be_e_bool: true
 
-  # HC #26 INTERNAL SMOKE 3-GATE VERDICT (at-the-moment-of-action mirror)
   hc_26_internal_smoke_3_gate:
     gate_1_fresh_scaffold_findability:
       verdict: PASS
-      evidence: "outputs/retroactive_scan_cycle_1_15_run.json discoverable via `ls outputs/*.json` + JSON-parseable + 8 required top-level keys present (aggregate_counts_4x5 + h1_total_enumerated + h1_estimate_floor + h1_confirmed_bool + kt_2_firing_surface + h3_dormant_silent_aggregate + h3_confirmed_bool + retroactive_classification_annotation)"
+      evidence: "All BE-E deliverables findable at canonical paths via ls and grep; emit.py extension verified via grep for SPEC_AUTHORING_EVENT_CLASS + SPEC_IMPLEMENTATION_EVENT_CLASS + forward_apply_emit + FORWARD_APPLY_OBSERVATION_; docs/forward_apply_observation_protocol.md NEW wc -l 143; outputs/forward_apply_observation_events.jsonl wc -l 4; 3 cycle_16 docs section 13 BE-E appends present; DEPLOYMENT_LOG section 2 row 5 + BUILD_DECISION_LOG section 2 row 5 present chronological order 1/2/3/4/5 after positional swap; state.json current_phase = stage_5_be_e_built_pending_promotion_s8_close_findings_authoring_next; DECISION_LOG D-S7-1 appended; outputs/build_runner_events.jsonl 1 forward_apply_smoke.event single-fire appended; govML 4 files modified"
     gate_2_per_artifact_cli_cleanliness:
       verdict: PASS
-      evidence: "placeholder_residue_count = 0 across all 3 §12-appended docs (ARTIFACT_CONTRACT + RUNTIME_EMIT_SPEC + ACCEPTANCE_CRITERIA) + 2 §2-row-4-appended docs (DEPLOYMENT_LOG + BUILD_DECISION_LOG); outputs/spec_registry_events.jsonl rows = 283 (incl. 268 BE-D bulk write events + 8 initial DP#26 refusals + 7 prior BE-B/BE-C events)"
+      evidence: "placeholder_residue_count = 0 across all 3 section 13-appended docs verified post-Edit Check #23 strict reading remediation of double-brace placeholder pattern in shell-command verification text; double-brace placeholder count = 0 on all NEW BE-E artifacts; outputs/forward_apply_observation_events.jsonl row count = 4 meets 4 threshold per substrate; PROV-O 4-typed-edges per spec verified at smoke-test TB-1 + TB-2 each return generatedAtTime wasAttributedTo wasGeneratedBy wasInformedBy via SPARQL SELECT"
     gate_3_backwards_compatibility_preservation:
       verdict: PASS
-      evidence: "Cycle 6 LOCKED body UNMODIFIED (`git -C ~/cycle_6_unified_substrate_build diff runtime/jena/ | wc -l` = 0 pre + post BE-D); govML v2.8.4 LOCKED (`git -C ~/ml-governance-templates status -s | wc -l` = 0 pre + post BE-D); BE-A §1-§3 + BE-B §10 + BE-C §11 LOCKED bodies UNMODIFIED (Edit-per-section discipline applied; only §12 appended in 3 docs; only row 4 appended in 2 §2 logs); cycle_16/scripts/spec_registry_authoring.py BE-B body unchanged; cycle_16/docs/spec_authoring_discipline.md BE-B body unchanged"
+      evidence: "Cycle 6 LOCKED body UNMODIFIED git -C cycle_6_unified_substrate_build status -s empty pre + post BE-E; govML v2.8.4 existing 3 install function bodies UNMODIFIED at v2.8.5 git diff scripts/init_project.sh shows ADDITIVE-ONLY at install_forward_apply_observation + L633 dispatch list extension; existing 3 install function line ranges show 0 deletions; HC #45 ADDITIVE-APPEND chain extension to n=5 verified; BE-A section 1-3 + BE-B section 10 + BE-C section 11 + BE-D section 12 LOCKED bodies UNMODIFIED git diff on section 0-12 line ranges of 3 docs = 0 line changes; Edit-per-section discipline applied only section 13 appended in 3 docs only row 5 appended in 2 section 2 logs; cycle_16 scripts/runtime_emit/emit.py existing emit_event def-site preserved grep -c def emit_event = 1 Python inspect.signature returns Cycle 15 BE#4 baseline signature unchanged"
 
   placeholder_residue_count:
-    ARTIFACT_CONTRACT.md: 0
-    RUNTIME_EMIT_SPEC.md: 0
-    ACCEPTANCE_CRITERIA.md: 0
-    DEPLOYMENT_LOG.md: 0
-    BUILD_DECISION_LOG.md: 0
-    retroactive_scan_cycle_1_15_run.json: "n/a (JSON-class artifact; structural validity via 8-required-key check + JSON parse)"
+    forward_apply_observation_protocol_md: 0
+    ARTIFACT_CONTRACT_md: 0
+    RUNTIME_EMIT_SPEC_md: 0
+    ACCEPTANCE_CRITERIA_md: 0
+    DEPLOYMENT_LOG_md: 0
+    BUILD_DECISION_LOG_md: 0
+    DECISION_LOG_md: 0
+    state_json: "n/a JSON-class artifact structural validity via python3 json.load PASS"
 
-  # 22-PRC SELF-ATTESTATION (PASS pre-fire confirmed; any P1-P5 prediction mismatches at execution)
   prc_22_self_attestation:
     all_pass_pre_fire_confirmed: true
-    p1_p5_execution_mismatches: []  # no mismatches observed at execution
+    p1_p5_execution_mismatches: []
     pre_check_grep_baselines_recorded: true
-    pre_check_environment_validation_passed: "SPARQL endpoint HTTP 200 verified pre-bulk-write; 15 cycle dirs enumerable (16 total: cycle_1 wrapper + 15 explicit); 9 agent contracts at .claude/agents/*.md; BE-B + BE-C artifacts UNMODIFIED at cycle_16/"
+    pre_check_environment_validation_passed: "SPARQL endpoint HTTP 200 verified pre-smoke; emit.py present with emit_event def-site grep -c = 1 baseline; BE-D outputs/retroactive_scan_cycle_1_15_run.json present + readable + 8 required top-level keys present; cycle_16 git clean at 902f222 pre-BE-E; govML git clean at 58298cde pre-BE-E; cycle_6 git clean at b3bc7c3 pre-BE-E"
     edit_per_section_discipline_applied: true
     no_monolithic_write_on_scaffolded_templates: true
-    refuse_on_missing_precondition_dp44_honored: true  # 6-item refusal list (a-f) all verified PASS pre-execution
-    feedback_honest_evaluation_md_BINDING_applied: true  # surfaced spec_id_collision_count + 8 DP#26 retry surface explicitly
+    refuse_on_missing_precondition_dp44_honored: true
+    feedback_honest_evaluation_md_BINDING_applied: true
 
-  # S141 BINDING explicit declaration
   s141_binding_declaration:
     send_message_count: 0
     research_executor_count: 0
     run_in_background_count: 0
     subagent_type: general-purpose
-    dispatch_model: "Agent tool foreground per Cycle-14-S9 + Cycle-15-S4..S7 + Cycle-16-S1..S5 BE-A/B/C precedents"
+    dispatch_model: "Agent tool foreground per Cycle-14-S9 + Cycle-15-S4..S7 + Cycle-16-S1..S6 BE-A/B/C/D precedents"
 
   self_assessment:
-    AC_self_score: 9  # ARTIFACT_CONTRACT completeness: §12 §12.0-§12.7 fills 6 pre-conditions + 6 post-conditions + 4 invariants + side-effects + versioning + change-control + self-test all with runtime verification hooks; non-trivially satisfiable preconditions (BE-A/B/C artifacts UNMODIFIED; SPARQL endpoint reachable; DP#26 carve-out at wrapper boundary)
-    RE_self_score: 9  # RUNTIME_EMIT quality: 1 NEW event class with rich payload schema (aggregate_counts + h1/h3/kt_2 booleans + retroactive_classification_annotation); measurement hooks reproducible across operators (Python one-liners against JSONL files); refusal-on-violation wired for 7 failure modes; calibration hook fires PASS on synthetic smoke
-    AT_self_score: 9  # ACCEPTANCE_CRITERIA quality: 6 thresholds all deterministic count-based or numeric (file presence + JSON keys + per-class total_distinct + h3_confirmed_bool + h1_total_enumerated + SPARQL COUNT + JSONL grep); per-test-bed strengthening commits 4 spec-classes ≥3 each (a=9, b=10, c=154, d=59 — smallest = 9 = 3x floor); HYBRID PRIMARY framing operationally encoded (4-spec-class × 5-state cell granularity per HR §3a EXTENSION-3)
-    BA_self_score: 9  # Build artifact quality: 232 distinct retroactive specs materialized at PRODUCTION /cycle6 via BE-B wrapper with full 14-field schema fill + DP#26 carve-out enforcement + retroactive_classification=true annotation per write; deterministic + idempotent spec_id minting verified (268 raw → 232 distinct via INSERT-DATA idempotency)
-    DE_self_score: 9  # Deployment quality: append-only DEPLOYMENT_LOG §2 row 4 + BUILD_DECISION_LOG §2 row 4; row order corrected via positional swap to maintain 1/2/3/4 sequence; rollback procedure documented at §12.5 (NO DROP GRAPH at close + SPARQL DELETE WHERE for cycle16:spec_retroactive_* IRIs as future rollback discriminator)
-    biggest_gap: "Classification heuristic dependency on token-occurrence thresholds (distinct_files≥2 OR occurrences≥10 = running) for Class (d) methodology commitments + cycle-recency check for Class (c) design decisions yields high dormant-silent counts (137 aggregate) that include items which are de-facto active via downstream cite but below the automated heuristic threshold; this is the empirical bias surface at the KT-2 firing rationale section — Cycle 16 BE-A+B+C closes the in-registry dormancy gap structurally forward; BE-D enumeration cannot fully distinguish ratified-but-cited-only items from truly-silent items without per-spec human review; HC-BE-D-1 honest carry addresses write-boundary closure at Cycle 18 scope but not the heuristic-refinement question."
-    contract_amendment_candidates: "None at BE-D close — BE-D operates within Cycle 16 SI ACTIVE 2026-05-27 + Amendments 27a/27b + Rex disposition (C) D-S2-1 + S3 D-S3-1 + S4 D-S4-1 + S5 D-S5-1 + Rex Option A 2026-05-27 paradigm bindings without §1-§6 row revisions to BE-A/B/C contracts."
+    AC_self_score: 9
+    RE_self_score: 9
+    AT_self_score: 9
+    BA_self_score: 9
+    DE_self_score: 9
+    biggest_gap: "BE-D acceptance documentation gap surfaced at BE-E KT-5 evaluation; BE-D section 12.0 + 12.4 + 12.5 ARTIFACT_CONTRACT promised retroactiveClassification true annotation predicate as discriminator; actual BE-D implementation uses IRI-prefix spec_retroactive_ per BE-D section 12.5 rollback discriminator verbatim; KT-5 query corrected to use IRI-prefix filter at BE-E close; documentation gap surfaces in S8 FINDINGS Layer 4; not a paradigm escalation; structural-vs-documentation gap"
+    contract_amendment_candidates: "None at BE-E close BE-E operates within Cycle 16 SI ACTIVE 2026-05-27 + Amendments 27a/27b + Rex dispositions D-S2-1 through D-S6-1 + Rex Option A 2026-05-27 + Rex back-port directive STANDING 2026-05-27 paradigm bindings without section 1-6 row revisions to BE-A/B/C/D contracts; HC-BE-D-1 PRESERVED at BE-E per Cycle 18 scope not amended within Cycle 16"
 
   issues:
-    - "Spec_id deterministic idempotent minting: 268 raw writes → 232 distinct via sha256_8 collision resolution (36 collisions on duplicate audit_tuples for same paradigm_disposition keys appearing in multiple cycles' state.json files). Resolution per substrate §2: SPARQL INSERT DATA on duplicate IRI is idempotent (same triples re-asserted, no schema violation); accepted as designed behavior."
-    - "8 initial DP#26 carve-out refusals at register_spec() for class (a) agent contracts + cycle_10 schemas with runtime_emit_event_class='n/a' but missing n_a_rationale; retry with explicit per-class rationale succeeded (8/8). Wrapper enforcement is structural per HR §3d; no contract amendment required. Surface explicitly per feedback_honest_evaluation.md BINDING."
-    - "KG count at /cycle6 = 235 distinct cycle16:Spec; enumerated = 232 distinct; diff = 3 (= 3 BE-B S4 dogfooding specs persisted from Cycle-16-S4 BE-B close per design — BE-B did not DROP GRAPH at smoke close; these are pre-existing production registry rows NOT in BE-D enumeration scope and NOT to be removed at BE-D close per substrate §1 row 4 + §2 NO DROP GRAPH discipline)."
-    - "HC-BE-D-1 write-boundary enforcement gap surfaced as honest carry — Cycle 16 narrow scope per Rex Option A 2026-05-27; Cycle 18 enforcement-completeness audit scope per Rex Option B split-sequential. BE-D fills historical inventory by enumeration but does NOT enforce forward."
+    - "BE-D acceptance documentation gap; BE-D section 12 ARTIFACT_CONTRACT promised retroactiveClassification true annotation predicate; actual implementation uses IRI-prefix spec_retroactive_ per BE-D section 12.5 rollback discriminator; verified at BE-E close via SPARQL DISTINCT predicate enumeration at /cycle6; query corrected to use IRI-prefix filter for KT-5 evaluation; surface in S8 FINDINGS Layer 4 honest gap section; documentation-level gap not paradigm escalation"
+    - "Mid-Cycle-16 observation window S7 to S8 may be insufficient for full longitudinal H8 verdict cumulative 2-cycle window per HR section 3 H8 evaluation at Cycle 18; BE-E ships the observation infrastructure FINAL VERDICT DEFERRED to Cycle 18 per HR section 3 H8"
+    - "HC-BE-D-1 write-boundary enforcement gap PRESERVED at BE-E BE-E inherits SAME blind spot as BE-D observes only BE-B-mediated path closure to Cycle 18 scope per Rex 2026-05-27 Option B split-sequential; BE-E does NOT attempt filesystem-scan + spec-class-discriminator + work-host-routing closure within BE-E scope per substrate section 6 + section 8 refusal anchor 5"
+    - "Permission denial on initial inline smoke-test invocation build-runner attempted Bash heredoc execution of smoke-test Python denied; recovery wrote smoke-test to /tmp/be_e_smoke_test.py + invoked via python3; smoke test executed cleanly with 4 events emitted + PROV-O verification + DROP cleanup HTTP 200; no data loss alternative execution path used successfully"
+    - "Initial KT-5 evaluation query returned count=28 naive SPARQL with FILTER NOT EXISTS cycle16 retroactiveClassification true; discovered via SPARQL DISTINCT predicate enumeration that the retroactiveClassification predicate is NOT in registry; query corrected to use BE-D section 12.5 IRI-prefix discriminator not STRSTARTS STR spec cycle16.local/ontology spec_retroactive_; corrected count = 0 KT-5 DOES NOT FIRE; this is the IRI-prefix vs retroactiveClassification predicate gap honest surface"
 
   next_actions:
-    - "Coach R3 close-eval per kc-46 PD §3.3 T1-T8 + Cycle 16 T9-T13 (T11 14-field schema reflected at retroactive per-spec materialization; T12 disposition (C) preserved; T13 H1 + H3 evaluation at this BE-D close; KT-2 evaluation at this BE-D close)"
-    - "DP#43 spot-read placeholder-residue=0 across 3 §12-appended docs (verified PASS pre-envelope)"
-    - "Coach Check #23 spot-read ≥3 sections per appended doc"
-    - "HC #26 internal smoke 3-gate analog (verified PASS pre-envelope; Gate 1 retroactive_scan_cycle_1_15_run.json findable + Gate 2 spec_registry_events.jsonl 283 rows ≥ estimated N=268 BE-D writes + Gate 3 cycle_6 + govML + BE-A/B/C LOCKED bodies UNMODIFIED)"
-    - "3-repo paired commit at S6 close: (a) cycle_16 BE-D artifact stack + state.json update (current_phase = stage_5_be_d_built_pending_promotion_s7_be_e_forward_apply_next + S6-D1..D5 decisions_log + NEW HC-BE-D-1 honest_carries_open prepended) + DECISION_LOG D-S6-1 entry (HC-BE-D-1 write-boundary enforcement gap → Cycle 18 scope per Rex Option B); (b) EMABS state.json mirror PC #100 (cumulative paired-state n=36); (c) Moonshots handoff §1dn append + S6 substrate + S6 22-PRC + S7 transition prompt + coach_warmup; (d) NO govML touch at BE-D"
-    - "S7 BE-E forward-apply observation: author spec_authoring_event + spec_implementation_event classes into runtime_emit/emit.py + docs/forward_apply_observation_protocol.md + smoke-test per ROADMAP §5"
+    - "Coach R3 close-eval per kc-46 PD section 3.3 T1-T8 + Cycle 16 T9-T13 T11 PROV-O 4-typed-edges per spec verified at smoke-test PROV-O typed-edges T12 disposition C preserved T13 H8 evaluation surface ENABLED + KT-5 DOES NOT FIRE"
+    - "DP#43 placeholder-residue=0 spot-read across forward_apply_observation_protocol.md + 3 section 13-appended docs verified PASS pre-envelope 0 placeholders post Edit-per-section discipline applied with Check #23 strict-reading remediation of double-brace literal in shell-command verification text"
+    - "Coach Check #23 spot-read 3 or more sections per appended doc + 1 or more forward_apply_observation_protocol.md section N + 1 or more forward_apply_observation_events.jsonl event row content verification"
+    - "HC #26 internal smoke 3-gate analog verified PASS pre-envelope Gate 1 deliverables findable + Gate 2 forward_apply_observation_events.jsonl 4 rows with PROV-O + Gate 3 cycle_6 + govML existing 3 install functions + BE-A/B/C/D LOCKED bodies UNMODIFIED"
+    - "4-repo paired commit at S7 close cycle_16 BE-E artifact stack + state.json update + DECISION_LOG D-S7-1 entry; EMABS state.json mirror PC #100; Moonshots handoff section 1do append + S7 substrate + S7 22-PRC + S8 transition prompt + coach_warmup S7 update; govML v2.8.5 ADDITIVE-APPEND back-port 4 files HC #45 ADDITIVE-APPEND BINDING chain extension to n=5"
+    - "S8 Cycle 16 close 5-layer FINDINGS authoring ROADMAP Phase 7 Layer 1 verdict Cycle 16 PRIMARY thesis CONFIRMED + 5 BE shipped + Layer 2 evidence H1 + H3 + H6 + H8 surface + KT dispositions + Layer 3 mechanism BE-A schema + BE-B authoring wrapper + BE-C TWO-surface gate + BE-D retroactive scan + BE-E forward-apply observation + Layer 4 honest gaps HC-BE-D-1 + IRI-prefix predicate gap + mid-cycle window adequacy + Layer 5 paradigm impacts HC #45 chain n=5 + Pattern 19 n=29 + HC #50 baseline + ED 0a HYBRID PRIMARY VERBATIM CARRY preserved"

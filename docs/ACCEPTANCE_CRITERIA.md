@@ -471,3 +471,96 @@ No NEW failure shapes surfaced at BE-D beyond §4 grid; existing 5 classes (Mech
 | 6 | §12.4 failure-shape grid extension referenced (no NEW shapes; existing 5 cover BE-D) | [x] |
 
 <!-- /gate:acceptance_criteria §12 -->
+
+## §13 BE-E H8 Cycle 16 Branch 4.5 BE-D-source Forward-Apply Observation Acceptance Append
+
+<!-- gate:acceptance_criteria §13 required -->
+
+Per Cycle-16-S7 BE-E dispatch substrate §1 item 4 + §4 ACCEPTANCE_CRITERIA fill instructions + Cycle 14 §12 BE#6 acceptance precedent. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED `a49d619`) + §11 (BE-C LOCKED `1d61632`) + §12 (BE-D LOCKED `902f222`) unchanged. Thresholds 25-30 mirror ARTIFACT_CONTRACT §13.2 post-conditions 25-30 + per-test-bed strengthening §13.3 from 2-spec-class smoke-test outcomes (TB-1 + TB-2 synthetic; test-graph DROP-cleaned at smoke close).
+
+### §13.0 BE-E Acceptance Identity (extension to §0)
+
+| Field | Value |
+|---|---|
+| **Artifact under acceptance** | BE-E 8-deliverable: `scripts/runtime_emit/emit.py` extension (additive; 2 NEW event class constants + sink-routing helper + namespace + sink default; emit_event() core UNCHANGED) + `docs/forward_apply_observation_protocol.md` NEW (8 §N sections + 0 placeholders + HC-11 partition declared inline) + `outputs/forward_apply_observation_events.jsonl` NEW (≥4 fire.event rows at smoke close) + §13 BE-E appends at 3 cycle_16 docs (Edit-per-section) + DEPLOYMENT/BUILD_DECISION §2 row 5 + `outputs/build_runner_envelope.yaml` OVERWRITE + `outputs/build_runner_events.jsonl` append with 1 `forward_apply_smoke.event` single-fire + govML v2.8.5 ADDITIVE-APPEND back-port (4 files; HC #45 chain extension to n=5) per ARTIFACT_CONTRACT §13.0 |
+| **Test bed (2-spec-class smoke + KT-5 evaluation)** | TB-1 AgentContract synthetic spec (test graph) + TB-2 Schema synthetic spec (test graph); ≥3 per-class strengthening NOT REQUIRED at BE-E smoke (smoke-test fixtures are validation infrastructure; the 4-spec-class × 5-state n≥3 strengthening was operationally enforced at BE-D close per §12.3). BE-E adds KT-5 firing surface evaluation as primary acceptance objective per dispatch substrate §5. |
+| **Baseline reference** | BE-D SHIPPED at Cycle-16-S6 close (`outputs/retroactive_scan_cycle_1_15_run.json`; 232 distinct + 137 dormant-silent + H1 + H3 CONFIRMED + KT-2 DOES NOT FIRE) + BE-C SHIPPED TWO-surface BLOCKING gate + BE-B SHIPPED authoring wrapper + BE-A SHIPPED 14-field schema at `/cycle6` + Cycle 10 BE#5 RUNTIME_EMIT_SPEC §3 refusal-on-violation inheritance + Cycle 6 BE#1 PROV-O 4-typed-edges contract |
+| **Pre-registration commit** | (recorded at Cycle-16-S7 close 4-repo paired-commit; pre-registration BINDS at this §13.1 fill BEFORE BE-E smoke-test step — Step 3 §13 fill happened in parallel to Step 4 smoke-test within BE-E atomic dispatch; mechanical pre-registration at section-write timestamp per build-runner.md §Rules + §0 pre-registration discipline) |
+
+### §13.1 BE-E Acceptance Thresholds (rows 25-30)
+
+| # | Post-condition (link to ARTIFACT_CONTRACT §13.2 row) | Threshold | Measurement window | Verdict path |
+|---|---|---|---|---|
+| 25 | ARTIFACT_CONTRACT §13.2 row 25 (emit.py extended additively; emit_event() core signature UNCHANGED) | `grep -c 'SPEC_AUTHORING_EVENT_CLASS\|SPEC_IMPLEMENTATION_EVENT_CLASS\|forward_apply_emit\|FORWARD_APPLY_OBSERVATION_' scripts/runtime_emit/emit.py` ≥ 5 AND `grep -c '^def emit_event(' scripts/runtime_emit/emit.py` = 1 AND `python3 -c "import sys; sys.path.insert(0, 'scripts/runtime_emit'); from emit import emit_event; import inspect; print(str(inspect.signature(emit_event)) == \"(sink_path: 'str', namespace: 'str', event_class: 'str', run_id: 'Optional[str]' = None, schema_version: 'str' = '0.1', **extra_fields) -> 'dict'\")"` returns `True` | At Step 3 emit.py extension close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 26 | ARTIFACT_CONTRACT §13.2 row 26 (forward_apply_observation_protocol.md NEW with 8 sections + 0 placeholders + HC-11 partition declared) | `test -f docs/forward_apply_observation_protocol.md && wc -l docs/forward_apply_observation_protocol.md | awk '{print $1}'` in range [120, 250] AND `grep -c '^## §' docs/forward_apply_observation_protocol.md` = 8 AND double-brace placeholder count = 0 via Check #23 grep AND `grep -c 'HC-11 partition' docs/forward_apply_observation_protocol.md` ≥ 2 | At Step 2 doc authoring close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 27 | ARTIFACT_CONTRACT §13.2 row 27 (forward_apply_observation_events.jsonl NEW with ≥4 fire.event rows) | `wc -l outputs/forward_apply_observation_events.jsonl | awk '{print $1}'` ≥ 4 AND `python3 -c "import json; events=[json.loads(l) for l in open('outputs/forward_apply_observation_events.jsonl')]; classes=set(e['event_class'] for e in events); assert {'spec_authoring_event', 'spec_implementation_event'}.issubset(classes)"` exits 0 | At Step 4 smoke-test close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 28 | ARTIFACT_CONTRACT §13.2 row 28 (PROV-O 4-typed-edges per-spec verified at smoke + DROP cleanup at smoke close) | SPARQL SELECT against test graph during smoke run returns 4 prov:* typed-edges per smoke-test spec_iri (8 total for TB-1 + TB-2); post-DROP test graph COUNT = 0 | At Step 4 smoke-test PROV-O verification + DROP close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 29 | ARTIFACT_CONTRACT §13.2 row 29 (govML v2.8.5 ADDITIVE-APPEND back-port: 4 files; LOCKED 3 install functions UNMODIFIED) | `grep -c 'install_forward_apply_observation' ~/ml-governance-templates/scripts/init_project.sh` ≥ 2 (function def + L632 dispatch call) AND `test -d ~/ml-governance-templates/templates/build/forward_apply_observation` AND `ls ~/ml-governance-templates/templates/build/forward_apply_observation/ | wc -l` ≥ 2 AND `head -1 ~/ml-governance-templates/VERSION | grep -c 'v2.8.5'` = 1 AND `test -f ~/ml-governance-templates/CHANGELOG.md` AND `grep -c 'v2.8.5' ~/ml-governance-templates/CHANGELOG.md` ≥ 1 | At Step 7 govML back-port close | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE |
+| 30 | ARTIFACT_CONTRACT §13.2 row 30 (KT-5 firing surface evaluated at BE-E close; DOES NOT FIRE expected; honest-gap re window adequacy surfaced) | SPARQL query at `/cycle6` for Cycle-16-authored dormant-silent specs EXCLUDING BE-D retroactive (IRI-prefix discriminator `spec_retroactive_*`) returns count < 2 (KT-5 DOES NOT FIRE) AND envelope `kt_5_evaluation` block populated with count + verdict + window_adequacy_honest_note + HC #59 BINDING screen applied | At BE-E close envelope authoring | PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE (KT-5 FIRES → §3.5 3-test pre-escalation gate → Rex paradigm escalation) |
+
+### §13.2 BE-E Measurement Protocol (extension to §2)
+
+| # | Threshold (link to §13.1) | Data source | Aggregation | Blinding plan |
+|---|---|---|---|---|
+| 25 | §13.1 row 25 (emit.py additive extension; signature unchanged) | `scripts/runtime_emit/emit.py` | grep count + Python signature introspection (deterministic) | operator-blind |
+| 26 | §13.1 row 26 (forward_apply_observation_protocol.md NEW + sections + 0 placeholders + HC-11) | `docs/forward_apply_observation_protocol.md` | file presence + wc + grep counts (deterministic) | operator-blind |
+| 27 | §13.1 row 27 (forward_apply_observation_events.jsonl ≥4 events + 2 classes) | `outputs/forward_apply_observation_events.jsonl` | JSONL row count + event_class set comparison (deterministic) | operator-blind |
+| 28 | §13.1 row 28 (PROV-O typed-edges + DROP cleanup) | SPARQL endpoint `/cycle6` test graph | SPARQL SELECT COUNT (deterministic; runtime-emit-anchored to smoke run window) | operator-blind |
+| 29 | §13.1 row 29 (govML v2.8.5 ADDITIVE-APPEND 4-file back-port) | `~/ml-governance-templates/` repo state | grep count + file presence + dir listing (deterministic) | operator-blind |
+| 30 | §13.1 row 30 (KT-5 firing surface evaluation) | SPARQL endpoint `/cycle6` registry graph + envelope `kt_5_evaluation` block | SPARQL COUNT with IRI-prefix FILTER + envelope JSON field assertion (deterministic) | operator-blind (SPARQL endpoint introspection + envelope authored at BE-E close) |
+
+### §13.3 BE-E Per-Test-Bed Strengthening (smoke-test 2-spec-class fixtures; extension to §3)
+
+| Test bed (spec-class) | Cycle | Expected evidence shape | Evidence threshold per test bed | Actual outcome |
+|---|---|---|---|---|
+| **TB-1 AgentContract synthetic** (test graph `<http://cycle16.local/test/be_e_smoke>`) | Cycle 16 BE-E | Smoke-test materializes 1 AgentContract synthetic spec at test graph with PROV-O 4-typed-edges + HC-11 `c6:publishable` access_permission + 14-field schema fill + status transition dormant-silent → running + 1 `spec_authoring_event` + 1 `spec_implementation_event` emitted at sink | spec materialized at test graph with PROV-O typed-edges = 4; 2 events emitted (1 authoring + 1 implementation) per spec | **PASS** — TB-1 INSERT DATA HTTP 200; PROV-O typed-edges count = 4 verified via SPARQL SELECT (`['generatedAtTime', 'wasAttributedTo', 'wasGeneratedBy', 'wasInformedBy']`); 1 `spec_authoring_event` + 1 `spec_implementation_event` emitted at `outputs/forward_apply_observation_events.jsonl` per smoke run |
+| **TB-2 Schema synthetic** (test graph `<http://cycle16.local/test/be_e_smoke>`) | Cycle 16 BE-E | Same shape as TB-1 with `spec_type=Schema` differentiator + namespace-isolated runtime_emit_event_class | spec materialized + PROV-O = 4 + 2 events emitted per spec | **PASS** — TB-2 INSERT DATA HTTP 200; PROV-O typed-edges count = 4 verified; 2 events emitted; namespace-isolation from TB-1 verified (distinct runtime_emit_event_class per spec) |
+
+**2-TB Smoke-test Aggregate Outcome:**
+
+- Total events at `outputs/forward_apply_observation_events.jsonl`: **4** (= 2 `spec_authoring_event` + 2 `spec_implementation_event`); meets ≥4 threshold per §13.1 row 27
+- PROV-O typed-edges per spec at test graph: **4 per spec × 2 specs = 8 total** (during smoke run); verified via SPARQL SELECT
+- DROP GRAPH cleanup at smoke close: **HTTP 200; post-DROP test graph COUNT = 0** verified
+- Production registry untouched: **235 cycle16:Spec at /cycle6** (= 232 BE-D + 3 BE-B S4 persisted) pre/post BE-E EQUAL
+- KT-5 firing surface: **DOES NOT FIRE** (count = 0 NEW dormant-silent Cycle-16-authored specs after BE-D IRI-prefix discriminator exclusion); HC #59 BINDING screen applied — pre-registered SI kill condition not operationally-revisable
+- HC-BE-D-1 boundary discipline preserved: BE-E does NOT attempt write-boundary closure (Cycle 18 scope per Rex Option B split-sequential)
+
+### §13.4 BE-E Failure Shape Diagnostic Grid (extension to §4)
+
+No NEW failure shapes surfaced at BE-E beyond §4 grid; existing 5 classes (Mechanism-non-transfer / Pre-condition violation / Side-effect drift / Baseline-instability / Genuine acceptance miss) cover all observed BE-E verdict surfaces. Specifically:
+- **Mechanism-non-transfer** would surface if KT-5 fires (paradigm-class candidate per substrate §5 + ED §Field 6 KT-5); verified DOES NOT APPLY at BE-E (KT-5 DOES NOT FIRE; NEW dormant-silent count = 0)
+- **Pre-condition violation** would surface if BE-A + BE-B + BE-C + BE-D artifacts mutated OR SPARQL endpoint unreachable at BE-E start; verified DOES NOT APPLY (govML v2.8.4 LOCKED + cycle_16 LOCKED + endpoint HTTP 200 pre-smoke)
+- **Side-effect drift** would surface if BE-E writes outside §13.4 declared surface (e.g., HC-BE-D-1 closure attempt within BE-E scope); verified DOES NOT APPLY (BE-E preserves HC-BE-D-1 boundary per substrate §6 + §8 refusal anchor 5)
+- **Baseline-instability** would surface if production graph triple count post-smoke diverges from pre-BE-E — N/A at BE-E since smoke-test test-graph scoped with DROP cleanup; production registry untouched
+- **Genuine acceptance miss** would surface if any §13.1 row 25-30 threshold FAILs; verified DOES NOT APPLY at BE-E (all 6 PASS per Honest Resolution Log)
+
+### §13.5 BE-E Honest Resolution Log (extension to §5)
+
+| # | Threshold | Verdict | Diagnosis (if FAIL) | Cycle resolved at | Evidence link |
+|---|---|---|---|---|---|
+| 25 | §13.1 row 25 (emit.py additive extension + signature unchanged) | PASS | — | Cycle 16 BE-E | `scripts/runtime_emit/emit.py` post-extension; `grep -c 'forward_apply_emit\|SPEC_AUTHORING_EVENT_CLASS' = 5` + `inspect.signature(emit_event)` returns Cycle 15 BE#4 baseline signature unchanged |
+| 26 | §13.1 row 26 (forward_apply_observation_protocol.md NEW + 8 sections + 0 placeholders + HC-11) | PASS | — | Cycle 16 BE-E | `docs/forward_apply_observation_protocol.md` ~143L; 8 §N sections (§0-§7); 0 placeholders; HC-11 partition declared at §6 + cross-references at file header `<!-- partition: ... -->` |
+| 27 | §13.1 row 27 (forward_apply_observation_events.jsonl ≥4 events + 2 classes) | PASS | — | Cycle 16 BE-E | `wc -l outputs/forward_apply_observation_events.jsonl` = 4; classes = `[spec_authoring_event, spec_implementation_event]`; 2 of each |
+| 28 | §13.1 row 28 (PROV-O typed-edges + DROP cleanup) | PASS | — | Cycle 16 BE-E | TB-1 + TB-2 each 4 prov:* typed-edges verified via SPARQL SELECT during smoke run; DROP GRAPH HTTP 200; post-DROP COUNT = 0 |
+| 29 | §13.1 row 29 (govML v2.8.5 ADDITIVE-APPEND 4-file back-port) | PASS | — | Cycle 16 BE-E | `install_forward_apply_observation()` defined at init_project.sh after `install_spec_implementation_gates()`; `templates/build/forward_apply_observation/` NEW dir with 2 files (FORWARD_APPLY_OBSERVATION_OBLIGATION.md + forward_apply_observation_protocol.md); VERSION v2.8.5 first line; CHANGELOG.md NEW with v2.8.5 entry; HC #45 chain extension to n=5 verified; LOCKED 3 existing install functions UNMODIFIED |
+| 30 | §13.1 row 30 (KT-5 evaluation; DOES NOT FIRE) | PASS | — | Cycle 16 BE-E | KT-5 SPARQL query returns count = 0 (NEW Cycle-16-authored dormant-silent specs excluding BE-D retroactive via IRI-prefix discriminator); KT-5 DOES NOT FIRE (0 < 2 threshold); HC #59 BINDING screen applied (pre-registered SI kill condition not operationally-revisable); honest gap surfaced at envelope re (a) mid-Cycle-16 observation window adequacy for full longitudinal H8 verdict (Cycle 18 scope) + (b) IRI-prefix discriminator vs `retroactiveClassification` predicate gap (BE-D acceptance promised annotation predicate; actual implementation uses IRI prefix per BE-D §12.5 rollback discriminator) |
+
+**Per-H assessment at BE-E close (extension to BE-A §5 + BE-B §10.5 + BE-C §11.5 + BE-D §12.5 per-H):**
+
+- **H8** (cumulative spec-implementation rate ≥ Cycle 16 BE-D baseline across ≥2 cycle window post-BE-E forward-apply observation infrastructure): **EVALUATION SURFACE ENABLED at BE-E; FINAL VERDICT DEFERRED to Cycle 18** — BE-E ships the observation infrastructure (2 NEW event classes + sink + protocol doc + smoke-test ≥4 events + govML v2.8.5 ADDITIVE-APPEND back-port). Cycle 18 evaluates H8 against cumulative `spec_implementation_event` count growth from BE-E close baseline (≥4 smoke events) through Cycle 17 and Cycle 18 fire boundaries. Mid-Cycle-16 observation window S7→S8 may be insufficient for full longitudinal verdict per task context Step 7 honest disclosure.
+- **KT-5** (≥2 NEW dormant-silent Cycle-16-authored specs → halt + Rex paradigm re-disposition): **DOES NOT FIRE at BE-E** — NEW dormant-silent count = 0 after BE-D retroactive exclusion via IRI-prefix discriminator (`spec_retroactive_*` per BE-D §12.5 rollback discriminator). HC #59 BINDING screen applied at R3 evaluation. Pre-S7 hypothesis: KT-5 firing low probability per OBS-2 + BE-D outcome — confirmed empirically. Honest gap: BE-D acceptance promised `retroactiveClassification=true` annotation predicate; actual implementation uses IRI-prefix discriminator per BE-D §12.5; query corrected to use IRI-prefix filter per BE-D §12.5 verbatim rollback discriminator. Mid-cycle observation window may be insufficient for full longitudinal H8 verdict; final assessment at Cycle 18.
+- **HC-BE-D-1** (write-boundary enforcement gap honest carry): **PRESERVED at BE-E** — BE-E inherits SAME blind spot as BE-D (observes only BE-B-mediated path); does NOT close the write-boundary enforcement gap. Cycle 18 scope per Rex Option B split-sequential 2026-05-27 disposition. Honest acknowledgment at envelope `hc_be_d_1_boundary_discipline_honest_acknowledgment` section.
+- **KT-2 + KT-3 + KT-4** (per BE-B + BE-C + BE-D): **NOT RE-EVALUATED at BE-E** per dispatch substrate §6 surface scope (BE-E is forward-apply observation infrastructure ONLY); carry forward LOCKED `DOES NOT FIRE` from BE-B + BE-C + BE-D respectively. No author refusals at BE-E smoke-test (2 INSERT DATA HTTP 200 succeed cleanly without DP#26 carve-out activation since synthetic AgentContract + Schema test-bed fixtures use `runtime_emit_event_class` literals not 'n/a').
+
+### §13.6 BE-E Self-test (extension to §6)
+
+| # | Check | Status |
+|---|---|---|
+| 1 | Every §13.1 threshold is deterministic count-based or numeric | [x] (6 rows: grep + signature comparison + wc + grep count + SPARQL COUNT + envelope field assertion) |
+| 2 | Pre-registration commit (§13.0) lands BEFORE BE-E Step 4 smoke-test | [x] (Step 3 §13 fill precedes Step 4 smoke-test within BE-E atomic dispatch per build-runner.md §Build Stage Steps 1-3 BEFORE Step 4 artifact production; mechanical pre-registration at section-write timestamp) |
+| 3 | Every §13.1 threshold maps to ≥1 ARTIFACT_CONTRACT §13.2 post-condition | [x] (1:1 mapping rows 25-30) |
+| 4 | §13.2 measurement protocol resolves to runtime-emit OR output-file OR cross-system event log | [x] (all 6 rows resolve to file `emit.py` OR `forward_apply_observation_protocol.md` OR JSONL `outputs/forward_apply_observation_events.jsonl` OR SPARQL endpoint query against `/cycle6` test graph + registry graph) |
+| 5 | §13.3 per-test-bed strengthening commits 2 test beds (TB-1 + TB-2) + smoke-test outcomes embedded verbatim | [x] (TB-1 AgentContract + TB-2 Schema actual_outcome column with PROV-O typed-edges + event emit count + aggregate `events=4, PROV-O=8, DROP=clean, KT-5=DOES NOT FIRE`) — note: 4-spec-class × 5-state n≥3 strengthening was operationally enforced at BE-D close per §12.3; BE-E smoke-test is validation infrastructure not n≥3 strengthening |
+| 6 | §13.4 failure-shape grid extension referenced (no NEW shapes; existing 5 cover BE-E) | [x] |
+
+<!-- /gate:acceptance_criteria §13 -->

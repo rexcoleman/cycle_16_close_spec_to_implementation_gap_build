@@ -1,7 +1,7 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "stage_5_be_d_built_pending_promotion_s7_be_e_forward_apply_observation_next",
+  "current_phase": "stage_5_be_e_built_pending_promotion_s8_close_findings_authoring_next",
   "current_stage_orchestrator": "build",
   "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b)",
   "stage_0_2_complete": true,
@@ -122,6 +122,43 @@
         "within_cycle_vs_cross_system_back_port_density_distinction_confirmed": true,
         "3_repo_paired_commit_no_govML_per_work_host_boundary_discipline": true,
         "hc_be_d_1_write_boundary_enforcement_gap_surfaced_cycle_18_scope": true
+      }
+    },
+    "kc46_r1_pass_cycle_16_s7_disposition_a": {
+      "authority": "kc-46 R1 PASS task-context dispatch via Rex paste-bridge 2026-05-27 + S141 BINDING",
+      "scope": "Cycle-16-S7 Stage 5 BE-E forward-apply observation infrastructure build",
+      "verdict": "S7 close LANDED with 8 BE-E deliverables shipped + Build-Runner status=completed + R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS (Coach independent verification at S7 close per feedback_honest_evaluation.md BINDING)",
+      "operationalization": {
+        "be_e_deliverables_shipped": 8,
+        "scripts_runtime_emit_emit_py_additive_extension": true,
+        "emit_event_core_signature_unchanged_per_cycle_10_locked": true,
+        "docs_forward_apply_observation_protocol_md_new_sections": 8,
+        "docs_forward_apply_observation_protocol_md_placeholders": 0,
+        "outputs_forward_apply_observation_events_jsonl_event_count": 4,
+        "outputs_forward_apply_observation_events_jsonl_event_classes": ["spec_authoring_event", "spec_implementation_event"],
+        "smoke_test_test_graph_drop_cleanup_http_200": true,
+        "smoke_test_post_drop_test_graph_count": 0,
+        "prov_o_typed_edges_per_spec_count": 4,
+        "hc_11_access_permission_enum_c6_publishable_applied": true,
+        "kt_5_fires_bool": false,
+        "kt_5_new_dormant_silent_count_excluding_be_d_retroactive": 0,
+        "kt_5_threshold": 2,
+        "hc_59_screen_applied_bool": true,
+        "h8_evaluation_surface_enabled_bool": true,
+        "h8_final_verdict_deferred_to_cycle_18_bool": true,
+        "honest_gap_mid_cycle_16_observation_window_adequacy_surfaced": true,
+        "honest_gap_iri_prefix_vs_retroactive_classification_predicate_gap_surfaced": true,
+        "hc_be_d_1_boundary_discipline_preserved_at_be_e_bool": true,
+        "govml_v2_8_5_additive_append_back_port_bool": true,
+        "govml_v2_8_5_files_modified": 4,
+        "govml_v2_8_5_locked_3_install_functions_unmodified_bool": true,
+        "hc_45_additive_append_chain_n": 5,
+        "4_repo_paired_commit_per_rex_back_port_directive_standing": true,
+        "hc_50_zero_rex_escalation_maintained": true,
+        "pattern_19_trajectory_n": 29,
+        "pattern_19_be_d_n_28_carry_per_step_14_inheritance_gap_remediation": true,
+        "pattern_19_2_pass_compression_invoked_at_be_e": false,
+        "compose_class_artifact_first_arc_within_cap_bool": true
       }
     }
   },
@@ -293,6 +330,36 @@
       "ts": "2026-05-27",
       "decision": "Pattern 19 trajectory n=28: BE-D dispatch substrate first-arc OVER-CAP 21188B/1.0594x/-1188B margin/120L; 3-Edit-round second-pass compression recovery to 19967B/0.9984x/33B margin/115L WITHIN-CAP per HC #48 (a) 2-pass discipline. HC #48 (d) sub-cycle scope-decomposition refinement candidate STANDING refined empirically at n=3 - within-cycle BE-class artifact density profile distinguishes from cross-system back-port BE-class density profile (BE-B n=26 -3,749B + BE-C n=27 -8,329B vs BE-D n=28 -1,188B; cross-system back-port drives HEAVIER first-arc overage by ~3-7x). 3-repo paired commit at S6 close (cycle_16 + EMABS + Moonshots; NO govML per work-host boundary discipline). HC-BE-D-1 write-boundary enforcement gap SURFACED -> Cycle 18 scope per Rex 2026-05-27 Option B split-sequential.",
       "encoded_at": "S6 22-PRC Items 14+15 + handoff section 1dn Pattern Calibration + DECISION_LOG D-S6-1"
+    },
+    {
+      "id": "S7-D1",
+      "ts": "2026-05-28",
+      "decision": "Cycle-16-S7 Stage 5 BE-E close: forward-apply observation infrastructure shipped. 2 NEW event class registration constants (SPEC_AUTHORING_EVENT_CLASS + SPEC_IMPLEMENTATION_EVENT_CLASS) + sink-routing helper forward_apply_emit() + namespace constant + sink default wired into scripts/runtime_emit/emit.py ADDITIVELY (emit_event() core signature UNCHANGED per Cycle 10 schema_version=0.1 LOCKED). docs/forward_apply_observation_protocol.md NEW with 8 sections (0 placeholders; HC-11 partition declared inline per Binding 8 BIND). outputs/forward_apply_observation_events.jsonl NEW with 4 fire.event rows from smoke-test (2 spec_authoring_event + 2 spec_implementation_event for TB-1 AgentContract + TB-2 Schema synthetic specs; PROV-O 4-typed-edges per spec; HC-11 c6:publishable access_permission; DROP GRAPH cleanup at smoke close HTTP 200). 8 deliverables shipped. Build-Runner status=completed.",
+      "authority": "kc-46 R1 PASS task-context dispatch via Rex paste-bridge 2026-05-27 + S141 BINDING + Cycle-16-S3..S6 BE-A/B/C/D precedent class"
+    },
+    {
+      "id": "S7-D2",
+      "ts": "2026-05-28",
+      "decision": "H8 evaluation surface ENABLED at BE-E (FINAL VERDICT DEFERRED to Cycle 18 cumulative >=2-cycle window per HR section 3 H8). KT-5 firing surface evaluated at BE-E close per forward_apply_observation_protocol.md section 4 + dispatch substrate section 5: SPARQL query at /cycle6 for Cycle-16-authored dormant-silent specs EXCLUDING BE-D retroactive (IRI-prefix discriminator spec_retroactive_* per BE-D section 12.5 rollback discriminator) returns count = 0 -> KT-5 DOES NOT FIRE (0 < 2 threshold). HC #59 BINDING screen applied -- pre-registered SI kill condition not operationally-revisable. Honest gap surfaced re (a) mid-Cycle-16 observation window S7->S8 may be insufficient for full longitudinal verdict + (b) IRI-prefix discriminator vs retroactiveClassification predicate gap (BE-D acceptance promised annotation predicate; actual implementation uses IRI prefix per BE-D section 12.5).",
+      "evidence": "outputs/build_runner_envelope.yaml kt_5_evaluation block + outputs/forward_apply_observation_events.jsonl 4 rows + smoke-test SPARQL DESCRIBE PROV-O typed-edges verification"
+    },
+    {
+      "id": "S7-D3",
+      "ts": "2026-05-28",
+      "decision": "govML v2.8.4 -> v2.8.5 ADDITIVE-APPEND back-port (HC #45 chain extension to n=5): NEW install_forward_apply_observation() function at init_project.sh ~L356 (after install_spec_implementation_gates) + function added to research-build profile dispatch list ~L633 ADDITIVE + NEW dir templates/build/forward_apply_observation/ with 2 files (FORWARD_APPLY_OBSERVATION_OBLIGATION.md + canonical forward_apply_observation_protocol.md) + VERSION v2.8.5 prepended (v2.8.4 header preserved verbatim with full context block) + CHANGELOG.md NEW with v2.8.5 entry. LOCKED bodies of install_runtime_emit_substrate + install_spec_registry_authoring_discipline + install_spec_implementation_gates UNMODIFIED -- git diff +56/0 insertions/deletions at init_project.sh; existing 3 install function line ranges untouched. 4-repo paired commit at S7 close (cycle_16 + EMABS + Moonshots + govML per Rex back-port directive STANDING 2026-05-27).",
+      "authority": "Rex back-port directive STANDING 2026-05-27 + HC #45 ADDITIVE-APPEND BINDING chain extension to n=5"
+    },
+    {
+      "id": "S7-D4",
+      "ts": "2026-05-28",
+      "decision": "HC-BE-D-1 write-boundary enforcement gap PRESERVED as honest carry at BE-E (BE-E inherits SAME blind spot as BE-D; observes only BE-B-mediated path; closure -> Cycle 18 scope per Rex Option B split-sequential 2026-05-27). BE-E does NOT attempt filesystem-scan + spec-class-discriminator + work-host-routing closure within BE-E scope per substrate section 6 + section 8 refusal anchor 5. Honest acknowledgment surfaced at envelope hc_be_d_1_boundary_discipline_honest_acknowledgment section.",
+      "encoded_at": "S7 DECISION_LOG D-S7-1 + envelope hc_be_d_1_boundary_discipline_honest_acknowledgment + Cycle 16 close FINDINGS Layer 4 (Coach + future scope S8)"
+    },
+    {
+      "id": "S7-D5",
+      "ts": "2026-05-28",
+      "decision": "Pattern 19 trajectory n=29 (BE-E dispatch substrate first-arc WITHIN-CAP 19596B/0.9798x/+404B margin/118L per Coach pre-fire verification; n=24 cumulative Pattern 19 surface at coach_warmup). forward_apply_observation_protocol.md compose-class artifact first-arc 19886B/0.9943x/+114B margin/143L per Coach pre-fire approximate-target band [120, 250]L WITHIN-CAP; 2-pass compression NOT INVOKED (single-write within HC #34 cap on first arc). HC #48 (d) sub-cycle scope-decomposition refinement candidate STANDING continues to refine empirically: BE-E is in-cycle forward-apply observation (NOT cross-system back-port density profile; closer to BE-D within-cycle profile). 4-repo paired commit at S7 close per Rex back-port directive STANDING.",
+      "encoded_at": "S7 22-PRC Items 14+15 + handoff section 1do Pattern Calibration + DECISION_LOG D-S7-1 (Coach scope at S7 close)"
     }
   ],
   "honest_carries_open": [
