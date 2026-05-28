@@ -734,3 +734,41 @@ implemented (Phase 11-13) NOR validate the probes' own accuracy (Done #25 / Phas
 present-gate PASS means "≥1 implemented probe-fire aggregated", NOT "all specs implemented".
 
 <!-- /gate:artifact_contract §15 -->
+
+## §16 — BE-H structural-prevention layer (Cycle-16-S13)
+
+Eight structural-prevention mechanisms at `scripts/structural_prevention/` plus
+two carry fixes to `scripts/be_g_mirror/spec_implementation_session_close_gate.sh`.
+
+Each mechanism: shebang + DP#44 refuse-on-missing-precondition + a dedicated
+append-only JSONL sink `outputs/structural_prevention_<piece>_events.jsonl`
+(>=1 `*.refuse.event` + >=1 `*.pass.event`).
+
+| Piece | Done | File | Sink stem |
+|---|---|---|---|
+| Operational-Definition Substitution Gate | #14 | operational_definition_substitution_gate.py | substitution_gate |
+| Stage-0 probe-presence check | #15a | stage_0_probe_presence_check.sh | stage_0_probe_presence |
+| Reality-vs-intent gate | #15b | reality_vs_intent_gate.py | reality_vs_intent |
+| Number-tagging gate | #15c | number_tagging_gate.py | number_tagging |
+| Probe-coverage check | #15d | probe_coverage_check.sh | probe_coverage |
+| Library self-test gate | #15e | library_self_test_gate.sh | library_self_test |
+| Deferral-expiration gate | #15f | deferral_expiration_gate.py | deferral_expiration |
+| Design-anchor disclosure gate | #15g | design_anchor_disclosure_gate.py | design_anchor_disclosure |
+
+Auxiliary sinks: `outputs/probe_library_auto_deprecate_events.jsonl` (>=1
+`*.deprecate.event` when a probe fails self-test 2 consecutive sessions) +
+`outputs/probe_library_self_test_events.jsonl` (per-probe rows; `crash` bool).
+
+KT-8 BINDING: every implementation-judging predicate IMPORTS +
+`subprocess`-executes a named BE-F probe (`--self-test` / `--aggregate-cycle`);
+no probe-ID string-match, status-enum read, token count, or path-exists predicate.
+
+Carry fixes (cycle_16 mirror only; govML canonical copy flagged for BE-I):
+- HC-BE-G-1: dormancy compute FAIL-CLOSED — a crash (non-JSON / non-zero rc)
+  is a distinct `crash` verdict (FAIL blocking / loud non-PASS WARN advisory),
+  never silent PASS=0; library self-test treats a crashing probe as a fail.
+- HC-BE-G-2: real session-index partition (group by run_id `sNN_` prefix /
+  session field; last 3 DISTINCT sessions) replaces `rows[-window*64:]`.
+
+(Stage 5 BE-H ADDITIVE-APPEND per Cycle-16-S13 BE-H dispatch substrate; BE-A
+sections 1-3 + BE-B 10 + BE-C 11 + BE-D 12 + BE-E 13 + BE-F 14 + BE-G 15 preserved verbatim.)

@@ -1,7 +1,7 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "cycle_16_phase_9_2_stage_5_be_g_built_pending_promotion_s13_stage_5_be_h_dispatch_next",
+  "current_phase": "cycle_16_phase_9_3_stage_5_be_h_structural_prevention_layer_built_pending_promotion_s14_stage_5_be_i_dispatch_next",
   "current_stage_orchestrator": "build",
   "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28) + Amendment 2026-05-28d (kc-49 autonomous authoring; Rex review gate WAIVED 2026-05-28; 7 chain-failure holes folded into binding completion criteria Done #25-#31 + HC #79-#85 + KT-15-18)",
   "stage_0_2_complete": true,
@@ -308,6 +308,41 @@
       "govml_backport": "BE-I_S14",
       "dual_path_materialization": "canonical ~/ml-governance-templates/scripts/ + cycle_16 scripts/be_g_mirror/",
       "hc_70_honest_scope": "present+future spine only; past-impl Phase 11-13; probe accuracy Done #25/Phase 12"
+    },
+    "cycle_16_s13_be_h_structural_prevention_layer_built": {
+      "session": "Cycle-16-S13",
+      "deliverables": 8,
+      "carry_fixes": 2,
+      "all_acceptance_pass": true,
+      "kt_7_pass": true,
+      "kt_8_pass": true,
+      "kt_8_evidence": "every implementation-judging predicate subprocess-executes a named BE-F probe (--self-test or --aggregate-cycle); 0 string-match/enum/token/path predicates",
+      "pieces": [
+        "operational_definition_substitution_gate.py(#14)",
+        "stage_0_probe_presence_check.sh(#15a)",
+        "reality_vs_intent_gate.py(#15b)",
+        "number_tagging_gate.py(#15c)",
+        "probe_coverage_check.sh(#15d)",
+        "library_self_test_gate.sh(#15e)",
+        "deferral_expiration_gate.py(#15f)",
+        "design_anchor_disclosure_gate.py(#15g)"
+      ],
+      "hc_be_g_1_resolved_cycle_16_mirror": true,
+      "hc_be_g_2_resolved_cycle_16_mirror": true,
+      "hc_be_g_govml_canonical_copy_carry": "BE-I/S14",
+      "dogfood_non_smoke_run_id_prefix": "s13_be_h_production_*",
+      "dogfood_exercises_5_of_5_pass": true,
+      "probe_coverage_production_fires_per_class": {
+        "a": 9,
+        "b": 10,
+        "c": 190,
+        "d": 59
+      },
+      "ed_5_9_threshold_5_init_project_integration": "N/A at S13; signature DECLARED in README + envelope; wired at BE-I",
+      "govml_untouched_at_s13": true,
+      "hc_70_honest_scope": "PREVENTION only; does NOT validate probe accuracy (Done #25/Phase 12) nor fix past specs (Phase 11-13) nor force own consumption nor back-port carry fixes to govML copy",
+      "ship_location": "cycle_16 scripts/structural_prevention/",
+      "commit_pending": "3_repo_paired_commit_cycle_16_emabs_moonshots_NO_govML (Coach at R3)"
     }
   },
   "decisions_log": [
@@ -649,7 +684,7 @@
     "HC-BE-G-1 NEW at S12 (kc-49 R3 independent verification): advisory session-close gate (scripts/be_g_mirror/spec_implementation_session_close_gate.sh) masks a probe-evaluation CRASH into PASS -- DORMANCY=$(python3 ... 2>&1 || true) then DORMANT_OVER_COUNT=$(... || echo 0) treats a non-JSON/crash result as 0-dormant -> PASS. Decorative-gate shape (gate green when its evidence-computation actually failed), one notch down on the ADVISORY (non-blocking, Done #19) gate; did NOT corrupt S12 close. The BLOCKING cycle-close gate (spec_implementation_present_gate.sh) is fail-CLOSED (probe crash -> total_fired=0 -> FAIL exit 1; kc-49 live-fire verified fired=268/impl=72). FIX at BE-H (S13): advisory gate fail-closed on probe crash + library self-test (Done #15e) catches probe crashes. kc-49 embeds at S13 BE-H dispatch task context.",
     "HC-BE-G-2 NEW at S12 (kc-49 R3 independent verification): probe-fire dormancy window is a HEURISTIC proxy (rows[-window*64:] 'generous recent window') not a true session-index partition for 'last 3 sessions' (Done #19). Reads probe-fire evidence (correct anti-substitution) but the window boundary is approximate. Refine at BE-H (S13) to a real session-index partition; also independently cross-checked by Phase 11 exhaustive enumeration discipline (HC #76). kc-49 embeds at S13 BE-H dispatch task context."
   ],
-  "next_action": "Cycle-16-S13 dispatch BE-H structural-prevention layer (7 components per ED \u00a75.9; closes Done #15a-g + H_recovery_5) per ROADMAP \u00a79.3. BE-G built+pending-promotion. Cross-System-Validator + Promotion-Gate Stack pending.",
+  "next_action": "cycle_16_phase_9_4_stage_5_be_i_govml_v2_8_6_additive_append_back_port_plus_hc_be_g_1_2_govml_canonical_copy_carry_fix",
   "last_action": "cycle_16_s12_stage_5_be_g_write_boundary_enforcement_composite_built",
   "last_action_ts": "2026-05-28T20:35:00Z",
   "last_action_timestamp": "2026-05-28T20:35:00Z",
@@ -659,5 +694,21 @@
   "stage_5_be_f_close_timestamp": "2026-05-28T17:30:00Z",
   "stage_5_be_g_complete": true,
   "stage_5_be_g_complete_at": "2026-05-28T20:35:00Z",
-  "stage_5_be_g_close_timestamp": "2026-05-28T20:35:00Z"
+  "stage_5_be_g_close_timestamp": "2026-05-28T20:35:00Z",
+  "honest_carries": [
+    {
+      "id": "HC-BE-G-1",
+      "status": "RESOLVED-at-BE-H (cycle_16 mirror)",
+      "be_h_resolution": "dormancy compute FAIL-CLOSED: crash (non-JSON / non-zero rc) is a distinct crash verdict (FAIL blocking / loud non-PASS WARN advisory), never silent PASS=0; library_self_test treats crashing probe as self-test FAIL (crash:true)",
+      "govml_copy_carry": "govML canonical scripts/be_g_mirror session_close_gate STILL fail-open; govML untouched at S13; back-port -> BE-I/S14",
+      "repo_scope": "cycle_16 mirror RESOLVED; govML canonical carry -> BE-I"
+    },
+    {
+      "id": "HC-BE-G-2",
+      "status": "RESOLVED-at-BE-H (cycle_16 mirror)",
+      "be_h_resolution": "real session-index partition (run_id sNN_ prefix / payload.session; last 3 DISTINCT sessions) replaces rows[-max(1,window)*64:]; live 5-session fixture confirms fires=3 last-3-distinct-sessions vs all-rows magic-64",
+      "govml_copy_carry": "govML canonical copy STILL rows[-window*64:]; back-port -> BE-I/S14",
+      "repo_scope": "cycle_16 mirror RESOLVED; govML canonical carry -> BE-I"
+    }
+  ]
 }

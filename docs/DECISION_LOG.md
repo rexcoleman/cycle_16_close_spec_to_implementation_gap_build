@@ -229,3 +229,5 @@ retraction record. This ADR is the retraction record that authorizes the positiv
 Retract the synthetic dogfood spec `cycle16:spec_be_g_kill_dogfood_s12`; transition its
 `cycle16:currentStatus` → `cycle16:killed` with `cycle16:auditTrailLink` → this ADR.
 Kill discipline is ADR-gated: no kill without a recorded retraction (DP#44).
+
+| D-S13-1 | BE-H structural-prevention layer ships at cycle_16 scripts/structural_prevention/; ED section 5.9 govML paths translated to cycle_16 first-arc; threshold 5 (init_project.sh) N/A at S13, signature declared for BE-I; HC-BE-G-1/HC-BE-G-2 fixed in cycle_16 mirror, govML canonical copy carry flagged for BE-I | 2026-05-28 | Coach R3 |

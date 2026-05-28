@@ -1,140 +1,110 @@
-# BE-G Build-Runner envelope — Cycle-16-S12 Stage 5 (OVERWRITE per substrate §5)
-build_element: BE-G
-build_class: write_boundary_enforcement_composite
-session: Cycle-16-S12
+# BE-H Build-Runner envelope — Cycle-16-S13 Stage 5 (OVERWRITE per substrate §5)
+build_element: BE-H
+build_class: structural_prevention_layer
+session: Cycle-16-S13
 cycle: 16
-phase: 9.2
-timestamp: 2026-05-28T20:35:00Z
-status: BUILT_PENDING_PROMOTION
-verdict: PASS_ALL_10_ACCEPTANCE_THRESHOLDS
-
-zero_marker_loss: true            # LOCKED §1-§14 heads byte-identical (md5 verified)
-placeholder_residue_count: 0      # across all docs BE-G authored/appended (pre-existing template {{}} in docs/DECISION_LOG.md scaffold header NOT BE-G-authored)
+phase: 9.3
+timestamp: 2026-05-28T22:40:00Z
+status: completed
+verdict: PASS_10_OF_10_ACCEPTANCE_THRESHOLD_5_N_A_DOCUMENTED
+ship_location: cycle_16 scripts/structural_prevention/
 confidence: high
-
-dual_path_materialization_flag: true
-dual_path_note: >-
-  5 BE-G scripts (pre-commit hook, watcher, reconciliation gate, present_gate UPGRADE,
-  session_close_gate UPGRADE) authored at canonical ~/ml-governance-templates/scripts/
-  per ED §5.8 named paths AND mirrored at cycle_16 scripts/be_g_mirror/ so the cycle_16
-  commit captures the deliverable. NO govML commit at S12 (back-port + v2.8.6 = BE-I/S14).
-  kill_spec() + forward_apply wiring + Class E/F stubs live in cycle_16 scripts/spec_registry_authoring.py.
+zero_marker_loss: true
+placeholder_residue_count: 0   # 0 double-brace placeholders introduced by BE-H. The 4 in docs/DECISION_LOG.md are HEAD-locked scaffold-header template tokens (TIER1/2/3_DOC + PROJECT_NAME) preserved verbatim, NOT BE-H-authored
 
 files_written:
-  - path: ~/ml-governance-templates/scripts/spec_authoring_pre_commit_hook.sh
-    lines: 125
-    bytes: 4830
-    canonical: true
-  - path: ~/ml-governance-templates/scripts/spec_authoring_watcher.py
-    lines: 199
-    bytes: 7588
-    canonical: true
-  - path: ~/ml-governance-templates/scripts/three_registry_reconciliation_gate.sh
-    lines: 136
-    bytes: 5989
-    canonical: true
-  - path: ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh
-    lines: 357
-    bytes: 15806
-    canonical: true
-    note: Done #17 UPGRADE — ASK currentStatus REMOVED; subprocess probe-fire aggregate
-  - path: ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh
-    lines: 348
-    bytes: 14635
-    canonical: true
-    note: Done #19 UPGRADE — probe-fire JSONL aggregate; advisory at C16; pipefail-hardening
-  - path: scripts/be_g_mirror/ (5 mirrors of the above)
-    lines: mirror
-    canonical: false
-  - path: scripts/spec_registry_authoring.py
-    lines: 1048
-    bytes: 39596
-    note: kill_spec() + forward_apply_emit() wiring into register_spec() + Class E/F hooks
-  - path: outputs/be_g_coverage_matrix.md
-    lines: 45
-    bytes: 2975
-  - path: outputs/be_g_coverage_matrix.json
-    lines: 53
-    bytes: 3916
-  - path: outputs/spec_authoring_required_check.yml
-    lines: 72
-    bytes: 2972
-    note: Done #29 CI required-status-check closing --no-verify bypass
-  - path: docs/ARTIFACT_CONTRACT.md (§15 append; head-694 LOCKED md5 ba803727 preserved)
-  - path: docs/RUNTIME_EMIT_SPEC.md (§15 append; head-798 LOCKED md5 fae9aab2 preserved)
-  - path: docs/ACCEPTANCE_CRITERIA.md (§15 append; head-666 LOCKED md5 cfde5907 preserved)
-  - path: docs/DEPLOYMENT_LOG.md (§2 row 7 ADDITIVE; rows 1-6 LOCKED)
-  - path: docs/BUILD_DECISION_LOG.md (§2 row 7 ADDITIVE; rows 1-6 LOCKED)
-  - path: docs/DECISION_LOG.md (ADR-S12-1-KILL ADDITIVE — kill_spec dogfood retraction record)
-  - path: DECISION_LOG.md (D-S12-1 ADDITIVE)
-  - path: state.json (transition ADDITIVE; current_phase + next_action + paradigm_dispositions)
-  - path: prompt_inventory (singularity.db) build-orchestrator + build-runner rows
-  - path: 5 outputs/*.jsonl sinks (append-only; non-smoke s12_be_g_production_* run_ids)
+  structural_prevention_pieces:
+    - {path: scripts/structural_prevention/operational_definition_substitution_gate.py, lines: 232, bytes: 10187, done: "#14"}
+    - {path: scripts/structural_prevention/stage_0_probe_presence_check.sh, lines: 101, bytes: 4147, done: "#15a"}
+    - {path: scripts/structural_prevention/reality_vs_intent_gate.py, lines: 156, bytes: 6549, done: "#15b"}
+    - {path: scripts/structural_prevention/number_tagging_gate.py, lines: 151, bytes: 6729, done: "#15c"}
+    - {path: scripts/structural_prevention/probe_coverage_check.sh, lines: 129, bytes: 5221, done: "#15d"}
+    - {path: scripts/structural_prevention/library_self_test_gate.sh, lines: 178, bytes: 8035, done: "#15e"}
+    - {path: scripts/structural_prevention/deferral_expiration_gate.py, lines: 135, bytes: 5689, done: "#15f"}
+    - {path: scripts/structural_prevention/design_anchor_disclosure_gate.py, lines: 141, bytes: 6223, done: "#15g"}
+  carry_fixes:
+    - {path: scripts/be_g_mirror/spec_implementation_session_close_gate.sh, change: "HC-BE-G-1 fail-closed crash verdict (set +e around compute + temp-file stdout/rc capture + distinct crash branch) + HC-BE-G-2 real session-index partition; magic-64 removed; crash_branch=1; g1_fix=1 g2_fix=1; bash -n SYNTAX_OK; diff vs HEAD del~4 add~62"}
+  docs_appended_additive:
+    - {path: docs/ARTIFACT_CONTRACT.md, section: "§16 BE-H", locked_prefix: "HEAD 1-736 verbatim git-diff-0", working_lines: 774}
+    - {path: docs/RUNTIME_EMIT_SPEC.md, section: "§16 BE-H", locked_prefix: "HEAD 1-829 verbatim git-diff-0", working_lines: 860}
+    - {path: docs/ACCEPTANCE_CRITERIA.md, section: "§16 BE-H", locked_prefix: "HEAD 1-696 verbatim git-diff-0", working_lines: 724}
+    - {path: docs/DEPLOYMENT_LOG.md, change: "BE-H ADDITIVE row (0 deletions; prior rows + BE-G LOCKED)"}
+    - {path: docs/BUILD_DECISION_LOG.md, change: "§2 row 8 BE-H ADDITIVE (0 deletions; rows 1-7 LOCKED)"}
+    - {path: docs/DECISION_LOG.md, change: "D-S13-1 ADDITIVE (0 deletions; D-S2..D-S12 LOCKED)"}
+  other:
+    - {path: scripts/structural_prevention/README.md, lines: 50, note: "BE-I install_structural_prevention_layer() signature DECLARED; ED §5.9 threshold 5 N/A at S13"}
+    - {path: outputs/cycle_16_s13_hc70_reality_vs_intent_diagnostic.md, lines: 33}
+    - {path: scripts/structural_prevention/fixtures/, note: "9 dogfood fixtures"}
+    - {path: state.json, change: "current_phase/next_action -> BE-H built / S14 BE-I; honest_carries HC-BE-G-1/2 RESOLVED-at-BE-H (cycle_16 mirror; govML copy -> BE-I); paradigm_dispositions ADDITIVE"}
+  sinks:
+    - outputs/structural_prevention_substitution_gate_events.jsonl
+    - outputs/structural_prevention_stage_0_probe_presence_events.jsonl
+    - outputs/structural_prevention_reality_vs_intent_events.jsonl
+    - outputs/structural_prevention_number_tagging_events.jsonl
+    - outputs/structural_prevention_probe_coverage_events.jsonl
+    - outputs/structural_prevention_library_self_test_events.jsonl
+    - outputs/structural_prevention_deferral_expiration_events.jsonl
+    - outputs/structural_prevention_design_anchor_disclosure_events.jsonl
+    - outputs/probe_library_auto_deprecate_events.jsonl
+    - outputs/probe_library_self_test_events.jsonl
+    - outputs/structural_prevention_probe_coverage_fires.jsonl
 
-acceptance:
-  ac1_pre_commit_hook: PASS  # 3 fixtures HARD-BLOCK exit 1 + 3 pre_commit_hook_block.fire.event; positive ALLOW
-  ac2_fsnotify_watcher: PASS # 3 scan-once @53ms <=60s + LIVE inotify daemon 2 fires on real git-bypassing write
-  ac3_reconciliation_gate: PASS # 5 consecutive closes drift_detected_bool=false vs LIVE /cycle6 241 + PI 9 + FS 2
-  ac4_done17_cycle_close_gate: PASS # subprocess probe-fire aggregate 268/72 PASS; 3 negative BLOCKED; ASK-currentStatus removed
-  ac5_kill_spec: PASS        # 4-param; ADR-grep + spec_killed_event + SPARQL->killed readback; 3 DP#44 refusals NO-event
-  ac6_done19_session_close_gate: PASS # probe-fire JSONL aggregate; advisory_mode_bool=true; 3 dormancy fixtures; monotonic 1->5
-  ac7_done29_coverage_bypass: PASS    # 4-repo matrix + CI required-status-check
-  ac8_done30_guard_the_guards: PASS   # build-orchestrator+build-runner in prompt_inventory + 6 self-registered
-  ac9_kt7_probe_self_test: PASS       # a/b/c/d probes --self-test exit 0
-  ac10_kt8_import_execute: PASS       # 4 predicates subprocess/import-execute named primitive, not string-match
+acceptance_10:
+  T-BE-H-1_8_pieces_present: PASS         # 8 .sh/.py; shebang + DP#44 refuse + dedicated sink each
+  T-BE-H-2_each_refuses_negative_fixture: PASS  # >=1 *.refuse.event per sink (8/8 OK)
+  T-BE-H-3_substitution_gate_imports_executes: PASS  # 3 proxy FAIL + 1 probe-ref PASS; subprocess --self-test
+  T-BE-H-4_probe_coverage_production_smoke_excluded: PASS  # a9/b10/c190/d59 impl; smoke->0
+  T-BE-H-5_ed_5_9_threshold_5_init_project: N/A_DOCUMENTED  # BE-I/S14; signature declared in README/envelope
+  T-BE-H-6_design_anchor_disclosure: PASS  # refuses absent column; checkpoint+escalation marker
+  T-BE-H-7_hc_be_g_1_fail_closed: PASS     # crash=BLOCKED rc1 / advisory loud CRASH WARN; silent-pass=0; self-test crash=fail
+  T-BE-H-8_hc_be_g_2_real_partition: PASS  # live 5-session fixture: WARN 1 spec fires=3 (last 3 distinct sessions) vs magic-64 all-rows
+  T-BE-H-9_kt_7_self_test_exit0: PASS      # a/b/c/d all 0
+  T-BE-H-10_kt_8_imports_executes: PASS    # 5 probe-invoking predicates subprocess-execute
 
-dogfood_evidence_non_smoke:
-  spec_authoring_events.jsonl: 8     # 3 hook-block + 5 watcher
-  three_registry_reconciliation_events.jsonl: 5
-  spec_implementation_gates_events.jsonl: 8  # 4 present-gate (3 BLOCKED+1 CLEAR) + 4 session-close (3 dormancy+1)
-  spec_registry_events.jsonl: 10     # 6 self-register write + 3 kill refusal + 1 (kill setup); spec_killed_event=1
-  forward_apply_observation_events.jsonl: 7  # production register_spec() forward_apply fires
+kt_7_probe_self_test_exits: {a: 0, b: 0, c: 0, d: 0}
+kt_8_probe_invoking_predicates: 5   # substitution / stage_0 / reality_vs_intent / probe_coverage / library_self_test
+kt_8_non_probe_pieces: 3            # number_tagging / deferral / design_anchor judge text/JSON structure (no impl predicate, by design)
 
-hc_70_honest_scope:
-  what_be_g_proves: >-
-    The PRESENT + FUTURE write-boundary enforcement spine works from real production paths:
-    spec-class writes without register_spec() are blocked (hook) or observed (watcher);
-    register_spec() now fires forward-apply observation; the cycle-close + session-close
-    gates accept a spec ONLY on real probe-fire implemented evidence (not a status enum);
-    kill discipline is ADR-gated; the guards (build-orchestrator/build-runner + the 6 BE-G
-    scripts) are themselves registered; the --no-verify bypass is closed by a CI required check.
-  what_be_g_does_NOT_prove:
-    - It does NOT make past specs implemented (that is Phase 11-13 retroactive remediation).
-    - It does NOT validate the BE-F probes' own accuracy (that is Done #25 / Phase 12).
-    - The present-gate PASS means ">=1 implemented probe-fire aggregated", NOT "all specs implemented".
-    - Enforcement is INSTALLABLE per repo; INSTALL into .git/hooks + CI branch protection is an
-      operational promotion step, NOT performed by this build across all repos.
-    - Done #19 dormancy gate is ADVISORY at Cycle 16 (BLOCKING transition at Cycle 17+).
+dogfood_non_smoke:
+  run_id_prefix: s13_be_h_production_*
+  exercise_1_substitution_real_proxy_refuse: "3 FAIL on real Cycle-16 proxies (BE-D 137-dormant / pre-Done#17 registry-field / emission-record)"
+  exercise_2_number_tagging_heuristic_in_verdict_block: "rc=1; 1 heuristic-in-verdict FAIL"
+  exercise_3_reality_vs_intent_incomplete_table_refuse: "rc=1; 1 incomplete-row FAIL"
+  exercise_4_deferral_3of4_field_refuse: "rc=1; missing_required_field [reactivation_condition]"
+  exercise_5_library_self_test_crash_2consec_deprecate: "rc=1 both sessions; 1 deprecate row probe_broken (canonical outputs, prod run_id)"
+
+carry_fix_evidence:
+  hc_be_g_1:
+    blocking_mode_crash: "rc=1; 'CRASH: dormancy compute failed (rc=1); NOT coerced to PASS'; BLOCKED 1 FAIL; silent-PASS=0"
+    advisory_mode_crash: "rc=0 path-level but loud CRASH printed (non-PASS); silent-PASS=0"
+    clean_run: "rc=0; PASS 0 dormant (behavior unchanged)"
+    library_self_test_tie: "crashing probe -> crash:true -> self-test FAIL; 2 consecutive -> auto-deprecate probe_broken"
+    impl_note: "compute runs under `set +e` with stdout+rc captured to temp; crash = non-zero rc OR non-JSON stdout; never `|| echo 0`"
+  hc_be_g_2:
+    live_fixture_run: "5-session JSONL (spec_X impl only s1,s2) -> gate WARN 1 dormant spec fires=3 (exactly last 3 distinct sessions s3,s4,s5); magic-64 would include all 5 rows -> 0 dormant. DIVERGE confirmed"
+    body: "recent = [r for r in rows if _session_key(r) in last_sessions]; last_sessions = set(seen_order[-max(1, window):]); _session_key = run_id sNN_ prefix / payload.session / timestamp-second fallback"
+
+hc_70_honest_scope_what_be_h_does_not_prove:
+  - "Does NOT validate the BE-F probes' own accuracy vs blind ground truth (Done #25 / Phase 12 / KT-15)"
+  - "Does NOT fix any past spec (Phases 11-13) nor enumerate the defensible denominator (Done #27)"
+  - "Does NOT wire gates into govML scaffolding (BE-I/S14; ED §5.9 threshold 5 N/A at S13)"
+  - "Does NOT force its own consumption — most gates judge inputs handed to them; the binding that they fire at each Stage surface is RP-fill/orchestration scope"
+  - "Does NOT back-port the 2 carry fixes to the govML canonical session_close_gate copy (still fail-open + magic-64; BE-I carry)"
+
+govml_deferral_flag:
+  govml_untouched_at_s13: true        # 0 files modified under ~/ml-governance-templates this session
+  threshold_5_init_project_integration: BE-I
+  hc_be_g_1_2_govml_canonical_copy_carry: BE-I
+
+carries_resolved:
+  HC-BE-G-1: "RESOLVED-at-BE-H (cycle_16 mirror); govML copy carry -> BE-I"
+  HC-BE-G-2: "RESOLVED-at-BE-H (cycle_16 mirror); govML copy carry -> BE-I"
 
 issues:
-  - id: BE-G-1
-    severity: low
-    desc: >-
-      Host lacks watchdog/inotify_simple; watcher uses Linux inotify(7) via ctypes (libc). Portable
-      on Linux only (acceptable — all work-hosts are Linux). Not a cross-platform watcher.
-  - id: BE-G-2
-    severity: low
-    desc: >-
-      EMABS (emabs_moonshots) repo is not present on this host (Coach-managed state.json mirror per
-      PC #100). Coverage matrix enumerates it as a named target with mechanism inherited-when-materialized;
-      it is NOT a script-bearing repo I touched at S12.
-  - id: BE-G-3
-    severity: low
-    desc: >-
-      Session-close gate SESSIONS_BETWEEN primitive (BE-C-authored line) needed a one-token pipefail
-      hardening (added "or true" on the grep -c count pipeline) so it survives 0 session.start markers
-      under set -o pipefail. Behavior for >=1 match is unchanged. Flagged for Coach R3 as a BE-G-scoped
-      additive fix on a BE-C line (not a section-override; no logic change).
-  - id: BE-G-4
-    severity: informational
-    desc: >-
-      docs/DECISION_LOG.md retains 4 pre-existing scaffold-template {{}} placeholders in its header
-      (present BEFORE BE-G; not authored by me; out of scope). My ADR-S12-1-KILL append has 0 placeholders.
-  - id: BE-G-5
-    severity: informational
-    desc: >-
-      Reconciliation gate uses a RECONCILIATION (registry-going-dark) drift definition, not exact
-      count-equality, because the three registries count different universes (FS=this repo, KG=all
-      retroactively-scanned cross-cycle specs, PI=agent_specs only). Documented in the gate header.
+  - "Two Write/Edit batches were cancelled mid-build by sandbox denials of `rm -rf <dir> && mkdir` forms; deferral_expiration_gate.py, design_anchor_disclosure_gate.py, README, diagnostic, doc/log appends, state.json transition, and this envelope had to be re-authored after detecting they had not persisted — all now verified on disk"
+  - "library_self_test deprecation history persists in probe_library_self_test_events.jsonl; added present-probe scoping at build time so a removed/renamed probe's historical fails do not perpetually block clean runs (the canonical clean run still BLOCKs because probe_broken history persists in cycle_16/outputs from the EX5 dogfood — this is correct deprecation-latch behavior, not a defect; a fresh project dir runs CLEAR)"
+  - "number_tagging primary-number regex is heuristic; may over/under-match in dense tables"
+  - "3 pieces (number_tagging/deferral/design_anchor) judge text/JSON structure not running code, so carry no probe-subprocess predicate by design; KT-8 applies to the 5 implementation-judging predicates"
+  - "HC#70 reality-vs-intent diagnostic written to outputs/ (cycle_16 has no .claude/workspace dir); substrate §3 path is Moonshots-side"
 
-no_git_commit: true   # Coach handles the 3-repo paired commit at R3. NO govML commit at S12.
+commit: "NOT committed by Build-Runner; Coach handles 3-repo paired commit (cycle_16 + EMABS + Moonshots; NO govML) at R3"

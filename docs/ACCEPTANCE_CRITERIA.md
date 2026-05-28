@@ -694,3 +694,31 @@ Per `build-runner.md §Step 3 ACCEPTANCE_CRITERIA §2` and §13 + §12 + §11 + 
 - govML back-port of BE-G scripts is BE-I / S14 (NO govML commit at S12 per work-host boundary).
 
 <!-- /gate:acceptance_criteria §15 -->
+
+## §16 — BE-H structural-prevention acceptance (Cycle-16-S13)
+
+All probe-fire-grounded; smoke fires REFUSED as acceptance evidence
+(`*_smoke_*` / `*_self_test_*` run_id discriminator).
+
+- T-BE-H-1: 8 pieces present at `scripts/structural_prevention/`; each runnable
+  with shebang + DP#44 refuse + dedicated `*_events.jsonl` sink. PASS.
+- T-BE-H-2: each piece refuses >=1 negative fixture via a `*.refuse.event` row. PASS.
+- T-BE-H-3: Substitution Gate (#14) imports+executes the named probe (`subprocess`
+  + `--self-test`); HARD-FAILs >=3 proxy fixtures + passes >=1 probe-ref def. PASS.
+- T-BE-H-4: probe-coverage (#15d) requires non-zero PRODUCTION fires per class
+  A/B/C/D; smoke excluded via run_id prefix. PASS (a9/b10/c190/d59 prod impl). [measured]
+- T-BE-H-5: ED section 5.9 threshold 5 (govML init_project.sh integration) = N/A at
+  S13 / BE-I scope per kc-49 evidence-path-translation; signature DECLARED in
+  README/envelope, wired at BE-I/S14. N/A-DOCUMENTED.
+- T-BE-H-6: design-anchor disclosure (#15g) refuses absent disclosure column;
+  emits Stage 2->3 checkpoint + paradigm-escalation marker on internal
+  load-bearing inheritance. PASS.
+- T-BE-H-7: HC-BE-G-1 fixed — probe-crash in session_close_gate is fail-closed
+  (distinct `crash` verdict, NOT silent PASS=0); library self-test treats a
+  crashing probe as a self-test FAIL. PASS.
+- T-BE-H-8: HC-BE-G-2 fixed — real session-index partition replaces `*64`
+  (live 5-session fixture: fires=3 last-3-distinct-sessions vs all-rows). PASS.
+- T-BE-H-9 (KT-7): every probe invoked passes `--self-test` exit 0. PASS.
+- T-BE-H-10 (KT-8): every implementation-judging predicate imports+executes. PASS.
+
+(Stage 5 BE-H ADDITIVE-APPEND per Cycle-16-S13; BE-A..BE-G preserved verbatim.)

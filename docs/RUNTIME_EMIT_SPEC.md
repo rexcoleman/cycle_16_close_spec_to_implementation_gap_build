@@ -827,3 +827,34 @@ All BE-G production fires carry run_id prefix `s12_be_g_production_*` (never `sm
 Acceptance counts smoke-prefixed fires as ZERO (HC #67 + Done #15d).
 
 <!-- /gate:runtime_emit_spec §15 -->
+
+## §16 — BE-H structural-prevention emit schema (Cycle-16-S13)
+
+Common envelope: `schema_version`, `namespace` (`cycle_16.be_h.<piece>`),
+`event_class` (`<piece>.{refuse,pass,checkpoint_flag,deprecate}.event`),
+`predicateType` (`cycle16:<piece>_v1`), `timestamp` (UTC),
+`run_id` (production prefix `s13_be_h_production_<piece>_*`), `payload`.
+
+Per-piece payload fields:
+- substitution_gate: `surface`, `definition_id`, `verdict`, `reason`,
+  `named_probe`, `self_test_exit`, `proxy_class`, `refuse`.
+- stage_0_probe_presence: `reason`, `class`, `module`, `self_test_exit`,
+  `present`, `required`, `refuse`.
+- reality_vs_intent: `surface`, `rows`, `incomplete_rows`, `probe_failures`,
+  `verdict`, `refuse`.
+- number_tagging: `surface`, `target`, `untagged_numbers`,
+  `heuristic_in_verdict`, `verdict`, `refuse`.
+- probe_coverage: `coverage` (per-class prod/impl), `cycle`, `reason`, `refuse`.
+- library_self_test: `result` (probes/fails/crashes/deprecations), `refuse`;
+  per-probe rows carry `crash` bool + `self_test_exit` + `session`.
+- deferral_expiration: `spec`, `verdict`, `reason`, `missing_fields`,
+  `age_sessions`, `max_window`, `auto_route`, `refuse`.
+- design_anchor_disclosure: `verdict`, `internal_load_bearing`,
+  `checkpoint_flag`, `paradigm_escalation_candidate`, `refuse`.
+- auto_deprecate: `probe_id`, `reason`, `sessions`, `action`, `refuse`.
+
+session_close_gate carry-fix upgrade: `dormant_specs_over_threshold_bool` now
+admits the `crash` value (HC-BE-G-1); dormancy window partitioned by real
+session index (HC-BE-G-2).
+
+(Stage 5 BE-H ADDITIVE-APPEND per Cycle-16-S13; BE-A..BE-G preserved verbatim.)

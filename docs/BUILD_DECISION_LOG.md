@@ -218,3 +218,7 @@ paths NOT inlined here.
 > orchestration are pipeline-private IP (publishable-vs-private partition); a separate internal
 > agent-spec for build-class is dispositioned at the next build-class cycle
 > bootstrap, NOT inlined into this template.
+
+| 8 | BE-H | Ship structural-prevention layer at cycle_16 first-arc (govML untouched; BE-I back-port); every implementation-judging predicate subprocess-executes a named BE-F probe (KT-8); fix HC-BE-G-1 fail-open->fail-closed crash verdict + HC-BE-G-2 magic-64->real session-index partition in be_g_mirror session_close_gate | S13 |
+
+(Stage 5 BE-H section 2 row 8 ADDITIVE per Cycle-16-S13; rows 1-7 LOCKED.)

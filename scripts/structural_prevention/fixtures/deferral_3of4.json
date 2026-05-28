@@ -1,0 +1,8 @@
+[
+ {
+  "spec_iri": "cycle16:deferred_X",
+  "named_target_session": "S20",
+  "reason": "blocked on KG migration",
+  "maximum_dormancy_window": 3
+ }
+]

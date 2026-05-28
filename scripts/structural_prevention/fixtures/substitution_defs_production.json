@@ -1,0 +1,19 @@
+[
+ {
+  "id": "cycle16_be_d_137_dormant",
+  "operational_metric": "dormant-silent count == registry currentStatus enum value (137 via ls+find+grep token-occurrence citation density)"
+ },
+ {
+  "id": "cycle16_present_gate_pre_done17",
+  "operational_metric": "spec accepted iff currentStatus == cycle16:implemented (registry field value)"
+ },
+ {
+  "id": "cycle16_kg_well_formed",
+  "operational_metric": "the spec_registry_events.jsonl emission record exists at outputs path"
+ },
+ {
+  "id": "cycle16_real_probe_def",
+  "operational_metric": "AgentContract implemented iff probe_agent_contract fires implemented=true",
+  "probe_primitive": "probe_agent_contract"
+ }
+]

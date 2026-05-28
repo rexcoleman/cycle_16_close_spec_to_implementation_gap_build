@@ -193,7 +193,14 @@ echo ""
 THRESHOLD_DEFAULT=3
 echo "--- Check 2: probe-fire dormancy aggregate over last $THRESHOLD_DEFAULT sessions (Done #19) ---"
 PROBE_FIRE_LOG="${BE_F_PROBE_FIRE_LOG:-$DIR/outputs/probe_fire_events.jsonl}"
-DORMANCY=$(python3 - "$PROBE_FIRE_LOG" "$THRESHOLD_DEFAULT" <<'PY' 2>&1 || true
+# HC-BE-G-1 FIX: capture rc separately; a crash (non-zero rc / non-JSON
+# stdout) is a DISTINCT verdict, never coerced to "0 dormant -> PASS".
+DORMANCY_ERR="$DIR/outputs/.session_close_dormancy_stderr.tmp"
+# Disable -e around the compute so a CRASH does NOT abort the script before the
+# crash-branch verdict runs (HC-BE-G-1: a crash must be SURFACED, not swallowed).
+DORMANCY_OUT="$DIR/outputs/.session_close_dormancy_stdout.tmp"
+set +e
+python3 - "$PROBE_FIRE_LOG" "$THRESHOLD_DEFAULT" >"$DORMANCY_OUT" 2>"$DORMANCY_ERR" <<'PY'
 import json, sys, pathlib
 log_path, window = sys.argv[1], int(sys.argv[2])
 p = pathlib.Path(log_path)
@@ -217,7 +224,26 @@ if p.exists():
     # prefix in run_id (sNN_...) or fall back to last-N rows. We aggregate the
     # most-recent window of fires and flag specs lacking an implemented fire there.
     rows.sort(key=lambda r: r.get("timestamp", ""))
-    recent = rows[-max(1, window) * 64:]  # generous recent window (per-session batched)
+    # HC-BE-G-2 FIX: real session-index partition (no magic *64 proxy).
+    # Group fires by DISTINCT session: run_id sNN_ prefix, else payload.session,
+    # else per-second timestamp proxy. Take the last `window` (=3) DISTINCT sessions.
+    import re as _re
+    def _session_key(r):
+        rid = r.get("run_id") or ""
+        m = _re.match(r"(s\d+)_", rid)
+        if m:
+            return m.group(1)
+        pay = r.get("payload") or {}
+        if pay.get("session"):
+            return str(pay.get("session"))
+        return (r.get("timestamp", "") or "")[:19]
+    seen_order = []
+    for r in rows:
+        k = _session_key(r)
+        if k not in seen_order:
+            seen_order.append(k)
+    last_sessions = set(seen_order[-max(1, window):])
+    recent = [r for r in rows if _session_key(r) in last_sessions]
     for r in recent:
         pay = r.get("payload") or {}
         iri = pay.get("spec_iri")
@@ -236,10 +262,34 @@ print(json.dumps({
     "dormant_specs_no_recent_impl": len(dormant_specs),
 }))
 PY
-)
-DORMANT_OVER_COUNT=$(echo "$DORMANCY" | python3 -c "import sys,json;print(json.loads(sys.stdin.read()).get('dormant_specs_no_recent_impl',0))" 2>/dev/null || echo 0)
-PROBE_FIRES_WINDOW=$(echo "$DORMANCY" | python3 -c "import sys,json;print(json.loads(sys.stdin.read()).get('probe_fire_rows_in_window',0))" 2>/dev/null || echo 0)
-if [ "${DORMANT_OVER_COUNT:-0}" -gt 0 ]; then
+DORMANCY_RC=$?
+DORMANCY=$(cat "$DORMANCY_OUT" 2>/dev/null || true)
+rm -f "$DORMANCY_OUT" 2>/dev/null || true
+set -e  # re-enable strict mode now that the compute rc is captured
+# HC-BE-G-1: detect a crash = non-zero rc OR stdout that is not valid JSON.
+DORMANCY_CRASH=false
+if [ "$DORMANCY_RC" -ne 0 ]; then DORMANCY_CRASH=true; fi
+if ! echo "$DORMANCY" | python3 -c "import sys,json; json.loads(sys.stdin.read())" >/dev/null 2>&1; then DORMANCY_CRASH=true; fi
+# HC-BE-G-1: do NOT `|| echo 0` a crash into a PASS. On crash route to crash branch.
+if [ "$DORMANCY_CRASH" = true ]; then
+    DORMANT_OVER_COUNT=""
+    PROBE_FIRES_WINDOW=""
+else
+    DORMANT_OVER_COUNT=$(echo "$DORMANCY" | python3 -c "import sys,json;print(json.loads(sys.stdin.read()).get('dormant_specs_no_recent_impl',0))")
+    PROBE_FIRES_WINDOW=$(echo "$DORMANCY" | python3 -c "import sys,json;print(json.loads(sys.stdin.read()).get('probe_fire_rows_in_window',0))")
+fi
+if [ "$DORMANCY_CRASH" = true ]; then
+    # Distinct crash verdict: NEVER a silent PASS=0 (HC-BE-G-1).
+    OVER_THRESHOLD_BOOL="crash"
+    ERRTXT=$( (cat "$DORMANCY_ERR" 2>/dev/null || true) | tr '\n' ' ' | head -c 200)
+    echo "  CRASH: dormancy compute failed (rc=$DORMANCY_RC); NOT coerced to PASS. err=$ERRTXT" >&2
+    if [ "$ADVISORY" = true ]; then
+        add_check 2 "probe-fire dormancy aggregate" "WARN" "compute_crash rc=$DORMANCY_RC (loud non-PASS)"
+    else
+        add_check 2 "probe-fire dormancy aggregate" "FAIL" "compute_crash rc=$DORMANCY_RC (fail-closed)"
+    fi
+    rm -f "$DORMANCY_ERR" 2>/dev/null || true
+elif [ "${DORMANT_OVER_COUNT:-0}" -gt 0 ]; then
     OVER_THRESHOLD_BOOL="true"
     echo "  WARN: $DORMANT_OVER_COUNT spec(s) with NO implemented probe fire in last $THRESHOLD_DEFAULT-session window (fires=$PROBE_FIRES_WINDOW)" >&2
     echo "  ACTION (advisory): surface for next-session implementation OR formal deferral (Done #15f 4-field)." >&2
@@ -253,6 +303,7 @@ else
     echo "  PASS: 0 dormant specs in probe-fire window ($DORMANCY)"
     add_check 2 "probe-fire dormancy aggregate" "PASS" "$DORMANCY"
 fi
+rm -f "$DORMANCY_ERR" 2>/dev/null || true
 echo ""
 
 # ── Check 3: SESSIONS_BETWEEN primitive computable ──

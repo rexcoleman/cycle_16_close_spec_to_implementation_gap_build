@@ -1,0 +1,8 @@
+[
+ {
+  "pre_registered_intent": "agents observed invoking",
+  "operational_metric_verbatim": "implemented iff >=1 Agent invocation observed",
+  "probe_primitive_referenced": "probe_agent_contract",
+  "implementation_baseline": ""
+ }
+]

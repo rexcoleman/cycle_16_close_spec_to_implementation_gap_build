@@ -162,3 +162,7 @@ recording in [BUILD_DECISION_LOG](BUILD_DECISION_LOG.tmpl.md) §2:
 | 5 | §0 promotion authority is a named role/operator (not "TBD") | [x] (build-runner → Coach R3 → build-orchestrator → Rex on CONTRACT_CHANGE) |
 
 > If any check is `[ ]`, halt-and-surface; do NOT promote.
+
+| 2026-05-28 | BE-H | structural-prevention 8-piece layer (substitution #14 + stage-0 #15a + reality-vs-intent #15b + number-tag #15c + coverage #15d + self-test #15e + deferral #15f + design-anchor #15g) + HC-BE-G-1/2 carry fixes | cycle_16 scripts/structural_prevention/ + be_g_mirror/ | S13 |
+
+(Stage 5 BE-H ADDITIVE row per Cycle-16-S13; prior rows + BE-G row LOCKED preserved.)
