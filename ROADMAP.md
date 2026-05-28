@@ -233,3 +233,152 @@ Cycle 16 closes when:
 <!-- /gate:roadmap phase_7 closure_annotation -->
 
 > Cycle 16 close-arc complete at Cycle-16-S8. Per `feedback_honest_evaluation.md` BINDING: Coach R3 independent verification at S8 close-eval; Build-Runner self-report NOT load-bearing. Per Pattern 14 STANDING: close summary direct to Rex in executive format ≤200 words fires post-commit. Per Pattern 9 BINDING: kc-47 PD authoring at kc-46 terminal close fires AFTER this S8 commit as Moonshots-paired follow-up (out-of-scope this S8 Coach per kc-46 PD §6.3).
+
+<!-- amendment_2026_05_28a_extension_start -->
+
+## §8 Phase 8 — External grounding (SHIPPED at S9) + Stage 3-4 RP fill (S10 this session) — Done definition extended per SI Amendment 2026-05-28a + 2026-05-28b walk-back of S8 FORMAL CLOSE
+
+<!-- source: dispatch substrate §3.d Cycle-16-S10 RP fill scope — §8 Phase 8 + §9 Phase 9 + §10 Phase 10 -->
+<!-- source: SI Amendment 2026-05-28a (Rex paradigm ruling walking back S8 FORMAL CLOSE: "if we move to a new cycle the problem will persist... should we keep it to cycle 16 so we actually solve the fucking problem") + SI Amendment 2026-05-28b (Rex "proceed" directive post-kc-47 self-audit) -->
+<!-- source: S8 phase-checkpoint FINDINGS 481L LOCKED at `fb3a0fe` + `25eff54` + `6c80afb` per DP#42 non-destructive supersedure pattern -->
+<!-- source: S9 Stage 0-2 RP fill close `d10e32a` (OBSERVATION_LOG §1.recovery + RESEARCH_QUESTION_SPEC §3.recovery + LANDSCAPE_ASSESSMENT §6.recovery; 3 artifacts +206/-0; HC-AUDIT-1 UPSTREAM CONFIRMED with 6 refinements; Cycle 6 KG 235 MATCH CORRECTED IRI; HC #72 sweep CLEAN; R3 PASS-WITH-FLAG+CARRY) -->
+<!-- source: S10 Stage 3-4 RP fill (this session) — HR §3.recovery 9 H_recovery rows + 5 KT-7..KT-11 evidence schemata + ED §5.recovery 4 BE-N blocks (BE-F + BE-G + BE-H + BE-I) + REQUIREMENTS Done #11-#19 verbatim + this ROADMAP §8 + §9 + §10 -->
+<!-- gate:roadmap §8 phase_8 required -->
+
+**Framing per Amendment 28b.** Cycle 16 stays OPEN. Done definition extended via Done #11-#19. S8 FINDINGS 481L stands as phase-checkpoint Layer 1-5 retrospective per DP#42 non-destructive supersedure; Cycle 16 TRUE close-arc 5-layer FINDINGS at Phase 10 (per §10 below) supersedes via non-destructive supersedure pattern. "Recovery scope" is NOT the dominant frame; "fulfilling SI's research question structurally" / "Done definition extended" / "completion criteria" is.
+
+### §8.1 Phase 8 Status: SHIPPED at S9 + Stage 3-4 RP fill at S10 (this session)
+
+| Sub-phase | Status | Session | Close evidence |
+|---|---|---|---|
+| **Phase 8.0** — kc-47 audit forensic record at handoff §1dq + kc-47 self-audit §1dr (6 refinements; HC-AUDIT-1 honest carry) | ✓ COMPLETE | Mid-S8→pre-S9 (kc-47 lifecycle close `94befe8` + follow-up `f66714f` + paired `aa9191b`) | Handoff §1dq + §1dr; Moonshots paired commits; HC-AUDIT-1 NEW honest carry; HC #74 BINDING introduced |
+| **Phase 8.1** — Stage 0-2 RP fill: OBSERVATION_LOG §1.recovery + RESEARCH_QUESTION_SPEC §3.recovery + LANDSCAPE_ASSESSMENT §6.recovery (10 probe-class disciplines × 30 verbatim quotes) | ✓ SHIPPED | Cycle-16-S9 (close `d10e32a`) | 3 artifacts +206/-0; HC-AUDIT-1 UPSTREAM CONFIRMED with 6 refinements; Cycle 6 KG 235 MATCH CORRECTED IRI named-graph-scoped; HC #72 sweep CLEAN; R3 PASS-WITH-FLAG+CARRY |
+| **Phase 8.2** — Stage 3-4 RP fill: HR §3.recovery 9 H_recovery rows + 5 KT-7..KT-11 evidence schemata + ED §5.recovery 4 BE-N blocks (BE-F + BE-G + BE-H + BE-I) + REQUIREMENTS Done #11-#19 verbatim + this ROADMAP §8 + §9 + §10 | ✓ SHIPPED (THIS S10 session; Coach R3 verifies at close) | Cycle-16-S10 (close in-progress) | 4 canonical artifacts ADDITIVELY APPENDED via `<!-- amendment_2026_05_28a_extension_start -->`..`_end -->` markers; LOCKED-body discipline strict per `git diff` zero on pre-marker line ranges; HC #72 substitution-detection self-scan CLEAN at all 4 fill targets |
+
+### §8.2 Phase 8 close criteria — already met at this S10 session close
+
+- 4 canonical artifacts ADDITIVELY APPENDED with HC #72 substitution-detection CLEAN at fill composition.
+- LOCKED-body discipline verified: `git diff --stat` zero deletions on pre-marker line ranges for HR / ED / REQUIREMENTS / ROADMAP.
+- 0 placeholders across all 4 fill targets.
+- 9 H_recovery rows × 9 Done# items (Done #11-#19) full coverage at HR §3.recovery.1.
+- 5 KT-7..KT-11 evidence schemata × 5 fields each at HR §3.recovery.2.
+- 4 BE-N blocks (BE-F + BE-G + BE-H + BE-I) × 6 PASS-all acceptance thresholds at ED §5.recovery; each threshold probe-fire-evidence grounded per Done #15d; smoke-only fires REFUSED.
+- Done #11-#19 verbatim from SI Amendments 28a + 28b at REQUIREMENTS extension; Amendment 28b framing preserved.
+- Phase 9 + Phase 10 sequencing + close criteria documented in §9 + §10 below.
+
+**S10 reality-vs-intent diagnostic (per memory binding `feedback_cycle_close_reality_vs_intent_diagnostic.md`).** This S10 RP fill ships RESEARCH-SHAPE acceptance criteria + hypothesis pre-registration, NOT Stage 5 runtime mechanisms. The 4 BE-N blocks (§5.recovery at ED) name what BE-F + BE-G + BE-H + BE-I must ship; they do NOT ship those mechanisms. NO probes yet exist; NO write-boundary enforcement yet exists; NO Substitution Gate yet exists; NO structural-prevention layer yet exists; NO govML v2.8.6 yet exists. Cycle 16 TRUE close-arc happens at Phase 10 (per §10 below) after Phases 9.1-9.4 ship the runtime mechanisms.
+
+<!-- /gate:roadmap §8 phase_8 -->
+
+## §9 Phase 9 — Stage 5 BE-F + BE-G + BE-H + BE-I builds (Cycle-16-S11+ subsequent sessions; dispatched per dispatch substrate §3.d sequencing)
+
+<!-- gate:roadmap §9 phase_9 required -->
+
+### §9.1 Phase 9.1 — BE-F: 4 probe primitives Class A/B/C/D + admission gate (closes Done #13 + H_recovery_3)
+
+**Scope.** Ship 4 code-active probe primitives at `~/ml-governance-templates/scripts/probes/{a,b,c,d}/<primitive_id>.py` per ED §5.7 BE-F PASS-all 6/6 acceptance thresholds. Class A AgentContract = Agent-tool invocation observer keyed by subagent_type (LA §6.recovery.A row 1 Pact + row 4 OTEL + row 8 eBPF uprobe). Class B Schema = property-based check at validation call site (LA §6.recovery.A row 2 + row 9 BX). Class C DesignDecision = ADR-to-code embodiment scanner with `git grep` of must-clauses + LLM-judge component calibrated against known-good/known-bad ADR fixtures (LA §6.recovery.A row 5 Bazel Skyframe + row 9 BX; design-anchor flag re LLM-judge calibration per §6.recovery.C row 3). Class D MethodologyCommitment = citation-and-application scanner with trace_id linkage (LA §6.recovery.A row 4 OTEL + row 10 SLSA). Library admission gate refuses primitives without passing self-test (DP#44 BINDING).
+
+**Sequencing dependencies.** Phase 8 RP fill closed (this S10). Cycle 6 KG substrate-viability primitives operational. govML upstream accessible (Coach handles 3-repo paired commit; Builder-ARCH dispatches 4th-repo govML commit per HC #45 chain extension precedent).
+
+**Expected sessions.** Cycle-16-S11+ (single session minimum; possibly 2 sessions if LLM-judge calibration per Class C requires Builder-ARCH paradigm dispatch).
+
+**Close criteria.** ED §5.7 BE-F PASS-all (6/6 thresholds) at Coach R3 close-eval per kc-49 PD §3.3 T1-T13 mechanical tests. KT-7 + KT-9 + KT-10 evaluated.
+
+### §9.2 Phase 9.2 — BE-G: Write-boundary enforcement + Done #17 cycle-close gate upgrade + Done #18 kill discipline + Done #19 ≤3-session dormancy preservation (closes Done #12 + #17 + #18 + #19 + H_recovery_2 + H_recovery_7 + H_recovery_8 + H_recovery_9)
+
+**Scope.** Ship 4-component composite per ED §5.8 BE-G: (i) pre-commit hook + fsnotify watcher + `forward_apply_emit()` wired into production `register_spec()` + 3-registry reconciliation gate at session close (closing HC-BE-D-1 per kc-47 audit refinement #2 — BE-A 283 events confirm `register_spec()` works WHEN called; bypass unenforced); (ii) Done #17 cycle-close BLOCKING gate predicate UPGRADED from registry-field SPARQL ASK to probe-fire-evidence aggregation invoking named probe primitive via Python subprocess (per kc-47 audit refinement #1: BE-C 8 production-fires confirm prior predicate IS SPARQL ASK on registry-field; upgrade REPLACES predicate body); (iii) Done #18 `kill_spec(spec_iri, adr_retraction_ref, killing_session, kill_reason)` function with ADR retraction validation + `spec_killed_event` emit + SPARQL UPDATE state transition; (iv) Done #19 ≤3-session dormancy threshold preservation on probe-fire evidence (NOT registry-field).
+
+**Sequencing dependencies.** Phase 9.1 BE-F closed (probe primitives must exist for cycle-close gate body to invoke them).
+
+**Expected sessions.** Cycle-16-S12+ (1-2 sessions; composite 4-component scope may require sequential builds).
+
+**Close criteria.** ED §5.8 BE-G PASS-all (6/6 thresholds) at Coach R3 close-eval. KT-7 + KT-8 evaluated.
+
+### §9.3 Phase 9.3 — BE-H: Structural-prevention layer 7 components (closes Done #15a-g + H_recovery_5)
+
+**Scope.** Ship 7 distinct runnable mechanisms at `~/ml-governance-templates/scripts/structural_prevention/` per ED §5.9 BE-H: (a) Stage 0 probe-presence check; (b) reality-vs-intent gate forward to Stage 1+4 R3 close-evals; (c) number-tagging gate at Rex-facing surfaces; (d) probe-coverage check at FINDINGS close; (e) probe library self-test at session close with 2-consecutive-fail auto-deprecate; (f) deferral expiration enforcement; (g) design-anchor disclosure at LANDSCAPE close. Each piece integrates into govML `init_project.sh` install path. Composition pattern PARTIALLY inherits from Cycle 14 four-gate skeleton (substrate-layer per §6.X.2 refined-metric); individual piece predicates externally grounded per LA §6.recovery.A.
+
+**Sequencing dependencies.** Phase 9.1 BE-F closed (probe library required for piece (d) probe-coverage check + piece (e) library self-test gate). Phase 9.2 BE-G closed (write-boundary enforcement required for piece (f) deferral expiration integration).
+
+**Expected sessions.** Cycle-16-S13+ (single session).
+
+**Close criteria.** ED §5.9 BE-H PASS-all (6/6 thresholds) at Coach R3 close-eval. KT-7 + KT-8 + KT-10 evaluated.
+
+### §9.4 Phase 9.4 — BE-I: govML v2.8.6 ADDITIVE-APPEND chain n=5→6 back-port (closes Done #14 + #16 + H_recovery_4 + H_recovery_6)
+
+**Scope.** Back-port probe library (BE-F output) + Operational-Definition Substitution Gate (Done #14 implementation; Substitution Gate as runnable script at Stages 1+4 closes per H_recovery_4) + structural-prevention 7-piece layer (BE-H output) into govML upstream per ED §5.10 BE-I. 3 NEW install functions: `install_probe_library_canonical_vocabulary()` + `install_operational_definition_substitution_gate()` + `install_structural_prevention_layer()`. templates/build/probes/ + templates/build/structural_prevention/ NEW directories. VERSION v2.8.5 → v2.8.6 + CHANGELOG entry. **LOCKED bodies of v2.8.2 + v2.8.3 + v2.8.4 + v2.8.5 install functions UNMODIFIED** per HC #45 ADDITIVE-APPEND precedent class strict (KT-11 firing on any modification → halt for re-do). Freshly-scaffolded build-type projects inherit at scaffolding time.
+
+**Sequencing dependencies.** Phases 9.1 + 9.2 + 9.3 closed. 4-repo paired commit expected (cycle_16 + EMABS + Moonshots + govML) per HC #45 chain extension precedent (Coach handles 3-repo Moonshots+EMABS+cycle_16 paired commit; Builder-ARCH dispatches 4th-repo govML back-port commit). Note: Done #14 Substitution Gate scripts ship at BE-I (govML upstream) since their canonical install path is govML `init_project.sh` install function `install_operational_definition_substitution_gate()`.
+
+**Expected sessions.** Cycle-16-S14+ (single session; 4-repo paired commit).
+
+**Close criteria.** ED §5.10 BE-I PASS-all (6/6 thresholds) at Coach R3 close-eval. KT-11 BINDING strict (LOCKED-body modification = halt for re-do).
+
+### §9.5 Phase 9 aggregate close criteria
+
+- All 4 BE-N close-evals PASS at Coach R3.
+- 0 of 5 KT-7..KT-11 fires across BE-F + BE-G + BE-H + BE-I closes (KT-10 firing = H_main_recovery REFUTED candidate → paradigm escalation per HC #74; KT-11 firing = LOCKED-body violation halt for re-do per HC #45).
+- HC #50 zero-Rex-escalation baseline MAINTAINED.
+- Pattern 19 STANDING density-class discipline applies (cross-system back-port density profile at BE-I).
+- Coach R3 independently verifies each BE close per kc-49/50/51 PD §3.3 T1-T13 mechanical tests.
+
+<!-- /gate:roadmap §9 phase_9 -->
+
+## §10 Phase 10 — Probe-grounded retroactive scan re-run + owner triage + TRUE close-arc 5-layer FINDINGS authoring (supersedes S8 phase-checkpoint via DP#42 non-destructive supersedure)
+
+<!-- gate:roadmap §10 phase_10 required -->
+
+### §10.1 Phase 10.1 — Probe-grounded retroactive scan re-run (closes Done #11 + H_recovery_1)
+
+**Scope.** Re-run retroactive scan against the 235 production cycle16:Spec entries (per LA §6.recovery.B P3 named-graph-scoped count) using the 4 probe primitives shipped at BE-F. Replace BE-D heuristic 137 dormant-silent count with per-class measured count + confidence bounds. Per-class probe-fire aggregation across ≥3 distinct production specs per class (NOT smoke fixtures); `run_id` prefix tagged `prod_*`. Per-class confidence bounds (±CI from probe self-test against known-good + known-bad fixtures) reported alongside class skew (Gini concentration coefficient).
+
+**Sequencing dependencies.** Phase 9.1 BE-F closed (4 probe primitives shipped + admission gate operational).
+
+**Acceptance threshold (per H_recovery_1).** Probe-fire-evidence aggregation across ≥3 distinct production specs per class yields {d_A, d_B, d_C, d_D} measured dormant counts; aggregate measured count |d_A + d_B + d_C + d_D - 137| / 137 ≥ 0.10 (forensic discriminator demonstrating measurement is non-degenerate vs heuristic). Substitution-detection countermeasure: rows with `evidence_type: citation_density` / `evidence_type: token_match` / `evidence_type: status_enum_read` REJECTED at aggregation gate.
+
+**Expected sessions.** Cycle-16-S15+ (single session; one-time retroactive fire).
+
+**Close evidence.** `outputs/probe_grounded_retroactive_scan_run.json` (per-class measured counts + confidence bounds + class skew Gini coefficient + comparison to heuristic 137) + `outputs/probes/{a,b,c,d}/*.jsonl` (per-class production probe-fire JSONL logs ≥3 fires per class).
+
+### §10.2 Phase 10.2 — Owner triage for measured-dormant specs
+
+**Scope.** For each measured-dormant spec surfaced at Phase 10.1, owner triage routes to one of 3 dispositions: (a) implement (wire `runtime_emit_event_class` at the spec's intended runtime emit event); (b) defer with named target session + reason + Rex authorization (if past current cycle close) + re-activation condition + maximum dormancy window per Done #15f; (c) kill with ADR retraction via `kill_spec()` per Done #18 (H_recovery_8).
+
+**Sequencing dependencies.** Phase 10.1 retroactive scan re-run complete + measured-dormant spec list populated.
+
+**Expected sessions.** Cycle-16-S15+ (overlapping with Phase 10.1 or sequential).
+
+**Close evidence.** `outputs/owner_triage_dispositions.json` (per-spec disposition + audit trail) + DECISION_LOG entries for kill dispositions (ADR-style retractions) + SPARQL UPDATE events for state transitions to `running` / `dormant-with-explicit-deferral` / `killed`.
+
+### §10.3 Phase 10.3 — Cycle 16 TRUE close-arc 5-layer FINDINGS authoring (supersedes S8 phase-checkpoint via DP#42 non-destructive supersedure)
+
+**Scope.** Author Cycle 16 TRUE close-arc 5-layer FINDINGS per Cycle 11/12/13/14 precedent (480-590-line band). Layer 1 (artifacts shipped per Phases 9.1-9.4 + Phase 10.1+10.2) + Layer 2 (mechanism characterization per H_recovery_1..9 hypothesis resolutions; Done #11-#19 closure verdicts) + Layer 3 (cell granularity per HR §3a Cycle 16 EXTENSION-3 across 4×4×5 = 80 cells; populated subset with PROBE-FIRE evidence now NOT heuristic) + Layer 4 (counterfactual analysis updated post-probe-grounded measurement + KT-7..KT-11 dispositions with evidence + per-discipline boundary-condition map; Cycle 10 RUNTIME_EMIT_SPEC.md counterfactual revisited with probe-fire evidence) + Layer 5 (honest gaps + HC carries forward to Cycles 17-18; reality-vs-intent diagnostic per memory binding `feedback_cycle_close_reality_vs_intent_diagnostic.md`: name what mechanism actually does vs what research question asked; tag numbers measured vs heuristic vs anecdotal).
+
+**Per DP#42 non-destructive supersedure pattern.** S8 phase-checkpoint FINDINGS (481L LOCKED at `fb3a0fe` + `25eff54` + `6c80afb`) is NOT deleted, edited, or rewritten. It stands as historical phase-checkpoint Layer 1-5 retrospective honest about its narrow framing (in-registry dormancy portion only per Rex Option A 2026-05-27). Cycle 16 TRUE close-arc 5-layer FINDINGS is a NEW artifact (file path: `FINDINGS.md` if S8 FINDINGS is renamed to `FINDINGS_S8_phase_checkpoint.md` per Coach disposition; OR `FINDINGS_TRUE_CLOSE.md` if S8 FINDINGS retains canonical name) with supersedure annotation at Layer 0 referencing S8 phase-checkpoint as superseded predecessor.
+
+**Framing discipline mandatory (Amendment 28b).** "Done definition extended" / "completion criteria" / "fulfilling SI's research question structurally" framing throughout. AVOID "recovery scope" as dominant frame.
+
+**Sequencing dependencies.** Phases 10.1 + 10.2 complete. All Done #11-#19 closure evidence available.
+
+**Expected sessions.** Cycle-16-S16+ (single session; close-arc authoring).
+
+**Close evidence.** Cycle 16 TRUE close-arc 5-layer FINDINGS (480-590-line band) + supersedure annotation referencing S8 phase-checkpoint FINDINGS + 11-criterion close-gate ALL_PASS verification (per REQUIREMENTS §Done #11-#19 close gate criteria) + 3-or-4-repo paired commit (4-repo if BE-I govML back-port at Phase 9.4 hasn't already landed; 3-repo if it has).
+
+### §10.4 Phase 10 aggregate close criteria — Cycle 16 TRUE close-arc FORMAL CLOSE
+
+- All 9 H_recovery rows resolved (CONFIRMED / REFUTED / INCONCLUSIVE per HR §3.recovery.1 Resolution Log fill at FINDINGS close).
+- All 9 Done #11-#19 items closed in-cycle per REQUIREMENTS §Done Definition Extended close gate criteria.
+- 0 of 5 KT-7..KT-11 fires across Phases 9 + 10 (KT-10 firing = H_main_recovery REFUTED → paradigm escalation per HC #74).
+- 5-layer FINDINGS authored per Cycle 11/12/13/14 precedent 480-590-line band; supersedes S8 phase-checkpoint via DP#42 non-destructive supersedure.
+- Paired commit lands HR + ED + REQUIREMENTS + ROADMAP + FINDINGS + Stage 5 BE-class artifacts atomically (3-or-4-repo per phase 9.4 / phase 10.3 BE-I closing status).
+- Coach R3 close-eval mechanical tests ALL_PASS or honest carry surfaced per `feedback_honest_evaluation.md` BINDING.
+- HC #50 zero-Rex-escalation baseline MAINTAINED cumulative across kc-43..kc-N lifecycle.
+- Honest reality-vs-intent diagnostic at FINDINGS Layer 5 per memory binding `feedback_cycle_close_reality_vs_intent_diagnostic.md`.
+
+**Cycle 16 TRUE close-arc FORMAL CLOSE** = Phase 10 close criteria ALL_PASS. Until then, Cycle 16 stays OPEN per Rex 2026-05-28 paradigm ruling.
+
+<!-- /gate:roadmap §10 phase_10 -->
+
+<!-- amendment_2026_05_28a_extension_end -->
+
+> Cycle 16 Phase 8 + Phase 9 + Phase 10 sequencing per dispatch substrate §3.d. Per `feedback_honest_evaluation.md` BINDING + `feedback_cycle_close_reality_vs_intent_diagnostic.md` BINDING: Coach R3 independent verification at every BE close + close-arc reality-vs-intent diagnostic mandatory at FINDINGS Layer 5; Build-Runner self-report NOT load-bearing. Per HC #74 BINDING cycle-management disposition is paradigm-class: any new-cycle / reopen / fold / close-timing / scope-re-sequencing candidate emerging from Phase 9 or 10 surfaces via Pattern 11 Step 3.5 to Rex — does NOT dispose operationally.
