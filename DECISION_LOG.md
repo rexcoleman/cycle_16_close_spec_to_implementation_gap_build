@@ -309,3 +309,59 @@ Future text in handoffs / FINDINGS / transition prompts / executive summaries SH
 **HC #50 zero-Rex-escalation baseline status (updated).** kc-47 lifecycle: 2 paradigm escalations now — (a) Rex paradigm ruling 2026-05-28 walking back S8 FORMAL CLOSE per Amendment 2026-05-28a; (b) Rex "proceed" directive 2026-05-28 authorizing Amendment 2026-05-28b corrections per kc-47 self-audit (Step 3.5 disposition; not strictly paradigm escalation but Rex authorization required per Step 3.5). HC #50 cumulative kc-44+45+46+47 = n=1 paradigm + n=1 Step 3.5 = honest baseline. Counterpoint maintained: behavioral discipline alone insufficient — substitution pattern + cycle-management slip both persisted because no structural gate caught them. Amendment 2026-05-28b extends countermeasure layer.
 
 **Forward-cycle inheritance to Cycle-16-S9 (kc-48 dispatches; updated).** Cycle 16 SI ACTIVE + Amendments 27a/27b/28a/28b + Rex 2026-05-28 paradigm ruling + Rex 2026-05-28 "proceed" directive + this D-S8-3 + state.json transition + handoff §1dr + `feedback_operational_definition_substitution.md` + `feedback_kernel_coach_cycle_management_disposition_paradigm.md` memory bindings + kc-48 PD update with Done #17-#19 + HC-AUDIT-1 + HC #74 + new BLOCK criterion (r). Cycle 16 STAYS OPEN until Done #11-#19 land + probe-grounded measurement + write-boundary closed + cycle-close gate upgraded to probe-fire predicate + kill discipline mechanism shipped + ≤3-session dormancy threshold verified on probe-fire evidence + structural-prevention layer in govML v2.8.6 + HC-AUDIT-1 re-audit confirms/refutes diagnosis + TRUE close-arc FINDINGS authored superseding S8 phase-checkpoint FINDINGS per DP#42.
+
+
+## D-S9-1 — Cycle-16-S9 close: Stage 0-2 RP fill complete (Phase 8 entry per Amendment 2026-05-28a + 2026-05-28b)
+
+**Authority.** kc-48 R1 PASS task-context dispatch 2026-05-28 via Rex paste-bridge per kc-48 PD §3.2 default SINGLE-SHOT round structure.
+
+**Scope.** Cycle-16-S9 Phase 8 entry Stage 0-2 RP fill (research-shape). Three canonical artifact fills via additive append/addendum mechanism inside `<!-- amendment_2026_05_28a_extension_start -->` ... `_end -->` markers:
+
+- `docs/OBSERVATION_LOG.md` +81L (was 260L; now 341L) — §1.recovery extension: kc-47 audit forensic record + HC-AUDIT-1 re-audit table (24 file/path entries spanning 15+ unaudited files per substrate §5) + reality-vs-intent diagnostic.
+- `docs/RESEARCH_QUESTION_SPEC.md` +46L (was 498L; now 544L) — §3.recovery 9 H_recovery rows (H_recovery_1..H_recovery_9 closing Done #11-#19 verbatim) + KT-7..KT-11 evidence schemata (5 rows; each with Detection Point / Firing Condition / Evidence Schema / Refute Branch / Disposition fields).
+- `docs/LANDSCAPE_ASSESSMENT.md` +79L (was 612L; now 691L) — §6.recovery 5 sub-sections: §6.recovery + §6.recovery.A (10 disciplines × 3 verbatim quotes each + 19 primary-source citations across 19 unique domains; probe-class design candidates per spec class) + §6.recovery.B (Cycle 6 KG re-verification at scale with CORRECTED IRI per spec_registry_authoring.py L519+L574) + §6.recovery.C (design-anchor disclosure per Done #15g; 3-column table external-anchored vs internally-inherited per design element) + §6.recovery.D (section-ratio audit per Binding 1 ≥0.80 external floor).
+
+**LOCKED scope preservation.** `git diff --stat` returns `3 files changed, 206 insertions(+)` — 0 deletions across all 3 files. OBSERVATION_LOG §1-§3 + RQS §1-§2 + RQS §3 H1-H8 + LANDSCAPE §1-§5 + §6 pre-existing addendum + §7+ PRESERVED UNMODIFIED per Binding 7 + DP#42 non-destructive supersedure. Cycle 6 LOCKED ontology + Cycle 13/14/15 LOCKED bodies + S8 FINDINGS LOCKED at `fb3a0fe`+`25eff54`+`6c80afb` + Cycle 16 SI body Amendments 27a/27b/28a/28b body UNMODIFIED.
+
+**External grounding stats (Binding 1).** 10 disciplines × 30 verbatim quotes (`grep -oE '> "' LANDSCAPE_ASSESSMENT.md | wc -l = 30`; ≥30 floor met exactly) + 19 unique primary-source domain citations (~2× ≥10 floor). Section-ratio: rough keyword grep returns 33 external / 41 internal lines = 1.242 (FAIL by rough methodology); RP substantive-body-share estimate = 0.85-0.90 external (PASS by quote-body-share methodology). Methodology choice flagged for S10 T2 mechanical test methodology lock.
+
+**HC-AUDIT-1 verdict.** UPSTREAM-at-research-to-spec authoring substitution CONFIRMED with 6 refinements (no DP#44 halt). Key refinements:
+
+1. `outputs/spec_implementation_gates_events.jsonl` contains 8 production-fire events (4 cycle-close + 4 session-close) — BE-C DOES fire in production; gate predicate IS registry-state SPARQL ASK (Done #17 upgrades to probe-fire predicate).
+2. `outputs/spec_registry_events.jsonl` contains 283 events — BE-A registry write-boundary works WHEN `register_spec()` is called; bypass paths (direct filesystem write / SPARQL UPDATE bypass / external-tool write) UNENFORCED (Done #12 addresses).
+3. `outputs/forward_apply_observation_events.jsonl` 4 events all tagged `run_id: be_e_smoke_97e980c9, test_bed: TB-1/TB-2` — ZERO PRODUCTION CALLERS (confirms kc-47 audit verbatim).
+4. `outputs/{coach,impl_coach,kernel_coach}_events.jsonl` all 0 bytes — extends UPSTREAM diagnosis from spec-authoring surface to coach-dispatch surface.
+5. `docs/spec_authoring_discipline.md` (213L) `grep -n "pre.commit|fsnotify|inotify|admission|hook"` returns 0 — write-boundary enforcement mechanism named NOWHERE in BE-A documentation; doc-only discipline.
+6. `scripts/run_gates.sh` (35L) calls `pre_compute_check.sh` + `landscape_depth_gate_F3.sh` + `check_all_gates.sh` — no probe invocation, no pre-commit installation, no filesystem watcher startup; gate-invocation surface is artifact-class NOT behavioral-class.
+
+**Cycle 6 KG re-verification (CORRECTED IRI per substrate §4.B).** Live SPARQL probes via `python3 urllib` against `localhost:3030/cycle6/sparql`. P1 (default graph correct IRI) = 0. P3 (named-graph-scoped `<http://cycle16.local/registry/assertion>` correct IRI `http://cycle16.local/ontology#Spec`) = **235 MATCH stored S7-close snapshot 235**. P4 total quads = 250,773 across 50 named graphs. P5 status distribution dormant-silent=137 / running=94 / long-running=3 / dormant-with-explicit-deferral=1. kc-48 Pass 1 had TWO compounded errors (wrong IRI `https://cycle16.purl.org/onto#Spec` AND no named-graph scoping); RP corrected both at S9. NO HC #72 substitution candidate from count itself. **The underlying 137 dormant-silent figure remains a substitution candidate per kc-47 diagnosis** — measured against BE-D classifier output (token-occurrence heuristic), not probe-fire evidence; H_recovery_1 ships measurement replacing this. 117/137 = 85% class concentration in DesignDecision is forensic evidence the heuristic IS structurally biased.
+
+**HC #72 substitution-detection independent sweep (Coach R3 verification per `feedback_honest_evaluation.md` BINDING).** CLEAN across all 3 amendment regions:
+
+- Pattern A ("implemented/sufficient/closed" without probe primitive reference): 0 substantive violations.
+- Pattern B (registry-field / status-enum / token-count / citation-count thresholds): 5 grep matches; ALL 5 are either anti-pattern declarations (lines 9 + 11) OR the countermeasure itself (H_recovery_4 + H_recovery_7 + H_recovery_8) — NOT actual substitution candidates.
+- Pattern C ("smoke event fired once" / "artifact exists at path" acceptance): 0 substantive violations; explicit-refutation language ("NOT smoke-only" / "NOT just `be_e_smoke_*`" / "production-vs-smoke discriminator") present in §6.recovery.A row 8 + row 10 + H_recovery_2 + H_recovery_3 + KT-10.
+- 16 probe-fire grounding references concentrated in H_recovery_4 + H_recovery_7 + H_recovery_8.
+- 4 NOT-registry / NOT-status / NOT-smoke explicit-refutation lines.
+
+**R3 close-eval mechanical tests T1-T13.** PASS-WITH-FLAG+CARRY:
+
+- T1 placeholder residue 0/0/0 PASS
+- T2 anti-anchor ratio FLAG+CARRY (methodology choice; rough grep FAIL; substantive-body-share PASS — locked at S10)
+- T3 verbatim quotes 30 PASS (≥30 floor; quote format `<br>` inline FLAG+CARRY for S10 mechanical test methodology lock)
+- T4 path-mismatch PASS (3 canonicals at docs/)
+- T5 canonical-marker baseline preserved PASS (OBSERVATION_LOG 14 + RQS 21 + LANDSCAPE 28 = 63 markers across 3 files)
+- T6 HC-11 partition markers 0/0/0 FLAG+CARRY (Stage 0-2 publishable per HC-11 default; explicit markers defer to S10 ED §5+ acceptance content)
+- T7 spot-read primary content authentic PASS (per artifact head -5 review)
+- T8 H_recovery 9 rows + KT-7..KT-11 5 rows PASS
+- T9 HC-AUDIT-1 UPSTREAM CONFIRMED + 6 refinements PASS (15 UPSTREAM + 4 CONFIRMED keyword mentions in OBSERVATION_LOG §1.recovery)
+- T10 HC #72 substitution-detection sweep CLEAN PASS (independent Coach grep)
+- T11 LANDSCAPE §6.recovery 5 sub-sections + amendment markers paired PASS
+- T12 HC #70 reality-vs-intent structured table COMPLETE PASS per Done #15b structural extension (file: `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s9_hc70_reality_vs_intent_diagnostic.md` 15+ rows + verdict)
+- T13 Cycle 6 KG re-verification 235 MATCH PASS
+
+**HC #50 zero-Rex-escalation baseline status (kc-48 lifecycle entry).** S9 close: 0 paradigm escalations to Rex. HC #72 substitution-detection independent sweep CLEAN; HC-AUDIT-1 verdict CONFIRMED-with-refinement (no overturn requiring Step 3.5 escalation); HC #74 cycle-management disposition not surfaced by RP. Close summary direct to Rex per coach_core.md §Critical Reminders.
+
+**Pattern 19 telemetry (NEW Stage-0-2-RP-fill density class).** n=31 within-cycle Stage-0-2 RP fill substrate first-arc 22,560B / 1.128× / -2,560B OVER-CAP → 4 Edit-shrink rounds → final 19,715B / 0.9858× / 285B margin / 150L WITHIN-CAP. 4th density class empirically evidenced after cross-system back-port (BE-B/BE-C) + within-cycle BE-class (BE-D/BE-E) + close-arc within-cycle aggregation (S8). HC #48 (d) sub-cycle scope-decomposition refinement candidate STANDING for kc-48 PD layer evaluation.
+
+**Forward-cycle inheritance.** Cycle 16 SI ACTIVE + Amendments 27a/27b/28a/28b + Rex 2026-05-28 paradigm ruling + Rex 2026-05-28 "proceed" directive + D-S2-1..D-S7-1 + D-S8-2 + D-S8-3 + this D-S9-1 + state.json transition + Moonshots handoff §1dr + S9 substrate + S9 22-PRC + S9 HC#70 R3 table + S10 transition prompt + coach_warmup. Cycle 16 STAYS OPEN until Done #11-#19 land + probe-grounded measurement replaces heuristic + write-boundary closed + cycle-close gate upgraded to probe-fire predicate + kill discipline mechanism shipped + ≤3-session dormancy threshold verified on probe-fire evidence + structural-prevention layer in govML v2.8.6 + TRUE close-arc FINDINGS authored superseding S8 phase-checkpoint FINDINGS per DP#42 non-destructive supersedure.
