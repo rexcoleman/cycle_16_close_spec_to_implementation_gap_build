@@ -3,7 +3,7 @@
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
   "current_phase": "cycle_16_phase_9_stage_5_be_f_built_pending_promotion_s12_stage_5_be_g_dispatch_next",
   "current_stage_orchestrator": "build",
-  "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28)",
+  "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28) + Amendment 2026-05-28d (kc-49 autonomous authoring; Rex review gate WAIVED 2026-05-28; 7 chain-failure holes folded into binding completion criteria Done #25-#31 + HC #79-#85 + KT-15-18)",
   "stage_0_2_complete": true,
   "stage_0_2_complete_at": "Cycle-16-S1",
   "stage_0_2_close_timestamp": "2026-05-27",
@@ -264,6 +264,23 @@
       "lock_commit_pending": "this commit",
       "authored_ts": "2026-05-28T18:13:16.521676+00:00",
       "locked_bodies_unmodified": "S8 FINDINGS LOCKED preserved + Amendments 27a/27b/28a/28b body LOCKED preserved + Done #1-#19 preserved verbatim + Cycles 13/14/15 LOCKED bodies + Cycle 6 LOCKED ontology"
+    },
+    "rex_2026_05_28_paradigm_authorization_address_all_7_holes_kc49_amendment_2026_05_28d": {
+      "rex_directive": "should we address all 7? please update all relevant files. do complete work. do not take shortcuts. + i do not want to review your draft. audit your work. make updates. stage commit push. continue.",
+      "kc49_disposition": "Rex-disposed paradigm-class scope expansion (Rex authorized addressing all 7 holes + WAIVED draft review + delegated parameter-setting to kc-49); kc-49 executed autonomous authoring per HC #74 (Rex disposed, not kc-49 operationally) + Step 3.5 delegation",
+      "amendment": "2026-05-28d",
+      "amendment_summary": "7 chain-failure holes surfaced by kc-49 at Pass-1 entry folded into binding completion criteria as Done #25-#31 / HC #79-#85 / KT-15-18. #25 validate-the-validator probe-accuracy gate (independently-labeled BLIND gold corpus >=20 specs/class; bar zero false-positives + recall >=90%; Phase-12 verification claim BLOCKED until passed). #26 live LLM-judge for Classes C+D ships in-cycle at BE-K not deferred to Cycle 17. #27 written+locked spec-definition+enumeration-completeness doctrine before Phase 11 (defensible denominator; cross-enumeration within +/-5%). #28 deferral hard cap (default zero past close; per-spec Rex signature + named target + expiry; 100%-implemented never folds in deferred specs). #29 enforcement coverage across ALL spec-bearing repos + --no-verify/bypass closed via server-side CI check + per-repo coverage matrix. #30 guard-the-guards (enforcement infra incl build-orchestrator/build-runner specs enumerated+probed+registered; HC #64 closed). #31 structurally independent blind audit before TRUE close (>=20%/>=30-spec sample; >10% disagreement -> KT-18).",
+      "new_KT": ["KT-15 probe accuracy below bar", "KT-16 denominator cross-enumeration disagreement >+/-5%", "KT-17 deferral overflow beyond cap", "KT-18 independent-audit disagreement >10%"],
+      "new_HC_binding": "HC #79-#85 (one per hole); enforced at kc-49 R3 close-evals per kc-49 PD section 3.20",
+      "true_close_criteria_revised": "Cycle 16 closes when (a) Done #11-#19 + (b) Done #20-#22 + (c) Done #23 + (d) Done #24 + (e) Done #25-#31 ALL complete + (f) 5-layer TRUE-close FINDINGS authored",
+      "sequencing": "Done #27 = Phase 11 entry precondition; Done #25 = Phase 12 entry precondition; Done #30 lands BE-G (S12) + Phase 11; Done #29 lands BE-G (S12) extended + BE-I (S14) back-port; Done #26 lands BE-K (S16); Done #28 governs Phase 13; Done #31 = Phase 14 entry precondition",
+      "parameter_setting_note": "thresholds (gold-corpus size, zero-false-positive bar, +/-5% tolerance, zero-default deferral, >=20%/>=30 audit sample, >10% disagreement triggers) are kc-49-set defensible defaults under Rex's explicit delegation; Rex may re-dispose any threshold",
+      "reality_vs_intent_hc70": "this amendment UPDATES THE CONTRACT binding the 7 fixes; it does NOT implement them; fixes built across S12/S16/Phase 11-14; files-updated != holes-fixed; holes now completion-BLOCKING",
+      "step_3_5_authority_anchor": "Rex 2026-05-28 'address all 7 ... do complete work, do not take shortcuts' + 'audit your work, make updates, stage commit push, continue' (review gate WAIVED) + feedback_rex_step_3_5_draft_for_approval.md delegation + HC #45 ADDITIVE-APPEND precedent class strict",
+      "rp_fill_boundary": "ROADMAP/REQUIREMENTS/HR/ED canonical-template updates for Done #25-#31 + Phase additions are RP-fill scope per Binding 6 (kernel-coach does NOT fill Stage 0-4 templates); this amendment is the authoritative directive the next RP-touch applies",
+      "authored_ts": "2026-05-28T19:00:00Z",
+      "lock_commit_pending": "this commit",
+      "locked_bodies_unmodified": "S8 FINDINGS 481L LOCKED + Amendments 27a/27b/28a/28b/28c bodies LOCKED + Done #1-#24 verbatim + Cycles 13/14/15 LOCKED bodies + Cycle 6 LOCKED ontology"
     }
   },
   "decisions_log": [
@@ -540,6 +557,15 @@
       ],
       "true_close_criteria_revised": "Cycle 16 closes when Done #11-#19 complete + Done #20-#22 complete + Done #23 complete + Done #24 complete + 5-layer TRUE-close FINDINGS authored",
       "decision_log_full_ref": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/DECISION_LOG.md D-S8-4"
+    },
+    {
+      "id": "S11-D2",
+      "ts": "2026-05-28",
+      "decision": "Cycle 16 SI Amendment 2026-05-28d (kc-49 autonomous authoring; Rex review gate WAIVED). 7 chain-failure holes surfaced by kc-49 at Pass-1 entry folded into binding completion criteria: Done #25-#31 / HC #79-#85 / KT-15-18. #25 validate-the-validator probe-accuracy gate; #26 live LLM-judge C+D in-cycle at BE-K; #27 defensible spec denominator doctrine before Phase 11; #28 deferral hard cap; #29 enforcement coverage all repos + bypass closed; #30 guard-the-guards (HC #64 closed); #31 independent blind audit before TRUE close. Revised TRUE-close adds (e) Done #25-#31. Done #1-#24 + Amendments 27a/27b/28a/28b/28c bodies + S8 FINDINGS LOCKED preserved per Binding 7 + DP#42.",
+      "authority": "Rex 2026-05-28 'address all 7 ... do complete work, do not take shortcuts' + 'audit your work, make updates, stage commit push, continue' (review gate WAIVED; parameter-setting delegated to kc-49) + HC #45 ADDITIVE-APPEND precedent class + HC #74 (Rex-disposed paradigm-class scope expansion)",
+      "evidence": "Cycle 16 SI body Amendment 2026-05-28d paragraph at Status block + End-of-SI signature + state.json paradigm_dispositions.rex_2026_05_28_paradigm_authorization_address_all_7_holes_kc49_amendment_2026_05_28d + this decisions_log S11-D2 + next_action corrected + DECISION_LOG D-S11-2 + Moonshots handoff section 1dw + kc-49 PD section 3.20 + BLOCK criteria (w)-(ac) + memory feedback_validate_the_validator.md NEW",
+      "reality_vs_intent_hc70": "amendment binds 7 fixes as completion-BLOCKING; does NOT implement them; built across S12/S16/Phase 11-14",
+      "session_id": "kc_49_lifecycle_entry_pre_s12"
     }
   ],
   "honest_carries_open": [
@@ -590,7 +616,7 @@
     "HC-RP-S2-6 NEW at S2 R3: kc-44 calibration delta - Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27 (operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii); Amendment 2026-05-27b structural encoding already supplied refinement substrate); kc-44 inbound gate rubber-stamped Coach paradigm verdict instead of disposing per Discipline #10; Rex disposition (C) corrected via metric-revision-within-intent (DECISION_LOG D-S2-1); surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
     "Coach HC-1+HC-2 (S2 Pattern 19 n=24+n=25 first-arc-OVER-CAP + Edit recovery): HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 substrate density; (b)+(c) content disciplines load-bearing for recovery; carry to handoff section 1dj Pattern Calibration for kc-44 PD inheritance refinement candidate (d)+(e) consideration"
   ],
-  "next_action": "Cycle-16-S12 dispatch BE-G Operational-Definition Substitution Gate (Done #14 + H_recovery_4) per ROADMAP Phase 8 BE-G; consumes BE-F probe library admission output as canonical vocabulary; gate predicate body invokes named probe primitive via Python subprocess at gate-fire time per HR \u00a73.recovery H_recovery_4",
+  "next_action": "Cycle-16-S12 dispatch BE-G WRITE-BOUNDARY ENFORCEMENT COMPOSITE per ROADMAP \u00a79.2 + SI Amendment 2026-05-28d: (i) pre-commit hook + fsnotify watcher + forward_apply_emit() wired into production register_spec() + 3-registry reconciliation gate (Done #12); (ii) cycle-close BLOCKING gate predicate upgrade to probe-fire-evidence aggregation invoking named BE-F probe primitive via Python subprocess (Done #17); (iii) kill_spec() function (Done #18); (iv) <=3-session dormancy threshold preservation on probe-fire evidence (Done #19); (v) Amendment 28d Done #29 enforcement coverage across ALL spec-bearing repos + --no-verify/bypass closed via server-side CI check + per-repo coverage matrix; (vi) Amendment 28d Done #30 guard-the-guards register build-orchestrator + build-runner into prompt_inventory (HC #64 closure) + enumerate enforcement infra into Phase 11 population; (vii) integration-hook prep for BE-J Class E (S15) + BE-K Class F (S16). NOTE: prior next_action label 'Operational-Definition Substitution Gate (Done #14)' was a STALE MISLABEL corrected by Amendment 28d; Done #14 Substitution Gate ships at BE-H/BE-I per ROADMAP, NOT BE-G. BE-G consumes BE-F probe library admission output as canonical vocabulary.",
   "last_action": "cycle_16_s11_close_2026_05_28_stage_5_be_f_built_done_13_h_recovery_3_closed_4_probes_admitted_16_production_fires_t12_negative_test_pass",
   "last_action_ts": "2026-05-28T18:13:16.521694+00:00",
   "last_action_timestamp": "2026-05-28T17:30:00Z",
