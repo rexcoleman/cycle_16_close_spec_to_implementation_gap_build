@@ -1,0 +1,72 @@
+# spec_authoring_required_check.yml — BE-G Done #29 server-side/CI bypass closure.
+#
+# Closes the `git commit --no-verify` local-hook bypass: a local pre-commit hook is
+# skippable, but a REQUIRED STATUS CHECK on the server is not. Install this workflow
+# into each spec-bearing repo's `.github/workflows/` AND mark the job as a required
+# status check under branch protection (Settings → Branches → Require status checks).
+#
+# Authority: BE-G dispatch substrate §2 item 8 (SI Amendment 28d Done #29) + ED §5.8.
+#
+# This runs the SAME predicate as the local hook (spec_authoring_pre_commit_hook.sh
+# --check-staged) but against the PR's diff range — server-side, un-bypassable.
+
+name: spec-authoring-write-boundary
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, master]
+
+jobs:
+  spec-authoring-required-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for diff range)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enforce write-boundary (spec-class artifact requires register_spec in same change)
+        shell: bash
+        run: |
+          set -uo pipefail
+          # Determine the change range: PR base..head, else last commit.
+          if [ -n "${GITHUB_BASE_REF:-}" ]; then
+            BASE="origin/${GITHUB_BASE_REF}"
+            git fetch origin "${GITHUB_BASE_REF}" --depth=50 || true
+            RANGE="${BASE}...HEAD"
+          else
+            RANGE="HEAD~1...HEAD"
+          fi
+          echo "Diff range: $RANGE"
+
+          # Spec-class files changed in the range.
+          CHANGED="$(git diff --name-only "$RANGE" --diff-filter=ACM 2>/dev/null || true)"
+          SPEC_CLASS=""
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              *.claude/agents/*.md|*.shacl.ttl|*_schema.ttl|*_shapes.ttl) SPEC_CLASS="$SPEC_CLASS$f"$'\n' ;;
+              *DECISION_LOG.md)
+                if git diff "$RANGE" -- "$f" | grep -qE '^\+## ADR-'; then SPEC_CLASS="$SPEC_CLASS$f"$'\n'; fi ;;
+            esac
+          done <<< "$CHANGED"
+
+          if [ -z "$SPEC_CLASS" ]; then
+            echo "No spec-class artifact changed — PASS."
+            exit 0
+          fi
+
+          # A matching register_spec() authoring call must appear in the same range.
+          DIFF="$(git diff "$RANGE" 2>/dev/null || true)"
+          if echo "$DIFF" | grep -qE '^\+.*register_spec\s*\(' || echo "$DIFF" | grep -qE '^\+.*spec_registry\.write\.event'; then
+            echo "Spec-class artifact changed AND register_spec() present — PASS."
+            exit 0
+          fi
+
+          echo "::error::Spec-class artifact changed WITHOUT register_spec() in the same change."
+          echo "Files:"; echo "$SPEC_CLASS" | sed 's/^/  - /'
+          echo "BE-G Done #12/#29 write-boundary closure (HC-BE-D-1). This required check"
+          echo "cannot be bypassed with --no-verify."
+          exit 1

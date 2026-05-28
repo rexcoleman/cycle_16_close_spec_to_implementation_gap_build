@@ -796,3 +796,34 @@ print('CALIBRATION PASS: all 4 classes have known_good + known_bad self-test eve
 | 6 | Schema version `0.1` locked at Cycle-16-S11 close paired-commit + predicateType discriminators (`cycle16:probe_fire_v1` for production / `cycle16:probe_self_test_v1` for self-test / `cycle16:probe_admission_v1` for admission) STRUCTURALLY distinct per LA §6.recovery.A row 10 SLSA chain-of-custody | [x] PASS (predicateType values verified distinct in each sink; structural discriminator at JSONL row level enforces SLSA-style provenance routing) |
 
 <!-- /gate:runtime_emit_spec §14 -->
+
+## §15 BE-G Cycle 16 Stage 5 Write-Boundary Enforcement Emit Schema Append
+
+> ADDITIVE-APPEND per HC #45 (chain n=7). §1-§14 preserved byte-identical above.
+
+### §15.1 NEW event classes (BE-G)
+
+| event_class | namespace | sink | payload key fields |
+|---|---|---|---|
+| `pre_commit_hook_block.fire.event` | `cycle_16.be_g.spec_authoring` | `outputs/spec_authoring_events.jsonl` | verdict=HARD_BLOCK, violating_files[], evidence_type=write_boundary_violation |
+| `spec_authoring_event.fire.event` | `cycle_16.be_g.spec_authoring` | `outputs/spec_authoring_events.jsonl` | spec_path, delivery_latency_ms (≤60000), git_bypassing_write_bool, evidence_type=filesystem_write_observation |
+| `three_registry_reconciliation.fire.event` | `cycle_16.be_g.three_registry_reconciliation` | `outputs/three_registry_reconciliation_events.jsonl` | filesystem_spec_class_count, kg_cycle16_spec_count, prompt_inventory_agent_spec_count, drift_detected_bool, drift_reason |
+| `spec_implementation_present_gate.probe_fire_aggregate.fire.event` | `cycle_16.be_g.spec_implementation_gates` | `outputs/spec_implementation_gates_events.jsonl` | verdict, evidence_type=probe_fire_aggregate, probe_fire_total, probe_fire_implemented |
+| `spec_implementation_session_close_gate.probe_fire_aggregate.fire.event` | `cycle_16.be_g.spec_implementation_gates` | `outputs/spec_implementation_gates_events.jsonl` | evidence_type=probe_fire_aggregate, probe_fire_rows_in_window, dormant_specs_no_recent_impl_count, advisory_mode_bool=true |
+| `spec_killed_event.fire.event` | `cycle_16.be_g.spec_registry` | `outputs/spec_registry_events.jsonl` | spec_iri, adr_retraction_ref, audit_trail_link, new_status=cycle16:killed, success_bool |
+| `kill_spec.refusal.event` | `cycle_16.be_g.spec_registry` | `outputs/spec_registry_events.jsonl` | refusal_class, raised=ValueError (DP#44; NO spec_killed_event on refusal) |
+| `spec_registry.forward_apply_warn.event` | (caller namespace) | `outputs/spec_registry_events.jsonl` | spec_iri, warn (non-fatal forward-apply/hook failure) |
+
+### §15.2 forward_apply_emit() production wiring (Done #12 item 3)
+
+`register_spec()` now calls `forward_apply_emit()` after a successful write, emitting
+`spec_authoring_event` (no cycle_implemented) or `spec_implementation_event` (with
+cycle_implemented/session_implemented) to `outputs/forward_apply_observation_events.jsonl`
+with `authoring_source: production_register_spec`. This closes the emit.py:96 zero-caller gap.
+
+### §15.3 Non-smoke run_id discipline
+
+All BE-G production fires carry run_id prefix `s12_be_g_production_*` (never `smoke`/`test`).
+Acceptance counts smoke-prefixed fires as ZERO (HC #67 + Done #15d).
+
+<!-- /gate:runtime_emit_spec §15 -->

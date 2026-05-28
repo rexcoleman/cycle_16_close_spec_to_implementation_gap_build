@@ -211,3 +211,21 @@ Gate passed. Stage 0-2 complete. Next action: formulate (Stage 3).
 | Search strategy documentation | PASS (count: 4) |
 | Characterization source | WARN (count: 0) |
 | Placeholder residue | PASS (count: 0) |
+
+---
+
+## ADR-S12-1-KILL: Retract obsolete BE-G dogfood spec (Cycle-16-S12 kill_spec() dogfood)
+
+- **Date:** 2026-05-28
+- **Status:** Accepted
+
+### Context
+BE-G Done #18 ships `kill_spec(spec_iri, adr_retraction_ref, killing_session, kill_reason)`.
+Acceptance (ED §5.8 threshold 5) requires ≥1 positive kill exercised from a real ADR
+retraction record. This ADR is the retraction record that authorizes the positive
+`kill_spec()` dogfood against a synthetic spec written to `/cycle6` at S12.
+
+### Decision
+Retract the synthetic dogfood spec `cycle16:spec_be_g_kill_dogfood_s12`; transition its
+`cycle16:currentStatus` → `cycle16:killed` with `cycle16:auditTrailLink` → this ADR.
+Kill discipline is ADR-gated: no kill without a recorded retraction (DP#44).

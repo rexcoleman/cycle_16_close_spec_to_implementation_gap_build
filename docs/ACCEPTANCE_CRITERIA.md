@@ -664,3 +664,33 @@ Per `build-runner.md §Step 3 ACCEPTANCE_CRITERIA §2` and §13 + §12 + §11 + 
 | 6 | §14.1 row 36 (version-lock per Done #13) | [x] PASS |
 
 <!-- /gate:acceptance_criteria §14 -->
+
+## §15 BE-G Cycle 16 Stage 5 Write-Boundary Enforcement Acceptance Append
+
+> ADDITIVE-APPEND per HC #45 (chain n=7). §1-§14 preserved byte-identical above.
+> All thresholds probe-fire-grounded; smoke-only fires REFUSED (HC #67). Verified at
+> Cycle-16-S12 BE-G build. Authority: ED §5.8 (6/6) + SI Amendment 28d Done #29/#30.
+
+### §15.1 Acceptance thresholds (rows 37-46)
+
+| # | Threshold | Verdict | Evidence |
+|---|---|---|---|
+| 37 | Pre-commit hook HARD-BLOCKs ≥3 synthetic-violation fixtures (non-zero exit + `pre_commit_hook_block.fire.event`) | PASS | 3 fixtures (agent_spec / schema TTL / DECISION_LOG ADR) all exit 1 + 3 hook-block events; positive (register_spec in commit) ALLOW exit 0 |
+| 38 | fsnotify watcher emits `spec_authoring_event` ≤60s on ≥3 staged bypasses | PASS | scan-once 3 events latency 53ms each (≤60000ms) + LIVE inotify daemon emitted 2 events on real git-bypassing write |
+| 39 | 3-registry reconciliation gate `drift_detected_bool:false` across 5 consecutive closes | PASS | 5 fires vs LIVE /cycle6 (241 cycle16:Spec) + prompt_inventory (9 agent_spec) + FS (2); all drift=false |
+| 40 | Done #17 gate body subprocess-invokes probe (NOT ASK currentStatus); ≥3 negative HARD-BLOCK + 1 positive; `evidence_type: probe_fire_aggregate` | PASS | positive: 268 probe fires / 72 implemented PASS; 3 negative fixtures BLOCKED (impl=0); `grep subprocess`=match, `grep '^[^#]*ASK {.*currentStatus'`=0 |
+| 41 | `kill_spec()` 4-param; ADR grep + `spec_killed_event` + SPARQL→killed; ≥3 DP#44 refusals + ≥1 pass | PASS | `len(sig.parameters)==4`; positive kill (readback currentStatus=killed, audit_trail_link set, 1 spec_killed_event); 3 ValueError refusals (missing ADR / malformed iri / None) emitting NO event |
+| 42 | Done #19 session-close gate aggregates probe-fire JSONL (NOT currentStatus); `advisory_mode_bool:true`; ≥3 dormancy tests; 5-session monotonic | PASS | 3 dormancy fixtures each flag 3 specs (advisory exit 0); advisory_mode_bool=true; evidence_type=probe_fire_aggregate; index 1→5 monotonic |
+| 43 | Done #29 per-repo coverage matrix (all spec-bearing repos) + server-side/CI bypass-closure | PASS | `be_g_coverage_matrix.{md,json}` (4 repos) + `spec_authoring_required_check.yml` CI required-status-check (closes --no-verify) |
+| 44 | Done #30 build-orchestrator + build-runner in prompt_inventory + 6 BE-G deliverables self-registered | PASS | sqlite3 verify both agent_specs active; 6 self-register write.events at /cycle6 |
+| 45 | KT-7: every probe invoked by a gate body passes `--self-test` (exit 0) | PASS | a/b/c/d probes all `--self-test` exit 0 |
+| 46 | KT-8: every gate/hook/kill validation IMPORTS+EXECUTES the named primitive, not string-match | PASS | present_gate `subprocess.run([python3, probe_path, --aggregate-cycle])`; session_close aggregates `probe_library.fire.event.payload.implemented`; kill_spec `subprocess.run(["grep",...ADR...])`; hook inspects staged DIFF for register_spec call |
+
+### §15.2 Honest carries (HC #70)
+
+- BE-G does NOT make past specs implemented (Phase 11-13) nor validate probe accuracy (Done #25 / Phase 12).
+- Enforcement is INSTALLABLE per repo; INSTALL into `.git/hooks` + CI branch protection is an operational promotion step, not performed by the build across all 79 repos.
+- `watchdog`/`inotify_simple` absent on host → watcher uses Linux inotify(7) via ctypes (no third-party dep).
+- govML back-port of BE-G scripts is BE-I / S14 (NO govML commit at S12 per work-host boundary).
+
+<!-- /gate:acceptance_criteria §15 -->

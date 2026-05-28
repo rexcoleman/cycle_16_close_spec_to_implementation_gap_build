@@ -1,228 +1,140 @@
-gpd_return:
-  agent_id: build-runner
-  cycle: 16
-  stage: 5
-  branch_element: BE-F
-  dispatch_substrate: "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s11_stage_5_be_f_dispatch_substrate.md"
-  status: completed
-  files_written:
-    # cycle_16 surfaces (3-repo paired commit at S11 close per substrate §1 item 11; NO govML)
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probes/a/probe_agent_contract.py"
-      bytes: 19842
-      kind: "NEW Class A AgentContract behavioral probe; OTEL JSONL tool_use scan; PROBE_VERSION=0.1 + PROBE_ADMISSION_LOCK_COMMIT pinned; executable"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probes/b/probe_schema.py"
-      bytes: 20756
-      kind: "NEW Class B Schema behavioral probe; call-site + inline-exec + JSONL-events exercise paths; executable"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probes/c/probe_design_decision.py"
-      bytes: 17612
-      kind: "NEW Class C DesignDecision structural-judge probe; HC #72 anti-substitution refuse-if-embodimentRef-IS-DECISION_LOG; executable"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probes/c/llm_judge_prompt.md"
-      bytes: 4733
-      kind: "NEW Class C LLM-judge contract template; HC #72 language explicit; calibration fixtures referenced"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probes/d/probe_methodology_commitment.py"
-      bytes: 18438
-      kind: "NEW Class D MethodologyCommitment behavioral probe; downstream JSONL fire OR cross-cycle citation; executable"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probes/__init__.py"
-      bytes: 4500
-      kind: "NEW admission-gate Python module; DP#44 refuse-on-self-test-fail; admit_all + expose_admitted + ADMITTED_PROBES + REFUSED_PROBES"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/scripts/probe_library_admission.sh"
-      bytes: 2700
-      kind: "NEW bash CLI/CI wrapper; exit 0 iff all admitted; exit 1 on refusal; executable"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_good_a_1.json"
-      bytes: 860
-      kind: "NEW Class A known-good fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_bad_a_1.json"
-      bytes: 800
-      kind: "NEW Class A known-bad fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_good_b_1.json"
-      bytes: 766
-      kind: "NEW Class B known-good fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_bad_b_1.json"
-      bytes: 500
-      kind: "NEW Class B known-bad fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_good_c_1.json"
-      bytes: 880
-      kind: "NEW Class C known-good fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_bad_c_1.json"
-      bytes: 800
-      kind: "NEW Class C known-bad fixture (embodimentRef IS DECISION_LOG anti-substitution refusal)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_good_d_1.json"
-      bytes: 800
-      kind: "NEW Class D known-good fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/tests/probes/fixtures/known_bad_d_1.json"
-      bytes: 900
-      kind: "NEW Class D known-bad fixture"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_fire_events.jsonl"
-      lines: 16
-      kind: "NEW sink with 16 production-fire rows (4 per class A/B/C/D; run_id prefix s11_be_f_production_*)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_library_self_test_events.jsonl"
-      lines_min: 8
-      kind: "NEW sink with ≥8 self-test rows; predicateType cycle16:probe_self_test_v1 distinct from production"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_library_admission_events.jsonl"
-      lines: 5
-      kind: "NEW sink with 5 events: 4 PASS (canonical) + 1 REFUSE (T12 negative test broken probe)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/ARTIFACT_CONTRACT.md"
-      lines_delta: "+108/-0"
-      kind: "EDIT §14 BE-F append §14.0-§14.7; LOCKED §0-§13 preserved (md5 head-N match verified through line 594)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/RUNTIME_EMIT_SPEC.md"
-      lines_delta: "+159/-0"
-      kind: "EDIT §14 BE-F append §14.0-§14.6 with 4 NEW event classes; LOCKED §0-§13 preserved (md5 verified through line 647)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/ACCEPTANCE_CRITERIA.md"
-      lines_delta: "+108/-0"
-      kind: "EDIT §14 BE-F append §14.0-§14.6 with PASS-all 6/6 thresholds + per-test-bed strengthening + Honest Resolution Log; LOCKED §0-§13 preserved (md5 verified through line 566)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/DEPLOYMENT_LOG.md"
-      lines_delta: "+1/-0"
-      kind: "EDIT §2 row 6 BE-F BUILT entry (append-only; chronological order preserved via swap)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/docs/BUILD_DECISION_LOG.md"
-      lines_delta: "+1/-0"
-      kind: "EDIT §2 row 6 BE-F BUILT decision row (append-only; chronological order preserved via swap)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/DECISION_LOG.md"
-      lines_delta: "+33/-0"
-      kind: "APPEND D-S11-1 BE-F close row with R3 verdict + HC #72/HC #70/HC #74 sweep verdicts + Pattern 19 telemetry + pre-registered open questions for BE-G/H/I"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/state.json"
-      lines_delta: "+38/-5"
-      kind: "EDIT transition current_phase to cycle_16_phase_9_stage_5_be_f_built_pending_promotion_s12_stage_5_be_g_dispatch_next + S11-D1 decisions_log + kc48 paradigm_dispositions ADDITIVE + stage_5_be_f_complete fields"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_envelope.yaml"
-      kind: "OVERWRITE BE-E → BE-F envelope (this file)"
-    - path: "~/cycle_16_close_spec_to_implementation_gap_build/outputs/build_runner_events.jsonl"
-      lines_delta: "+1/-0"
-      kind: "APPEND 1 be_f_probe_library_ship.event single-fire NEW event class at BE-F close"
-  confidence: HIGH
-  provenance:
-    parent_cycle_lock_commit: "901f42753aaaa350348ed681fa0bd5410b3c84ae"
-    build_lock_commit: "<recorded at Cycle-16-S11 close 3-repo paired-commit>"
-    test_bed_id: "4-spec-class production dogfooding (TB-A AgentContract + TB-B Schema + TB-C DesignDecision + TB-D MethodologyCommitment; 4 specs per class = 16 production fires; mix expected-implemented + expected-dormant per class)"
-    cycle_id: 16
-    artifact_kind: "library"
-    invocation_interface: "python3 scripts/probes/<cls>/probe_<class>.py {--self-test | --aggregate-cycle N | --spec-iri <iri>}; bash scripts/probe_library_admission.sh; python -c 'from scripts.probes import admit_all'"
-    runtime_targets: ["python3 (3.13.x)", "bash (5.x)", "Fuseki SPARQL endpoint at http://localhost:3030/cycle6 (Class B only)"]
-    smoke_test_passed: true
-    smoke_test_emit_count: 16
-    smoke_test_emit_schema_valid: true
-    canonical_markers_baseline:
-      ARTIFACT_CONTRACT.md: 9
-      RUNTIME_EMIT_SPEC.md: 10
-      ACCEPTANCE_CRITERIA.md: 9
-      DEPLOYMENT_LOG.md: 4
-      BUILD_DECISION_LOG.md: 7
-    canonical_markers_post_edit:
-      ARTIFACT_CONTRACT.md: 10
-      RUNTIME_EMIT_SPEC.md: 11
-      ACCEPTANCE_CRITERIA.md: 10
-      DEPLOYMENT_LOG.md: 4
-      BUILD_DECISION_LOG.md: 7
-    zero_marker_loss: true
-    max_edit_new_string_chars: 19984
-    locked_preservation_verdict_per_file:
-      ARTIFACT_CONTRACT.md: "BE-A §1-§3 + BE-B §10 + BE-C §11 + BE-D §12 + BE-E §13 LOCKED bodies UNMODIFIED — md5 head-594 match HEAD baseline"
-      RUNTIME_EMIT_SPEC.md: "BE-A §0-§6 + BE-B §10 + BE-C §11 + BE-D §12 + BE-E §13 LOCKED bodies UNMODIFIED — md5 head-647 match HEAD baseline"
-      ACCEPTANCE_CRITERIA.md: "BE-A §0-§6 + BE-B §10 + BE-C §11 + BE-D §12 + BE-E §13 LOCKED bodies UNMODIFIED — md5 head-566 match HEAD baseline"
-      DEPLOYMENT_LOG.md: "Rows 1-5 LOCKED preserved; row 6 appended in chronological order via post-Edit swap"
-      BUILD_DECISION_LOG.md: "Rows 1-5 LOCKED preserved; row 6 appended in chronological order via post-Edit swap"
-    govml_v2_8_5_unmodified_at_s11: true
-    govml_v2_8_6_back_port_deferred_to_be_i_s14plus: true
-    govml_lock_commit_at_s11: "v2.8.5 STANDS UNMODIFIED — no edits to ~/ml-governance-templates throughout BE-F build"
-    cycle_6_locked_ontology_preserved: true
-    probe_admission_summary:
-      total_probes_discovered: 4
-      total_admitted: 4
-      total_refused: 0
-      classes_covered: ["A", "B", "C", "D"]
-      t12_negative_test_verdict: PASSED
-      t12_broken_probe_path: "scripts/probes/_broken_/probe_broken.py (REMOVED post-T12 evidence)"
-      t12_refusal_event_emitted: true
-      t12_admission_gate_exit_code: 1
-    dogfooding_within_cycle_production_fires:
-      total_production_fires: 16
-      per_class:
-        A: 4
-        B: 4
-        C: 4
-        D: 4
-      per_class_mix_implemented_vs_not:
-        A: {implemented: 2, not_implemented: 2}
-        B: {implemented: 2, not_implemented: 2}
-        C: {implemented: 1, not_implemented: 3}
-        D: {implemented: 1, not_implemented: 3}
-      mix_discipline_met_per_class: true
-      smoke_only_fires_excluded_per_done_15d: true
-      run_id_prefix: "s11_be_f_production_*"
-      run_id_prefix_count: 16
-    self_test_events_summary:
-      total_events_min: 8
-      predicateType: cycle16:probe_self_test_v1
-      per_class_fixture_pair_present:
-        A: ["known_good", "known_bad"]
-        B: ["known_good", "known_bad"]
-        C: ["known_good", "known_bad"]
-        D: ["known_good", "known_bad"]
-    admission_events_summary:
-      total_events: 5
-      pass_events: 4
-      refuse_events: 1
-      probe_admission_lock_commit_single_valued: true
-      probe_admission_lock_commit_value: "901f42753aaaa350348ed681fa0bd5410b3c84ae"
-    hc_26_3_gate_analog:
-      g1_deliverables_findable: PASS
-      g1_evidence: "find scripts/probes/ -name 'probe_*.py' -executable returns 4 + bash scripts/probe_library_admission.sh exit 0"
-      g2_ge_12_production_fires: PASS
-      g2_evidence: "grep -c 'run_id.*s11_be_f_production_' outputs/probe_fire_events.jsonl = 16 ≥ 12"
-      g3_locked_preserved: PASS
-      g3_evidence: "md5 head-N match per file for ARTIFACT_CONTRACT/RUNTIME_EMIT_SPEC/ACCEPTANCE_CRITERIA across LOCKED §0-§13 line ranges"
-    hc_72_substitution_detection_self_applied_at_authoring: true
-    hc_72_substitution_shapes_screened: ["registry-field read", "status-enum equality", "token/citation count", "smoke-only fire", "artifact-exists at path", "single-smoke event"]
-    hc_72_per_class_behavioral_grounding:
-      A: "OTEL JSONL tool_use block scan (not registry-state read)"
-      B: "call-site OR inline-exec OR JSONL events with namespace match (not just file-exists)"
-      C: "structural-judge with file:line citation; refuses if embodimentRef IS DECISION_LOG (HC #72); LLM-judge prompt template forbids registry/ADR/FINDINGS-text-only acceptance"
-      D: "downstream JSONL fire of artifact-name OR downstream cross-cycle citation (not FINDINGS-mention-only)"
-    kt_firing_surfaces_evaluated:
-      KT-7: DOES_NOT_FIRE
-      KT-7_evidence: "4 admitted probes all distinguish known_good + known_bad; T12 negative test verified admission refusal works"
-      KT-8: DOES_NOT_FIRE
-      KT-8_evidence: "Class C structural-judge refuses embodimentRef-IS-DECISION_LOG with HC #72 anti-substitution; gate predicate body invokes named primitive (not string-match)"
-      KT-9: DOES_NOT_FIRE
-      KT-9_evidence: "No generic-emission escape primitives in 4 probe bodies; admission gate refuses by construction via per-class behavioral evidence shape"
-      KT-10: DOES_NOT_FIRE
-      KT-10_evidence: "≥1 production fire on every class A/B/C/D; in fact 4 per class (well above 1 floor per H_recovery_1 falsification condition)"
-    hc_74_cycle_management_surfacing_status: "No paradigm-class cycle-management dispositions encountered during BE-F build; no Pattern 11 Step 3.5 escalations required; pre-escalation gate fires inline preserved for R3 verdict"
-    hc_be_d_1_boundary_discipline_honest_acknowledgment: "BE-F probes consume /cycle6 SPARQL endpoint via SELECT/ASK only — no INSERT/UPDATE/DELETE/DROP from probe bodies; canonical production registry rows untouched (235 cycle16:Spec at /cycle6 = 232 BE-D + 3 BE-B S4 EQUAL pre/post BE-F); HC-BE-D-1 PRESERVED as honest carry to Cycle 18 scope per Rex 2026-05-27 Option B split-sequential"
-    pattern_19_telemetry:
-      cumulative_count: 33
-      class: "within-cycle Stage-5 BE-F first-arc"
-      authoring_density: "4 canonical artifact appends +400/-0 lines + 4 probe primitives + 8 fixtures + admission gate (Python + bash) + 16 production fires + 5 admission events + ≥8 self-test events + 1 close-fire build_runner event"
-      max_edit_within_validated_zone: true
-      max_edit_new_string_chars: 19984
-    h_recovery_3_closure_evidence:
-      done_13_pass: true
-      probes_count: 4
-      fixtures_count: 8
-      admission_gate_present: true
-      admission_gate_refuses_broken_probe_t12_verified: true
-      version_lock_per_done_13: true
-      dogfooding_within_cycle_ge_12_production_fires: true
-      smoke_only_fires_refused_per_done_15d_strict: true
-      generic_emission_escape_primitive_absent: true
-  placeholder_residue_count:
-    ARTIFACT_CONTRACT.md: 0
-    RUNTIME_EMIT_SPEC.md: 0
-    ACCEPTANCE_CRITERIA.md: 0
-    DEPLOYMENT_LOG.md: 0
-    BUILD_DECISION_LOG.md: 0
-    DECISION_LOG.md: 0
-  self_assessment:
-    AC_self_score: 8
-    RE_self_score: 8
-    AT_self_score: 8
-    BA_self_score: 8
-    DE_self_score: 8
-    biggest_gap: "Class C aggregate-cycle embodiment heuristic conservatively refuses on JSON-blob token splits where load-bearing words map to skip-list — correct HC #72 behavior but produces fewer implemented=true on C-class production fires than would be optimal. Carry-forward to Phase 10 retroactive scan re-run; full LLM-judge upgrade DEFERRED to Cycle 17+ if Coach R3 disposition requires"
-    contract_amendment_candidates: "Class C structural-judge → full LLM-judge migration path; Class B Schema 'exercised via JSONL events' criterion oversight risk vs HC #72 sweep — Coach R3 to inspect run_id prefix discipline for smoke-vs-production discriminator integrity"
-  issues:
-    - "Class C structural-judge implements LLM-judge contract SHAPE (file:line citation; substitution-detection refusal) without full LLM API call at probe-fire time; full LLM-judge upgrade DEFERRED to Cycle 17+ if Coach R3 disposition requires (honest gap per LA §6.recovery.C row 3 design-anchor flag)"
-    - "Class C aggregate-cycle embodiment heuristic limitation: JSON-blob state.json paradigm_dispositions keys split into searchable tokens via re-split; load-bearing words filtered via skip-list. Result: conservative implemented=false return rather than substitute weaker evidence (HC #72 correct behavior). Counter-discipline: known_good_c_1 fixture uses richer token 'spec_registry_authoring' which splits cleanly + finds embodiment"
-    - "Class B Schema 'exercised via JSONL events' criterion could be over-permissive — accepted because namespace-constant extraction is itself load-bearing artifact of schema's runtime use; Coach R3 HC #72 sweep verifies run_id prefix discipline for smoke-vs-production discriminator integrity"
-  next_actions:
-    - "Coach R3 close-eval: kc-48 PD §3.3 T1-T13 mechanical tests + DP#43 content-verification + Coach Check #23 placeholder+spot-read + HC #72 substitution-detection independent sweep (grep across 4 probe code bodies + admission gate + ED §5.7+ at R3 boundary) + HC #70 reality-vs-intent structured table per Done #15b extension"
-    - "If R3 PASS-WITH-FLAG+CARRY: 3-repo paired commit at S11 close (cycle_16 + EMABS + Moonshots) + §1du handoff append at Moonshots + S12 transition prompt + close summary direct to Rex"
-    - "S12 dispatch: BE-G Operational-Definition Substitution Gate (Done #14 + H_recovery_4) — gate body MUST invoke named probe primitive via Python subprocess at gate-fire time (NOT string-match probe ID); ≥3 negative-fixture refusals required at gate body inspection"
+# BE-G Build-Runner envelope — Cycle-16-S12 Stage 5 (OVERWRITE per substrate §5)
+build_element: BE-G
+build_class: write_boundary_enforcement_composite
+session: Cycle-16-S12
+cycle: 16
+phase: 9.2
+timestamp: 2026-05-28T20:35:00Z
+status: BUILT_PENDING_PROMOTION
+verdict: PASS_ALL_10_ACCEPTANCE_THRESHOLDS
+
+zero_marker_loss: true            # LOCKED §1-§14 heads byte-identical (md5 verified)
+placeholder_residue_count: 0      # across all docs BE-G authored/appended (pre-existing template {{}} in docs/DECISION_LOG.md scaffold header NOT BE-G-authored)
+confidence: high
+
+dual_path_materialization_flag: true
+dual_path_note: >-
+  5 BE-G scripts (pre-commit hook, watcher, reconciliation gate, present_gate UPGRADE,
+  session_close_gate UPGRADE) authored at canonical ~/ml-governance-templates/scripts/
+  per ED §5.8 named paths AND mirrored at cycle_16 scripts/be_g_mirror/ so the cycle_16
+  commit captures the deliverable. NO govML commit at S12 (back-port + v2.8.6 = BE-I/S14).
+  kill_spec() + forward_apply wiring + Class E/F stubs live in cycle_16 scripts/spec_registry_authoring.py.
+
+files_written:
+  - path: ~/ml-governance-templates/scripts/spec_authoring_pre_commit_hook.sh
+    lines: 125
+    bytes: 4830
+    canonical: true
+  - path: ~/ml-governance-templates/scripts/spec_authoring_watcher.py
+    lines: 199
+    bytes: 7588
+    canonical: true
+  - path: ~/ml-governance-templates/scripts/three_registry_reconciliation_gate.sh
+    lines: 136
+    bytes: 5989
+    canonical: true
+  - path: ~/ml-governance-templates/scripts/spec_implementation_present_gate.sh
+    lines: 357
+    bytes: 15806
+    canonical: true
+    note: Done #17 UPGRADE — ASK currentStatus REMOVED; subprocess probe-fire aggregate
+  - path: ~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh
+    lines: 348
+    bytes: 14635
+    canonical: true
+    note: Done #19 UPGRADE — probe-fire JSONL aggregate; advisory at C16; pipefail-hardening
+  - path: scripts/be_g_mirror/ (5 mirrors of the above)
+    lines: mirror
+    canonical: false
+  - path: scripts/spec_registry_authoring.py
+    lines: 1048
+    bytes: 39596
+    note: kill_spec() + forward_apply_emit() wiring into register_spec() + Class E/F hooks
+  - path: outputs/be_g_coverage_matrix.md
+    lines: 45
+    bytes: 2975
+  - path: outputs/be_g_coverage_matrix.json
+    lines: 53
+    bytes: 3916
+  - path: outputs/spec_authoring_required_check.yml
+    lines: 72
+    bytes: 2972
+    note: Done #29 CI required-status-check closing --no-verify bypass
+  - path: docs/ARTIFACT_CONTRACT.md (§15 append; head-694 LOCKED md5 ba803727 preserved)
+  - path: docs/RUNTIME_EMIT_SPEC.md (§15 append; head-798 LOCKED md5 fae9aab2 preserved)
+  - path: docs/ACCEPTANCE_CRITERIA.md (§15 append; head-666 LOCKED md5 cfde5907 preserved)
+  - path: docs/DEPLOYMENT_LOG.md (§2 row 7 ADDITIVE; rows 1-6 LOCKED)
+  - path: docs/BUILD_DECISION_LOG.md (§2 row 7 ADDITIVE; rows 1-6 LOCKED)
+  - path: docs/DECISION_LOG.md (ADR-S12-1-KILL ADDITIVE — kill_spec dogfood retraction record)
+  - path: DECISION_LOG.md (D-S12-1 ADDITIVE)
+  - path: state.json (transition ADDITIVE; current_phase + next_action + paradigm_dispositions)
+  - path: prompt_inventory (singularity.db) build-orchestrator + build-runner rows
+  - path: 5 outputs/*.jsonl sinks (append-only; non-smoke s12_be_g_production_* run_ids)
+
+acceptance:
+  ac1_pre_commit_hook: PASS  # 3 fixtures HARD-BLOCK exit 1 + 3 pre_commit_hook_block.fire.event; positive ALLOW
+  ac2_fsnotify_watcher: PASS # 3 scan-once @53ms <=60s + LIVE inotify daemon 2 fires on real git-bypassing write
+  ac3_reconciliation_gate: PASS # 5 consecutive closes drift_detected_bool=false vs LIVE /cycle6 241 + PI 9 + FS 2
+  ac4_done17_cycle_close_gate: PASS # subprocess probe-fire aggregate 268/72 PASS; 3 negative BLOCKED; ASK-currentStatus removed
+  ac5_kill_spec: PASS        # 4-param; ADR-grep + spec_killed_event + SPARQL->killed readback; 3 DP#44 refusals NO-event
+  ac6_done19_session_close_gate: PASS # probe-fire JSONL aggregate; advisory_mode_bool=true; 3 dormancy fixtures; monotonic 1->5
+  ac7_done29_coverage_bypass: PASS    # 4-repo matrix + CI required-status-check
+  ac8_done30_guard_the_guards: PASS   # build-orchestrator+build-runner in prompt_inventory + 6 self-registered
+  ac9_kt7_probe_self_test: PASS       # a/b/c/d probes --self-test exit 0
+  ac10_kt8_import_execute: PASS       # 4 predicates subprocess/import-execute named primitive, not string-match
+
+dogfood_evidence_non_smoke:
+  spec_authoring_events.jsonl: 8     # 3 hook-block + 5 watcher
+  three_registry_reconciliation_events.jsonl: 5
+  spec_implementation_gates_events.jsonl: 8  # 4 present-gate (3 BLOCKED+1 CLEAR) + 4 session-close (3 dormancy+1)
+  spec_registry_events.jsonl: 10     # 6 self-register write + 3 kill refusal + 1 (kill setup); spec_killed_event=1
+  forward_apply_observation_events.jsonl: 7  # production register_spec() forward_apply fires
+
+hc_70_honest_scope:
+  what_be_g_proves: >-
+    The PRESENT + FUTURE write-boundary enforcement spine works from real production paths:
+    spec-class writes without register_spec() are blocked (hook) or observed (watcher);
+    register_spec() now fires forward-apply observation; the cycle-close + session-close
+    gates accept a spec ONLY on real probe-fire implemented evidence (not a status enum);
+    kill discipline is ADR-gated; the guards (build-orchestrator/build-runner + the 6 BE-G
+    scripts) are themselves registered; the --no-verify bypass is closed by a CI required check.
+  what_be_g_does_NOT_prove:
+    - It does NOT make past specs implemented (that is Phase 11-13 retroactive remediation).
+    - It does NOT validate the BE-F probes' own accuracy (that is Done #25 / Phase 12).
+    - The present-gate PASS means ">=1 implemented probe-fire aggregated", NOT "all specs implemented".
+    - Enforcement is INSTALLABLE per repo; INSTALL into .git/hooks + CI branch protection is an
+      operational promotion step, NOT performed by this build across all repos.
+    - Done #19 dormancy gate is ADVISORY at Cycle 16 (BLOCKING transition at Cycle 17+).
+
+issues:
+  - id: BE-G-1
+    severity: low
+    desc: >-
+      Host lacks watchdog/inotify_simple; watcher uses Linux inotify(7) via ctypes (libc). Portable
+      on Linux only (acceptable — all work-hosts are Linux). Not a cross-platform watcher.
+  - id: BE-G-2
+    severity: low
+    desc: >-
+      EMABS (emabs_moonshots) repo is not present on this host (Coach-managed state.json mirror per
+      PC #100). Coverage matrix enumerates it as a named target with mechanism inherited-when-materialized;
+      it is NOT a script-bearing repo I touched at S12.
+  - id: BE-G-3
+    severity: low
+    desc: >-
+      Session-close gate SESSIONS_BETWEEN primitive (BE-C-authored line) needed a one-token pipefail
+      hardening (added "or true" on the grep -c count pipeline) so it survives 0 session.start markers
+      under set -o pipefail. Behavior for >=1 match is unchanged. Flagged for Coach R3 as a BE-G-scoped
+      additive fix on a BE-C line (not a section-override; no logic change).
+  - id: BE-G-4
+    severity: informational
+    desc: >-
+      docs/DECISION_LOG.md retains 4 pre-existing scaffold-template {{}} placeholders in its header
+      (present BEFORE BE-G; not authored by me; out of scope). My ADR-S12-1-KILL append has 0 placeholders.
+  - id: BE-G-5
+    severity: informational
+    desc: >-
+      Reconciliation gate uses a RECONCILIATION (registry-going-dark) drift definition, not exact
+      count-equality, because the three registries count different universes (FS=this repo, KG=all
+      retroactively-scanned cross-cycle specs, PI=agent_specs only). Documented in the gate header.
+
+no_git_commit: true   # Coach handles the 3-repo paired commit at R3. NO govML commit at S12.

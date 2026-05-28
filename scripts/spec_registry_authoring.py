@@ -546,6 +546,64 @@ INSERT DATA {{
     }
     _emit(project_dir, namespace, "spec_registry.write.event", payload)
 
+    # --- BE-G Done #12 item 3: wire forward_apply_emit() into production register_spec() ---
+    # ADDITIVE — does NOT change register_spec's return/refusal semantics. A real
+    # authoring call now fires a forward-apply observation (spec_authoring_event or
+    # spec_implementation_event) so the BE-E observation substrate sees production
+    # authoring traffic — closing the "0 production callers" gap (emit.py:96).
+    # Wrapped in try/except so a forward-apply sink failure cannot corrupt a
+    # successful registry write (observation is additive, not load-bearing for write).
+    try:
+        from runtime_emit.emit import (  # local import: avoid hard dep at module load
+            forward_apply_emit,
+            SPEC_AUTHORING_EVENT_CLASS,
+            SPEC_IMPLEMENTATION_EVENT_CLASS,
+        )
+
+        # An authoring call that carries cycle_implemented/session_implemented is an
+        # implementation registration; otherwise it is a spec-authoring observation.
+        fa_event_class = (
+            SPEC_IMPLEMENTATION_EVENT_CLASS
+            if (spec.get("cycle_implemented") is not None or spec.get("session_implemented"))
+            else SPEC_AUTHORING_EVENT_CLASS
+        )
+        fa_sink = str(project_dir / "outputs" / "forward_apply_observation_events.jsonl")
+        forward_apply_emit(
+            sink_path=fa_sink,
+            event_class=fa_event_class,
+            run_id=spec.get("_run_id", str(uuid.uuid4())),
+            spec_iri=spec_iri,
+            spec_type=spec.get("spec_type"),
+            cycle_authored=spec.get("cycle_authored"),
+            target_session=spec.get("target_session"),
+            current_status=f"cycle16:{spec.get('current_status')}",
+            access_permission=f"c6:{spec.get('access_permission')}",
+            runtime_emit_event_class=spec.get("runtime_emit_event_class"),
+            retroactive_classification=bool(spec.get("retroactive_classification", False)),
+            authoring_source="production_register_spec",
+            sparql_write_http_status=http_status,
+        )
+        # --- BE-G Done #23/#24 (item 10): Class E/F integration-hook STUBS ---
+        # Architecturally accommodate future BE-J Class E (S15) + BE-K Class F (S16)
+        # probe calls at the write-time / implementation-registration path. STUBS
+        # ONLY — they do NOT implement Class E/F probes (forbidden at S12 per
+        # substrate §2 item 10). When the live probes land, these hooks are the
+        # call-sites. No-op + swallow today (return None) so the write path is
+        # unaffected; live wiring at S15/S16.
+        _class_e_integration_hook(spec=spec, spec_iri=spec_iri, project_dir=project_dir)
+        _class_f_integration_hook(spec=spec, spec_iri=spec_iri, project_dir=project_dir)
+    except Exception as fa_exc:  # noqa: BLE001 — observation is additive, never load-bearing
+        _emit(
+            project_dir,
+            namespace,
+            "spec_registry.forward_apply_warn.event",
+            {
+                "spec_iri": spec_iri,
+                "warn": f"forward_apply_emit/integration-hook non-fatal failure: {fa_exc!r}",
+                "_run_id": spec.get("_run_id", str(uuid.uuid4())),
+            },
+        )
+
     return {
         "spec_iri": spec_iri,
         "spec_uuid": spec_uuid,
@@ -555,6 +613,34 @@ INSERT DATA {{
         "sparql_query_hash": payload["sparql_query_hash"],
         "triple_count_delta": payload["triple_count_delta"],
     }
+
+
+def _class_e_integration_hook(
+    spec: dict[str, Any], spec_iri: str, project_dir: Path
+) -> None:
+    """BE-G Done #23 Class E integration-hook STUB (BE-J live wiring at S15).
+
+    Architectural call-site for a future Class E probe at the spec write-time path.
+    NOT IMPLEMENTED at S12 — implementing the Class E probe is forbidden per
+    BE-G dispatch substrate §2 item 10. When BE-J ships the Class E probe primitive
+    at `scripts/probes/e/probe_<class_e>.py`, this hook subprocess-invokes it
+    (mirroring the gate-body KT-8 pattern). Today: no-op.
+    """
+    return None  # STUB — live wiring at BE-J / S15
+
+
+def _class_f_integration_hook(
+    spec: dict[str, Any], spec_iri: str, project_dir: Path
+) -> None:
+    """BE-G Done #24 Class F integration-hook STUB (BE-K live wiring at S16).
+
+    Architectural call-site for a future Class F probe at the implementation-
+    registration path. NOT IMPLEMENTED at S12 — implementing the Class F probe is
+    forbidden per BE-G dispatch substrate §2 item 10. When BE-K ships the Class F
+    probe primitive at `scripts/probes/f/probe_<class_f>.py`, this hook subprocess-
+    invokes it. Today: no-op.
+    """
+    return None  # STUB — live wiring at BE-K / S16
 
 
 def read_spec_status(spec_iri: str) -> dict[str, Any]:
@@ -750,6 +836,127 @@ WHERE  {{ GRAPH <{ASSERTION_GRAPH}> {{ <{old_iri_full}> c6:rank ?old_rank . }} }
             s in (200, 204)
             for s in (result["http_status_code"], link_http, dep_http)
         ),
+    }
+
+
+def kill_spec(
+    spec_iri: str,
+    adr_retraction_ref: str,
+    killing_session: str,
+    kill_reason: str,
+) -> dict[str, Any]:
+    """BE-G Done #18: kill a spec with ADR-retraction validation + audit trail.
+
+    Signature is EXACTLY the 4 named params per ED §5.8 threshold 5 verify command
+    (`assert len(inspect.signature(kill_spec).parameters) == 4`). project_dir + the
+    emit namespace resolve from KILL_SPEC_PROJECT_DIR env (default: this script's
+    repo root) + a fixed BE-G namespace — kept OUT of the public signature so the
+    ED literal-4-param assertion holds.
+
+    Per ED §5.8 threshold 5. Body executes:
+      (a) grep-validate `^## ADR-{adr_retraction_ref}` in docs/DECISION_LOG.md
+          via subprocess.run(...).returncode == 0 (refuse if absent).
+      (b) emit `spec_killed_event.fire.event` → outputs/spec_registry_events.jsonl.
+      (c) SPARQL UPDATE currentStatus → cycle16:killed AND set cycle16:auditTrailLink
+          to the ADR reference.
+      (d) raise ValueError (DP#44 refuse-on-missing-precondition) on bad input
+          (missing ADR / malformed spec_iri / None args) emitting NO spec_killed_event.
+
+    Returns dict {spec_iri, adr_retraction_ref, http_status, success_bool, ...}.
+
+    DP#44 BINDING: refusal emits NO spec_killed_event (so a refused kill can never
+    be mistaken for a recorded kill). Only a genuine kill fires the event.
+    """
+    namespace = "cycle_16.be_g.spec_registry"
+    project_dir = Path(
+        os.environ.get(
+            "KILL_SPEC_PROJECT_DIR",
+            str(Path(__file__).resolve().parent.parent),
+        )
+    ).expanduser().resolve()
+
+    # --- (d) DP#44 input refusals (BEFORE any event emit) ---
+    if spec_iri is None or adr_retraction_ref is None or killing_session is None or kill_reason is None:
+        raise ValueError(
+            "kill_spec: all 4 args required (spec_iri, adr_retraction_ref, "
+            "killing_session, kill_reason); got a None — refuse-on-missing-precondition (DP#44)."
+        )
+    if not isinstance(spec_iri, str) or not spec_iri.strip():
+        raise ValueError(f"kill_spec: malformed spec_iri={spec_iri!r} (DP#44).")
+    # Well-formed spec IRI must be cycle16:spec_<...> or a full http://...#spec_<...>
+    if not (spec_iri.startswith("cycle16:spec_") or "#spec_" in spec_iri or "/spec_" in spec_iri):
+        raise ValueError(
+            f"kill_spec: malformed spec_iri={spec_iri!r}; expected cycle16:spec_* "
+            f"or full IRI containing spec_* (DP#44 refuse-on-missing-precondition)."
+        )
+    if not isinstance(adr_retraction_ref, str) or not adr_retraction_ref.strip():
+        raise ValueError(f"kill_spec: malformed adr_retraction_ref={adr_retraction_ref!r} (DP#44).")
+
+    # --- (a) ADR retraction validation via subprocess grep ---
+    import subprocess  # local import per BE-G KT-8 (subprocess-execute, not string-match)
+
+    decision_log = project_dir / "docs" / "DECISION_LOG.md"
+    grep_proc = subprocess.run(
+        ["grep", "-E", f"^## ADR-{adr_retraction_ref}", str(decision_log)],
+        capture_output=True,
+        text=True,
+    )
+    if grep_proc.returncode != 0:
+        # ADR retraction record absent → refuse. NO event emitted (DP#44).
+        raise ValueError(
+            f"kill_spec: ADR retraction record '## ADR-{adr_retraction_ref}' NOT FOUND "
+            f"in {decision_log} (grep returncode={grep_proc.returncode}); "
+            f"refuse-on-missing-precondition (DP#44). A kill REQUIRES a recorded ADR retraction."
+        )
+
+    # --- (c) SPARQL UPDATE: currentStatus → killed + auditTrailLink → ADR ---
+    spec_iri_full = (
+        f"http://cycle16.local/ontology#{spec_iri[len('cycle16:'):]}"
+        if spec_iri.startswith("cycle16:")
+        else spec_iri
+    )
+    update_body = f"""
+PREFIX cycle16: <http://cycle16.local/ontology#>
+
+DELETE {{ GRAPH <{ASSERTION_GRAPH}> {{ <{spec_iri_full}> cycle16:currentStatus ?old . }} }}
+INSERT {{ GRAPH <{ASSERTION_GRAPH}> {{
+    <{spec_iri_full}> cycle16:currentStatus cycle16:killed ;
+                      cycle16:auditTrailLink cycle16:ADR_{adr_retraction_ref} .
+}} }}
+WHERE  {{ GRAPH <{ASSERTION_GRAPH}> {{ <{spec_iri_full}> cycle16:currentStatus ?old . }} }}
+"""
+    http_status, ms, _ = _sparql_post(SPARQL_UPDATE_ENDPOINT, update_body, op="update")
+    success = http_status in (200, 204)
+
+    # --- (b) emit spec_killed_event.fire.event ---
+    _emit(
+        project_dir,
+        namespace,
+        "spec_killed_event.fire.event",
+        {
+            "spec_iri": spec_iri,
+            "adr_retraction_ref": adr_retraction_ref,
+            "killing_session": killing_session,
+            "kill_reason": kill_reason,
+            "adr_grep_returncode": grep_proc.returncode,
+            "audit_trail_link": f"cycle16:ADR_{adr_retraction_ref}",
+            "new_status": "cycle16:killed",
+            "sparql_update_http_status": http_status,
+            "response_time_ms": ms,
+            "success_bool": success,
+        },
+    )
+
+    return {
+        "spec_iri": spec_iri,
+        "adr_retraction_ref": adr_retraction_ref,
+        "killing_session": killing_session,
+        "kill_reason": kill_reason,
+        "http_status_code": http_status,
+        "response_time_ms": ms,
+        "success_bool": success,
+        "new_status": "cycle16:killed",
+        "audit_trail_link": f"cycle16:ADR_{adr_retraction_ref}",
     }
 
 

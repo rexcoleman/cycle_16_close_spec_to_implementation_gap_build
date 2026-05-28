@@ -692,3 +692,45 @@ CONTRACT_CHANGE authority = Rex paradigm ruling per Binding 7 + S155 + BUILD_DEC
 | 12 | HC-11 partition preserved (publishable: probe-library design + canonical vocabulary + admission-gate interface + LLM-judge contract template + self-test discipline; ip-private: per-probe-fire production payload contents + per-probe behavioral evidence trail at JSONL row content + per-class spec inventory enumeration) | [x] PASS (probe code body publishable per substrate §1; production-fire JSONL row content carries IP-private per-spec evidence — IRI + name_truncated + current_status_known + behavioral path — but the SCHEMA + invocation surface is publishable per HC-11 partition) |
 
 <!-- /gate:artifact_contract §14 -->
+
+## §15 BE-G H_recovery_2/7/8/9 Cycle 16 Stage 5 Write-Boundary Enforcement Composite Append
+
+> ADDITIVE-APPEND per HC #45 (chain n=7). §1-§14 (BE-A §1-§3 / BE-B §10 / BE-C §11 /
+> BE-D §12 / BE-E §13 / BE-F §14) preserved byte-identical above. Authority: BE-G
+> dispatch substrate + ED §5.8 (6/6 thresholds) + SI Amendment 28d Done #29/#30.
+
+### §15.1 Artifacts (10 deliverables)
+
+| # | Deliverable | Path | Type |
+|---|---|---|---|
+| 1 | Pre-commit hook | `~/ml-governance-templates/scripts/spec_authoring_pre_commit_hook.sh` (+ cycle_16 mirror `scripts/be_g_mirror/`) | write-boundary block |
+| 2 | fsnotify watcher | `~/ml-governance-templates/scripts/spec_authoring_watcher.py` (inotify via ctypes; +mirror) | git-bypass observation |
+| 3 | `forward_apply_emit()` wired into production `register_spec()` | `scripts/spec_registry_authoring.py:547+` | ADDITIVE; closes 0-caller gap |
+| 4 | 3-registry reconciliation gate | `~/ml-governance-templates/scripts/three_registry_reconciliation_gate.sh` (+mirror) | FS + /cycle6 + prompt_inventory drift |
+| 5 | Done #17 cycle-close gate UPGRADE | `~/ml-governance-templates/scripts/spec_implementation_present_gate.sh` (+mirror) | subprocess probe-fire aggregate; ASK-currentStatus REMOVED |
+| 6 | `kill_spec(spec_iri, adr_retraction_ref, killing_session, kill_reason)` | `scripts/spec_registry_authoring.py` | 4-param; ADR grep + spec_killed_event + SPARQL→killed + DP#44 |
+| 7 | Done #19 dormancy gate UPGRADE | `~/ml-governance-templates/scripts/spec_implementation_session_close_gate.sh` (+mirror) | probe-fire JSONL aggregate; advisory at C16 |
+| 8 | Done #29 coverage matrix + CI bypass closure | `outputs/be_g_coverage_matrix.{md,json}` + `outputs/spec_authoring_required_check.yml` | per-repo enumeration + server-side required check |
+| 9 | Done #30 guard-the-guards | prompt_inventory (build-orchestrator + build-runner) + 6 self-registered specs at /cycle6 | HC #64 closure |
+| 10 | Class E/F integration-hook STUBS | `scripts/spec_registry_authoring.py` (`_class_e_integration_hook` + `_class_f_integration_hook`) | architectural accommodation; NO probe impl |
+
+### §15.2 Invariants
+
+- (I-BE-G-1) Every gate/hook/kill acceptance predicate names PROBE-FIRE EVIDENCE or a
+  real write-path observation — never a status enum / token count / file-exists (HC #72 / KT-8).
+- (I-BE-G-2) Done #17 present-gate body subprocess-executes `probes/<class>/probe_<class>.py
+  --aggregate-cycle N` and aggregates `payload.implemented`; the prior `ASK {...currentStatus}`
+  predicate is REMOVED (0 active matches per `grep -E '^[^#]*ASK \{.*currentStatus'`).
+- (I-BE-G-3) `kill_spec()` emits NO `spec_killed_event` on DP#44 refusal — a refused kill
+  can never be mistaken for a recorded one.
+- (I-BE-G-4) `forward_apply_emit()` failure is non-fatal to a successful registry write
+  (observation is additive, never load-bearing).
+- (I-BE-G-5) Class E/F hooks are STUBS (return None) at S12; live wiring at BE-J/S15 + BE-K/S16.
+
+### §15.3 Honest scope boundary (HC #70)
+
+BE-G ships the PRESENT + FUTURE enforcement spine. It does NOT by itself make past specs
+implemented (Phase 11-13) NOR validate the probes' own accuracy (Done #25 / Phase 12). The
+present-gate PASS means "≥1 implemented probe-fire aggregated", NOT "all specs implemented".
+
+<!-- /gate:artifact_contract §15 -->
