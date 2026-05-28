@@ -182,3 +182,54 @@ Cycle 16 closes when:
 - Coach R3 close-eval mechanical tests T1-T13 ALL PASS or honest carry surfaced per `feedback_honest_evaluation.md` BINDING.
 
 > Forward-apply observation across Cycles 17-18 begins at Cycle 16 close; longitudinal verdict at Cycle 18 close (per done-criterion #10).
+
+---
+
+## §7 Close-arc Annotation (Cycle-16-S8 close FINDINGS authoring; Build-Runner fill per kc-46 PD §3.3 + REQUIREMENTS §Verification Surfaces + substrate §3 OUTPUT #4)
+
+<!-- source: Cycle-16-S8 close-arc per dispatch substrate §3 OUTPUT #4 + DECISION_LOG D-S3-1..D-S7-1 + FINDINGS §2 Done Definition outcome table -->
+<!-- gate:roadmap phase_7 closure_annotation required -->
+
+### §7.1 Phase 0-7 Final Status (per Cycle 16 SI ACTIVE 2026-05-27 + Amendments 27a + 27b)
+
+| Phase | Status | Session | Close evidence |
+|---|---|---|---|
+| **Phase 0** (Stage 0-2 RP scaffold + fill) | ✓ CLOSED | Cycle-16-S1 | `9300c86`; OBS 260L + RQS 498L + LA 565L; 36 verbatim quotes / 7 disciplines; T1-T8 ALL PASS at S1 R3 |
+| **Phase 1** (Stage 3-4 RP fill + LA §6 addendum) | ✓ CLOSED | Cycle-16-S2 | 5 canonicals at project root 0 placeholders (HR 148L + ED 576L + PROJECT 79L + REQUIREMENTS 101L + ROADMAP 184L) + LA §6 addendum +47L surgical GPL-41 append; Rex paradigm-ruling D-S2-1 disposition (C); T1-T13 ALL PASS at S2 R3 |
+| **Phase 2** (Stage 5 BE-A schema + SPARQL write-boundary) | ✓ CLOSED | Cycle-16-S3 | 13 artifacts + 3-TB SPARQL UPDATE smoke ALL_PASS at PROD /cycle6; HC-RP-S2-3 RESOLVED via Path α; H6+H7 CONFIRMATION CANDIDATES; KT-4+KT-6 DO NOT FIRE; DECISION_LOG D-S3-1 |
+| **Phase 3** (Stage 5 BE-B authoring discipline + DP#26 carve-out + govML v2.8.3) | ✓ CLOSED | Cycle-16-S4 | 11+ artifacts + 3-TB dogfooding to PROD /cycle6 ALL_PASS; KT-3 DOES NOT FIRE; **Done #6 SHIPPED**; HC #45 ADDITIVE-APPEND chain n=3; DECISION_LOG D-S4-1 |
+| **Phase 4** (Stage 5 BE-C TWO-surface BLOCKING gate + govML v2.8.4) | ✓ CLOSED | Cycle-16-S5 | 11+ artifacts + 3-TB dogfooding all_3_pass=true; **H6 CONFIRMED** with HC-BE-C-1 op carry; **KT-4 DOES NOT FIRE**; HC #45 chain n=4; DECISION_LOG D-S5-1 |
+| **Phase 5** (Stage 5 BE-D retroactive scan + 5-state classification) | ✓ CLOSED | Cycle-16-S6 | 10 deliverables + 232 distinct cycle16:Spec at PROD /cycle6; **H1 + H3 CONFIRMED**; **KT-2 DOES NOT FIRE** (137 >> 3; 45x); **HC-BE-D-1 SURFACED** → Cycle 18 scope per Rex Option B; 3-repo paired commit NO govML; DECISION_LOG D-S6-1 |
+| **Phase 6** (Stage 5 BE-E forward-apply observation + govML v2.8.5) | ✓ CLOSED | Cycle-16-S7 | 8 deliverables + 4 smoke-test fire.event rows at /cycle6 test graph; **H8 evaluation surface ENABLED** (FINAL VERDICT DEFERRED to Cycle 18); **KT-5 DOES NOT FIRE** count=0 IRI-prefix discriminator; HC-BE-D-1 PRESERVED at BE-E; HC #45 chain n=5 (4-install_hook chain at govML v2.8.5); 4-repo paired commit; DECISION_LOG D-S7-1 |
+| **Phase 7** (Close-arc FINDINGS authoring + paired commit) | ✓ CLOSED at S8 (THIS) | Cycle-16-S8 | 5-layer FINDINGS.md NEW at project root + HR §4 Resolution Log fill (8H + 6KT) + ED §5+ Stage 5 acceptance fill (5 BE rows) + this ROADMAP §7 closure annotation + state.json transition + 3-repo paired commit (cycle_16 + EMABS + Moonshots; NO govML per close-arc precedent Cycle 11/12/13/14) |
+
+### §7.2 Done Definition #1-#10 Final Status (per REQUIREMENTS §Deliverables 1-10 + FINDINGS §2)
+
+| # | Done criterion | Status | Closing session | Evidence pointer |
+|---|---|---|---|---|
+| **#1** | Spec inventory (Cycle 1-15 retroactive scan) — 4-spec-class enumeration via KG materialization | ✓ CLOSED | S6 BE-D | `outputs/retroactive_scan_cycle_1_15_run.json` 232 distinct + per-class 9a + 10b + 154c + 59d |
+| **#2** | Pattern analysis — Cycle 10 counterfactual + 4-class operational definitions | ✓ CLOSED | S8 (THIS) | FINDINGS Layer 4 §7.2 item (ix) H4 counterfactual reasoning chain + HR §3c per-class rows |
+| **#3** | Substrate audit — LA §6 addendum with KT-1 + KT-6 dispositions | ✓ CLOSED | S2 | LA §6.X.1+§6.X.2+§6.X.3 + DECISION_LOG D-S2-1 paradigm-ruling entry |
+| **#4** | External research — 7 disciplines × ≥3 verbatim quotes (LA §1 LOCKED at S1) | ✓ CLOSED | S1 (preserved through S8) | LA §1 rows 1-7 (IETF / PEP / OpenAPI / DbC / feature-flag governance / ADR / Parnas); 36 quotes ≥30 floor per HC #43 |
+| **#5** | KG-primary 14-field registry schema — TTL + SHACL + materialization at /cycle6 | ✓ CLOSED | S3 BE-A | `docs/spec_registry_schema.ttl` + `spec_registry_shapes.shacl.ttl` + 3-TB smoke ALL_PASS + Path α HC-RP-S2-3 RESOLVED |
+| **#6** | SPARQL UPDATE authoring discipline + DP#26 carve-out + scripts/spec_registry_authoring.py | ✓ CLOSED | S4 BE-B | `scripts/spec_registry_authoring.py` 29.8KB + 3-TB dogfooding all_3_pass=true + KT-3 DOES NOT FIRE; govML v2.8.3 ADDITIVE-APPEND |
+| **#7** | TWO-surface BLOCKING gate — cycle-close + session-close gate scripts | ✓ CLOSED | S5 BE-C | 2 NEW gate scripts at govML scripts/ + 3-TB dogfooding all_3_pass=true + H6 CONFIRMED with HC-BE-C-1 op carry + KT-4 DOES NOT FIRE; govML v2.8.4 ADDITIVE-APPEND |
+| **#8** | Retroactive scan fires (≥3 dormant-silent surfaces else KT-2) | ✓ CLOSED | S6 BE-D | 137 dormant-silent >> 3 floor (45x); KT-2 DOES NOT FIRE; per-class breakdown 7a+2b+117c+11d |
+| **#9** | Forward-apply observation enabled — runtime emit instrumentation Cycle 17-18 ready | ✓ CLOSED | S7 BE-E | 2 NEW event classes wired into emit.py ADDITIVELY (Cycle 10 schema_version=0.1 LOCKED); 4 smoke-test events at `outputs/forward_apply_observation_events.jsonl`; KT-5 DOES NOT FIRE count=0; govML v2.8.5 ADDITIVE-APPEND chain n=5 |
+| **#10** | 5-layer close FINDINGS + paired commit + H8 longitudinal verdict | **PARTIAL at S8** (5-layer FINDINGS + paired commit CLOSED THIS S8; **H8 longitudinal final verdict DEFERRED to Cycle 18 close** per HR §3 H8 design; ≥2-cycle window per Amendment 27a) | S8 (5-layer + paired commit); Cycle 18 close (H8 longitudinal) | this FINDINGS + S8 paired commit + state.json transition + H8 OPEN forward Cycle 18 |
+
+### §7.3 Close-arc Completion Annotation
+
+**Cycle 16 closes with 9 of 10 SI Done Definition items CLOSED in-cycle at S8; Item #10 partial (5-layer FINDINGS + paired commit CLOSED THIS S8; H8 longitudinal final verdict DEFERRED to Cycle 18 close per HR §3 H8 design).** Item #10 deferral is by design, not a gap — H8 requires ≥2-cycle longitudinal window per kc-44 PD Amendment 27a deadline-tightening (Cycles 17 + 18 forward-apply post-Cycle-16 close).
+
+**KT firing aggregate at Cycle 16 close: 0 of 6 KT triggers fire** (KT-1 + KT-2 + KT-3 + KT-4 + KT-5 + KT-6 ALL DOES NOT FIRE per per-BE evidence + HC #59 BINDING screen at KT-1 + KT-2 + KT-5).
+
+**Hypothesis resolutions at Cycle 16 close:** H1 + H3 + H6 + H7 + H4 (counterfactual) CONFIRMED; H2 + H5 CONFIRMED-WITH-CAVEAT (H5 under refined metric per D-S2-1); H8 OPEN forward Cycle 18 by design.
+
+**Honest carries forward Cycle 17/18+:** HC-BE-D-1 PRESERVED → Cycle 18 scope per Rex Option B split-sequential 2026-05-27 (write-boundary enforcement gap closure with filesystem-scan + spec-class-discriminator + work-host-routing gate primitive class — different than what Cycle 16 ships); HC-BE-E-1 NEW documentation-only Layer 4 surface (BE-D §12 doc-vs-implementation discriminator gap; future-cycle BE-D §12 amendment candidate); HC-BE-A-3 STANDING (docs/ scaffolding-path divergence); HC #55 + HC #56 + HC #63 + HC #64 STANDING from S1 carry. HC #50 zero-Rex-escalation baseline MAINTAINED cumulative kc-45+46 across 10 close-eval rounds.
+
+**Framing discipline mandatory (Rex Option A 2026-05-27 BINDING per `feedback_honest_evaluation.md`):** Cycle 16 closes the **"in-registry dormancy portion"** of the spec-implementation gap — NOT "spec-to-implementation gap closure" unqualified. **Cycle 17 inherits in-registry mechanism as DEFAULT via govML rail HC #45 ADDITIVE-APPEND chain n=5** (v2.8.5 ADDITIVE; existing 3 install_hooks LOCKED). **Cycle 18 absorbs HC-BE-D-1 write-boundary enforcement gap closure** per Rex Option B split-sequential 2026-05-27.
+
+<!-- /gate:roadmap phase_7 closure_annotation -->
+
+> Cycle 16 close-arc complete at Cycle-16-S8. Per `feedback_honest_evaluation.md` BINDING: Coach R3 independent verification at S8 close-eval; Build-Runner self-report NOT load-bearing. Per Pattern 14 STANDING: close summary direct to Rex in executive format ≤200 words fires post-commit. Per Pattern 9 BINDING: kc-47 PD authoring at kc-46 terminal close fires AFTER this S8 commit as Moonshots-paired follow-up (out-of-scope this S8 Coach per kc-46 PD §6.3).
