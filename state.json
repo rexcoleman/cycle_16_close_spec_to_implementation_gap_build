@@ -1,9 +1,9 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "cycle_16_phase_8_stage_3_4_rp_fill_complete_pending_s11_stage_5_be_f_dispatch",
+  "current_phase": "cycle_16_phase_9_stage_5_be_f_built_pending_promotion_s12_stage_5_be_g_dispatch_next",
   "current_stage_orchestrator": "build",
-  "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class)",
+  "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28)",
   "stage_0_2_complete": true,
   "stage_0_2_complete_at": "Cycle-16-S1",
   "stage_0_2_close_timestamp": "2026-05-27",
@@ -247,6 +247,23 @@
       "next_session_routes_to": "cycle_16_s11_phase_9_stage_5_be_f_4_probe_primitives_dispatch_class_a_agent_contract_b_schema_c_design_decision_d_methodology_commitment_with_self_tests_admission_gate_version_lock",
       "commit_pending": "3_repo_paired_commit_cycle_16_emabs_moonshots",
       "timestamp": "2026-05-28T16:06:17.374253+00:00"
+    },
+    "kc48_r1_pass_cycle_16_s11_disposition_a_stage_5_be_f": {
+      "timestamp": "2026-05-28T17:30:00Z",
+      "disposition": "Cycle-16-S11 BE-F probe library 4 primitives ship as canonical vocabulary per Done #13 + H_recovery_3; admission gate refuses non-passing probes per DP#44; version-lock at creation (PROBE_VERSION + PROBE_ADMISSION_LOCK_COMMIT pinned); modifications require Builder-ARCH paradigm dispatch (HC #74 BINDING); dogfooding-within-cycle \u226512 production fires per Done #15d strict; smoke-only fires REFUSED as acceptance evidence; KT-7 + KT-9 + KT-10 firing surfaces evaluated and DO NOT FIRE at BE-F admission + dogfooding close",
+      "authority": "kc-48 R1 PASS S10 disposition (a) + Cycle-16-S11 task-context dispatch authorization + ED \u00a75.7 evidence-path translation governance (cycle_16 first-arc at S11; govML upstream at BE-I S14+ per HC #45 chain extension precedent)",
+      "additive": true
+    },
+    "rex_2026_05_28_paradigm_authorization_approve_option_a_plus_new_verification_mechanisms_kc48_amendment_2026_05_28c": {
+      "rex_directive": "I agree with A. Additionally we need to implement some sort of verification to ensure that what is in the knowledge graph is 100% consistent with state and not fabricated. and also a similar verification that the implementation is 100% consistent with written spec. this should be part of cycle 16 and should work for past, present and future.",
+      "kc48_pre_escalation_gate_verdict": "paradigm-class (end-state DIFFERENT + gotcha #16 YES + S176 NO per HC #74 BINDING)",
+      "amendment": "2026-05-28c",
+      "amendment_summary": "Scope expanded via Done #20-#24 ADDITIVE-APPEND: exhaustive enumeration of specs across Cycles 1-16 (Done #20) + 100% probe-fire verification (Done #21) + triage and implementation per dormant spec with three signed dispositions (Done #22) + KG fidelity verification mechanism via Class E probe BE-J (Done #23) + spec-implementation fidelity verification mechanism via Class F probe BE-K (Done #24). Two new substitution layers diagnosed: registry-as-population substitution + registry-fidelity/spec-implementation drift. New KT-12/13/14 + Phases 11-14 + revised TRUE-close criteria. BE-J + BE-K ship as new build sessions after BE-I; session count from S15 onward determined by enumerated population not pre-fixed.",
+      "step_3_5_authority_anchor": "feedback_rex_step_3_5_draft_for_approval.md BINDING + HC #45 ADDITIVE-APPEND precedent class strict",
+      "amendment_landing_commit_pending": "this commit; will fill at commit time",
+      "lock_commit_pending": "this commit",
+      "authored_ts": "2026-05-28T18:13:16.521676+00:00",
+      "locked_bodies_unmodified": "S8 FINDINGS LOCKED preserved + Amendments 27a/27b/28a/28b body LOCKED preserved + Done #1-#19 preserved verbatim + Cycles 13/14/15 LOCKED bodies + Cycle 6 LOCKED ontology"
     }
   },
   "decisions_log": [
@@ -486,6 +503,43 @@
       "evidence": "4 canonical artifact appends additive at HR \u00a73.recovery (+48L 9 H_recovery + 5 KT-7..11 evidence schemata) + ED \u00a75.7-5.10 (+110L 4 BE-N blocks BE-F + BE-G + BE-H + BE-I 24 PASS-all acceptance thresholds) + REQUIREMENTS \u00a71.recovery (+61L Done #11-#19 verbatim + 11-criterion Cycle 16 TRUE close-arc FORMAL CLOSE gate criteria) + ROADMAP \u00a78/\u00a79/\u00a710 (+149L Phase 8 SHIPPED + Phase 9 BE-F/G/H/I Stage 5 builds + Phase 10 probe-grounded retroactive scan + TRUE close-arc FINDINGS per DP#42); HC #72 substitution-detection sweep CLEAN at substrate-compose AND R3 boundaries (all matches legitimate context); HC #70 reality-vs-intent structured table at cycle_16_s10_hc70_reality_vs_intent_diagnostic.md per Done #15b extension COMPLETE 9 H_recovery rows + 5 KT-7..11 rows + 4 BE-N aggregate rows + verdict section; T1-T13 mechanical tests PASS; Pattern 19 n=32 NEW density class data point within-cycle Stage-3-4 RP fill first-arc OVER-CAP 23908B 3-Edit-shrink-recovery 19872B WITHIN-CAP.",
       "follow_up": "Cycle-16-S11 Stage 5 BE-F dispatch (4 probe primitives Class A/B/C/D with self-tests + admission gate + version-lock + library admission discipline) per kc-48 PD \u00a72.2 Stage 5 BE-class sequencing.",
       "session_id": "cycle_16_s10"
+    },
+    {
+      "id": "S11-D1",
+      "timestamp": "2026-05-28T17:30:00Z",
+      "session": "Cycle-16-S11",
+      "stage": "Stage 5 BE-F",
+      "decision": "BE-F BUILT \u2014 probe library 4 primitives + admission gate + version-lock + dogfooding-within-cycle \u226512 production fires; Done #13 + H_recovery_3 closed; ED \u00a75.7 PASS-all 6/6 thresholds; KT-7+8+9+10 DOES NOT FIRE; LOCKED \u00a70-\u00a713 preserved; NO govML touch at S11 (back-port \u2192 BE-I S14+)",
+      "evidence": "scripts/probes/{a,b,c,d}/probe_*.py + scripts/probes/__init__.py + scripts/probe_library_admission.sh + scripts/probes/c/llm_judge_prompt.md + tests/probes/fixtures/known_*.json (8) + outputs/probe_fire_events.jsonl (16 production fires) + outputs/probe_library_self_test_events.jsonl (\u22658) + outputs/probe_library_admission_events.jsonl (5: 4 PASS + 1 REFUSE T12) + 3 \u00a714 BE-F appends + DEPLOYMENT_LOG.md \u00a72 row 6 + BUILD_DECISION_LOG.md \u00a72 row 6 + outputs/build_runner_envelope.yaml + outputs/build_runner_events.jsonl (+1 be_f_probe_library_ship.event)",
+      "authority": "kc-48 R1 PASS Cycle-16-S11 task-context dispatch + Rex 2026-05-28 paradigm ruling walking back S8 FORMAL CLOSE + Rex 2026-05-28 'proceed' + SI Amendments 27a/27b/28a/28b + DECISION_LOG D-S2..D-S10 + S141 BINDING foreground Agent dispatch",
+      "verdict": "PASS-WITH-FLAG+CARRY (pending Coach R3 independent verification per T1-T13 + HC #72 sweep + HC #70 reality-vs-intent table)"
+    },
+    {
+      "id": "S8-D4",
+      "summary": "Cycle 16 SI Amendment 2026-05-28c \u2014 kc-48 Step 3.5 Draft-for-Approval mid-conversation paradigm-class scope expansion per Rex \"approve\" 2026-05-28 (Option A + two NEW verification mechanisms)",
+      "authority": "Rex 2026-05-28 paradigm authorization \"approve\" + kc-48 pre-escalation gate paradigm-class verdict per HC #74 BINDING + Step 3.5 Draft-for-Approval BINDING + HC #45 ADDITIVE-APPEND precedent class strict",
+      "done_definition_extension": "Done #20-#24 ADDITIVE-APPEND (#1-#19 LOCKED preserved)",
+      "new_BE": [
+        "BE-J Class E KG-entry-fidelity probe primitive",
+        "BE-K Class F spec-implementation-fidelity probe primitive"
+      ],
+      "new_KT": [
+        "KT-12 fabrication-at-scale",
+        "KT-13 drift-at-scale",
+        "KT-14 registry-as-population substitution confirmed at scale"
+      ],
+      "new_phases": [
+        "Phase 11 exhaustive re-enumeration",
+        "Phase 12 100% probe-fire verification",
+        "Phase 13 triage and implementation multi-session",
+        "Phase 14 TRUE close"
+      ],
+      "two_new_substitution_layers_diagnosed": [
+        "registry-as-population substitution",
+        "registry-fidelity drift + spec-implementation drift"
+      ],
+      "true_close_criteria_revised": "Cycle 16 closes when Done #11-#19 complete + Done #20-#22 complete + Done #23 complete + Done #24 complete + 5-layer TRUE-close FINDINGS authored",
+      "decision_log_full_ref": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/DECISION_LOG.md D-S8-4"
     }
   ],
   "honest_carries_open": [
@@ -536,9 +590,12 @@
     "HC-RP-S2-6 NEW at S2 R3: kc-44 calibration delta - Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27 (operationally-disposable per foundational threshold-metric pre-registration discipline section 10 (i)+(ii); Amendment 2026-05-27b structural encoding already supplied refinement substrate); kc-44 inbound gate rubber-stamped Coach paradigm verdict instead of disposing per Discipline #10; Rex disposition (C) corrected via metric-revision-within-intent (DECISION_LOG D-S2-1); surface to kc-45 PD inheritance for Discipline #10 anchoring-slip countermeasure refinement",
     "Coach HC-1+HC-2 (S2 Pattern 19 n=24+n=25 first-arc-OVER-CAP + Edit recovery): HC #48 (a) single-Write at compose NOT sufficient at Stage 3-4 substrate density; (b)+(c) content disciplines load-bearing for recovery; carry to handoff section 1dj Pattern Calibration for kc-44 PD inheritance refinement candidate (d)+(e) consideration"
   ],
-  "next_action": "cycle_16_s11_phase_9_stage_5_be_f_dispatch_4_probe_primitives_class_a_b_c_d_with_self_tests_admission_gate_version_lock_per_done_13_h_recovery_3",
-  "last_action": "cycle_16_s9_close_2026_05_28_stage_0_2_rp_fill_phase_8_entry_complete",
-  "last_action_ts": "2026-05-28T14:15:40.928566Z",
-  "last_action_timestamp": "2026-05-28T16:06:17.374253+00:00",
-  "last_action_description": "cycle_16_s10_stage_3_4_rp_fill_close_4_canonical_artifacts_appended_HR_ED_REQUIREMENTS_ROADMAP_368_lines_zero_deletions_HC_72_substitution_detection_CLEAN_HC_70_reality_vs_intent_table_COMPLETE_R3_PASS_WITH_FLAG_CARRY"
+  "next_action": "Cycle-16-S12 dispatch BE-G Operational-Definition Substitution Gate (Done #14 + H_recovery_4) per ROADMAP Phase 8 BE-G; consumes BE-F probe library admission output as canonical vocabulary; gate predicate body invokes named probe primitive via Python subprocess at gate-fire time per HR \u00a73.recovery H_recovery_4",
+  "last_action": "cycle_16_s11_close_2026_05_28_stage_5_be_f_built_done_13_h_recovery_3_closed_4_probes_admitted_16_production_fires_t12_negative_test_pass",
+  "last_action_ts": "2026-05-28T18:13:16.521694+00:00",
+  "last_action_timestamp": "2026-05-28T17:30:00Z",
+  "last_action_description": "Cycle-16-S11 close: Stage 5 BE-F probe library 4 primitives + admission gate + 16 production fires + T12 negative test PASS; Done #13 + H_recovery_3 closed per SI Amendment 2026-05-28a; LOCKED \u00a70-\u00a713 preserved across 3 docs (md5 verified); NO govML touch (v2.8.5 stands; back-port \u2192 BE-I S14+); kc-48 R1 PASS S10 disposition (a) and Cycle-16-S11 task-context dispatch authorized + Rex 2026-05-28 'proceed'",
+  "stage_5_be_f_complete": true,
+  "stage_5_be_f_complete_at": "2026-05-28T17:30:00Z",
+  "stage_5_be_f_close_timestamp": "2026-05-28T17:30:00Z"
 }

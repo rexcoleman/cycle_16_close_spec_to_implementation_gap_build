@@ -1,0 +1,12 @@
+{
+  "fixture_id": "known_bad_a_1",
+  "fixture_class": "known_bad",
+  "primitive_class": "A",
+  "spec_iri": "cycle16:spec_retroactive_test_known_bad_a_1_nonexistent_agent",
+  "agent_spec_path": "/home/azureuser/Moonshots_Career_Thesis_v2/.claude/agents/this-agent-does-not-exist.md",
+  "subagent_type_name": "this-agent-does-not-exist",
+  "transcript_roots": ["/home/azureuser/.claude/projects/-home-azureuser-Moonshots-Career-Thesis-v2/"],
+  "recency_window_minutes": 10080,
+  "expected_implemented": false,
+  "rationale": "Agent spec md path resolves to non-existent file; precondition fails. Probe must short-circuit with evidence_type=precondition_missing and implemented=false. This fixture exercises the precondition refusal path, which is a load-bearing acceptance shape per HC #72 (file-exists alone is NOT acceptance evidence, but file-absent IS a refusal trigger)."
+}

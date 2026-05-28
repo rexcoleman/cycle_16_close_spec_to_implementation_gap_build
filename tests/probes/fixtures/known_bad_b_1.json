@@ -1,0 +1,12 @@
+{
+  "fixture_id": "known_bad_b_1",
+  "fixture_class": "known_bad",
+  "primitive_class": "B",
+  "spec_iri": "cycle16:spec_retroactive_test_known_bad_b_1_nonexistent_schema",
+  "schema_path": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/docs/this_schema_does_not_exist.ttl",
+  "search_roots": [
+    "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/"
+  ],
+  "expected_implemented": false,
+  "rationale": "Schema path resolves to non-existent file; precondition fails. Probe must return implemented=false with evidence_type=precondition_missing. Exercises the precondition refusal path."
+}

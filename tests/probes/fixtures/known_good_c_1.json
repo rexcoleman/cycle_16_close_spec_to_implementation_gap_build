@@ -1,0 +1,11 @@
+{
+  "fixture_id": "known_good_c_1",
+  "fixture_class": "known_good",
+  "primitive_class": "C",
+  "spec_iri": "cycle16:spec_retroactive_test_known_good_c_1_d_s4_1_spec_registry_authoring",
+  "decision_token": "spec_registry_authoring",
+  "decision_log_path": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/DECISION_LOG.md",
+  "embodiment_ref_path": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/scripts/spec_registry_authoring.py",
+  "expected_implemented": true,
+  "rationale": "Decision: SPARQL UPDATE spec_registry_authoring discipline (D-S4-1 + ADR class). Embodiment = scripts/spec_registry_authoring.py (29.8KB Python module enacting the SPARQL UPDATE authoring discipline declared at the ADR). Structural judge must find ≥1 file:line citation in the embodiment file matching load-bearing tokens ('spec_registry_authoring', 'sparql', 'update', 'discipline'). The embodimentRef is NOT the DECISION_LOG itself — anti-substitution gate passes. Decision_token presence in DECISION_LOG is also satisfied (the registry section names this discipline)."
+}

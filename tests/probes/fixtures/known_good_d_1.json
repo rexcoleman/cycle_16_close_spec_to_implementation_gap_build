@@ -1,0 +1,18 @@
+{
+  "fixture_id": "known_good_d_1",
+  "fixture_class": "known_good",
+  "primitive_class": "D",
+  "spec_iri": "cycle16:spec_retroactive_test_known_good_d_1_emit_event_downstream_application",
+  "commitment_source_path": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/scripts/runtime_emit/emit.py",
+  "commitment_token": "emit_event",
+  "runnable_artifact_ref": "emit_event",
+  "jsonl_search_roots": [
+    "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/"
+  ],
+  "md_search_roots": [
+    "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/"
+  ],
+  "recency_window_minutes": 86400,
+  "expected_implemented": true,
+  "rationale": "emit_event commitment is authored in emit.py + has downstream APPLICATION evidence in JSONL sinks at cycle_16/outputs/ (build_runner_events.jsonl has multiple emit_event-produced rows from BE-A/B/C/D/E executions). Probe must find ≥1 JSONL fire matching 'emit_event' or related namespace tokens. This is the load-bearing positive case: methodology commitment with real downstream application, not just authoring."
+}

@@ -1,0 +1,13 @@
+{
+  "fixture_id": "known_good_b_1",
+  "fixture_class": "known_good",
+  "primitive_class": "B",
+  "spec_iri": "cycle16:spec_retroactive_test_known_good_b_1_emit_module",
+  "schema_path": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/scripts/runtime_emit/emit.py",
+  "search_roots": [
+    "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/",
+    "/home/azureuser/Moonshots_Career_Thesis_v2/"
+  ],
+  "expected_implemented": true,
+  "rationale": "emit.py Python module present + parseable + imported at ≥1 call site (e.g., scripts/spec_registry_authoring.py imports forward_apply_emit from runtime_emit.emit per BE-E Cycle-16-S7). Behavioral evidence = grep finds importers. This is a Schema-class probe because emit.py defines the event schema vocabulary (5 baseline event classes + 2 BE-E event classes + 1 drift class)."
+}

@@ -1,0 +1,12 @@
+{
+  "fixture_id": "known_good_a_1",
+  "fixture_class": "known_good",
+  "primitive_class": "A",
+  "spec_iri": "cycle16:spec_retroactive_test_known_good_a_1_build_runner",
+  "agent_spec_path": "/home/azureuser/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
+  "subagent_type_name": "build-runner",
+  "transcript_roots": ["/home/azureuser/.claude/projects/-home-azureuser-Moonshots-Career-Thesis-v2/"],
+  "recency_window_minutes": 10080,
+  "expected_implemented": true,
+  "rationale": "build-runner agent_spec md present at canonical path; build-runner is actively being dispatched via Agent tool tool_use blocks in current Claude Code session (this very fixture is exercised from a build-runner dispatch context). Behavioral check should observe ≥1 Agent tool_use block with subagent_type=general-purpose in recent transcripts referencing build-runner."
+}
