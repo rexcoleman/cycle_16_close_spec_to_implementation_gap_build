@@ -343,6 +343,15 @@
       "hc_70_honest_scope": "PREVENTION only; does NOT validate probe accuracy (Done #25/Phase 12) nor fix past specs (Phase 11-13) nor force own consumption nor back-port carry fixes to govML copy",
       "ship_location": "cycle_16 scripts/structural_prevention/",
       "commit_pending": "3_repo_paired_commit_cycle_16_emabs_moonshots_NO_govML (Coach at R3)"
+    },
+    "rex_2026_05_28e_kc50_holes_a_g_plus_39": {
+      "authority": "Rex paradigm authorization 2026-05-28 'i agree with your recommendation' (fold holes A-G into Cycle 16 completion criteria) + 'i do not want to review and approve. audit your draft and make updates' \u2014 review gate WAIVED, audit+parameters delegated to kc-50 (28d/D-S11-2 pattern)",
+      "amendment": "Cycle 16 SI Amendment 2026-05-28e (DECISION_LOG D-S13-2)",
+      "new_done_items": "Done #32-#39 (A behavioral-fidelity bar / B bidirectional-orphan check / C continuous re-verification durability / D guard-kills+reconcile-100pct / E future-inheritance-by-behavior / F surface-census / G human-blind-label recursion floor / #39 unverifiable-spec disposition)",
+      "revised_true_close": "(a)#11-19 (b)#20-22 (c)#23 (d)#24 (e)#25-31 (f)#32-39 (g) 5-layer FINDINGS + independent audit (distinct actor) agrees",
+      "full_text": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_28e.md",
+      "applied_at": "kc-50 lifecycle, post Cycle-16-S13 close / pre Cycle-16-S14 BE-I dispatch",
+      "s14_be_i_extension": "Done #36 (hole E) EXTENDS S14 BE-I acceptance \u2014 fresh-scaffold behavioral dogfood (fire+block-on-proxy+pass-on-real); must be in S14 task context before dispatch"
     }
   },
   "decisions_log": [
@@ -684,7 +693,7 @@
     "HC-BE-G-1 NEW at S12 (kc-49 R3 independent verification): advisory session-close gate (scripts/be_g_mirror/spec_implementation_session_close_gate.sh) masks a probe-evaluation CRASH into PASS -- DORMANCY=$(python3 ... 2>&1 || true) then DORMANT_OVER_COUNT=$(... || echo 0) treats a non-JSON/crash result as 0-dormant -> PASS. Decorative-gate shape (gate green when its evidence-computation actually failed), one notch down on the ADVISORY (non-blocking, Done #19) gate; did NOT corrupt S12 close. The BLOCKING cycle-close gate (spec_implementation_present_gate.sh) is fail-CLOSED (probe crash -> total_fired=0 -> FAIL exit 1; kc-49 live-fire verified fired=268/impl=72). FIX at BE-H (S13): advisory gate fail-closed on probe crash + library self-test (Done #15e) catches probe crashes. kc-49 embeds at S13 BE-H dispatch task context.",
     "HC-BE-G-2 NEW at S12 (kc-49 R3 independent verification): probe-fire dormancy window is a HEURISTIC proxy (rows[-window*64:] 'generous recent window') not a true session-index partition for 'last 3 sessions' (Done #19). Reads probe-fire evidence (correct anti-substitution) but the window boundary is approximate. Refine at BE-H (S13) to a real session-index partition; also independently cross-checked by Phase 11 exhaustive enumeration discipline (HC #76). kc-49 embeds at S13 BE-H dispatch task context."
   ],
-  "next_action": "cycle_16_phase_9_4_stage_5_be_i_govml_v2_8_6_additive_append_back_port_plus_hc_be_g_1_2_govml_canonical_copy_carry_fix",
+  "next_action": "cycle_16_phase_9_4_stage_5_be_i_govml_v2_8_6_additive_append_back_port_plus_hc_be_g_1_2_carry_fix__EXTENDED_by_amendment_28e_done_36_fresh_scaffold_behavioral_dogfood",
   "last_action": "cycle_16_s12_stage_5_be_g_write_boundary_enforcement_composite_built",
   "last_action_ts": "2026-05-28T20:35:00Z",
   "last_action_timestamp": "2026-05-28T20:35:00Z",
