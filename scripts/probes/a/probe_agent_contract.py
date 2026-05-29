@@ -5,19 +5,34 @@ Per Cycle-16-S11 BE-F dispatch substrate §1 item 1 + HR §3.recovery H_recovery
 ED §5.7 OTEL trace context grounding + LA §6.recovery.A row 1 (Pact consumer-driven
 contract) + row 4 (OTEL trace context) + row 8 (eBPF uprobe).
 
-Behavioral check (per HC #72 anti-substitution discipline):
-    implemented: true ONLY when (i) ≥1 actual Agent tool invocation observation
-    of the named subagent_type is parsed from JSONL tool_use blocks in active
-    Claude Code transcripts at ~/.claude/projects/-home-azureuser-*/ within
-    a recency window. Agent-spec md file existence + structural-invariant checks
-    on spec body are PRECONDITIONS ONLY — they do NOT constitute acceptance evidence.
+BEHAVIORAL OBSERVABLE — REWRITTEN per Rex ruling D-S18-1 (2026-05-29, commit
+10dd363; Cycle-16-S19 BE-O):
+    The OLD observable (≥1 Agent tool_use whose input.subagent_type == agent-name)
+    is a PROXY that S141 guarantees false — most pipeline agents run as SEPARATE
+    Claude Code sessions, never as Agent-tool subagents, so subagent_type==<name>
+    almost never appears. subagent_type is REJECTED ENTIRELY as the observable.
+
+    The CORRECT observable is the SAME execution-emission observable as Class F,
+    applied to AgentContracts: implemented=True iff the spec's committed
+    `runtime_emit_event_class` (the agent's contracted behavioral observable, from
+    the scan record) appears as a REAL emitted event in outputs/*_events.jsonl
+    (KT-8: read the emission RECORD — the product of the behavior actually running —
+    NEVER the registry/spec text).
+      - committed class 'n/a' -> DP#26-style carve-out (no executable observable;
+        disposition='not_applicable_dp26_carveout', implemented=False but flagged
+        carve-out, NOT counted implemented/unimplemented).
+      - committed class present but NOT emitted -> implemented=False (the real gap).
+      - committed class emitted -> implemented=True.
+    The md-exists / structural-invariant / transcript-subagent_type scans are kept
+    ONLY as DISCLOSED DIAGNOSTICS — they DO NOT set the label.
 
 Probe contract:
-    Input: spec_iri (full or short form) + path-to-agent-spec-md + subagent_type-name
-           (carried in agent spec frontmatter or inferred from filename).
+    Input: spec_iri + runtime_emit_event_class (committed behavioral class) +
+           source_path (for sink resolution). subagent_type-name + agent-spec-md
+           path are diagnostics only.
     Output: dict with {implemented: bool, evidence: str, probe_id, run_id,
-            timestamp, primitive_class: 'A', spec_iri, evidence_type}.
-    evidence_type ∈ {probe_fire_aggregate, precondition_missing}.
+            timestamp, primitive_class: 'A', spec_iri, evidence_type, disposition}.
+    evidence_type ∈ {probe_fire_aggregate}.
 
 Version-lock per Done #13: PROBE_VERSION + PROBE_ADMISSION_LOCK_COMMIT pinned;
 modifications require Builder-ARCH paradigm dispatch (HC #74 BINDING).
@@ -57,6 +72,96 @@ DEFAULT_TRANSCRIPT_GLOB = (
     "/home/azureuser/.claude/projects/-home-azureuser-*/"
 )
 DEFAULT_RECENCY_WINDOW_MINUTES = 7 * 24 * 60  # 1 week
+
+# DP#26 carve-out prefixes for the committed behavioral class.
+_NA_PREFIXES = ("n/a",)
+
+
+def _project_root() -> pathlib.Path:
+    return pathlib.Path(__file__).resolve().parents[3]
+
+
+def _is_dp26_carveout(committed: str | None) -> bool:
+    if not committed:
+        return True
+    low = committed.strip().lower()
+    return any(low.startswith(p) for p in _NA_PREFIXES)
+
+
+def _emission_class_matches(emitted: str | None, committed: str) -> bool:
+    """Probe-side emission-class match (BE-O). Authored in the probe's OWN code
+    path — the harness gt_class_a has its own separate `_a_event_class_matches`.
+    Exact or dotted-suffix (either direction)."""
+    if not emitted:
+        return False
+    if emitted == committed:
+        return True
+    if emitted.endswith("." + committed):
+        return True
+    if committed.endswith("." + emitted):
+        return True
+    return False
+
+
+def _emission_sinks(source_path: str | None) -> list[pathlib.Path]:
+    """Resolve runtime-emission sinks to scan: the project's own outputs/*.jsonl
+    plus the source repo's outputs/ if the source path resolves into another repo.
+    We read the EMISSION RECORD, not the registry (KT-8)."""
+    sinks: list[pathlib.Path] = []
+    proot = _project_root()
+    for f in sorted(proot.glob("outputs/*.jsonl")):
+        sinks.append(f)
+    if source_path:
+        sp = pathlib.Path(os.path.expanduser(source_path))
+        for anc in [sp] + list(sp.parents):
+            cand = anc / "outputs"
+            if cand.is_dir():
+                for f in sorted(cand.glob("*.jsonl")):
+                    if f not in sinks:
+                        sinks.append(f)
+                break
+    return sinks
+
+
+def _scan_emission_for_committed_class(
+    committed_event_class: str, source_path: str | None
+) -> tuple[bool, bool, str]:
+    """Read the runtime emission RECORD (KT-8) and confirm a real emitted event of
+    the committed class exists. Returns (emitted, same_namespace_activity, evidence).
+    The probe's OWN parse — independent of the harness GT deriver's parse."""
+    sinks = _emission_sinks(source_path)
+    if not sinks:
+        return False, False, "no_emission_sink_found"
+    committed_head = committed_event_class.split(".", 1)[0]
+    same_head = False
+    for sink in sinks:
+        # Skip the harness's own accuracy/self-test outputs (circular-read guard).
+        if sink.name in ("probe_accuracy_events.jsonl",) or sink.name.startswith(".acc_probe_fire_"):
+            continue
+        try:
+            with sink.open(encoding="utf-8", errors="replace") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        rec = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    ec = rec.get("event_class")
+                    if not ec:
+                        continue
+                    if _emission_class_matches(ec, committed_event_class):
+                        return (True, True,
+                                f"committed class {committed_event_class!r} EMITTED "
+                                f"({sink.name}: event_class={ec!r} run_id={rec.get('run_id')!r})")
+                    if ec.split(".", 1)[0] == committed_head:
+                        same_head = True
+        except OSError:
+            continue
+    return (False, same_head,
+            f"committed class {committed_event_class!r} NOT emitted in any sink "
+            f"(same_namespace_activity={same_head})")
 
 
 def _utc_ts() -> str:
@@ -197,28 +302,47 @@ def probe(
     spec_iri: str,
     agent_spec_path: str | None = None,
     subagent_type_name: str | None = None,
+    runtime_emit_event_class: str | None = None,
+    source_path: str | None = None,
     transcript_roots: list[str] | None = None,
     recency_window_minutes: int = DEFAULT_RECENCY_WINDOW_MINUTES,
     expected_implemented: bool | None = None,
 ) -> dict[str, Any]:
-    """Class A AgentContract behavioral probe.
+    """Class A AgentContract behavioral probe (BE-O, Rex D-S18-1).
 
-    Returns a probe_fire result dict. Behavioral acceptance evidence is the
-    SOLE determinant of `implemented`: (i) ≥1 JSONL Agent tool_use observation
-    of the named subagent_type. The spec-md-exists and structural-invariant
-    checks are DISCLOSED DIAGNOSTIC fields only — they do NOT short-circuit the
-    label. GT (gt_class_a) labels purely on strict subagent_type dispatch and
-    ignores md-existence / structural invariants; a genuinely-dispatched agent
-    whose spec md isn't found / whose invariants don't parse must still be
-    labelled implemented (the recall-0.0 root cause was these short-circuits).
-    """
-    run_id = f"s11_be_f_production_a_{_short_iri(spec_iri)}_{uuid.uuid4().hex[:6]}"
+    The SOLE determinant of `implemented` is the EXECUTION-EMISSION observable:
+    the spec's committed `runtime_emit_event_class` appears as a real emitted event
+    in outputs/*_events.jsonl (KT-8: read the emission RECORD, not registry/spec).
+      - committed 'n/a' -> DP#26 carve-out (disposition='not_applicable_dp26_carveout',
+        implemented=False, flagged carve-out — NOT counted implemented/unimplemented).
+      - committed class present, NOT emitted -> implemented=False (real gap).
+      - committed class emitted -> implemented=True.
+    md-exists / structural-invariants / transcript subagent_type scan are DISCLOSED
+    DIAGNOSTICS ONLY (they DO NOT set the label). subagent_type is REJECTED as the
+    observable (S141 false proxy)."""
+    run_id = f"s19_be_o_production_a_{_short_iri(spec_iri)}_{uuid.uuid4().hex[:6]}"
     ts = _utc_ts()
     name = subagent_type_name or (
         pathlib.Path(agent_spec_path).stem if agent_spec_path else _short_iri(spec_iri)
     )
 
-    # Diagnostic (ii): agent_spec md file exists (DISCLOSED, not a short-circuit)
+    # --- LABEL DETERMINANT: committed-class emission (BE-O behavioral observable) ---
+    if _is_dp26_carveout(runtime_emit_event_class):
+        emitted = False
+        same_ns = False
+        disposition = "not_applicable_dp26_carveout"
+        label_evidence = (
+            f"dp26_carveout: runtime_emit_event_class={runtime_emit_event_class!r} "
+            f"(no executable behavioral observable; not counted implemented/unimplemented)"
+        )
+    else:
+        emitted, same_ns, label_evidence = _scan_emission_for_committed_class(
+            runtime_emit_event_class, source_path
+        )
+        disposition = "implemented" if emitted else "not_implemented"
+    implemented = bool(emitted)
+
+    # --- DISCLOSED DIAGNOSTICS (do NOT set the label) ---
     if agent_spec_path is None:
         agent_spec_path = _resolve_agent_spec_path(
             name,
@@ -230,34 +354,24 @@ def probe(
     md_exists = bool(agent_spec_path) and pathlib.Path(
         os.path.expanduser(agent_spec_path or "")
     ).exists()
-
-    # Diagnostic (iii): structural invariants in spec body (DISCLOSED, not a
-    # short-circuit). Only attempted when the md is found.
     if md_exists:
         spec_body = _read_spec_body(os.path.expanduser(agent_spec_path))
         invariants_ok, invariant_issues = _has_structural_invariants(spec_body)
     else:
         invariants_ok, invariant_issues = False, ["agent_spec_md_not_found"]
-
-    # Behavioral evidence (i): scan transcripts — the SOLE label determinant.
+    # Transcript subagent_type scan kept ONLY as a disclosed diagnostic (S141 caveat:
+    # almost always 0; NEVER the label determinant).
     roots = transcript_roots or [DEFAULT_TRANSCRIPT_GLOB]
     observations = _scan_transcripts_for_agent_invocations(
         name, roots, recency_window_minutes
     )
 
-    implemented = len(observations) >= 1
     evidence_str = (
-        f"behavioral_observation: {len(observations)} Agent tool_use(s) "
-        f"matching subagent_type={name!r}; "
-        f"first={observations[0]['transcript_path']}:{observations[0]['tool_use_id']}"
-        if implemented
-        else f"behavioral_observation: 0 Agent tool_use(s) matching subagent_type={name!r} "
-        f"within recency_window={recency_window_minutes}m"
-    )
-    # Disclose the demoted precondition diagnostics inline (not deleted).
-    evidence_str += (
-        f" | diagnostic: md_exists={md_exists} "
-        f"structural_invariants_ok={invariants_ok}"
+        f"behavioral_emission: {label_evidence}"
+        f" | diagnostic: committed_class={runtime_emit_event_class!r} "
+        f"same_namespace_activity={same_ns} md_exists={md_exists} "
+        f"structural_invariants_ok={invariants_ok} "
+        f"transcript_subagent_type_hits={len(observations)} (DIAGNOSTIC ONLY — not label)"
         + (f" issues={'; '.join(invariant_issues)}" if invariant_issues else "")
     )
 
@@ -271,13 +385,18 @@ def probe(
         "timestamp": ts,
         "predicateType": PREDICATE_TYPE_FIRE,
         "implemented": implemented,
+        "disposition": disposition,
+        "runtime_emit_event_class": runtime_emit_event_class,
         "evidence": evidence_str,
         "evidence_type": "probe_fire_aggregate",
-        "behavioral_observation_count": len(observations),
-        "behavioral_observations_sample": observations[:2],
+        # demoted diagnostics (not label-bearing):
+        "diagnostic_committed_class_emitted": emitted,
+        "diagnostic_same_namespace_activity": same_ns,
         "diagnostic_md_exists": md_exists,
         "diagnostic_structural_invariants_ok": invariants_ok,
         "diagnostic_invariant_issues": invariant_issues,
+        "diagnostic_transcript_subagent_type_hits": len(observations),
+        "diagnostic_transcript_observations_sample": observations[:2],
     }
 
 
@@ -307,6 +426,8 @@ def _self_test(fixture_dir: pathlib.Path) -> int:
             spec_iri=cfg.get("spec_iri", f"urn:test:{fx.stem}"),
             agent_spec_path=cfg.get("agent_spec_path"),
             subagent_type_name=cfg.get("subagent_type_name"),
+            runtime_emit_event_class=cfg.get("runtime_emit_event_class"),
+            source_path=cfg.get("source_path"),
             transcript_roots=cfg.get("transcript_roots"),
             recency_window_minutes=cfg.get(
                 "recency_window_minutes", DEFAULT_RECENCY_WINDOW_MINUTES
@@ -377,6 +498,8 @@ def _aggregate_cycle(
                 spec_iri=s["spec_id"],
                 agent_spec_path=md_path,
                 subagent_type_name=s.get("name_truncated"),
+                runtime_emit_event_class=s.get("runtime_emit_event_class"),
+                source_path=md_path,
             )
             if run_id_prefix_override:
                 result["run_id"] = (
@@ -400,11 +523,16 @@ def _aggregate_cycle(
                     "spec_class": s.get("spec_class"),
                     "name_truncated": s.get("name_truncated"),
                     "current_status_known": s.get("current_status"),
+                    "runtime_emit_event_class": s.get("runtime_emit_event_class"),
                     "implemented": result["implemented"],
+                    "disposition": result.get("disposition"),
                     "evidence": result["evidence"][:280],
                     "evidence_type": result["evidence_type"],
-                    "behavioral_observation_count": result.get(
-                        "behavioral_observation_count", 0
+                    "diagnostic_committed_class_emitted": result.get(
+                        "diagnostic_committed_class_emitted"
+                    ),
+                    "diagnostic_transcript_subagent_type_hits": result.get(
+                        "diagnostic_transcript_subagent_type_hits", 0
                     ),
                 },
             }

@@ -42,6 +42,7 @@ import datetime
 import json
 import os
 import pathlib
+import random
 import re
 import subprocess
 import sys
@@ -49,6 +50,16 @@ import urllib.parse
 import urllib.request
 import uuid
 from typing import Any
+
+# -------------------------------------------------------------------------
+# BE-P (Cycle-16-S19) judged-tier GT models. The HARNESS GT judge MUST use a
+# DIFFERENT model than the probe judge (probe judge = claude-haiku-4-5) so that
+# probe<->GT "agreement" is INDEPENDENT agreement, not a judge agreeing with
+# itself (validate-the-validator #19). The harness GT judge defaults to
+# claude-sonnet-4-6.
+# -------------------------------------------------------------------------
+GT_JUDGE_MODEL = os.environ.get("CYCLE16_GT_JUDGE_MODEL", "claude-sonnet-4-6")
+PROBE_JUDGE_MODEL = os.environ.get("CYCLE16_C_JUDGE_MODEL", "claude-haiku-4-5")
 
 # -------------------------------------------------------------------------
 # HARD INDEPENDENCE INVARIANT (validate-the-validator, applied to this harness)
@@ -174,81 +185,138 @@ def sparql_select(endpoint: str, query: str) -> list[dict[str, Any]] | None:
 
 
 # =========================================================================
-# Class A ground-truth deriver  (INDEPENDENT JSONL parse, STRICT definition)
+# Class A ground-truth deriver  (BEHAVIORAL-EXECUTION-OBSERVABLE, per Rex D-S18-1)
 # =========================================================================
-# PINNED GT DEFINITION (A): a Class A AgentContract is "implemented/deployed"
-# iff there exists >=1 JSONL tool_use block with name=='Agent' AND
-# input.subagent_type EXACTLY equal to the agent name (under {-,_} normalization)
-# within a 1-week recency window. This is the most defensible "actual Agent-tool
-# subagent dispatch" definition.
-# CONTESTED dimension (disclosed, not silently chosen): per S141, most pipeline
-# agents run as SEPARATE Claude Code sessions (not Agent-tool subagents), so a
-# name appearing only in a tool_use *description* (or only in prose) is a MENTION,
-# not a dispatch. The probe's behavioral path also matches description-mentions
-# (>4-char names). A spec is flagged contested if the strict-subagent_type label
-# and the lenient description-mention label DISAGREE.
-GT_DEF_A = ("A_strict_subagent_type_dispatch_v1: >=1 JSONL Agent tool_use with "
-            "input.subagent_type == agent-name (normalized) within 7d; "
-            "description-only mentions are NOT dispatches (S141 separate-session caveat)")
+# PINNED GT DEFINITION (A) — REWRITTEN per Rex ruling 2026-05-29 (commit 10dd363,
+# D-S18-1). The OLD definition (strict subagent_type dispatch) is a PROXY that S141
+# guarantees false: most pipeline agents run as SEPARATE Claude Code sessions, never
+# as Agent-tool subagents, so subagent_type==<agent-name> almost never appears.
+# subagent_type is REJECTED ENTIRELY as the observable.
+#
+# The CORRECT ground truth is the SAME behavioral-execution observable used for
+# Class F, applied to AgentContracts: an AgentContract is "implemented" iff its
+# committed `runtime_emit_event_class` (the agent's contracted behavioral
+# observable, carried on the scan record) appears as a REAL emitted event in
+# outputs/*_events.jsonl (KT-8: read the emission RECORD, the product of the
+# behavior actually running, NEVER the registry/spec text). This re-implements the
+# emission-record read INDEPENDENTLY of the probe (our own JSONL parse + our own
+# suffix-match), and INDEPENDENTLY of gt_class_f (separate function bodies below).
+#   - committed class 'n/a' (or 'n/a -- ...') -> DP#26-style carve-out: no
+#     executable behavioral observable -> EXCLUDED from accuracy (gt_label sentinel
+#     "dp26_carveout", mirroring gt_class_f), disclosed on its own line.
+#   - committed class present but NOT emitted in any sink -> gt_label=False (the gap).
+#   - committed class emitted -> gt_label=True.
+GT_DEF_A = ("A_behavioral_execution_emission_v1 (Rex D-S18-1, 10dd363): committed "
+            "runtime_emit_event_class is emitted in outputs/*_events.jsonl (exact or "
+            "dotted-suffix match), via independent emission-record read. subagent_type "
+            "REJECTED as observable (S141 false proxy). 'n/a' committed -> DP#26 "
+            "carve-out (excluded from accuracy).")
+
+# Emission-sink roots for the Class A behavioral GT. Independent of the probe's own
+# sink-resolution; mirrors gt_class_f's policy (cycle_16/outputs + the source repo's
+# outputs/) but is authored as a SEPARATE function (_a_sink_dirs below).
+A_SINK_GLOBS = ["/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/"]
 
 
 def _norm_variants(name: str) -> set[str]:
     return {name, name.replace("_", "-"), name.replace("-", "_")}
 
 
+def _a_is_dp26_carveout(committed: str | None) -> bool:
+    """INDEPENDENT carve-out test for Class A (distinct code path from
+    probe._aggregate_cycle and from gt_class_f._is_dp26_carveout)."""
+    if not committed:
+        return True
+    return committed.strip().lower().startswith("n/a")
+
+
+def _a_event_class_matches(emitted: str, committed: str) -> bool:
+    """INDEPENDENT suffix-match for Class A. Authored separately from
+    _f_event_class_matches (different function body) so probe and the two GT
+    derivers do not share match code. A committed class is satisfied by an exact
+    emitted class OR a namespaced dotted-suffix variant in either direction."""
+    if not emitted:
+        return False
+    if emitted == committed:
+        return True
+    if emitted.endswith("." + committed):
+        return True
+    if committed.endswith("." + emitted):
+        return True
+    return False
+
+
+def _a_sink_dirs(spec: dict[str, Any]) -> list[str]:
+    """Resolve the emission-sink dirs for Class A INDEPENDENTLY (own code; mirrors
+    the F policy shape). Always cycle_16/outputs/; plus the spec source repo's
+    outputs/ if the audit_tuple source path resolves into another repo."""
+    dirs = list(A_SINK_GLOBS)
+    audit = spec.get("audit_tuple") or [None, None, None]
+    src = _expand(audit[1]) if len(audit) >= 2 else None
+    if src:
+        sp = pathlib.Path(src)
+        for anc in [sp] + list(sp.parents):
+            cand = anc / "outputs"
+            if cand.is_dir():
+                if str(cand) + "/" not in dirs and str(cand) not in dirs:
+                    dirs.append(str(cand))
+                break
+    return dirs
+
+
 def gt_class_a(spec: dict[str, Any], transcript_root: str) -> dict[str, Any]:
-    name = spec.get("name_truncated") or _short(spec["spec_id"])
-    variants = _norm_variants(name)
-    desc_variants = {v.lower() for v in variants if len(v) > 4}
-    now = datetime.datetime.now(datetime.timezone.utc).timestamp()
-    cutoff = now - RECENCY_WINDOW_MIN * 60
-    strict_hits = 0           # exact subagent_type match (DISPATCH)
-    mention_only_hits = 0     # description-mention but NOT subagent_type
-    root = pathlib.Path(os.path.expanduser(transcript_root))
-    if root.exists():
-        for jsonl in root.rglob("*.jsonl"):
-            try:
-                if jsonl.stat().st_mtime < cutoff:
-                    continue
-            except OSError:
+    """BEHAVIORAL-EXECUTION GT for Class A (Rex D-S18-1). `transcript_root` is
+    retained in the signature for caller compatibility but is NO LONGER USED — the
+    observable is the emission record, not the transcript subagent_type. Independent
+    JSONL parse + independent suffix-match; imports NO probe module."""
+    committed = spec.get("runtime_emit_event_class")
+    if _a_is_dp26_carveout(committed):
+        return {"gt_label": "dp26_carveout", "gt_definition_id": GT_DEF_A,
+                "gt_source": f"scan runtime_emit_event_class={committed!r} (DP#26 carve-out)",
+                "contested": False,
+                "gt_detail": "dp26_carveout (no executable behavioral observable; excluded from accuracy)"}
+    committed_head = committed.split(".", 1)[0]
+    matched = False
+    same_head = False
+    sink_dirs = _a_sink_dirs(spec)
+    for root in sink_dirs:
+        rp = pathlib.Path(os.path.expanduser(root))
+        if not rp.exists():
+            continue
+        for jsonl in sorted(rp.glob("*.jsonl")):
+            if _is_harness_own(jsonl):
                 continue
             try:
                 with jsonl.open("r", encoding="utf-8", errors="replace") as f:
                     for line in f:
-                        if '"Agent"' not in line:
+                        line = line.strip()
+                        if not line:
                             continue
                         try:
-                            row = json.loads(line)
+                            rec = json.loads(line)
                         except json.JSONDecodeError:
                             continue
-                        content = (row.get("message") or {}).get("content") or []
-                        if not isinstance(content, list):
+                        ec = rec.get("event_class")
+                        if not ec:
                             continue
-                        for blk in content:
-                            if not isinstance(blk, dict):
-                                continue
-                            if blk.get("type") != "tool_use" or blk.get("name") != "Agent":
-                                continue
-                            inp = blk.get("input") or {}
-                            stype = (inp.get("subagent_type") or "")
-                            desc = (inp.get("description") or "").lower()
-                            if stype in variants:
-                                strict_hits += 1
-                            elif any(d in desc for d in desc_variants):
-                                mention_only_hits += 1
+                        if _a_event_class_matches(ec, committed):
+                            matched = True
+                            break
+                        if ec.split(".", 1)[0] == committed_head:
+                            same_head = True
             except OSError:
                 continue
-    strict_label = strict_hits >= 1
-    lenient_label = (strict_hits + mention_only_hits) >= 1
-    contested = strict_label != lenient_label
+            if matched:
+                break
+        if matched:
+            break
     return {
-        "gt_label": strict_label,
+        "gt_label": matched,
         "gt_definition_id": GT_DEF_A,
-        "gt_source": f"jsonl_transcripts:{transcript_root} (strict subagent_type match; independent parser)",
-        "contested": contested,
-        "gt_detail": (f"strict_subagent_type_dispatches={strict_hits} "
-                      f"description_only_mentions={mention_only_hits} "
-                      f"(lenient_label={lenient_label})"),
+        "gt_source": f"independent emission-record read over {sink_dirs}",
+        "contested": False,
+        "gt_detail": (f"committed_class={committed!r} EMITTED={matched} "
+                      f"same_namespace_activity={same_head}"),
     }
 
 
@@ -657,6 +725,297 @@ def gt_class_f(spec: dict[str, Any]) -> dict[str, Any]:
 
 
 # =========================================================================
+# BE-P (Cycle-16-S19) — judged-tier GT derivers (diverse, structurally-independent
+# agreeing judges; DIFFERENT model than the probe judge; validate-the-validator)
+# =========================================================================
+# Discipline #30: validate via diverse, structurally-independent automated judges
+# that must AGREE + disclosed residual. Disagreement / ambiguity / no-key ->
+# conservative NOT-validated (fail-safe), never fabricate (DP#44). Validate-the-
+# validator (#19): the GT judge itself is cross-checked by >=1 structurally-
+# independent signal; else CONTESTED.
+
+GT_DEF_C = ("C_design_decision_judged_v1 (BE-P): independent diverse judge "
+            f"({GT_JUDGE_MODEL}, DIFFERENT model than the probe judge "
+            f"{PROBE_JUDGE_MODEL}) reads the embodiment CODE and labels implemented, "
+            "cross-checked by >=1 structurally-independent signal (the harness's own "
+            "code-token grep, a different code path from the LLM). Agreement -> label; "
+            "disagreement/ambiguity/no-key -> contested (fail-safe).")
+
+GT_DEF_E_STATUS = ("E_status_match_judged_v1 (BE-P): independent status GT via a "
+                   "diverse judge + emission-record cross-check, computed WITHOUT "
+                   "importing the E probe OR the BE-F probe (independence #19/#25).")
+
+GT_DEF_F_JUDGE = ("F_judge_path_judged_v1 (BE-P): for specs the F probe routes to its "
+                  f"judge fallback, an independent diverse judge ({GT_JUDGE_MODEL}) "
+                  "reads the embodiment code + emission cross-check; agreement -> "
+                  "label, else contested (fail-safe).")
+
+_GT_JUDGE_CONTRACT_PATH = PROJECT_ROOT / "scripts" / "probes" / "c" / "llm_judge_prompt.md"
+
+
+def _extract_verdict_json(text: str) -> dict[str, Any] | None:
+    """Robustly extract the {"implemented": ..., "evidence": ...} object from a
+    model reply that may wrap prose around the JSON or use ```json fences. Scans
+    every balanced-brace candidate and returns the first that parses AND has an
+    'implemented' key. Reduces spurious 'unparseable -> contested' (a fairness fix
+    for the validator; does NOT change any GT verdict, only reads the one the model
+    actually returned)."""
+    if not text:
+        return None
+    candidates: list[str] = []
+    # ```json ... ``` fenced blocks first.
+    for m in re.finditer(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.S):
+        candidates.append(m.group(1))
+    # Then every balanced-brace span (greedy-from-each-open).
+    stack = []
+    starts: list[int] = []
+    for i, ch in enumerate(text):
+        if ch == "{":
+            starts.append(i)
+        elif ch == "}" and starts:
+            s = starts.pop()
+            candidates.append(text[s:i + 1])
+    for cand in candidates:
+        try:
+            obj = json.loads(cand)
+        except (json.JSONDecodeError, ValueError):
+            continue
+        if isinstance(obj, dict) and "implemented" in obj:
+            return obj
+    return None
+
+
+def _gt_llm_judge(embodiment_path: str | None, decision_token: str,
+                  forbidden_self: str | None = None) -> tuple[bool | None, str]:
+    """Independent GT LLM judge (BE-P). Reads the embodiment CODE with the GT model
+    (DIFFERENT from the probe judge) per the existing judge contract. Returns
+    (implemented_or_None, evidence). None -> unavailable/refused -> conservative.
+    This is the harness's OWN judge call (urllib/SDK here), NOT a probe import."""
+    if not embodiment_path:
+        return None, "gt_judge_refused: no embodiment code ref (text/registry-only)"
+    target = pathlib.Path(os.path.expanduser(embodiment_path))
+    if not target.exists():
+        return None, f"gt_judge_unavailable: embodiment ref does not resolve: {embodiment_path}"
+    # Anti-substitution: refuse registry/spec-text artifacts.
+    nm = target.name.lower()
+    if any(m in nm for m in ("decision_log", "findings", "_registry", "retroactive_scan", "state.json")):
+        return None, f"gt_judge_refused: embodiment ref is registry/spec-text artifact ({target.name})"
+    if forbidden_self:
+        try:
+            if target.resolve() == pathlib.Path(os.path.expanduser(forbidden_self)).resolve():
+                return None, "gt_judge_refused: embodiment ref IS the spec/decision source"
+        except OSError:
+            pass
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        return None, "gt_judge_unavailable: ANTHROPIC_API_KEY unset (DP#44 refuse; no fabricated verdict)"
+    try:
+        import anthropic  # noqa: PLC0415
+    except ImportError:
+        return None, "gt_judge_unavailable: anthropic SDK not installed"
+    try:
+        contract = _GT_JUDGE_CONTRACT_PATH.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        contract = "You are a strict code-reading judge. Refuse registry/ADR/spec-text evidence."
+    code_blobs: list[str] = []
+    if target.is_dir():
+        files = [f for f in sorted(target.rglob("*"))
+                 if f.is_file() and f.suffix in (".py", ".sh", ".json", ".yaml", ".yml", ".ttl")][:8]
+        for f in files:
+            try:
+                code_blobs.append(f"### {f}\n" + f.read_text(encoding="utf-8", errors="replace")[:4000])
+            except OSError:
+                continue
+    else:
+        try:
+            code_blobs.append(f"### {target}\n" + target.read_text(encoding="utf-8", errors="replace")[:12000])
+        except OSError as e:
+            return None, f"gt_judge_unavailable: cannot read embodiment code: {e!r}"
+    if not code_blobs:
+        return None, f"gt_judge_unavailable: no readable code at {target}"
+    code = "\n\n".join(code_blobs)[:14000]
+    prompt = (f"{contract}\n\n--- DECISION TOKEN ---\n{decision_token}\n\n"
+              f"--- CANDIDATE EMBODIMENT CODE ({target}) ---\n{code}\n\n"
+              "Respond with NOTHING but a single-line JSON object and NO prose before "
+              "or after it. EXACTLY this shape: "
+              '{"implemented": true, "evidence": "<file:line: verbatim line> OR <reason refused>"}')
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        resp = client.messages.create(model=GT_JUDGE_MODEL, max_tokens=400,
+                                      messages=[{"role": "user", "content": prompt}])
+        text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
+        verdict = _extract_verdict_json(text)
+        if verdict is None:
+            return None, f"gt_judge_unparseable: {text[:160]!r}"
+        return bool(verdict.get("implemented")), f"gt_judge[{GT_JUDGE_MODEL}]: {str(verdict.get('evidence',''))[:180]}"
+    except Exception as e:  # noqa: BLE001
+        return None, f"gt_judge_error: {e!r}"
+
+
+def _gt_code_token_crosscheck(embodiment_path: str | None, decision_token: str
+                              ) -> tuple[bool | None, str]:
+    """Structurally-independent cross-check for the GT judge (validate-the-validator):
+    the harness's OWN code-token grep (a DIFFERENT code path from the LLM read).
+    Returns (token_found_or_None, evidence). Refuses if embodiment is the
+    decision/registry source. Mirrors the SHAPE of the probe's _structural_judge
+    but is authored here independently (no probe import)."""
+    if not embodiment_path:
+        return None, "gt_xcheck_refused: no embodiment ref"
+    target = pathlib.Path(os.path.expanduser(embodiment_path))
+    if not target.exists():
+        return None, f"gt_xcheck_unavailable: ref does not resolve: {embodiment_path}"
+    raw = re.split(r"[\s:_./\-]+", decision_token or "")
+    skip = {"paradigm", "dispositions", "decisions", "log", "cycle", "close",
+            "decision", "the", "and", "to", "of", "stage"}
+    tokens = [t.lower() for t in raw if len(t) >= 4 and t.lower() not in skip]
+    if not tokens:
+        return None, "gt_xcheck_no_load_bearing_tokens"
+    files: list[pathlib.Path]
+    if target.is_dir():
+        files = [f for f in target.rglob("*")
+                 if f.is_file() and f.suffix in (".py", ".sh", ".md", ".json", ".yaml", ".yml", ".ttl")][:50]
+    else:
+        files = [target]
+    for f in files:
+        try:
+            body = f.read_text(encoding="utf-8", errors="replace").lower()
+        except OSError:
+            continue
+        if any(t in body for t in tokens):
+            return True, f"gt_xcheck_token_found: {f.name} (tokens={tokens[:4]})"
+    return False, f"gt_xcheck_no_token: tokens={tokens[:4]} target={target.name}"
+
+
+def _c_embodiment_dir(scan_rec: dict[str, Any]) -> str | None:
+    """Resolve the C embodiment dir INDEPENDENTLY (mirrors the probe's heuristic
+    shape, authored here). state.json registry -> the cycle dir's scripts/; else
+    the cycle dir's scripts/ or docs/ neighbour."""
+    audit = scan_rec.get("audit_tuple") or [None, None, None]
+    src = _expand(audit[1]) if len(audit) >= 2 else None
+    if not src:
+        return None
+    if "state.json" in src:
+        cdir = pathlib.Path(src).parent
+        return str(cdir / "scripts") if (cdir / "scripts").is_dir() else None
+    cdir = pathlib.Path(src).parent
+    for c in (cdir / "scripts", cdir / "docs"):
+        if c.is_dir():
+            return str(c)
+    return None
+
+
+def _c_decision_token(scan_rec: dict[str, Any]) -> str:
+    audit = scan_rec.get("audit_tuple") or [None, None, None]
+    raw = (audit[2] if len(audit) >= 3 and audit[2]
+           else scan_rec.get("name_truncated") or _short(scan_rec["spec_id"]))
+    tok = raw.split(":", 1)[-1] if ":" in raw else raw
+    tok = re.split(r"[\s,{}\[\]'\"]+", tok)[0] or raw
+    return tok
+
+
+def _c_blind_sample_ids(specs: list[dict[str, Any]], n: int, seed: int
+                        ) -> tuple[set[str], int]:
+    """Deterministic blind random sample of >=n spec_ids (seeded, DISCLOSED). NOT
+    cherry-picked: the sample is drawn by seeded shuffle over the sorted spec_id
+    list, independent of any probe/GT outcome."""
+    ids = sorted({s["spec_id"] for s in specs})
+    rng = random.Random(seed)
+    rng.shuffle(ids)
+    k = min(max(n, 0), len(ids))
+    return set(ids[:k]), seed
+
+
+def gt_class_c(spec: dict[str, Any], probe_fire: dict[str, Any] | None) -> dict[str, Any]:
+    """Independent diverse-judge GT for Class C (BE-P). GT judge = GT_JUDGE_MODEL
+    (DIFFERENT from the probe judge), cross-checked by the harness's OWN code-token
+    grep (a different code path). Agreement -> label; any None / disagreement ->
+    contested (fail-safe). Imports NO probe module."""
+    audit = spec.get("audit_tuple") or [None, None, None]
+    decision_src = _expand(audit[1]) if len(audit) >= 2 else None
+    token = _c_decision_token(spec)
+    embodiment = _c_embodiment_dir(spec)
+    judge_label, judge_ev = _gt_llm_judge(embodiment, token, forbidden_self=decision_src)
+    xcheck_label, xcheck_ev = _gt_code_token_crosscheck(embodiment, token)
+    if judge_label is None or xcheck_label is None:
+        return {"gt_label": None, "gt_definition_id": GT_DEF_C,
+                "gt_source": f"GT judge {GT_JUDGE_MODEL} + independent code-token cross-check",
+                "contested": True,
+                "gt_detail": (f"CONTESTED (missing signal): judge={judge_label} xcheck={xcheck_label} "
+                              f"|| {judge_ev} || {xcheck_ev}")}
+    if judge_label != xcheck_label:
+        return {"gt_label": None, "gt_definition_id": GT_DEF_C,
+                "gt_source": f"GT judge {GT_JUDGE_MODEL} + independent code-token cross-check",
+                "contested": True,
+                "gt_detail": (f"CONTESTED (disagreement): judge={judge_label} xcheck={xcheck_label} "
+                              f"|| {judge_ev} || {xcheck_ev}")}
+    return {"gt_label": bool(judge_label), "gt_definition_id": GT_DEF_C,
+            "gt_source": f"GT judge {GT_JUDGE_MODEL} + independent code-token cross-check (AGREEMENT)",
+            "contested": False,
+            "gt_detail": (f"agreement judge==xcheck=={judge_label} || {judge_ev} || {xcheck_ev}")}
+
+
+def gt_class_e_status(scan_rec: dict[str, Any] | None, kg_status: str | None
+                      ) -> dict[str, Any]:
+    """Independent status-match GT for Class E (BE-P). Re-derive "implemented" from
+    the emission record (the harness's OWN read, via gt_class_a's emission machinery
+    applied to the spec) — independent of BOTH the E probe AND the BE-F probe.
+    Compare to the KG status enum. NO probe import."""
+    status_implies = {"running": True, "long-running": True, "dormant-silent": False,
+                      "dormant-with-explicit-deferral": False, "killed": False}
+    if kg_status not in status_implies:
+        return {"gt_label": None, "contested": True, "gt_definition_id": GT_DEF_E_STATUS,
+                "gt_source": "independent emission-record status derivation",
+                "gt_detail": f"kg_status={kg_status!r} not in 5-state enum -> contested"}
+    if not scan_rec:
+        return {"gt_label": None, "contested": True, "gt_definition_id": GT_DEF_E_STATUS,
+                "gt_source": "independent emission-record status derivation",
+                "gt_detail": "no scan join -> status not independently derivable -> contested"}
+    committed = scan_rec.get("runtime_emit_event_class")
+    if not committed or committed.strip().lower().startswith("n/a"):
+        return {"gt_label": None, "contested": True, "gt_definition_id": GT_DEF_E_STATUS,
+                "gt_source": "independent emission-record status derivation",
+                "gt_detail": f"committed class={committed!r} (no executable observable) -> contested"}
+    # Reuse gt_class_a's INDEPENDENT emission read (harness's own code path).
+    a_gt = gt_class_a(scan_rec, DEFAULT_TRANSCRIPT_ROOT)
+    derived = a_gt["gt_label"]
+    if derived == "dp26_carveout":
+        return {"gt_label": None, "contested": True, "gt_definition_id": GT_DEF_E_STATUS,
+                "gt_source": "independent emission-record status derivation",
+                "gt_detail": "dp26 carve-out -> status not derivable -> contested"}
+    expected = status_implies[kg_status]
+    return {"gt_label": (bool(derived) == expected), "contested": False,
+            "gt_definition_id": GT_DEF_E_STATUS,
+            "gt_source": "independent emission-record status derivation (NO probe import)",
+            "gt_detail": (f"derived_implemented={derived} kg_status={kg_status!r} "
+                          f"expected_implemented={expected} -> status_should_be={bool(derived)==expected}")}
+
+
+def gt_class_f_judge(spec: dict[str, Any]) -> dict[str, Any]:
+    """Independent diverse-judge GT for the F JUDGE PATH (BE-P): for specs whose
+    committed class is not emitted (F routes to its judge fallback), an independent
+    GT judge (GT_JUDGE_MODEL) reads the embodiment code, cross-checked by the
+    emission-record same-namespace signal. Agreement -> label; else contested."""
+    audit = spec.get("audit_tuple") or [None, None, None]
+    src = _expand(audit[1]) if len(audit) >= 2 else None
+    token = (audit[2] if len(audit) >= 3 and audit[2] else
+             spec.get("name_truncated") or _short(spec["spec_id"]))
+    judge_label, judge_ev = _gt_llm_judge(src, token, forbidden_self=None)
+    if judge_label is None:
+        return {"gt_label": None, "contested": True, "gt_definition_id": GT_DEF_F_JUDGE,
+                "gt_source": f"GT judge {GT_JUDGE_MODEL} (judge path)",
+                "gt_detail": f"CONTESTED (no judge signal): {judge_ev}"}
+    # Independent cross-check: token presence in the embodiment code (different path).
+    xcheck_label, xcheck_ev = _gt_code_token_crosscheck(src, token)
+    if xcheck_label is None or xcheck_label != judge_label:
+        return {"gt_label": None, "contested": True, "gt_definition_id": GT_DEF_F_JUDGE,
+                "gt_source": f"GT judge {GT_JUDGE_MODEL} + code-token cross-check",
+                "gt_detail": f"CONTESTED (disagree/missing): judge={judge_label} xcheck={xcheck_label} || {judge_ev} || {xcheck_ev}"}
+    return {"gt_label": bool(judge_label), "contested": False, "gt_definition_id": GT_DEF_F_JUDGE,
+            "gt_source": f"GT judge {GT_JUDGE_MODEL} + code-token cross-check (AGREEMENT)",
+            "gt_detail": f"agreement=={judge_label} || {judge_ev} || {xcheck_ev}"}
+
+
+# =========================================================================
 # Confusion matrix
 # =========================================================================
 def confusion(pairs: list[tuple[bool, bool]]) -> dict[str, Any]:
@@ -704,7 +1063,12 @@ def _measure_abcd(cls, specs, fire_by_iri, endpoint, named_graph, emit):
     contested = 0
     no_fire = 0
     deferred = 0
+    dp26 = 0
     rows_for_disclosure: list[dict[str, Any]] = []
+    c_blind_sample: set[str] | None = None
+    if cls == "C":
+        # BE-P: build the blind random >=20 sample for the C live GT (disclosed).
+        c_blind_sample, c_seed = _c_blind_sample_ids(specs, n=20, seed=1616)
     for s in specs:
         iri = s["spec_id"]
         fire = fire_by_iri.get(iri)
@@ -718,17 +1082,22 @@ def _measure_abcd(cls, specs, fire_by_iri, endpoint, named_graph, emit):
             gt = gt_class_b(s, endpoint, named_graph)
         elif cls == "D":
             gt = gt_class_d(s)
-        else:  # C -> DEFERRED-GAP-2 (LLM-judge canonical; structural-only is partial)
-            gt = {"gt_label": None, "gt_definition_id":
-                  "C_design_decision_DEFERRED: canonical decision is LLM-judge-dependent "
-                  "(GAP-2). Structural-judge embodiment heuristic is probe-internal; no "
-                  "clean independent label without the live LLM.",
-                  "gt_source": "n/a (DEFERRED-GAP-2)", "contested": False,
-                  "gt_detail": "C accuracy not measurable this session (GAP-2)"}
+        else:  # C -> BE-P live diverse-judge GT on a BLIND >=20 sample
+            if iri in (c_blind_sample or set()):
+                gt = gt_class_c(s, fire)
+            else:
+                gt = {"gt_label": None, "gt_definition_id": GT_DEF_C,
+                      "gt_source": "not in blind C sample (excluded from C accuracy this run)",
+                      "contested": False,
+                      "gt_detail": "outside blind >=20 sample (DISCLOSED)"}
         gt_label = gt["gt_label"]
-        verdict = _emit_row(emit, cls, iri, s, probe_pos, gt)
+        _emit_row(emit, cls, iri, s, probe_pos, gt)
         rows_for_disclosure.append({"spec_iri": iri, "name": s.get("name_truncated"),
                                     "probe": probe_pos, **gt})
+        # DP#26-style carve-out (Class A 'n/a' committed class -> excluded).
+        if gt_label == "dp26_carveout":
+            dp26 += 1
+            continue
         if gt.get("contested"):
             contested += 1
             continue
@@ -739,14 +1108,28 @@ def _measure_abcd(cls, specs, fire_by_iri, endpoint, named_graph, emit):
     n_eval = len(pairs)
     n_total = len(specs)
     mtx = confusion(pairs)
+    extra = None
+    if cls == "A" and dp26:
+        extra = {"dp26_carveouts": dp26,
+                 "dp26_note": (f"{dp26} of {n_total} AgentContracts have committed "
+                               f"runtime_emit_event_class='n/a' (no executable behavioral "
+                               f"observable) -> DP#26 carve-out, EXCLUDED from accuracy. "
+                               f"This is the HONEST finding (most AgentContracts have no "
+                               f"executable observable), not padding.")}
+    if cls == "C":
+        extra = {"blind_sample_size": len(c_blind_sample or set()),
+                 "blind_sample_seed": c_seed,
+                 "blind_sample_ids": sorted(c_blind_sample or set())}
     return _classify_verdict(cls, mtx, contested, deferred, n_total, n_eval, no_fire,
                              rows_for_disclosure,
-                             execution_observable=(cls in ("A", "B", "D")))
+                             execution_observable=(cls in ("A", "B", "D")),
+                             extra=extra)
 
 
 def _measure_e(fires, scan_json, emit):
-    """E: validate source-traceability + field-match sub-checks (FULL RIGOR);
-    status-match + overall disposition DEFERRED-GAP-2 (probe imports BE-F)."""
+    """E: validate source-traceability + field-match sub-checks (FULL RIGOR) AND
+    the status-match sub-check via the BE-P INDEPENDENT status GT (NO probe import;
+    judged tier, reduced-rigor with disclosed residual)."""
     scan_idx = {}
     data = json.loads(pathlib.Path(scan_json).read_text())
     for s in data.get("per_spec_evidence_IP_PRIVATE", []):
@@ -755,16 +1138,17 @@ def _measure_e(fires, scan_json, emit):
     # E fires on KG IRIs; join to scan by the spec name where possible.
     src_pairs: list[tuple[bool, bool]] = []
     field_pairs: list[tuple[bool, bool]] = []
+    status_pairs: list[tuple[bool, bool]] = []
+    status_contested = 0
     src_unjoinable = 0
     field_unjoinable = 0
-    status_deferred = 0
     rows: list[dict[str, Any]] = []
     for f in fires:
         iri = f.get("spec_iri")
         subchecks = f.get("sub_checks") or {}
         probe_src = subchecks.get("source_traceability")
         probe_field = subchecks.get("field_match")
-        status_deferred += 1  # status-match sub-check is DEFERRED-GAP-2 for every spec
+        probe_status = subchecks.get("status_match")
         # try to join scan_rec
         short = (iri or "").rsplit(":", 1)[-1]
         scan_rec = scan_idx.get(short)
@@ -792,54 +1176,78 @@ def _measure_e(fires, scan_json, emit):
                 field_pairs.append((bool(probe_field), bool(field_gt)))
         else:
             field_unjoinable += 1
+        # BE-P: status-match GT via the INDEPENDENT emission-record status derivation
+        # (NO probe import). Reduced-rigor judged tier; contested when not derivable.
+        kg_status = f.get("kg_current_status")
+        st_gt = gt_class_e_status(scan_rec, kg_status)
+        st_label = st_gt["gt_label"]
+        if st_gt.get("contested") or st_label is None:
+            status_contested += 1
+        elif probe_status is not None:
+            status_pairs.append((bool(probe_status), bool(st_label)))
         _emit_row(emit, "E", iri, {"name_truncated": short}, probe_src,
                   {"gt_label": gt_src, "gt_definition_id": GT_DEF_E_SRC,
                    "gt_source": f"independent fs/git resolve of {scan_rec.get('audit_tuple', [None, None])[1]}",
                    "contested": False,
                    "gt_detail": (f"source_ok_gt={gt_src} field_ok_gt={field_gt} "
                                  f"rederived_type={gt_st} kg_type={kg_type} "
-                                 f"STATUS_MATCH=DEFERRED-GAP-2"),
-                   "sub_check": "source_traceability+field_match"})
-        rows.append({"spec_iri": iri, "src_gt": gt_src, "field_gt": field_gt})
+                                 f"status_gt={st_label} status_detail={st_gt.get('gt_detail')}"),
+                   "sub_check": "source_traceability+field_match+status_match"})
+        rows.append({"spec_iri": iri, "src_gt": gt_src, "field_gt": field_gt, "status_gt": st_label})
     src_mtx = confusion(src_pairs)
     field_mtx = confusion(field_pairs)
+    status_mtx = confusion(status_pairs)
+    status_base = len(status_pairs) + status_contested
+    status_contested_frac = round(status_contested / status_base, 4) if status_base else 0.0
+    status_tag = ("CONTESTED" if status_contested_frac > 0.20 or len(status_pairs) == 0
+                  else "VALIDATED-REDUCED-RIGOR")
     return {
         "class": "E",
-        "verdict": "PARTIAL-SUBCHECKS-VALIDATED + STATUS-MATCH-DEFERRED-GAP-2",
-        "tag": "CONTESTED/DEFERRED-GAP-2 (overall disposition gated on status-match)",
+        "verdict": ("PARTIAL-SUBCHECKS-VALIDATED (source+field FULL-RIGOR) + "
+                    f"STATUS-MATCH {status_tag} (judged tier, NO probe import)"),
+        "tag": f"MIXED-TIER: source/field=execution-observable; status={status_tag}",
         "execution_observable": True,
         "subcheck_matrices": {
             "source_traceability": src_mtx,
             "field_match_spec_type": field_mtx,
+            "status_match": status_mtx,
         },
-        "status_match_subcheck": "DEFERRED-GAP-2 (probe imports BE-F; correlated-error "
-                                 "trap + GAP-2 LLM-adjacent; cannot validate this session)",
-        "overall_disposition_validatable": False,
+        "status_match_subcheck": {
+            "tier": "judgment-only/source-grounded (reduced-rigor)",
+            "tag": status_tag,
+            "matrix": status_mtx,
+            "n_evaluated": len(status_pairs),
+            "n_contested": status_contested,
+            "contested_fraction": status_contested_frac,
+            "gt_definition": GT_DEF_E_STATUS,
+            "independence": "re-derived from emission record; imports NO E probe AND NO BE-F probe (#19/#25 fixed)",
+            "bar": _bar_text(status_mtx),
+        },
+        "overall_disposition_validatable": (status_tag == "VALIDATED-REDUCED-RIGOR"),
         "overall_disposition_reason": ("E disposition = source_ok AND field_ok AND status_ok; "
-                                       "status_ok is DEFERRED-GAP-2, so the overall faithful/"
-                                       "infidelity verdict CANNOT be validated to bar this session"),
+                                       f"status sub-check is now independently derived ({status_tag})"),
         "n_fires": len(fires),
         "kg_only_nodes_unjoinable_to_scan": src_unjoinable,
-        "status_match_specs_deferred": status_deferred,
-        "gt_definition": {"source": GT_DEF_E_SRC, "field": GT_DEF_E_FIELD},
+        "gt_definition": {"source": GT_DEF_E_SRC, "field": GT_DEF_E_FIELD, "status": GT_DEF_E_STATUS},
         "bar_source_traceability": _bar_text(src_mtx),
         "bar_field_match": _bar_text(field_mtx),
+        "bar_status_match": _bar_text(status_mtx),
         "honest_limitation": (
-            "On this population EVERY scan-joined node has a resolvable source AND a "
-            "matching re-derived spec_type, so the source-traceability and field-match "
-            "sub-check matrices contain ONLY positives (TN=FP=FN=0). This confirms the "
-            "probe AGREES with independent derivation on positives, but provides NO "
-            "discriminating power against a dangling-source / wrong-type FP — there are "
-            "no negative cases in the real population to test that. The known-bad "
-            "behaviour is covered only by the probe's own self-test fixture (which the "
-            "harness is forbidden to use as accuracy GT). NOT a clean 'sub-checks "
-            "validated to bar' for FP-resistance."),
+            "source-traceability + field-match sub-check matrices contain ONLY positives on "
+            "scan-joined nodes (TN=FP=FN=0): the probe AGREES with independent derivation on "
+            "positives but the real population has no dangling-source / wrong-type negatives, so "
+            "FP-resistance is NOT exercised on real data (only the self-test fixture covers it, "
+            "which the harness may not use as accuracy GT). The status sub-check is now "
+            "independently derived from the emission record (BE-P fix: no longer imports BE-F) "
+            "but is reduced-rigor (judged/source-grounded tier), with its own disclosed residual."),
     }
 
 
 def _measure_f(fires, population, emit):
     pop_idx = {s["spec_id"]: s for s in population}
     pairs: list[tuple[bool, bool]] = []
+    judge_pairs: list[tuple[bool, bool]] = []   # BE-P: judge-path probe-vs-GT pairs
+    judge_contested = 0
     dp26 = 0
     judge_path = 0
     no_join = 0
@@ -859,32 +1267,57 @@ def _measure_f(fires, population, emit):
             dp26 += 1
             _emit_row(emit, "F", iri, spec, None, gt)
             continue
-        if gtl == "inconclusive_judge_path":
+        probe_faithful = bool(f.get("fidelity_ok"))
+        if gtl == "inconclusive_judge_path" or path != "execution":
+            # BE-P: JUDGE-PATH GT — independent diverse judge reads the embodiment
+            # code (DIFFERENT model than the probe judge), cross-checked. Agreement
+            # -> measurable; contested otherwise (reduced-rigor, fail-safe).
             judge_path += 1
-            _emit_row(emit, "F", iri, spec, None, {**gt,
-                      "gt_detail": gt["gt_detail"] + f" || probe_path={path} disp={disp}"})
+            jgt = gt_class_f_judge(spec)
+            jlabel = jgt["gt_label"]
+            if jgt.get("contested") or jlabel is None:
+                judge_contested += 1
+                _emit_row(emit, "F", iri, spec, probe_faithful,
+                          {**jgt, "gt_detail": jgt["gt_detail"] + f" || probe_path={path} disp={disp}",
+                           "sub_check": "judge_path"})
+            else:
+                judge_pairs.append((probe_faithful, bool(jlabel)))
+                _emit_row(emit, "F", iri, spec, probe_faithful,
+                          {**jgt, "gt_detail": jgt["gt_detail"] + f" || probe_path={path} disp={disp}",
+                           "sub_check": "judge_path"})
             continue
         # execution-path GT available (True / False)
-        probe_faithful = bool(f.get("fidelity_ok"))
-        # Only compare on execution-path probe results (judge path is GAP-2)
-        if path == "execution":
-            pairs.append((probe_faithful, bool(gtl)))
-            _emit_row(emit, "F", iri, spec, probe_faithful,
-                      {**gt, "gt_detail": gt["gt_detail"] + f" || probe execution-path disp={disp}"})
-        else:
-            judge_path += 1
-            _emit_row(emit, "F", iri, spec, probe_faithful,
-                      {**gt, "gt_label": "deferred_judge_path",
-                       "gt_detail": gt["gt_detail"] + f" || probe routed to {path} (DEFERRED-GAP-2)"})
+        pairs.append((probe_faithful, bool(gtl)))
+        _emit_row(emit, "F", iri, spec, probe_faithful,
+                  {**gt, "gt_detail": gt["gt_detail"] + f" || probe execution-path disp={disp}"})
     mtx = confusion(pairs)
+    judge_mtx = confusion(judge_pairs)
+    judge_base = len(judge_pairs) + judge_contested
+    judge_contested_frac = round(judge_contested / judge_base, 4) if judge_base else 0.0
+    judge_tag = ("CONTESTED" if (judge_contested_frac > 0.20 or len(judge_pairs) == 0)
+                 else "VALIDATED-REDUCED-RIGOR")
     return _classify_verdict("F", mtx, contested=0, deferred=judge_path,
                              n_total=len(fires), n_eval=len(pairs), no_fire=no_join,
                              rows_for_disclosure=rows, execution_observable=True,
                              extra={"dp26_carveouts": dp26,
-                                    "judge_path_DEFERRED_GAP_2": judge_path,
+                                    "judge_path_specs": judge_path,
                                     "gt_definition": GT_DEF_F,
+                                    "judge_path_subcheck": {
+                                        "tier": "judgment-only (reduced-rigor, diverse-agreeing judges)",
+                                        "tag": judge_tag,
+                                        "matrix": judge_mtx,
+                                        "n_evaluated": len(judge_pairs),
+                                        "n_contested": judge_contested,
+                                        "contested_fraction": judge_contested_frac,
+                                        "gt_definition": GT_DEF_F_JUDGE,
+                                        "gt_judge_model": GT_JUDGE_MODEL,
+                                        "probe_judge_model": "claude-haiku-4-5 (probe F _live_llm_judge)",
+                                        "bar": _bar_text(judge_mtx),
+                                    },
                                     "note": "execution-path validated FULL RIGOR; "
-                                            "judge-fallback path DEFERRED-GAP-2"})
+                                            "judge-fallback path measured at REDUCED-RIGOR "
+                                            "judged tier (diverse-agreeing-judge GT, "
+                                            "DIFFERENT model than the probe judge)"})
 
 
 def _bar_text(mtx):
@@ -918,9 +1351,39 @@ def _classify_verdict(cls, mtx, contested, deferred, n_total, n_eval, no_fire,
     result["contested_fraction"] = round(contested_frac, 4)
 
     if cls == "C":
-        result["verdict"] = "DEFERRED-GAP-2"
-        result["tag"] = "DEFERRED-GAP-2"
+        # BE-P: Class C is the JUDGMENT-ONLY TIER (reduced-rigor, diverse-agreeing
+        # judges, disclosed residual) — NEVER the execution bar. Probe judge =
+        # claude-haiku-4-5; GT judge = claude-sonnet-4-6 (DIFFERENT model, so probe
+        # <->GT agreement is INDEPENDENT). Validated on a BLIND >=20 sample.
+        result["tier"] = "judgment-only (reduced-rigor, diverse-agreeing judges)"
+        result["probe_judge_model"] = PROBE_JUDGE_MODEL
+        result["gt_judge_model"] = GT_JUDGE_MODEL
         result["small_n_disclosed"] = False
+        if n_eval == 0:
+            result["verdict"] = ("NOT-VALIDATED (judged tier): no agreeing-judge GT pairs "
+                                 "in the blind sample (all contested/missing-signal)")
+            result["tag"] = "NOT-VALIDATED"
+            return result
+        if contested_frac > 0.20:
+            result["verdict"] = ("CONTESTED (judged tier): >20% of the blind sample is "
+                                 "judge/cross-check disagreement or missing-signal (fail-safe)")
+            result["tag"] = "CONTESTED"
+            return result
+        zero_fp = mtx["FP"] == 0
+        rec = mtx["recall"]
+        rec_ok = (rec is None) or (rec >= 0.90)
+        result["bar"] = (f"[judged-tier reduced rigor] zero_FP={zero_fp} (FP={mtx['FP']}); "
+                         f"recall={rec} recall>=0.90={rec_ok}; n_eval={n_eval}; "
+                         f"contested_frac={result['contested_fraction']}")
+        if zero_fp and rec_ok:
+            result["verdict"] = ("VALIDATED-REDUCED-RIGOR (judged tier): probe agrees with the "
+                                 "diverse-agreeing-judge GT on the blind sample; zero-FP + "
+                                 "recall>=0.90 at REDUCED RIGOR — NOT the execution bar")
+            result["tag"] = "VALIDATED-REDUCED-RIGOR"
+        else:
+            result["verdict"] = ("NOT-VALIDATED (judged tier): probe disagrees with the "
+                                 "diverse-agreeing-judge GT (FP or recall<0.90 on the blind sample)")
+            result["tag"] = "NOT-VALIDATED"
         return result
 
     small_n = cls in ("A", "B") and n_total < 20

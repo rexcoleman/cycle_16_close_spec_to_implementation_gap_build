@@ -5,8 +5,10 @@
   "spec_iri": "cycle16:spec_retroactive_test_known_good_a_1_build_runner",
   "agent_spec_path": "/home/azureuser/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
   "subagent_type_name": "build-runner",
+  "runtime_emit_event_class": "build_runner.session.start",
+  "source_path": "~/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
   "transcript_roots": ["/home/azureuser/.claude/projects/-home-azureuser-Moonshots-Career-Thesis-v2/"],
   "recency_window_minutes": 10080,
   "expected_implemented": true,
-  "rationale": "build-runner agent_spec md present at canonical path; build-runner is actively being dispatched via Agent tool tool_use blocks in current Claude Code session (this very fixture is exercised from a build-runner dispatch context). Behavioral check should observe ≥1 Agent tool_use block with subagent_type=general-purpose in recent transcripts referencing build-runner."
+  "rationale": "BEHAVIORAL-EXECUTION TRUTH (Rex D-S18-1, Cycle-16-S19 BE-O): the build-runner AgentContract COMMITS to runtime_emit_event_class='build_runner.session.start'. The probe reads the runtime emission RECORD at outputs/build_runner_events.jsonl (the product of actually RUNNING the embodiment) and confirms >=1 real emitted event with event_class=='build_runner.session.start' (2 occurrences observed at relabel time). Match -> implemented=true via the emission-record observable. subagent_type is NOT the observable (rejected per S141 false-proxy ruling). Relabel-to-TRUTH: build-runner's committed class genuinely fires."
 }

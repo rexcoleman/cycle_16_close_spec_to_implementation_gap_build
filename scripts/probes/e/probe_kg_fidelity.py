@@ -29,10 +29,15 @@ THE NAIVE DESIGN IS FORBIDDEN (substrate §2):
           re-extract from the REAL source and DIFF against the KG value. A field
           that is NOT mechanically re-derivable is reported `unverifiable`
           per-field (its own line). Any DIFF mismatch → infidelity.
-      (3) Status-match — dispatch to the matching BE-F probe by spec_type
-          (A/B/C/D), RUN it live (import + execute), and compare its live
-          `implemented` result to the KG's recorded `current_status`. Mismatch →
-          KG infidelity. This is a structurally-independent second derivation.
+      (3) Status-match (BE-P, Cycle-16-S19 — REWRITTEN for independence): re-derive
+          "is the spec behaviorally implemented" DIRECTLY from the source via E's
+          OWN emission-record read (the committed runtime_emit_event_class actually
+          fires in outputs/*_events.jsonl), and compare to the KG's recorded
+          `current_status`. Mismatch → KG infidelity. CRITICAL: this no longer
+          imports+runs the matching BE-F probe — a validator importing the thing it
+          validates is a #19/#25 independence defect (E's accuracy would inherit
+          BE-F's bugs). The derivation is now a DIFFERENT code path that imports NO
+          probe module (`_independent_status_derivation`).
 
 CONSERVATIVE DISPOSITION (Done #41 + #39):
     Any spec the probe cannot verify (source unresolvable, probe error,
@@ -48,7 +53,6 @@ from __future__ import annotations
 
 import argparse
 import datetime
-import importlib.util
 import json
 import os
 import pathlib
@@ -86,17 +90,16 @@ STATUS_IMPLIES_IMPLEMENTED = {
     "killed": False,
 }
 
-# spec_type → matching BE-F probe module path + the scan spec_class key.
+# BE-P (Cycle-16-S19): the OLD status-match imported+ran the matching BE-F probe
+# (BE_F_PROBES dispatch + _import_probe_module). A validator importing the thing it
+# validates is a #19/#25 independence defect — E's accuracy would inherit BE-F's
+# bugs. REMOVED. Status is now re-derived by a STRUCTURALLY-INDEPENDENT source-
+# grounded derivation (_independent_status_derivation below), a DIFFERENT code path
+# that imports NO probe module.
 _PROBE_DIR = pathlib.Path(__file__).resolve().parent.parent  # scripts/probes
-BE_F_PROBES = {
-    "AgentContract": (_PROBE_DIR / "a" / "probe_agent_contract.py", "a_agent_contract"),
-    "Schema": (_PROBE_DIR / "b" / "probe_schema.py", "b_schema"),
-    "DesignDecision": (_PROBE_DIR / "c" / "probe_design_decision.py", "c_design_decision"),
-    "MethodologyCommitment": (
-        _PROBE_DIR / "d" / "probe_methodology_commitment.py",
-        "d_methodology_commitment",
-    ),
-}
+
+# Sink roots for the independent emission-record status derivation (E's own code).
+_E_SINK_GLOBS = ["/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/"]
 
 
 def _utc_ts() -> str:
@@ -326,55 +329,72 @@ def _field_match(
     return all_match, mismatches, unverifiable
 
 
-# --- (3) status-match (live BE-F probe import+execute) --------------------------
+# --- (3) status-match (BE-P: STRUCTURALLY-INDEPENDENT source-grounded derivation) -
+# BE-P (Cycle-16-S19): the status-match no longer imports+runs another probe (that
+# was a #19/#25 independence defect — a validator importing the thing it validates).
+# Instead it re-derives "should this be implemented" DIRECTLY from the source, by
+# E's OWN emission-record read (the same behavioral observable used by Class A/F,
+# but a SEPARATE code path here that imports NO probe module). The KG status enum is
+# compared to whether the spec's committed runtime_emit_event_class actually fires.
 
 
-def _import_probe_module(probe_path: pathlib.Path):
-    """Import a BE-F probe module by file path (KT-8 import+execute, not string-match)."""
-    spec = importlib.util.spec_from_file_location(
-        f"be_f_probe_{probe_path.parent.name}_{probe_path.stem}", str(probe_path)
-    )
-    if spec is None or spec.loader is None:
-        return None
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+def _e_event_class_matches(emitted: str | None, committed: str) -> bool:
+    """E's OWN emission-class match (independent of probe code). Exact / dotted-suffix."""
+    if not emitted:
+        return False
+    if emitted == committed:
+        return True
+    if emitted.endswith("." + committed):
+        return True
+    if committed.endswith("." + emitted):
+        return True
+    return False
 
 
-def _build_be_f_kwargs(
-    spec_type: str, spec_iri: str, scan_rec: dict[str, Any] | None, source_ref: str | None
-) -> dict[str, Any]:
-    """Build per-class kwargs for the BE-F probe.probe() call from the scan record's
-    audit_tuple, mirroring each BE-F probe's _aggregate_cycle arg-prep."""
-    audit = (scan_rec or {}).get("audit_tuple") or [None, None, None]
-    src = os.path.expanduser(audit[1]) if len(audit) >= 2 and audit[1] else (
-        os.path.expanduser(source_ref) if source_ref else None
-    )
-    token = audit[2] if len(audit) >= 3 and audit[2] else None
-    name_trunc = (scan_rec or {}).get("name_truncated")
-    if spec_type == "AgentContract":
-        return {"agent_spec_path": src, "subagent_type_name": name_trunc}
-    if spec_type == "Schema":
-        return {"schema_path": src}
-    if spec_type == "DesignDecision":
-        clean = (token or name_trunc or _short_iri(spec_iri))
-        clean = clean.split(":", 1)[-1] if clean and ":" in clean else clean
-        embodiment = None
-        if src:
-            cdir = pathlib.Path(src).parent
-            for c in (cdir / "scripts", cdir / "docs"):
-                if c.is_dir():
-                    embodiment = str(c)
-                    break
-        return {
-            "decision_token": clean,
-            "decision_log_path": src,
-            "embodiment_ref_path": embodiment,
-        }
-    if spec_type == "MethodologyCommitment":
-        tok = (token or "").split("@")[0] or name_trunc
-        return {"commitment_source_path": src, "commitment_token": tok}
-    return {}
+def _independent_status_derivation(
+    scan_rec: dict[str, Any] | None, source_ref: str | None
+) -> tuple[bool | None, str]:
+    """Re-derive "is the spec behaviorally implemented" DIRECTLY from the source,
+    via E's OWN emission-record read. Returns (implemented_or_None, evidence).
+    None -> not mechanically re-derivable (no committed executable observable ->
+    conservative). Imports NO probe module (independence preserved, #19/#25)."""
+    committed = (scan_rec or {}).get("runtime_emit_event_class")
+    if not committed or committed.strip().lower().startswith("n/a"):
+        return None, f"status_rederive_NA: committed runtime_emit_event_class={committed!r} (no executable observable)"
+    committed_head = committed.split(".", 1)[0]
+    sink_dirs = list(_E_SINK_GLOBS)
+    if source_ref:
+        sp = pathlib.Path(os.path.expanduser(source_ref))
+        for anc in [sp] + list(sp.parents):
+            cand = anc / "outputs"
+            if cand.is_dir():
+                if str(cand) not in sink_dirs:
+                    sink_dirs.append(str(cand))
+                break
+    for root in sink_dirs:
+        rp = pathlib.Path(os.path.expanduser(root))
+        if not rp.exists():
+            continue
+        for jsonl in sorted(rp.glob("*.jsonl")):
+            if jsonl.name in ("probe_accuracy_events.jsonl",):
+                continue
+            try:
+                with jsonl.open(encoding="utf-8", errors="replace") as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            rec = json.loads(line)
+                        except json.JSONDecodeError:
+                            continue
+                        ec = rec.get("event_class")
+                        if ec and _e_event_class_matches(ec, committed):
+                            return True, f"status_rederive_OK: committed class {committed!r} EMITTED ({jsonl.name})"
+            except OSError:
+                continue
+    _ = committed_head
+    return False, f"status_rederive_OK: committed class {committed!r} NOT emitted in any sink"
 
 
 def _status_match(
@@ -384,41 +404,31 @@ def _status_match(
     scan_rec: dict[str, Any] | None,
     source_ref: str | None,
 ) -> tuple[bool, str, bool | None]:
-    """Dispatch to the matching BE-F probe by spec_type, RUN it live (import+execute),
-    compare its live `implemented` to the KG's recorded current_status.
+    """BE-P: STRUCTURALLY-INDEPENDENT status derivation (NO probe import). Re-derive
+    "behaviorally implemented" from the source via E's own emission-record read,
+    compare to the KG's recorded current_status enum.
 
-    Returns (status_ok, evidence, live_implemented). status_ok=False on mismatch
-    OR on any inability to run (conservative fail-safe per Done #41 — NEVER counted
-    faithful when unverifiable)."""
-    if not spec_type or spec_type not in BE_F_PROBES:
-        return False, f"status_match_UNVERIFIABLE: unknown spec_type={spec_type!r} (conservative-fail)", None
+    Returns (status_ok, evidence, derived_implemented). status_ok=False on mismatch
+    OR on any inability to re-derive (conservative fail-safe per Done #41)."""
     if kg_status not in STATUS_IMPLIES_IMPLEMENTED:
         return False, f"status_match_UNVERIFIABLE: KG status={kg_status!r} not in 5-state enum (conservative-fail)", None
-    probe_path, _scan_class = BE_F_PROBES[spec_type]
-    if not probe_path.exists():
-        return False, f"status_match_UNVERIFIABLE: BE-F probe missing at {probe_path} (conservative-fail)", None
-    try:
-        mod = _import_probe_module(probe_path)
-        if mod is None or not hasattr(mod, "probe"):
-            return False, f"status_match_UNVERIFIABLE: cannot import BE-F probe.probe() (conservative-fail)", None
-        kwargs = _build_be_f_kwargs(spec_type, spec_iri, scan_rec, source_ref)
-        result = mod.probe(spec_iri=spec_iri, **kwargs)
-        live_impl = bool(result.get("implemented"))
-    except Exception as e:  # noqa: BLE001 — any probe error → conservative fail-safe
-        return False, f"status_match_UNVERIFIABLE: live BE-F probe error {e!r} (conservative-fail)", None
+    derived_impl, derive_ev = _independent_status_derivation(scan_rec, source_ref)
+    if derived_impl is None:
+        return False, f"status_match_UNVERIFIABLE: {derive_ev} (conservative-fail; no probe import)", None
     expected_impl = STATUS_IMPLIES_IMPLEMENTED[kg_status]
-    if live_impl == expected_impl:
+    if derived_impl == expected_impl:
         return (
             True,
-            f"status_match_OK: live BE-F({spec_type}) implemented={live_impl} "
-            f"consistent with KG status={kg_status!r}",
-            live_impl,
+            f"status_match_OK (independent source-grounded re-derivation, NO probe import): "
+            f"derived implemented={derived_impl} consistent with KG status={kg_status!r} || {derive_ev}",
+            derived_impl,
         )
     return (
         False,
-        f"status_match_INFIDELITY: live BE-F({spec_type}) implemented={live_impl} "
-        f"CONTRADICTS KG status={kg_status!r} (expected implemented={expected_impl})",
-        live_impl,
+        f"status_match_INFIDELITY (independent source-grounded re-derivation, NO probe import): "
+        f"derived implemented={derived_impl} CONTRADICTS KG status={kg_status!r} "
+        f"(expected implemented={expected_impl}) || {derive_ev}",
+        derived_impl,
     )
 
 

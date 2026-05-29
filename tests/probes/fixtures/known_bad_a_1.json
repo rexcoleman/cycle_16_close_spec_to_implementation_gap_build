@@ -2,11 +2,13 @@
   "fixture_id": "known_bad_a_1",
   "fixture_class": "known_bad",
   "primitive_class": "A",
-  "spec_iri": "cycle16:spec_retroactive_test_known_bad_a_1_nonexistent_agent",
-  "agent_spec_path": "/home/azureuser/Moonshots_Career_Thesis_v2/.claude/agents/this-agent-does-not-exist.md",
-  "subagent_type_name": "this-agent-does-not-exist",
+  "spec_iri": "cycle16:spec_retroactive_test_known_bad_a_1_kernel_coach_not_emitted",
+  "agent_spec_path": "/home/azureuser/Moonshots_Career_Thesis_v2/.claude/agents/kernel-coach.md",
+  "subagent_type_name": "kernel-coach",
+  "runtime_emit_event_class": "kernel_coach.dispatch",
+  "source_path": "~/Moonshots_Career_Thesis_v2/.claude/agents/kernel-coach.md",
   "transcript_roots": ["/home/azureuser/.claude/projects/-home-azureuser-Moonshots-Career-Thesis-v2/"],
   "recency_window_minutes": 10080,
   "expected_implemented": false,
-  "rationale": "Agent spec md path resolves to non-existent file; precondition fails. Probe must short-circuit with evidence_type=precondition_missing and implemented=false. This fixture exercises the precondition refusal path, which is a load-bearing acceptance shape per HC #72 (file-exists alone is NOT acceptance evidence, but file-absent IS a refusal trigger)."
+  "rationale": "BEHAVIORAL-EXECUTION TRUTH / THE REAL GAP (Rex D-S18-1, Cycle-16-S19 BE-O): the kernel-coach AgentContract COMMITS to runtime_emit_event_class='kernel_coach.dispatch', but that class is NEVER emitted in any sink (outputs/kernel_coach_events.jsonl is empty; no event of that class anywhere at relabel time). present-but-not-emitted -> implemented=false. This is the canonical 'committed but the behavior never actually fired' gap — exactly the spec->implementation gap Cycle 16 exists to detect. Relabel-to-TRUTH (the probe was run to confirm the class genuinely does not fire), NOT relabel-to-pass. Replaces the old nonexistent-agent fixture because under the emission-record observable a real committed-but-silent agent is the meaningful negative."
 }

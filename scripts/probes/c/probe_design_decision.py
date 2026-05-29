@@ -54,6 +54,12 @@ PREDICATE_TYPE_FIRE = "cycle16:probe_fire_v1"
 PREDICATE_TYPE_SELF_TEST = "cycle16:probe_self_test_v1"
 JUDGE_PROMPT_PATH = str(pathlib.Path(__file__).resolve().parent / "llm_judge_prompt.md")
 
+# Anthropic model for the C probe's LIVE judge (BE-P, Cycle-16-S19). The PROBE
+# judge uses claude-haiku-4-5; the HARNESS GT judge (gt_class_c) MUST use a
+# DIFFERENT model (claude-sonnet-4-6) so probe<->GT agreement is INDEPENDENT
+# agreement, not a judge agreeing with itself (validate-the-validator #19).
+_C_JUDGE_MODEL = os.environ.get("CYCLE16_C_JUDGE_MODEL", "claude-haiku-4-5")
+
 
 def _utc_ts() -> str:
     return datetime.datetime.now(datetime.timezone.utc).strftime(
@@ -176,20 +182,137 @@ def _structural_judge(
     return True, f"structural_judge_citation: {citations[0]}"
 
 
+def _extract_verdict_json(text: str) -> dict[str, Any] | None:
+    """Robustly extract the {"implemented":..., "evidence":...} object from a reply
+    that may wrap prose / ```json fences around the JSON. Returns the first balanced-
+    brace candidate that parses AND has an 'implemented' key, else None."""
+    if not text:
+        return None
+    candidates: list[str] = []
+    for m in re.finditer(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.S):
+        candidates.append(m.group(1))
+    starts: list[int] = []
+    for i, ch in enumerate(text):
+        if ch == "{":
+            starts.append(i)
+        elif ch == "}" and starts:
+            s = starts.pop()
+            candidates.append(text[s:i + 1])
+    for cand in candidates:
+        try:
+            obj = json.loads(cand)
+        except (json.JSONDecodeError, ValueError):
+            continue
+        if isinstance(obj, dict) and "implemented" in obj:
+            return obj
+    return None
+
+
+def _live_llm_judge(
+    embodiment_ref_path: str | None,
+    decision_token: str,
+    decision_log_path: str,
+) -> tuple[bool | None, str]:
+    """BE-P LIVE judge (signal #1): invoke a REAL LLM (Anthropic) to READ the
+    embodiment CODE and emit a file:line citation per the EXISTING Class C judge
+    contract (llm_judge_prompt.md — forbids registry/ADR/spec-text substitution).
+
+    Returns (implemented_or_None, evidence). None -> could not run (no key / SDK /
+    error / unparseable) -> conservative upstream (DP#44 refuse-on-missing-
+    precondition; NEVER fabricate a verdict). The judge reads ACTUAL CODE at the
+    embodiment ref; it refuses if the ref IS the DECISION_LOG (anti-substitution)."""
+    if not embodiment_ref_path:
+        return None, "live_judge_refused: no embodimentRef (ADR-text-only; DP#44)"
+    target = pathlib.Path(os.path.expanduser(embodiment_ref_path))
+    if not target.exists():
+        return None, f"live_judge_unavailable: embodimentRef does not resolve: {embodiment_ref_path}"
+    # Anti-substitution: refuse if the embodiment ref IS the DECISION_LOG.
+    try:
+        if target.resolve() == pathlib.Path(os.path.expanduser(decision_log_path)).resolve():
+            return None, "live_judge_refused: embodimentRef IS DECISION_LOG (HC #72)"
+    except OSError:
+        pass
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        return None, "live_judge_unavailable: ANTHROPIC_API_KEY unset (DP#44 refuse; no fabricated verdict)"
+    try:
+        import anthropic  # noqa: PLC0415
+    except ImportError:
+        return None, "live_judge_unavailable: anthropic SDK not installed"
+    try:
+        contract = pathlib.Path(JUDGE_PROMPT_PATH).read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        contract = "You are a strict code-reading judge. Refuse registry/ADR/spec-text evidence."
+    # Read the embodiment CODE (directory -> concatenate a bounded set of code files;
+    # file -> read it). NEVER read DECISION_LOG/registry as the evidence.
+    code_blobs: list[str] = []
+    if target.is_dir():
+        files = [
+            f for f in sorted(target.rglob("*"))
+            if f.is_file() and f.suffix in (".py", ".sh", ".json", ".yaml", ".yml", ".ttl")
+        ][:8]
+        for f in files:
+            try:
+                code_blobs.append(f"### {f}\n" + f.read_text(encoding="utf-8", errors="replace")[:4000])
+            except OSError:
+                continue
+    else:
+        try:
+            code_blobs.append(f"### {target}\n" + target.read_text(encoding="utf-8", errors="replace")[:12000])
+        except OSError as e:
+            return None, f"live_judge_unavailable: cannot read embodiment code: {e!r}"
+    if not code_blobs:
+        return None, f"live_judge_unavailable: no readable code at embodiment ref {target}"
+    code = "\n\n".join(code_blobs)[:14000]
+    prompt = (
+        f"{contract}\n\n--- DECISION TOKEN ---\n{decision_token}\n\n"
+        f"--- CANDIDATE EMBODIMENT CODE ({target}) ---\n{code}\n\n"
+        "Respond with NOTHING but a single-line JSON object and NO prose before or "
+        "after it. EXACTLY this shape: "
+        '{"implemented": true, "evidence": "<file:line: verbatim line> OR <reason refused>"}'
+    )
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        resp = client.messages.create(
+            model=_C_JUDGE_MODEL,
+            max_tokens=400,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
+        verdict = _extract_verdict_json(text)
+        if verdict is None:
+            return None, f"live_judge_unparseable: {text[:160]!r}"
+        return bool(verdict.get("implemented")), f"live_judge[{_C_JUDGE_MODEL}]: {str(verdict.get('evidence', ''))[:200]}"
+    except Exception as e:  # noqa: BLE001
+        return None, f"live_judge_error: {e!r}"
+
+
 def probe(
     spec_iri: str,
     decision_token: str | None = None,
     decision_log_path: str | None = None,
     embodiment_ref_path: str | None = None,
     expected_implemented: bool | None = None,
+    # BE-P self-test injection (agreement-logic exercise; NOT used in production):
+    injected_llm_verdict: bool | None = None,
+    use_live_judge: bool = True,
 ) -> dict[str, Any]:
-    """Class C DesignDecision behavioral probe.
+    """Class C DesignDecision behavioral probe (BE-P, Cycle-16-S19 — LIVE judge).
 
-    Acceptance: ADR present AND structural judge reads code (NOT ADR text) and
-    produces file:line citation. Embodiment-not-declared / embodiment-IS-ADR =
-    refusal (HC #72 anti-substitution).
-    """
-    run_id = f"s11_be_f_production_c_{_short_iri(spec_iri)}_{uuid.uuid4().hex[:6]}"
+    Composition (Discipline #30 — diverse, structurally-independent, agreement-
+    required):
+      precondition: ADR present (else precondition_missing, implemented=False).
+      signal #1 = LIVE LLM judge reads CODE at embodimentRef (claude-haiku-4-5),
+                  refuses registry/ADR/spec-text per llm_judge_prompt.md.
+      signal #2 = the existing _structural_judge token-citation check (DIFFERENT
+                  code path).
+      implemented=True ONLY when BOTH affirm (agreement). Any None / disagreement /
+      no-key -> conservative implemented=False + reason (DP#44; never fabricate).
+    The ADR precondition + anti-substitution (embodimentRef != DECISION_LOG) gate
+    are retained. In the self-test, the live call is replaced by an injected verdict
+    so determinism does not hinge on an online call (the structural signal stays
+    live + deterministic)."""
+    run_id = f"s19_be_p_production_c_{_short_iri(spec_iri)}_{uuid.uuid4().hex[:6]}"
     ts = _utc_ts()
     decision_log_path = decision_log_path or str(
         pathlib.Path(__file__).resolve().parents[3] / "DECISION_LOG.md"
@@ -211,12 +334,42 @@ def probe(
             "implemented": False,
             "evidence": f"precondition_failed: {adr_evidence}",
             "evidence_type": "precondition_missing",
+            "judge_kind": "live_llm+structural_agreement_v0.2",
         }
 
-    # Behavioral (ii): structural judge reads code (NOT ADR text)
-    impl, evidence = _structural_judge(
+    # signal #2: structural judge reads code (NOT ADR text), different code path.
+    struct_impl, struct_ev = _structural_judge(
         embodiment_ref_path, decision_token, decision_log_path
     )
+
+    # signal #1: LIVE LLM judge reads code (injected in self-test).
+    if injected_llm_verdict is not None or not use_live_judge:
+        llm_impl: bool | None = injected_llm_verdict
+        llm_ev = f"injected_llm_verdict={injected_llm_verdict} (self-test agreement-logic exercise)"
+    else:
+        llm_impl, llm_ev = _live_llm_judge(
+            embodiment_ref_path, decision_token, decision_log_path
+        )
+
+    # agreement-required composition. Both must affirm True for implemented=True.
+    # Any None / disagreement -> conservative implemented=False (DP#44 fail-safe).
+    if llm_impl is None:
+        implemented = False
+        agreement = None
+        evidence = (f"judge_conservative_not_implemented: live judge unavailable/refused "
+                    f"(DP#44) || llm:{llm_ev[:100]} || structural:{struct_ev[:100]}")
+    elif llm_impl != struct_impl:
+        implemented = False
+        agreement = False
+        evidence = (f"judge_disagreement_conservative_not_implemented: "
+                    f"llm={llm_impl} structural={struct_impl} (NOT-implemented + surfaced) || "
+                    f"llm:{llm_ev[:100]} || structural:{struct_ev[:100]}")
+    else:
+        agreement = True
+        implemented = bool(llm_impl)  # == struct_impl
+        evidence = (f"judge_agreement_{'implemented' if implemented else 'not_implemented'}: "
+                    f"llm==structural=={llm_impl} || llm:{llm_ev[:100]} || structural:{struct_ev[:100]}")
+
     return {
         "probe_id": PROBE_ID,
         "probe_version": PROBE_VERSION,
@@ -226,10 +379,14 @@ def probe(
         "run_id": run_id,
         "timestamp": ts,
         "predicateType": PREDICATE_TYPE_FIRE,
-        "implemented": impl,
+        "implemented": implemented,
         "evidence": evidence,
         "evidence_type": "probe_fire_aggregate",
-        "judge_kind": "structural_judge_v0.1",
+        "judge_kind": "live_llm+structural_agreement_v0.2",
+        "judge_model": _C_JUDGE_MODEL,
+        "llm_verdict": llm_impl,
+        "structural_verdict": struct_impl,
+        "crosscheck_agreement": agreement,
         "adr_evidence": adr_evidence,
     }
 
@@ -254,6 +411,15 @@ def _self_test(fixture_dir: pathlib.Path) -> int:
             decision_token=cfg.get("decision_token"),
             decision_log_path=cfg.get("decision_log_path"),
             embodiment_ref_path=cfg.get("embodiment_ref_path"),
+            # Determinism: the self-test exercises the AGREEMENT logic with an
+            # injected LLM verdict (default = the fixture's expected label) so the
+            # pass/fail does NOT hinge on a non-deterministic online call. The
+            # structural signal stays live + deterministic. The live LLM path is
+            # exercised only in the production aggregate fire.
+            injected_llm_verdict=cfg.get(
+                "injected_llm_verdict", cfg.get("expected_implemented")
+            ),
+            use_live_judge=False,
         )
         expected = cfg["expected_implemented"]
         distinguished = result["implemented"] == expected
