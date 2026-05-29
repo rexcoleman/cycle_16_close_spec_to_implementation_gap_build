@@ -642,3 +642,22 @@ Layer four: **registry-fidelity drift + spec-implementation drift.** A KG entry 
 **Operational implication for S18+.** C / F-judge / E-status re-validation + BE-K liveness + the `--backend anthropic` classify cron + newsletter T3 all RUN — on the alternate key. They are NOT GAP-2-deferred and NOT pending any Rex action. Do NOT re-research this; do NOT escalate it. (This narrows the genuine remaining work: the LLM-judged classes still need their accuracy validated like any detector — but that is a build/validate task, not a billing wait.)
 
 **Durable encoding (so it stops recurring):** memory `feedback_anthropic_multikey_not_a_blocker.md` (auto-loads at every future kc/Coach warmup) + MEMORY.md index + Cycle-10 spec §8.15 persistence-mechanism #2 example corrected + kc-52 PD §2b + §5 corrected + this entry + state.json current_phase/next_action corrected. strategic_frame UNMODIFIED.
+
+## D-S17-3 — Cycle 16 SI Amendment 28g: completion-bar extension (Done #49/#50/#51) closing three spec-implementation-chain holes (kc-52 Step 3.5; Rex "a go" 2026-05-29, ruling (a))
+
+**Authority.** kc-52 hole-audit at the 2026-05-29 Rex conversation ("identify failures in the chain I have not yet identified") → Rex agreement with three surfaced gaps + Rex "a go" selecting ruling (a) on the human-vs-autonomy fork. Step 3.5 Draft-for-Approval per `feedback_rex_step_3_5_draft_for_approval.md`; extending the Done definition is paradigm-class per HC #74, surfaced + approved. Full amendment text: `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_29g.md`. strategic_frame UNMODIFIED.
+
+**Three holes (not previously owned by Done #11–#48):** (1) spec-extraction is unguarded — a missed commitment is a silent false-negative upstream of every detector; (2) the denominator is circular — no oracle of "every spec intended," so "100%" can only mean "100% discoverable"; (3) the behavioral-judge/autonomy fork was unresolved (oscillation #38→#41→#44).
+
+**New completion-bar items (gate TRUE-close):**
+- **Done #49 — Spec-extraction completeness validated.** Commitments extracted from each spec validated by an independent second extraction; completeness measured + disclosed; detectors run against the validated set, not a single-reader extraction. (General discipline #28.)
+- **Done #50 — Denominator honesty (found ≠ all).** Cycles 1–16 denominator derived by ≥2 independent discovery methods; residual blind spot bounded + disclosed; "100%" scoped to the discoverable population. (General discipline #29; sharpens Done #43 + #37.)
+- **Done #51 — Validation-tier disclosure (ruling (a)).** No uniform "100% validated": execution-checkable specs at full rigor; semantically-judged specs validated by diverse, structurally-independent automated judges that must AGREE — never a single judge, never a human in the close path (#25); ambiguity fails safe + surfaces for after-the-fact audit; per-spec tier declared, judgment-tier residual disclosed. (General discipline #30.)
+
+**Ruling (a) recorded.** Rex 2026-05-29: no human in the close path; for semantic specs "validated" = "diverse independent automated judges agree," not "proven correct," with residual disclosed. Option (b) (bounded human audit touchpoint) declined. Resolves the #38→#41→#44 oscillation.
+
+**TRUE-close extension.** Closes ONLY when (a)–(h) per Amendments 28e+28f hold AND **(i) Done #49–#51 land**; the close-claim is explicitly two-tier + residual-disclosed; a uniform "100% validated" is refused.
+
+**Sequencing (operational).** Done #51 binds from S18 detector re-validation onward (incl. the now-unblocked LLM-judged classes per D-S17-2). Done #49 + #50 are preconditions for the enumeration phase (Phase 11), landing after S18 makes the detectors trustworthy (per Done #42).
+
+**Durable encoding (future cycles inherit):** foundational_grounding §Leadership Discipline #28/#29/#30 + Cycle 10 spec §8.12 + validation_prompt general R3 block #19–#30 (by reference). **Cycle-16 build specs** (HR hypotheses + ED §5 acceptance criteria + REQUIREMENTS + ROADMAP for the three mechanisms) authored by the Researcher-Planner at the next build session per Binding 6 — NOT kc-direct; build by Build-Runner.
