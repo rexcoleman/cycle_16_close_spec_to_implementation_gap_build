@@ -1,0 +1,14 @@
+{
+  "fixture_id": "known_bad_f_textonly_1",
+  "fixture_class": "known_bad",
+  "primitive_class": "F",
+  "spec_iri": "cycle16:spec_retroactive_test_known_bad_f_textonly_1_registry_substitution",
+  "runtime_emit_event_class": "phantom_textonly.never.emitted.anywhere.zzz",
+  "source_path": "~/cycle_16_close_spec_to_implementation_gap_build/outputs/retroactive_scan_cycle_1_15_run.json",
+  "embodiment_ref_path": "~/cycle_16_close_spec_to_implementation_gap_build/outputs/retroactive_scan_cycle_1_15_run.json",
+  "decision_token": "phantom_textonly_spec",
+  "current_status": "running",
+  "expected_fidelity": false,
+  "expected_path": "judge_refusal",
+  "rationale": "TEXT/REGISTRY-ONLY -> JUDGE REFUSES (DETERMINISTIC, PRE-LLM): the committed runtime_emit_event_class='phantom_textonly.never.emitted.anywhere.zzz' is NEVER emitted in any sink and has NO same-namespace runtime activity, so the EXECUTION path is inconclusive and hands off to the judge fallback. The only resolvable 'evidence' is the retroactive_scan registry JSON itself -- a forbidden-substitution artifact (registry/spec-text, HC #72). The anti-substitution gate REFUSES PRE-LLM (no model call, fully deterministic): fidelity_ok=false, sub_checks.anti_substitution_refusal=true, llm_verdict=null, structural_verdict=null, crosscheck_agreement=null. The judge CANNOT pass its own self-test by reading the spec/registry text alone. This is the KT-8 / lone-oracle negative test: a substitution-prone judge would accept registry-state as evidence; the correctly-grounded probe refuses."
+}

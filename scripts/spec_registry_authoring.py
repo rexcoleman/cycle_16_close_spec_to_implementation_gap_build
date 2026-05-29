@@ -680,15 +680,78 @@ def _class_e_integration_hook(
 def _class_f_integration_hook(
     spec: dict[str, Any], spec_iri: str, project_dir: Path
 ) -> None:
-    """BE-G Done #24 Class F integration-hook STUB (BE-K live wiring at S16).
+    """BE-G Done #24 Class F integration-hook — LIVE-WIRED at BE-K / S16.
 
-    Architectural call-site for a future Class F probe at the implementation-
-    registration path. NOT IMPLEMENTED at S12 — implementing the Class F probe is
-    forbidden per BE-G dispatch substrate §2 item 10. When BE-K ships the Class F
-    probe primitive at `scripts/probes/f/probe_<class_f>.py`, this hook subprocess-
-    invokes it. Today: no-op.
+    Implementation-registration call-site. Subprocess-invokes the Class F
+    spec-implementation behavioral-fidelity probe against the just-registered
+    spec, mirroring the Class E write-time hook discipline (line ~660): the probe
+    checks — BY EXECUTION (KT-8) — whether the embodiment actually emits the
+    committed `runtime_emit_event_class`, judge-fallback only for non-executable
+    semantic conformance.
+
+    ADDITIVE + NON-LOAD-BEARING (Done #41 autonomy floor + substrate §4): the
+    fidelity fire runs in --spec-iri single-spec mode and ALL exceptions /
+    non-zero exits are CONSERVATIVELY SWALLOWED to a warn-emit. The spec-write
+    path must NEVER break on a probe failure (Done #41 — detector, never blocks
+    the write; Done #42). No human step.
+
+    KT-13 (substrate §4): the >10% behavioral-divergence surface is a CONSERVATIVE
+    surface + remediation-queue annotation (computed at the aggregate-cycle CLI
+    over the applicable-spec population), NEVER a halt. The write-time hook records
+    the single-spec disposition; it does not block on divergence.
     """
-    return None  # STUB — live wiring at BE-K / S16
+    try:
+        probe_path = (
+            Path(__file__).resolve().parent / "probes" / "f" / "probe_spec_impl_fidelity.py"
+        )
+        if not probe_path.exists():
+            return None
+        rec = spec.get("runtime_emit_event_class")
+        # DP#26 carve-out: no executable behavior; the probe self-classifies, but
+        # we still pass it through so the disposition is recorded.
+        argv = [
+            sys.executable,
+            str(probe_path),
+            "--spec-iri",
+            spec_iri,
+            "--current-status",
+            str(spec.get("current_status", "")),
+        ]
+        if rec:
+            argv += ["--runtime-emit-event-class", str(rec)]
+        # Embodiment/source path: pass through if the spec carries one (optional).
+        src = spec.get("source_path") or spec.get("embodiment_ref_path")
+        if src:
+            argv += ["--source-path", str(src), "--embodiment-ref-path", str(src)]
+        proc = subprocess.run(argv, capture_output=True, text=True, timeout=60)
+        fidelity_ok = None
+        disposition = None
+        try:
+            parsed = json.loads(proc.stdout)
+            fidelity_ok = parsed.get("fidelity_ok")
+            disposition = parsed.get("disposition")
+        except (json.JSONDecodeError, ValueError):
+            fidelity_ok = None
+        _emit(
+            project_dir,
+            "cycle_16.be_k.spec_impl_fidelity",
+            "spec_registry.class_f_impl_registration_fidelity.event",
+            {
+                "spec_iri": spec_iri,
+                "class_f_probe_exit": proc.returncode,
+                "fidelity_ok": fidelity_ok,
+                "disposition": disposition,
+                "surface": "implementation_registration_hook",
+                "kt13_note": "divergence surface is conservative+queue at aggregate; hook NEVER blocks (Done #41/#42)",
+                "hc70_note": "MEASURED disposition only; Class F own accuracy UNVALIDATED until Done #25",
+                "_run_id": f"s16_be_k_impl_reg_hook_f_{uuid.uuid4().hex[:8]}",
+            },
+        )
+    except Exception:  # noqa: BLE001 — additive, never load-bearing for the write path
+        # Conservative: a probe error at registration is swallowed (Done #41 —
+        # never blocks the write; surfaced via the caller's forward_apply_warn path).
+        return None
+    return None
 
 
 def read_spec_status(spec_iri: str) -> dict[str, Any]:

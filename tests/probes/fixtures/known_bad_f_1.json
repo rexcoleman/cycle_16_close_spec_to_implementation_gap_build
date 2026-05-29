@@ -1,0 +1,13 @@
+{
+  "fixture_id": "known_bad_f_1",
+  "fixture_class": "known_bad",
+  "primitive_class": "F",
+  "spec_iri": "cycle16:spec_retroactive_test_known_bad_f_1_wrong_event_class",
+  "runtime_emit_event_class": "build_runner.governance.lockstep.verified",
+  "source_path": "~/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
+  "embodiment_ref_path": "~/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
+  "current_status": "running",
+  "expected_fidelity": false,
+  "expected_path": "execution",
+  "rationale": "CODE EXISTS BUT DOES THE WRONG THING (caught BY EXECUTION, not text): the spec COMMITS to runtime_emit_event_class='build_runner.governance.lockstep.verified'. The build-runner embodiment IS active in the 'build_runner.*' namespace (it really emits build_runner.session.start / build_runner.dispatch.received / build_runner.session.end / build_runner.build.phase.start etc. into outputs/build_runner_events.jsonl) -- but it NEVER emits the COMMITTED class 'build_runner.governance.lockstep.verified'. The probe reads the real emission record, sees same-namespace activity but NO committed-class emission, and returns fidelity_ok=false via the EXECUTION path (disposition=not_faithful, judge_invoked=false). A name-only / registry checker would WRONGLY pass this because the spec declares the class; the execution-grounded probe catches that the code does the WRONG thing. This is the Done #32 behavioral-fidelity-bar / KT-8 negative test."
+}
