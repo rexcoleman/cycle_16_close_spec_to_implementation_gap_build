@@ -650,26 +650,26 @@ rm -rf "$SMOKE"
 
 <!-- gate:runtime_emit_spec §14 required -->
 
-Per Cycle-16-S11 BE-F dispatch substrate §1 item 1 + §4 RUNTIME_EMIT_SPEC fill instructions + Cycle 14 §12 BE#6 emit-schema precedent + SI Amendment 2026-05-28a/28b. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED `a49d619`) + §11 (BE-C LOCKED `1d61632`) + §12 (BE-D LOCKED `902f222`) + §13 (BE-E LOCKED) unchanged. 4 NEW event classes for probe library: `probe_library.fire.event` (production fires) + `probe_library_self_test.{pass,fail}.event` (self-test results) + `probe_library_admission.{pass,refuse}.event` (admission gate verdicts) + `be_f_probe_library_ship.event` (build_runner_events.jsonl single-fire at BE-F close).
+Per Cycle-16-S11 BE-F dispatch substrate §1 item 1 + §4 RUNTIME_EMIT_SPEC fill instructions + Cycle 14 §12 BE#6 emit-schema precedent + SI Amendment 2026-05-28a/28b. APPEND-only; §0-§6 (BE-A LOCKED `6c7c62d`) + §10 (BE-B LOCKED `a49d619`) + §11 (BE-C LOCKED `1d61632`) + §12 (BE-D LOCKED `902f222`) + §13 (BE-E LOCKED) unchanged. 4 NEW event classes for probe library: `probe_mibrary.fire.event` (production fires) + `probe_mibrary_self_test.{pass,fail}.event` (self-test results) + `probe_mibrary_admission.{pass,refuse}.event` (admission gate verdicts) + `be_f_probe_mibrary_ship.event` (build_runner_events.jsonl single-fire at BE-F close).
 
 ### §14.0 BE-F Emit Identity (extension to §0)
 
 | Field | Value |
 |---|---|
-| **Sinks (3 NEW)** | `~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_fire_events.jsonl` (NEW; production fires per `probe_library.fire.event`; ≥12 rows at BE-F close per substrate §1 item 6 + Done #15d strict) + `~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_library_self_test_events.jsonl` (NEW; self-test PASS/FAIL events per admission scan + per Class C re-run; predicateType `cycle16:probe_self_test_v1` distinct from production fires) + `~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_library_admission_events.jsonl` (NEW; admission gate verdicts per probe; ≥5 rows at BE-F close: 4 PASS + 1 REFUSE from T12 negative test). All sinks append-only per RUNTIME_EMIT_SPEC §4; refuse-on-violation per §3 fires if absent at first emit attempt — verified at BE-F build step 2 via `touch` before first probe-fire. Sinks namespace-isolated from BE-A/B/C/D/E sinks per Cycle 10 rule_6/8/10/12 invariants. |
-| **Namespaces (3 NEW)** | `cycle_16.be_f.probe_library` (production fires) + `cycle_16.be_f.probe_library_self_test` (self-test events) + `cycle_16.be_f.probe_library_admission` (admission events) — all namespace-isolated from BE-A `cycle_16.be_a.spec_registry` + BE-B `cycle_16.be_b.spec_registry` + BE-C `cycle_16.be_c.spec_implementation_gates` + BE-D `cycle_16.be_d.retroactive_scan` + BE-E `cycle_16.be_e.forward_apply_observation` per Cycle 10 namespace-isolation invariants |
+| **Sinks (3 NEW)** | `~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_fire_events.jsonl` (NEW; production fires per `probe_mibrary.fire.event`; ≥12 rows at BE-F close per substrate §1 item 6 + Done #15d strict) + `~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_mibrary_self_test_events.jsonl` (NEW; self-test PASS/FAIL events per admission scan + per Class C re-run; predicateType `cycle16:probe_self_test_v1` distinct from production fires) + `~/cycle_16_close_spec_to_implementation_gap_build/outputs/probe_mibrary_admission_events.jsonl` (NEW; admission gate verdicts per probe; ≥5 rows at BE-F close: 4 PASS + 1 REFUSE from T12 negative test). All sinks append-only per RUNTIME_EMIT_SPEC §4; refuse-on-violation per §3 fires if absent at first emit attempt — verified at BE-F build step 2 via `touch` before first probe-fire. Sinks namespace-isolated from BE-A/B/C/D/E sinks per Cycle 10 rule_6/8/10/12 invariants. |
+| **Namespaces (3 NEW)** | `cycle_16.be_f.probe_mibrary` (production fires) + `cycle_16.be_f.probe_mibrary_self_test` (self-test events) + `cycle_16.be_f.probe_mibrary_admission` (admission events) — all namespace-isolated from BE-A `cycle_16.be_a.spec_registry` + BE-B `cycle_16.be_b.spec_registry` + BE-C `cycle_16.be_c.spec_implementation_gates` + BE-D `cycle_16.be_d.retroactive_scan` + BE-E `cycle_16.be_e.forward_apply_observation` per Cycle 10 namespace-isolation invariants |
 | **Schema version** | `0.1` (locked at Cycle-16-S11 close paired-commit; aligned with Cycle 10 BE#5 baseline + BE-A/B/C/D/E schema_version) |
 | **Min events per run** | `12` (production fires; ≥3 per class × 4 classes per substrate §1 item 6; mix expected-implemented + expected-dormant per class; smoke-only fires REFUSED as acceptance evidence per Done #15d) |
-| **Emit primitive** | 4 probe scripts (`scripts/probes/{a,b,c,d}/probe_<class>.py`) emit `probe_library.fire.event` rows via direct JSONL append in `_aggregate_cycle()` function body (NOT via `emit.py forward_apply_emit()` — namespace + sink + predicateType are BE-F-specific; BE-F sinks are isolated from emit.py default sink `outputs/build_runner_events.jsonl`); admission gate module `scripts/probes/__init__.py` emits `probe_library_admission.{pass,refuse}.event` rows via `_emit_admission_event()` function body; each probe's `_self_test()` emits `probe_library_self_test.{pass,fail}.event` rows. The 1 close-fire `be_f_probe_library_ship.event` to `outputs/build_runner_events.jsonl` IS routed through Cycle 15 BE#4 5-event baseline emit primitive at BE-F close per build-runner.md runtime_emit_obligation. |
+| **Emit primitive** | 4 probe scripts (`scripts/probes/{a,b,c,d}/probe_<class>.py`) emit `probe_mibrary.fire.event` rows via direct JSONL append in `_aggregate_cycle()` function body (NOT via `emit.py forward_apply_emit()` — namespace + sink + predicateType are BE-F-specific; BE-F sinks are isolated from emit.py default sink `outputs/build_runner_events.jsonl`); admission gate module `scripts/probes/__init__.py` emits `probe_mibrary_admission.{pass,refuse}.event` rows via `_emit_admission_event()` function body; each probe's `_self_test()` emits `probe_mibrary_self_test.{pass,fail}.event` rows. The 1 close-fire `be_f_probe_mibrary_ship.event` to `outputs/build_runner_events.jsonl` IS routed through Cycle 15 BE#4 5-event baseline emit primitive at BE-F close per build-runner.md runtime_emit_obligation. |
 
 ### §14.1 BE-F Event Schema (4 NEW event classes)
 
 | Event class | Trigger | Required fields | Optional fields | Cardinality per run |
 |---|---|---|---|---|
-| `probe_library.fire.event` | At every probe `_aggregate_cycle()` invocation; one row emitted per spec_iri processed (production fires only; run_id prefix `s11_be_f_production_<class>_<spec_iri_short>` per substrate §1 item 6) | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_f.probe_library`), `event_class` (= `probe_library.fire.event`), `predicateType` (= `cycle16:probe_fire_v1` per LA §6.recovery.A row 10 SLSA in-toto attestation), `timestamp` (ISO 8601 UTC), `run_id` (with `s11_be_f_production_` prefix), `payload.probe_id`, `payload.probe_version`, `payload.probe_admission_lock_commit`, `payload.primitive_class` ∈ {A, B, C, D}, `payload.spec_iri`, `payload.implemented` (bool), `payload.evidence` (string ≤280 chars; behavioral observation OR precondition_missing descriptor), `payload.evidence_type` ∈ {`probe_fire_aggregate`, `precondition_missing`} | `payload.spec_class` (echo from BE-D scan), `payload.name_truncated` (echo), `payload.current_status_known` (echo from BE-D), `payload.behavioral_observation_count` (Class A specific), `payload.behavioral_path` (Class D specific: downstream_jsonl_fire OR downstream_citation OR none), `payload.judge_kind` (Class C specific: structural_judge_v0.1 OR llm_judge_v0.1), `payload.adr_evidence` (Class C precondition surface) | one event per `_aggregate_cycle()` × spec_iri; minimum 12 per BE-F close (3 per class × 4 classes); maximum unbounded (full 232-spec enumeration possible) |
-| `probe_library_self_test.pass.event` (and `.fail.event`) | At every probe `_self_test()` execution against fixture pair (1 known-good + 1 known-bad); one row per fixture invocation; distinguished bool field carries the per-fixture distinguish verdict | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_f.probe_library_self_test`), `event_class` (= `probe_library_self_test.pass.event` OR `.fail.event`), `predicateType` (= `cycle16:probe_self_test_v1` — DISTINCT from production fires per LA §6.recovery.A row 10), `timestamp`, `run_id` (with `s11_be_f_probe_lib_self_test_` prefix), `payload.probe_id`, `payload.probe_version`, `payload.primitive_class`, `payload.fixture_path`, `payload.fixture_class` ∈ {known_good, known_bad}, `payload.expected_implemented` (bool), `payload.actual_implemented` (bool), `payload.distinguished` (bool; true iff expected == actual) | `payload.evidence` (≤200 chars; probe's evidence string for the fixture), `payload.evidence_type`, `payload.behavioral_path` (Class D), `payload.judge_kind` (Class C) | ≥8 events per BE-F close (4 probes × 2 fixtures); ≥1 event per probe per fixture; smoke-only fires NOT counted toward production acceptance per Done #15d |
-| `probe_library_admission.pass.event` (and `.refuse.event`) | At every admission gate scan (`probes.admit_all()` or `probe_library_admission.sh` invocation); one row per probe discovered; verdict synthesizes the self-test exit code (PASS iff exit 0; REFUSE iff exit ≠ 0) | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_f.probe_library_admission`), `event_class` (= `probe_library_admission.pass.event` OR `.refuse.event`), `predicateType` (= `cycle16:probe_admission_v1`), `timestamp`, `run_id` (with `s11_be_f_admission_` prefix), `payload.probe_path`, `payload.probe_id`, `payload.primitive_class`, `payload.probe_library_version`, `payload.probe_admission_lock_commit` (SHA pinned at admission), `payload.verdict` ∈ {pass, refuse}, `payload.self_test_exit_code` (int) | `payload.fixture_class` (= `self_test_pair` for canonical admission; OR `self_test_pair_T12_negative` for T12 broken probe), `payload.evidence` (refusal: stderr_head + stdout_head extracts; pass: `self_test_distinguished_known_good_and_known_bad`) | ≥5 events per BE-F close (4 PASS for canonical probes + 1 REFUSE for T12 negative test) |
-| `be_f_probe_library_ship.event` | At BE-F build close (Step 14 envelope authoring close) — single-fire NEW event class emitted to `outputs/build_runner_events.jsonl` (NOT to BE-F-specific sinks) via Cycle 15 BE#4 5-event baseline emit primitive | `schema_version` (= `0.1`), `namespace` (= `moonshots.build_runner`), `event_class` (= `be_f_probe_library_ship.event`), `timestamp`, `run_id`, `payload.cycle_id` (= 16), `payload.session_label` (= `Cycle-16-S11`), `payload.be_class` (= `BE-F`), `payload.probes_admitted_count` (= 4), `payload.production_fires_count` (≥12), `payload.t12_negative_test_verdict` (= `PASSED`), `payload.locked_preservation_verdict` (= `zero_marker_loss=true`) | `payload.honest_gaps` (string list; surface honest_gaps reproduced from envelope), `payload.hc70_reality_vs_intent_table_path` | one event per BE-F close (single-fire close marker) |
+| `probe_mibrary.fire.event` | At every probe `_aggregate_cycle()` invocation; one row emitted per spec_iri processed (production fires only; run_id prefix `s11_be_f_production_<class>_<spec_iri_short>` per substrate §1 item 6) | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_f.probe_mibrary`), `event_class` (= `probe_mibrary.fire.event`), `predicateType` (= `cycle16:probe_fire_v1` per LA §6.recovery.A row 10 SLSA in-toto attestation), `timestamp` (ISO 8601 UTC), `run_id` (with `s11_be_f_production_` prefix), `payload.probe_id`, `payload.probe_version`, `payload.probe_admission_lock_commit`, `payload.primitive_class` ∈ {A, B, C, D}, `payload.spec_iri`, `payload.implemented` (bool), `payload.evidence` (string ≤280 chars; behavioral observation OR precondition_missing descriptor), `payload.evidence_type` ∈ {`probe_fire_aggregate`, `precondition_missing`} | `payload.spec_class` (echo from BE-D scan), `payload.name_truncated` (echo), `payload.current_status_known` (echo from BE-D), `payload.behavioral_observation_count` (Class A specific), `payload.behavioral_path` (Class D specific: downstream_jsonl_fire OR downstream_citation OR none), `payload.judge_kind` (Class C specific: structural_judge_v0.1 OR llm_judge_v0.1), `payload.adr_evidence` (Class C precondition surface) | one event per `_aggregate_cycle()` × spec_iri; minimum 12 per BE-F close (3 per class × 4 classes); maximum unbounded (full 232-spec enumeration possible) |
+| `probe_mibrary_self_test.pass.event` (and `.fail.event`) | At every probe `_self_test()` execution against fixture pair (1 known-good + 1 known-bad); one row per fixture invocation; distinguished bool field carries the per-fixture distinguish verdict | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_f.probe_mibrary_self_test`), `event_class` (= `probe_mibrary_self_test.pass.event` OR `.fail.event`), `predicateType` (= `cycle16:probe_self_test_v1` — DISTINCT from production fires per LA §6.recovery.A row 10), `timestamp`, `run_id` (with `s11_be_f_probe_mib_self_test_` prefix), `payload.probe_id`, `payload.probe_version`, `payload.primitive_class`, `payload.fixture_path`, `payload.fixture_class` ∈ {known_good, known_bad}, `payload.expected_implemented` (bool), `payload.actual_implemented` (bool), `payload.distinguished` (bool; true iff expected == actual) | `payload.evidence` (≤200 chars; probe's evidence string for the fixture), `payload.evidence_type`, `payload.behavioral_path` (Class D), `payload.judge_kind` (Class C) | ≥8 events per BE-F close (4 probes × 2 fixtures); ≥1 event per probe per fixture; smoke-only fires NOT counted toward production acceptance per Done #15d |
+| `probe_mibrary_admission.pass.event` (and `.refuse.event`) | At every admission gate scan (`probes.admit_all()` or `probe_mibrary_admission.sh` invocation); one row per probe discovered; verdict synthesizes the self-test exit code (PASS iff exit 0; REFUSE iff exit ≠ 0) | `schema_version` (= `0.1`), `namespace` (= `cycle_16.be_f.probe_mibrary_admission`), `event_class` (= `probe_mibrary_admission.pass.event` OR `.refuse.event`), `predicateType` (= `cycle16:probe_admission_v1`), `timestamp`, `run_id` (with `s11_be_f_admission_` prefix), `payload.probe_path`, `payload.probe_id`, `payload.primitive_class`, `payload.probe_mibrary_version`, `payload.probe_admission_lock_commit` (SHA pinned at admission), `payload.verdict` ∈ {pass, refuse}, `payload.self_test_exit_code` (int) | `payload.fixture_class` (= `self_test_pair` for canonical admission; OR `self_test_pair_T12_negative` for T12 broken probe), `payload.evidence` (refusal: stderr_head + stdout_head extracts; pass: `self_test_distinguished_known_good_and_known_bad`) | ≥5 events per BE-F close (4 PASS for canonical probes + 1 REFUSE for T12 negative test) |
+| `be_f_probe_mibrary_ship.event` | At BE-F build close (Step 14 envelope authoring close) — single-fire NEW event class emitted to `outputs/build_runner_events.jsonl` (NOT to BE-F-specific sinks) via Cycle 15 BE#4 5-event baseline emit primitive | `schema_version` (= `0.1`), `namespace` (= `moonshots.build_runner`), `event_class` (= `be_f_probe_mibrary_ship.event`), `timestamp`, `run_id`, `payload.cycle_id` (= 16), `payload.session_label` (= `Cycle-16-S11`), `payload.be_class` (= `BE-F`), `payload.probes_admitted_count` (= 4), `payload.production_fires_count` (≥12), `payload.t12_negative_test_verdict` (= `PASSED`), `payload.locked_preservation_verdict` (= `zero_marker_loss=true`) | `payload.honest_gaps` (string list; surface honest_gaps reproduced from envelope), `payload.hc70_reality_vs_intent_table_path` | one event per BE-F close (single-fire close marker) |
 
 ### §14.2 BE-F Measurement Hook (consumed by ACCEPTANCE_CRITERIA §14)
 
@@ -693,12 +693,12 @@ for k in sorted(mix):
 ```
 Expected at BE-F close: total_production ≥ 12; per-class ≥3; per-class mix ≥1 implemented + ≥1 not_implemented.
 
-**Metric B_BE_F: probe_library_self_test_events.jsonl count + predicateType + per-class fixture pair** (post-condition #35)
+**Metric B_BE_F: probe_mibrary_self_test_events.jsonl count + predicateType + per-class fixture pair** (post-condition #35)
 
 ```bash
 python3 -c "
 import json
-rows = [json.loads(l) for l in open('outputs/probe_library_self_test_events.jsonl') if l.strip()]
+rows = [json.loads(l) for l in open('outputs/probe_mibrary_self_test_events.jsonl') if l.strip()]
 st = [r for r in rows if r.get('predicateType') == 'cycle16:probe_self_test_v1']
 from collections import defaultdict
 by_class_fxc = defaultdict(set)
@@ -711,13 +711,13 @@ for k in sorted(by_class_fxc):
 ```
 Expected at BE-F close: self_test_rows ≥ 8; per-class fixture_classes = {known_good, known_bad}.
 
-**Metric C_BE_F: probe_library_admission_events.jsonl PASS+REFUSE counts** (post-condition #33 + T12 negative test evidence)
+**Metric C_BE_F: probe_mibrary_admission_events.jsonl PASS+REFUSE counts** (post-condition #33 + T12 negative test evidence)
 
 ```bash
 python3 -c "
 import json
 from collections import Counter
-rows = [json.loads(l) for l in open('outputs/probe_library_admission_events.jsonl') if l.strip()]
+rows = [json.loads(l) for l in open('outputs/probe_mibrary_admission_events.jsonl') if l.strip()]
 ctr = Counter(r['payload']['verdict'] for r in rows)
 print(f'pass={ctr[\"pass\"]} refuse={ctr[\"refuse\"]}')
 "
@@ -728,18 +728,18 @@ Expected at BE-F close: pass ≥ 4 (canonical 4-probe admission); refuse ≥ 1 (
 
 | Failure mode | Refusal behavior | Surface |
 |---|---|---|
-| Probe self-test does not distinguish known_good + known_bad fixtures | admission gate refuses (exit non-zero); emits `probe_library_admission.refuse.event` to admission sink; refused probe NOT added to ADMITTED_PROBES list (omitted from __all__); DP#44 BINDING refuse-on-missing-precondition | caller stderr (admission CLI) + envelope `issues` + admission JSONL sink |
+| Probe self-test does not distinguish known_good + known_bad fixtures | admission gate refuses (exit non-zero); emits `probe_mibrary_admission.refuse.event` to admission sink; refused probe NOT added to ADMITTED_PROBES list (omitted from __all__); DP#44 BINDING refuse-on-missing-precondition | caller stderr (admission CLI) + envelope `issues` + admission JSONL sink |
 | Probe body modified post-admission without version bump (PROBE_VERSION or PROBE_ADMISSION_LOCK_COMMIT inconsistent) | halt-and-surface per §14.3 invariant 23; require Builder-ARCH paradigm dispatch (HC #74); admission gate detects via SHA comparison at re-admission | caller stderr + envelope `issues` |
 | Generic-emission escape primitive proposed (probe body inspects "any emit event of any class fires" rather than spec-class-specific behavioral surface) | halt-and-surface per substrate §7 anti-pattern + KT-9 firing surface; Builder-ARCH paradigm dispatch required; do NOT route around by adding the primitive at admission | caller stderr + envelope `issues` + paradigm escalation candidate per HC #74 |
 | Class C LLM-judge invoked and returns implemented=True on known-bad fixture (substitution failure — registry-text / ADR-text / FINDINGS-mention accepted as evidence) | structural-judge fallback REFUSES at admission via `_structural_judge()` enforcing same contract shape (file:line citation required; embodimentRef ≠ DECISION_LOG); KT-8 firing surface candidate | caller stderr + envelope `issues` |
 | Substitution shape detected in probe body at HC #72 sweep (registry-field read / status-enum equality / token count / smoke-only / artifact-exists / single-smoke) | halt-and-surface per HC #72 BINDING; Builder-ARCH paradigm dispatch required for probe body repair; refuse to admit the substitution-shape probe | caller stderr + envelope `issues` + Coach R3 sweep verdict |
-| Smoke-only fire submitted as acceptance evidence (`run_id` prefix `_smoke_*` or `_probe_lib_self_test_*` instead of `s11_be_f_production_*`) | R3 aggregation filters via `run_id` prefix; smoke-only fires NOT counted toward acceptance per Done #15d strict; FAIL on probe-coverage acceptance threshold if no production fires present | R3 close-eval verdict + envelope `acceptance_filter_evidence` |
+| Smoke-only fire submitted as acceptance evidence (`run_id` prefix `_smoke_*` or `_probe_mib_self_test_*` instead of `s11_be_f_production_*`) | R3 aggregation filters via `run_id` prefix; smoke-only fires NOT counted toward acceptance per Done #15d strict; FAIL on probe-coverage acceptance threshold if no production fires present | R3 close-eval verdict + envelope `acceptance_filter_evidence` |
 | Probe-fire timeout (≥120s on single invocation) | admission gate halts that probe with `self_test_timeout_exceeded_120s` evidence; subprocess.TimeoutExpired raised; refusal event emitted | caller stderr + envelope `issues` |
 | KT-7 (self-test fail) / KT-8 (gate predicate string-matches probe ID) / KT-9 (generic-emission escape) / KT-10 (zero production probe fires on ≥1 class after admission) firing at BE-F close | halt-and-surface per HC #59 BINDING screen; §3.5 3-test pre-escalation gate; if all 3 confirm paradigm-class, halt + executive-format surface to Rex per HC #74 BINDING + Pattern 11 Step 3.5; do NOT proceed to §14 BE-F appends or commit | envelope `status: blocked` + paradigm escalation candidate |
 
 ### §14.4 BE-F Append-only Discipline (extension to §4)
 
-Same invariant as §4 + §13: append-only at all 3 NEW BE-F sinks (`probe_fire_events.jsonl` + `probe_library_self_test_events.jsonl` + `probe_library_admission_events.jsonl`) + at `outputs/build_runner_events.jsonl` (5-event baseline + 1 `be_f_probe_library_ship.event` close-fire). The 4 NEW event classes are append-only per emit primitive contract — never overwrite or supersede prior events. `wc -l outputs/probe_fire_events.jsonl` strictly monotonically increasing across BE-F execution (0 at scaffold → 16 at BE-F dogfooding-within-cycle close → ≥16 per future cycle's BE-F probe re-fires for forward extrapolation at Phase 10 retroactive scan re-run per ROADMAP §10). Same for self-test + admission sinks. Probe body PROBE_VERSION + PROBE_ADMISSION_LOCK_COMMIT constants are CONST-only (never reassigned at runtime); modifications require Builder-ARCH paradigm dispatch + new admission event row (new SHA pin).
+Same invariant as §4 + §13: append-only at all 3 NEW BE-F sinks (`probe_fire_events.jsonl` + `probe_mibrary_self_test_events.jsonl` + `probe_mibrary_admission_events.jsonl`) + at `outputs/build_runner_events.jsonl` (5-event baseline + 1 `be_f_probe_mibrary_ship.event` close-fire). The 4 NEW event classes are append-only per emit primitive contract — never overwrite or supersede prior events. `wc -l outputs/probe_fire_events.jsonl` strictly monotonically increasing across BE-F execution (0 at scaffold → 16 at BE-F dogfooding-within-cycle close → ≥16 per future cycle's BE-F probe re-fires for forward extrapolation at Phase 10 retroactive scan re-run per ROADMAP §10). Same for self-test + admission sinks. Probe body PROBE_VERSION + PROBE_ADMISSION_LOCK_COMMIT constants are CONST-only (never reassigned at runtime); modifications require Builder-ARCH paradigm dispatch + new admission event row (new SHA pin).
 
 ### §14.5 BE-F Calibration Hook (extension to §5)
 
@@ -749,7 +749,7 @@ set -euo pipefail
 cd /home/azureuser/cycle_16_close_spec_to_implementation_gap_build
 
 # 1. Admission scan PASS
-bash scripts/probe_library_admission.sh > /tmp/be_f_admission_summary.json
+bash scripts/probe_mibrary_admission.sh > /tmp/be_f_admission_summary.json
 python3 -c "
 import json
 s = json.load(open('/tmp/be_f_admission_summary.json')) if False else None
@@ -765,14 +765,14 @@ admitted, refused = probes.admit_all()
 assert len(admitted) == 4, f'CALIBRATION FAIL: expected 4 admitted, got {len(admitted)}'
 assert len(refused) == 0, f'CALIBRATION FAIL: unexpected refusals: {refused}'
 print('CALIBRATION PASS: admission gate admitted 4 + refused 0')
-print('CALIBRATION PASS: probe_library_admission_events.jsonl event count matches admission verdict')
+print('CALIBRATION PASS: probe_mibrary_admission_events.jsonl event count matches admission verdict')
 "
 
 # 2. Self-test events count + per-class coverage
 python3 -c "
 import json
 from collections import defaultdict
-rows = [json.loads(l) for l in open('outputs/probe_library_self_test_events.jsonl') if l.strip()]
+rows = [json.loads(l) for l in open('outputs/probe_mibrary_self_test_events.jsonl') if l.strip()]
 by_class = defaultdict(set)
 for r in rows:
     if r.get('predicateType') == 'cycle16:probe_self_test_v1':
@@ -788,7 +788,7 @@ print('CALIBRATION PASS: all 4 classes have known_good + known_bad self-test eve
 
 | # | Check | Status |
 |---|---|---|
-| 1 | 4 NEW event classes declared with trigger + required fields per §14.1 (`probe_library.fire.event` + `probe_library_self_test.{pass,fail}.event` + `probe_library_admission.{pass,refuse}.event` + `be_f_probe_library_ship.event`) | [x] PASS |
+| 1 | 4 NEW event classes declared with trigger + required fields per §14.1 (`probe_mibrary.fire.event` + `probe_mibrary_self_test.{pass,fail}.event` + `probe_mibrary_admission.{pass,refuse}.event` + `be_f_probe_mibrary_ship.event`) | [x] PASS |
 | 2 | Measurement hooks A_BE_F + B_BE_F + C_BE_F reproduce same value across two independent operators (deterministic JSONL aggregations) | [x] PASS (Python one-liners against same files = deterministic; admission-scan re-invocation yields same verdict given unchanged probe bodies) |
 | 3 | Refusal-on-violation wired for 8 failure modes per §14.3 (self-test-non-distinguishing + version-lock-violation + generic-emission-escape + LLM-judge substitution + HC #72 substitution shape + smoke-only-as-acceptance + probe-fire timeout + KT-7/8/9/10 firing) | [x] PASS |
 | 4 | Append-only discipline verified at all 3 NEW sinks (strictly monotonically increasing line counts during BE-F dogfooding-within-cycle execution) | [x] PASS (pre-BE-F + post-BE-F wc -l diffs match expected counts: probe_fire +16 / self_test ≥+8 / admission ≥+5) |
@@ -858,3 +858,34 @@ admits the `crash` value (HC-BE-G-1); dormancy window partitioned by real
 session index (HC-BE-G-2).
 
 (Stage 5 BE-H ADDITIVE-APPEND per Cycle-16-S13; BE-A..BE-G preserved verbatim.)
+
+---
+
+## §BE-M Probe-accuracy harness emit spec (Cycle-16-S17, Done #25)
+
+Namespace `cycle_16.be_m.probe_accuracy`; predicateType `cycle16:probe_accuracy_v1`.
+Sink: `outputs/probe_accuracy_events.jsonl`. Two event classes.
+
+**Event class `probe_accuracy.measure.event`** (one row per spec measured) — payload:
+- `harness_id` (str, `probe_accuracy_harness_v0.1`)
+- `primitive_class` (str, A–F)
+- `spec_iri` (str)
+- `spec_name` (str | null)
+- `probe_disposition` (bool | null — the probe's `implemented`/`fidelity_ok`; null for DP#26 carve-outs / E unjoinable)
+- `gt_label` (bool | null | str — independent ground-truth label; str sentinels: `dp26_carveout`, `inconclusive_judge_path`, `deferred_judge_path`)
+- `gt_source` (str — the independent derivation path used)
+- `gt_definition_id` (str — the pinned ground-truth DEFINITION id)
+- `contested` (bool — whether a different defensible definition flips the label)
+- `outcome` (str ∈ {`agree_TP`,`agree_TN`,`FP`,`FN`,`contested`,`deferred_or_carveout`})
+- `gt_detail` (str — measured counts behind the label)
+- `sub_check` (str | null — for E: which sub-check this row validates)
+
+**Event class `probe_accuracy.summary.event`** (one row per class) — payload:
+- `harness_id`, `primitive_class`
+- `verdict` (str ∈ {FULL-RIGOR-PASS, FULL-RIGOR-PASS-LOW-POWER, FULL-RIGOR-FAIL, CONTESTED, DEFERRED-GAP-2, PARTIAL-SUBCHECKS-VALIDATED+STATUS-MATCH-DEFERRED-GAP-2, NO-EVALUABLE-SPECS})
+- `tag` (str — short verdict tag)
+- `matrix` (object — confusion matrix, or per-sub-check matrices for E)
+
+Cardinality: 1 measure.event per evaluable/contested/deferred spec per class; 1 summary.event per measured class. The summary JSON (`outputs/probe_accuracy_summary.json`, NOT a JSONL event) additionally carries the `independence_attestation` block.
+
+(Stage 5 BE-M ADDITIVE-APPEND per Cycle-16-S17; BE-A..BE-H preserved verbatim.)
