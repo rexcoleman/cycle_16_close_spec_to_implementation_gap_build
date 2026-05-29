@@ -630,3 +630,15 @@ Layer four: **registry-fidelity drift + spec-implementation drift.** A KG entry 
 - **Clarification GAP-2 — config-first disposition** (the ladder S17 executed; see D-S17 for the result).
 
 **TRUE-close (revised).** Cycle 16 closes ONLY when (a)–(g) per Amendment 28e hold AND **(h) Done #43–#48 land + Done #31 structural-independence verified + GAP-2 dispositioned via the config-first ladder** + 5-layer TRUE-close FINDINGS authored + a structurally-independent automated audit agrees within tolerance + the close path contains NO mandatory human step (Discipline #25). Full text: `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_29f.md`. strategic_frame UNMODIFIED.
+
+## D-S17-2 — GAP-2 RESOLVED: Anthropic usage-limit is a key-switch, NOT a billing cap or Rex escalation (Rex disposition 2026-05-29; corrects stale S17 framing)
+
+**Decision (Rex 2026-05-29, verbatim intent):** *"we have more than one key. the last kc researched this and determined this is not a problem. do not burn tokens researching this again. please fix this so future kc's and downstream coaches do not burn cycles on this."*
+
+**Correction.** The S17 framing recorded in this log + state.json — "GAP-2 = BILLING_CAP_CONFIRMED branch (c) → BE-K liveness NOT cleared → ESCALATE Rex" — is **stale/superseded.** There are **≥2 Anthropic keys** on the host: `ORCHESTRATION_ANTHROPIC_API_KEY` (`~/Moonshots_Career_Thesis_v2/.env`) and `ANTHROPIC_API_KEY` (`~/Moonshots_Career_Thesis_v2/.env.backup`). A 400 "usage limit" on one key is an **operational key-switch** performed by the downstream Coach/Builder — NOT a billing cap requiring Rex, NOT a cycle-blocker. The config-first ladder's "branch (c) = real billing cap" conclusion was wrong because it never tried the alternate key.
+
+**Root cause = lost-because-never-persisted.** A prior kernel-coach already determined this was not a problem, but the determination was never written to a durable surface — so S17 (kc-51) re-hit the cap on the single named key, re-diagnosed it as billing, and re-escalated. This is exactly the failure the Cycle-10 spec §8.15 persistence-mechanism #2 ("infra carries name the exact handle + fallback") now prevents.
+
+**Operational implication for S18+.** C / F-judge / E-status re-validation + BE-K liveness + the `--backend anthropic` classify cron + newsletter T3 all RUN — on the alternate key. They are NOT GAP-2-deferred and NOT pending any Rex action. Do NOT re-research this; do NOT escalate it. (This narrows the genuine remaining work: the LLM-judged classes still need their accuracy validated like any detector — but that is a build/validate task, not a billing wait.)
+
+**Durable encoding (so it stops recurring):** memory `feedback_anthropic_multikey_not_a_blocker.md` (auto-loads at every future kc/Coach warmup) + MEMORY.md index + Cycle-10 spec §8.15 persistence-mechanism #2 example corrected + kc-52 PD §2b + §5 corrected + this entry + state.json current_phase/next_action corrected. strategic_frame UNMODIFIED.
