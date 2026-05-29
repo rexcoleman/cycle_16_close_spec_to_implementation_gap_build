@@ -550,3 +550,18 @@ Layer four: **registry-fidelity drift + spec-implementation drift.** A KG entry 
 **HC #70 honest scope — what BE-I does NOT prove.** BE-I makes {probes + Substitution Gate + structural-prevention layer} inheritable + behaviorally proven, and removes the registry-state proxy from govML's canonical session-close gate. It does NOT make the close-gate SUITE inheritable (Done #40, above). It does NOT validate the probes' own accuracy against independent blind-labeled ground truth (Done #25 / #38 / Phase 12 — the prober could itself be the new proxy). It does NOT fix past specs (Phase 11–13). No "future enforcement fully inherited" or "all specs implemented" claim is made.
 
 **Encoded surfaces.** govML v2.8.6 (VERSION + CHANGELOG TOP entry + init_project.sh 3 install fns/call-sites + templates/build/{probes,structural_prevention}/ + spec_implementation_session_close_gate.sh Check 2 + paired-commit ledger `outputs/cross_system_paired_commit_v2_8_6.json`) committed by Build-Runner; this DECISION_LOG D-S14 (Done #40 signed deferral) + cycle_16/EMABS/Moonshots paired surfaces committed by Coach at R3. KT-11 baseline `72a039a`; HC #45 ADDITIVE-APPEND chain n=6.
+
+## D-S14-1 — Done #41 autonomy-floor correction (Rex 2026-05-29: "are you putting me in the loop? that is a fail")
+
+**Decision.** Rex caught a P8 violation in kc-50's Amendment 28e plan: the verification/close path put Rex IN THE LOOP (human-blind-label as accuracy ground truth #38; Rex signature on kills/defers #35; "independent reviewer" reading as Rex #31; human-judged unverifiable disposition #39). This contradicts the end goal (describe a problem → walk away → come back to a COMPLETED cycle). A cycle that cannot close without Rex's labels/signatures cannot close autonomously.
+
+**Correction — Done #41 (autonomy floor), ADDITIVE; corrects the human-in-loop framing of #25/#31/#35/#38/#39 in 28e:**
+- Ground truth = execution reality + the specs authored upfront, NOT human labels. Conformance ("does the code do what the spec says") is checked by RUNNING the code and observing the spec's stated observable outcome — objective + automatable. The spec is the reference; Rex's one designed touchpoint is problem-definition at the FRONT.
+- Validate-the-validator (#25) bottoms out at DIVERSE structurally-independent automated checkers (no shared blind spot) + execution observation; agreement is the floor, not a human annotation.
+- Independent audit (#31) = a structurally-independent AGENT, never Rex.
+- Kills/defers (#35) + unverifiable disposition (#39) pass AUTOMATED justification gates + audit trail; Rex escalated ONLY on genuine machine-unresolvable ambiguity — a logged EXCEPTION, never the default close path.
+- Recursion floor (#38) = execution reality + diverse-independent automated agreement, NOT a human blind-label.
+
+**Completion bar (tightened).** Cycle 16 ALSO cannot close if its own close path requires Rex in the verification loop. Verify by tracing the close path end-to-end: every gate/audit/triage disposition reaches a verdict with NO mandatory human step (escalation-on-ambiguity permitted only as a logged, rare exception). Revised TRUE-close (f) now reads Done #32–#41. Full text: `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_28e.md`.
+
+**Encoded surfaces.** This DECISION_LOG D-S14-1 + 28e workspace amendment (Done #38/#35/#39 corrected + Done #41 added + canonical claim + TRUE-close (f)→#32–#41) + state.json disposition. 3-repo paired commit (cycle_16 + EMABS + Moonshots; NO govML — criteria correction only).
