@@ -1,7 +1,7 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "cycle_16_s19_detectors_trustworthy_or_honestly_not_yet_BE_O_class_a_behavioral_GT_BE_P_judged_tier_live",
+  "current_phase": "cycle_16_s20_phase11_rp_fill__done_49_50_51_47_build_specs_AUTHORED_HR_ED_REQ_ROADMAP_per_binding_6__substitution_traps_encoded_as_HARD_FAIL_assertions(methods_read_disjoint_sources_50__extraction_methods_distinct_49__judge_uses_different_model_or_method_AND_close_verdict_fn_human_inputs_eq_0_51)__BE_R_build_runner_fire_DEFERRED_to_s21(api_529_overload_x3_plus_denominator_verification_deserves_fresh_context)__substrate_ready__cycle_16_OPEN",
   "current_stage_orchestrator": "build",
   "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28) + Amendment 2026-05-28d (kc-49 autonomous authoring; Rex review gate WAIVED 2026-05-28; 7 chain-failure holes folded into binding completion criteria Done #25-#31 + HC #79-#85 + KT-15-18) + Amendment 2026-05-28e/28f (Done #32-#48 + TRUE-close (a)-(h)) + Amendment 2026-05-29g (kc-52 Step 3.5; Rex 'a go' 2026-05-29; Done #49-#51 spec-extraction-completeness + denominator-honesty + validation-tier-disclosure; ruling (a) no-human-in-close-path; TRUE-close (i); full text ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_29g.md)",
   "stage_0_2_complete": true,
@@ -715,11 +715,11 @@
     "BE-K-LIVENESS: >=1 successful live judge verdict (real code -> real faithful/not_faithful) NOT yet observed; BLOCKING carry to S17; gated on GAP-1(fixed)+GAP-2(Anthropic usage-limit, Rex infra). NOT deferred-done, NOT folded into Done #26 done.",
     "GAP-2: ORCHESTRATION_ANTHROPIC_API_KEY at usage-limit (HTTP 400); blocks live judge + Done #25 probe-accuracy validation; likely degrades --backend anthropic classify cron + newsletter T3 now; Rex infra/billing disposition."
   ],
-  "next_action": "cycle_16_s20_PHASE_11_per_done_42__execution_observable_detector_tier_TRUSTWORTHY_to_honest_ceilings(D_full_rigor_pass__A_F_pass_low_power__E_src_field_full_rigor)__judgment_tier_C_E_status_F_judge_CONTESTED_honest_not_yet(validate_the_validator_fired_diverse_judges_do_not_robustly_agree__carries_into_done_51)__S20_RP_authors_done_49_spec_extraction_completeness_50_denominator_honesty_51_validation_tier_mechanism_specs_per_binding_6_NOT_coach_direct__build_runner_builds__independent_should_exist_denominator__run_trusted_detectors__guard_the_guards_done_47__B_CONTESTED_folds_to_49_50__BE_J_33_88pct_SUSPECT__no_date_block_no_stale_await__cycle_16_OPEN",
-  "last_action": "cycle_16_s19_close",
-  "last_action_ts": "2026-05-29T17:47:59Z",
-  "last_action_timestamp": "2026-05-29T17:47:59Z",
-  "last_action_description": "S19: BE-O Class A behavioral-execution GT (subagent_type proxy killed per Rex D-S18-1) + BE-P judged tier LIVE (GAP-2 resolved; C live judge / E-status decoupled from BE-F import / F-judge live + harness diverse-judge GT sonnet vs haiku). Tier-disclosed: exec tier trustworthy to honest ceilings (D FULL-RIGOR-PASS, A/F PASS-LOW-POWER, E src/field FULL-RIGOR); judgment tier C/E-status/F-judge CONTESTED (honest not-yet, validate-the-validator fired). Coach DP#43 independent re-fire reproduced; independence_clean=true; no GT/fixture fudge. 3-repo paired commit. NO govML.",
+  "next_action": "cycle_16_s21_FIRE_BE_R_build_runner(substrate_ready_at_moonshots_workspace_cycle_16_s20_be_r_build_runner_dispatch_substrate)__BE_R=denominator_50(authored_intent_scan_method_2_DISJOINT_sources_from_method_1__methods_read_disjoint_sources_HARD_FAIL_on_dual_scan_of_recorded__authored_but_unrecorded_divergence_finding__residual_R_disclosed_never_zeroed)+extraction_49(E1_rule_based_plus_E2_different_model__extraction_methods_distinct_HARD_FAIL__jaccard_completeness__E1_sym_diff_E2_adjudication_ledger__reconciled_validated_set_V_as_detector_input)__then_BE_S_51_validation_tier_verdict__then_BE_T_47_guard_the_guards_plus_trusted_detector_run_over_V__Coach_R3_verify_denominator_with_INDEPENDENT_THIRD_method_pm5pct__cycle_16_OPEN",
+  "last_action": "cycle_16_s20_close",
+  "last_action_ts": "2026-05-29T18:54:27Z",
+  "last_action_timestamp": "2026-05-29T18:54:27Z",
+  "last_action_description": "S20: Phase-11 RP fill (Stage 3-4). RP authored build specs for Done #49 (spec-extraction completeness) + #50 (denominator honesty) + #51 (validation-tier disclosure) + #47 (guard-the-guards) into HR §3.phase11 + ED §5.phase11 (BE-R/BE-S/BE-T) + REQUIREMENTS Done #47/49/50/51 + ROADMAP §11, per Binding 6 (RP-authored, NOT Coach-direct). The two highest-substitution-risk traps encoded as HARD-FAIL boolean assertions: methods_read_disjoint_sources (#50 dual-scan-of-recorded REFUSED), extraction_methods_distinct + detector_input_is_reconciled_validated_set (#49 single-reader REFUSED), judge_uses_different_model_or_method + close_verdict_fn_human_inputs==0 (#51). Coach DP#43: additive-only (248 ins/0 del), 0 placeholders, markers paired, harness/probes/fixtures byte-identical to S19, cross-artifact consistent (1 narrow BE-Q->BE-T cross-ref fixed Coach-direct per pipeline_identity.md L52). BE-R Build-Runner dispatch substrate composed (WITHIN-CAP 0.543) but fire DEFERRED to S21 after 3x consecutive API 529 Overload + denominator verification deserves fresh context (clean sub-boundary per task context: denominator not started = not half-built). 3-repo paired commit. NO govML.",
   "stage_5_be_f_complete": true,
   "stage_5_be_f_complete_at": "2026-05-28T17:30:00Z",
   "stage_5_be_f_close_timestamp": "2026-05-28T17:30:00Z",
@@ -788,5 +788,16 @@
     "population_distinct": 232,
     "independence_clean": true,
     "done_42_phase_11_block": "satisfied for execution tier; S20=Phase 11"
+  },
+  "stage_5_s20_phase11_rp_fill": {
+    "complete": true,
+    "at": "2026-05-29T18:54:27Z",
+    "deliverable": "Phase-11 RP fill (Stage 3-4): build specs for Done #49/#50/#51/#47 authored per Binding 6",
+    "authored_surfaces": "HR §3.phase11 (H_phase11_49/50/51 + 3 reality-vs-intent rows); ED §5.phase11 (BE-R/BE-S/BE-T 6-threshold acceptance each); REQUIREMENTS Done #47/#49/#50/#51 + close-gate criterion 12; ROADMAP §11 (Phase 11 + route to Phase 12->13)",
+    "substitution_traps_encoded_as_hard_fail": "methods_read_disjoint_sources (#50 dual-scan-of-recorded REFUSED); extraction_methods_distinct + detector_input_is_reconciled_validated_set (#49 single-reader REFUSED); judge_uses_different_model_or_method + close_verdict_fn_human_inputs==0 (#51 engineered-agreement + human-in-close-path REFUSED)",
+    "coach_dp43": "additive-only 248 ins / 0 del; 0 placeholders; markers paired; harness/probes/fixtures byte-identical to S19 (git diff 0c7c1de -- scripts/ tests/ docs/ empty); 1 narrow BE-Q->BE-T cross-ref corrected Coach-direct per pipeline_identity.md L52",
+    "be_r_build_runner": "dispatch substrate composed WITHIN-CAP (10856 chars / 0.543) and READY at moonshots workspace; fire DEFERRED to S21 (3x consecutive API 529 Overload + denominator verification deserves fresh context)",
+    "build_deferred": "BE-R (denominator+extraction) + BE-S (validation-tier) + BE-T (guard-the-guards+detector-run) all queued for S21+; denominator NOT started (clean sub-boundary, not half-built)",
+    "no_govml": true
   }
 }

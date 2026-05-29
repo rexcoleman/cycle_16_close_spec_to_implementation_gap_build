@@ -160,3 +160,49 @@ Stage 2 augmentation permitted at S2 (this dispatch):
 | HC-RP-S2-6 (NEW at S2 R3) | kc-44 calibration delta: Coach R3 anchoring-slip at KT-1 paradigm escalation 2026-05-27 — operationally-disposable per foundational threshold-metric pre-registration discipline §10 (i)+(ii); Rex disposition (C) corrected via metric-revision-within-intent (DECISION_LOG D-S2-1) | kc-45 PD inheritance — Discipline #10 anchoring-slip countermeasure refinement at kc-N inbound gate at Coach R3 paradigm escalation |
 
 > Honest carries carried forward across Cycle 16 close into Cycles 17-18 forward-apply window per longitudinal verdict discipline.
+
+<!-- amendment_2026_05_29_phase11_start -->
+
+## Done Definition Extended — Done #47 + #49 + #50 + #51 Per-Deliverable Acceptance Criteria (Cycle-16-S20 Phase-11 RP fill per SI Amendment 2026-05-29g (28g) ruling (a); verbatim-faithful to 28g + dispatch §2 bars)
+
+<!-- source: SI Amendment 2026-05-29g (28g) Done #49/#50/#51 + ruling (a) verbatim — `.claude/workspace/cycle_16_si_amendment_2026_05_29g.md` -->
+<!-- source: cycle_16_s20_phase11_rp_dispatch_substrate §2 (the substitution traps as falsifiable thresholds) + §3.3 REQUIREMENTS authoring scope -->
+<!-- source: HR §3.phase11 H_phase11_49/50/51 + ED §5.phase11 BE-R/BE-S/BE-T (this same S20 RP fill) -->
+<!-- gate:requirements done_definition_phase11 -->
+
+**LOCKED-body discipline (Binding 7 + DP#42 strict).** Done #1-#19 + Close Gate Criteria 1-11 + Per-Deliverable Acceptance + Quality Requirements + Constraints + Stage Inputs + Verification Surfaces + Honest Carries LOCKED at prior closes; Done #47 + #49 + #50 + #51 ADDITIVELY APPENDED here. Verify via `git diff` zero change on pre-marker line ranges.
+
+### Done #47 + #49 + #50 + #51 verbatim-faithful per-deliverable criteria
+
+**Done #50 — Denominator honesty (found ≠ all).** The cycles-1–16 spec denominator is derived by ≥2 GENUINELY INDEPENDENT discovery methods (not the registry/recorded set alone): Method 1 = the BE-D recorded-artifact scan (232 distinct [measured]); Method 2 = an authored-intent scan reading sources Method 1 does NOT read (git history of spec-bearing commits + DECISION_LOG/handoff/SI-amendment prose + session transcripts). A dual-scan of recorded artifacts (registry + KG + canonical docs) is ONE method with one blind spot — REFUSED; the methods MUST be provably reading different sources (`methods_read_disjoint_sources` independence assertion). The divergence `authored_but_unrecorded = |authored_intent ∖ recorded|` is surfaced as a finding with per-spec provenance. The residual blind spot (intentions never written down anywhere) is explicitly bounded and disclosed, never rounded to zero. Every "100%" completion claim is scoped to the discoverable population (recorded ∪ authored-intent) with the residual stated; a bare "100%" is REFUSED. Closes hole #2; implements general discipline #29; sharpens Done #43 + #37.
+
+**Done #49 — Spec-extraction completeness validated.** For each cycles-1–16 spec, the set of checkable commitments extracted from its prose is validated by a SECOND INDEPENDENT extraction (different method / different reader): E1 (rule-based parser) + E2 (independent mechanism at a different model/reader); `extraction_methods_distinct` asserts the mechanisms differ (a re-run of one reader is REFUSED). Extraction-completeness = per-spec + aggregate `jaccard = |E1∩E2|/|E1∪E2|` [measured] + disclosed; the symmetric difference `E1 △ E2` is surfaced for adjudication, never dropped. Detectors run against the reconciled VALIDATED commitment set V, never a single-reader extraction (a guard HARD-FAILS a detector wired to E1-alone or E2-alone). Closes hole #1; implements general discipline #28.
+
+**Done #51 — Validation-tier disclosure (ruling (a); no human in close path).** No uniform "100% validated." Execution-checkable specs validate at full rigor (`FP==0 AND recall≥0.90` vs blind ground truth) OR explicit honest PASS-LOW-POWER with `n_eval` disclosed. Semantically-judged specs validate ONLY by diverse, structurally-independent automated judges that must AGREE — `judge_uses_different_model_or_method` asserts diversity (GT=`claude-sonnet-4-6` ≠ probe=`claude-haiku-4-5`; the harness `_gt_code_token_crosscheck` is a different code path); a single judge or a judge agreeing with itself is REFUSED; NEVER a human in the close path (`close_verdict_fn_human_inputs == 0`). Disagreement / ambiguity / missing-signal fails safe (NOT-VALIDATED) and is surfaced for the human's after-the-fact audit — agreement is NEVER engineered (the S19 ~45% [measured] judge disagreement correctly yielding CONTESTED is the bar working). The completion claim declares, per spec, which tier validated it, and the judgment-tier residual confidence gap is disclosed. Closes hole #3; implements general discipline #30.
+
+**Done #47 — Guard-the-guards.** The enforcement infrastructure itself — the probes, the gates, the agent specs, AND the accuracy harness — is enumerated INTO the audited population (an unaudited guard is the recursive failure in miniature). The Build-Runner pulls the infra into the denominator (`is_enforcement_infra: true` entries) and runs the trusted detectors over it too; the harness's own implementation status is measured, not assumed. Run-time independence is re-asserted (`probe_accuracy_harness.py --self-test` `independence_clean == true`) before the run is accepted (the prober may not be its own proxy).
+
+### Per-Deliverable Acceptance Criteria — Phase 11
+
+| Deliverable # | Acceptance criteria | Verification surface |
+|---|---|---|
+| 50 (Denominator honesty) | `methods_read_disjoint_sources(S1,S2)==True` [measured, boolean] (dual-scan REFUSED); `authored_but_unrecorded` [measured] with per-spec provenance; residual R bounded + disclosed (never 0); every "100%" scoped to discoverable population | BE-R §5.phase11.1 thresholds 1-3; Coach R3 mechanical re-check of independence assertion + `outputs/denominator_dual_method.json` |
+| 49 (Extraction completeness) | `extraction_methods_distinct==True` [measured, boolean] (single-reader-twice REFUSED); per-spec + aggregate Jaccard [measured]; `E1 △ E2` adjudication ledger (no silent drops); `detector_input_is_reconciled_validated_set==True` (single-reader-as-input REFUSED) | BE-R §5.phase11.1 thresholds 4-6; Coach R3 re-check of `outputs/extraction_completeness.json` + `validated_commitment_set.json` |
+| 51 (Validation-tier disclosure) | per-spec tier label; execution = `FP==0 AND recall≥0.90` OR honest PASS-LOW-POWER(`n_eval`); judgment = diverse judges (`judge_uses_different_model_or_method==True`) AGREE else fail-safe NOT-VALIDATED; `close_verdict_fn_human_inputs==0`; uniform "100% validated" REFUSED | BE-S §5.phase11.2 thresholds 1-6; Coach R3 re-check of `outputs/validation_tier_verdicts.json` + judge-diversity + fail-safe events |
+| 47 (Guard-the-guards) | probes + gates + agent specs + accuracy harness enumerated INTO audited population (`is_enforcement_infra: true`); detectors fire over infra; detector input = reconciled V; `independence_clean==true` re-asserted; no un-scoped "100%" | BE-T §5.phase11.3 thresholds 1-6; Coach R3 re-check of `outputs/guard_the_guards_population.json` + `trusted_detector_run.json` |
+
+### Close Gate Criteria — TRUE-close extension item (i) (SI Amendment 28g)
+
+Per Amendment 28g TRUE-close extension: Cycle 16 closes ONLY when (a)-(h) per Amendments 28e+28f hold AND **(i) Done #49–#51 land** — spec-extraction completeness validated + denominator derived dual-method with residual disclosed + every completion claim tier-labelled with the judgment tier validated by agreeing diverse automated judges (no human in the close path), with guard-the-guards (#47) folding the enforcement infra into the audited population. The "100%" claim at close is explicitly TWO-TIER and RESIDUAL-DISCLOSED; a uniform "100% validated" is REFUSED. This item (i) is appended to the 11-criterion close gate above as criterion 12.
+
+**Close gate criterion 12 (NEW; Amendment 28g item (i)).** Done #50 (denominator dual-method, residual disclosed) + Done #49 (extraction completeness validated, detectors on V) + Done #51 (per-spec tier-labelled verdict, diverse-agreeing judges, fail-safe, 0 human in close path) + Done #47 (guard-the-guards) ALL land; the close "100%" claim is two-tier + residual-disclosed; a uniform "100% validated" is REFUSED at close. Until criterion 12 holds (alongside criteria 1-11), Cycle 16 stays OPEN.
+
+### Cycle 16 close-state at S20 (this Phase-11 RP fill)
+
+- **Done #49 + #50 + #51 + #47 OPEN; Stage 3-4 RP fill complete at S20 (this session)**; Stage 5 BE-R + BE-S + BE-T builds queued for Cycle-16-S21+.
+- **Reality-vs-intent baseline (HR §3.phase11.2):** Method 2 (authored-intent scan) DOES NOT EXIST today (denominator is single-method); the second extraction DOES NOT EXIST today (detectors consume single-reader BE-D scan); the diverse-judge machinery EXISTS (S19) but is NOT yet productionized as a close-path verdict with per-spec tier labels + proven 0-human-in-close-path. Phase 11 builds/productionizes these; the gaps are the work, not regressions.
+- **Phase 11 FINDS + CERTIFIES the gaps; Phase 12 (100% probe-fire verification) → Phase 13 (build/kill/defer the missing spec code)** is the route-forward (NOT this phase).
+
+<!-- /gate:requirements done_definition_phase11 -->
+
+<!-- amendment_2026_05_29_phase11_end -->

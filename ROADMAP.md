@@ -382,3 +382,75 @@ Cycle 16 closes when:
 <!-- amendment_2026_05_28a_extension_end -->
 
 > Cycle 16 Phase 8 + Phase 9 + Phase 10 sequencing per dispatch substrate §3.d. Per `feedback_honest_evaluation.md` BINDING + `feedback_cycle_close_reality_vs_intent_diagnostic.md` BINDING: Coach R3 independent verification at every BE close + close-arc reality-vs-intent diagnostic mandatory at FINDINGS Layer 5; Build-Runner self-report NOT load-bearing. Per HC #74 BINDING cycle-management disposition is paradigm-class: any new-cycle / reopen / fold / close-timing / scope-re-sequencing candidate emerging from Phase 9 or 10 surfaces via Pattern 11 Step 3.5 to Rex — does NOT dispose operationally.
+
+<!-- amendment_2026_05_29_phase11_start -->
+
+## §11 Phase 11 — Denominator honesty (#50) + spec-extraction completeness (#49) + validation-tier close-path verdict (#51) + guard-the-guards (#47) (Cycle-16-S21+ subsequent sessions; per SI Amendment 2026-05-29g (28g) ruling (a))
+
+<!-- source: SI Amendment 2026-05-29g (28g) Done #49/#50/#51 + ruling (a) + sequencing block ("Done #51 binds from S18 detector re-validation onward; Done #49 + #50 are preconditions for the enumeration phase (Phase 11), AFTER S18 makes detectors trustworthy per Done #42 validate-before-remediate") -->
+<!-- source: cycle_16_s20_phase11_rp_dispatch_substrate §3.d ROADMAP authoring scope + §0 (Phase 11 FINDS + CERTIFIES; does NOT implement; Phase 12 verify → Phase 13 build/kill/defer) -->
+<!-- source: HR §3.phase11 + ED §5.phase11 BE-R/BE-S/BE-T (this same S20 RP fill) -->
+<!-- source: handoff §1ee S19 close — execution tier trustworthy; judgment tier CONTESTED -->
+<!-- gate:roadmap §11 phase_11 required -->
+
+**Framing.** Phase 11 FINDS and CERTIFIES the spec→implementation gaps; it does NOT implement the missing spec code (that is Phase 12 verify → Phase 13 build/kill/defer). The §10 "Phase 10" close-arc is SUPERSEDED as the close target by the extended Done bar (SI Amendment 28g TRUE-close item (i) = REQUIREMENTS close-gate criterion 12); per DP#42 non-destructive supersedure, §10 is NOT deleted — it stands as the prior close target and its Phase-10.1 probe-grounded retroactive scan re-run now feeds Phase 11 (the trusted detectors it produces are run over the validated set V at BE-T). Per Done #42 validate-before-remediate: Phase 11 lands AFTER S18 made the execution-observable detectors trustworthy (per §1ee); the CONTESTED judgment tier is NOT force-certified.
+
+### §11.1 Phase 11.1 — BE-R: Denominator honesty (#50) + spec-extraction completeness (#49) (closes Done #50 + #49 + H_phase11_50 + H_phase11_49)
+
+**Scope.** (i) Authored-intent scan (Method 2) over sources DISJOINT from Method 1 + `methods_read_disjoint_sources` independence assertion (dual-scan-of-recorded REFUSED) + `authored_but_unrecorded` divergence finding with per-spec provenance + disclosed residual R (never 0). (ii) Second-independent-extraction pipeline (E1 rule-based + E2 different-mechanism) + `extraction_methods_distinct` assertion (single-reader-twice REFUSED) + per-spec/aggregate Jaccard completeness + `E1 △ E2` adjudication ledger + reconciled validated set V (single-reader-as-detector-input REFUSED).
+
+**Sequencing dependencies.** S18 detector re-validation complete (per §1ee — execution tier trustworthy). Within BE-R: denominator (#50) → extraction (#49). BE-R V is a precondition for BE-T's trusted-detector run.
+
+**Acceptance threshold (per H_phase11_50 + H_phase11_49 / ED §5.phase11.1).** PASS-all 6 of 6: dual-scan REFUSED (independence assertion) + divergence with provenance + residual disclosed + distinct-mechanism extraction + measured Jaccard with surfaced symmetric difference + detector input = reconciled V.
+
+**Expected sessions.** Cycle-16-S21+ (1-2 sessions; denominator then extraction).
+
+**Close evidence.** `scripts/authored_intent_scan.py` + `scripts/spec_extraction_pipeline.py` + `outputs/denominator_dual_method.json` + `outputs/extraction_completeness.json` + `outputs/validated_commitment_set.json` + independence-check JSONL + DECISION_LOG `D-S{N}-{M}`.
+
+### §11.2 Phase 11.2 — BE-S: Validation-tier close-path verdict mechanism (#51) (closes Done #51 + H_phase11_51)
+
+**Scope.** Productionize the S19 diverse-agreeing-judge + tier-disclosure machinery (`gt_class_c`/`_status`/`_f_judge` in `probe_accuracy_harness.py`) into a per-spec CLOSE-PATH VERDICT function: execution-checkable → full-rigor verdict; semantically-judged → diverse-agreeing-judge verdict with fail-safe; per-spec tier label in the completion claim; 0 human inputs in the close path (ruling (a)). Does NOT re-build the judges; wires them into the close-path verdict + proves 0-human-in-close-path + emits the tier-labelled claim. Do NOT engineer agreement; do NOT force-certify the CONTESTED judgment tier.
+
+**Sequencing dependencies.** Binds from S18 detector re-validation onward (per Amendment 28g sequencing). Consumes BE-R's validated set V (tier-classifies the specs in V). Its verdicts tier-label the BE-T run.
+
+**Acceptance threshold (per H_phase11_51 / ED §5.phase11.2).** PASS-all 6 of 6: per-spec tier classifier + execution full-rigor-or-honest-LOW-POWER + diverse judges (different model/method) else REFUSED + fail-safe on disagreement (never engineered) + 0 human in close path + tier-labelled claim (uniform "100% validated" REFUSED).
+
+**Expected sessions.** Cycle-16-S22+ (single session; productionizes existing machinery).
+
+**Close evidence.** `scripts/validation_tier_verdict.py` + `outputs/validation_tier_verdicts.json` + `outputs/judge_diversity_check.jsonl` + `outputs/validation_tier_failsafe_events.jsonl` + reference to UNMODIFIED harness `gt_class_*` + `--self-test` + DECISION_LOG `D-S{N}-{M}`.
+
+### §11.3 Phase 11.3 — BE-T: Guard-the-guards (#47) + trusted-detector run over the validated set (closes Done #47; consumes BE-R V + BE-S verdicts)
+
+**Scope.** (i) Fold the enforcement infrastructure itself — probes, gates, agent specs, AND the accuracy harness — INTO the audited population (`is_enforcement_infra: true`); run the trusted detectors over the infra too (the guards audit themselves). (ii) Run the trusted execution-tier detectors over the reconciled validated commitment set V (NOT a single-reader extraction), tier-labelling each verdict per BE-S. The implemented-rate it yields IS the finding (likely large gaps per §1ee — 6/9 AgentContracts with no executable observable, 3/10 KG ontologies with no SHACL shapes); never a number to engineer; the CONTESTED judgment tier is NOT force-certified.
+
+**Sequencing dependencies.** Guard-the-guards folds infra into the denominator BEFORE the detector run. The run consumes BE-R's V + BE-S's tier verdicts. Re-asserts harness `--self-test` `independence_clean==true` before accepting the run.
+
+**Acceptance threshold (per ED §5.phase11.3).** PASS-all 6 of 6: enforcement infra in audited population + detectors fire over infra + detector input = reconciled V (single-reader REFUSED) + per-spec tier-labelled implemented-rate + independence preserved + no un-scoped "100%", gaps disclosed (HC #70).
+
+**Expected sessions.** Cycle-16-S23+ (single session; guard-the-guards then run).
+
+**Close evidence.** `outputs/guard_the_guards_population.json` + `outputs/guard_the_guards_run.jsonl` + `outputs/trusted_detector_run.json` (per-spec tier-labelled rate over V + independence attestation) + DECISION_LOG `D-S{N}-{M}`.
+
+### §11.4 Phase 11 aggregate close criteria — Cycle 16 TRUE-close item (i) (Amendment 28g; REQUIREMENTS close-gate criterion 12)
+
+- All 3 H_phase11 rows resolved (CONFIRMED / REFUTED / INCONCLUSIVE per HR §3.phase11 Resolution Log fill at FINDINGS close).
+- Done #50 + #49 + #51 + #47 closed in-cycle per REQUIREMENTS §Done #47/#49/#50/#51 acceptance criteria.
+- Denominator dual-method with `methods_read_disjoint_sources==True` + `authored_but_unrecorded` surfaced + residual R disclosed (never 0).
+- Extraction completeness measured (Jaccard) + detectors run on reconciled V (single-reader REFUSED).
+- Validation-tier verdict per-spec tier-labelled + diverse-agreeing judges + fail-safe + 0 human in close path; uniform "100% validated" REFUSED.
+- Guard-the-guards: enforcement infra folded into the audited population + detectors fire over it + independence re-asserted.
+- The close "100%" claim is TWO-TIER + RESIDUAL-DISCLOSED; a bare/uniform "100%" is REFUSED.
+- Honest reality-vs-intent diagnostic at FINDINGS Layer 5 per `feedback_cycle_close_reality_vs_intent_diagnostic.md`; large implemented-rate gaps disclosed (HC #70), never engineered.
+
+### §11.5 Route forward — Phase 12 (100% probe-fire verification) → Phase 13 (build/kill/defer)
+
+Phase 11 certifies the spec→implementation gaps against a trusted denominator + validated commitment set + tier-disclosed verdicts. It does NOT implement the missing spec code. Route forward:
+
+- **Phase 12 — 100% probe-fire verification.** Verify every spec in the discoverable population (recorded ∪ authored-intent) has a probe-fire verdict (implemented / not-implemented / contested) over the validated set V, tier-labelled; 100% coverage of the discoverable population with residual R disclosed (NOT a bare 100%).
+- **Phase 13 — build / kill / defer the missing code.** For each certified gap: implement (wire the missing runtime observable) / kill (ADR retraction via `kill_spec()` per Done #18) / defer (named target session + reason + Rex authorization + re-activation condition + maximum dormancy window per Done #15f). This is where the missing spec code is actually built — NOT Phase 11.
+
+**Cycle 16 TRUE-close** = REQUIREMENTS close-gate criteria 1-11 (Amendments 28a/28b/28e/28f) AND criterion 12 (Amendment 28g item (i)) ALL_PASS. Until then, Cycle 16 stays OPEN per Rex 2026-05-28 + 2026-05-29 paradigm rulings. Per HC #74 BINDING cycle-management disposition is paradigm-class: any new-cycle / reopen / fold / close-timing candidate emerging from Phase 11/12/13 surfaces via Pattern 11 Step 3.5 to Rex — does NOT dispose operationally.
+
+<!-- /gate:roadmap §11 phase_11 -->
+
+<!-- amendment_2026_05_29_phase11_end -->
