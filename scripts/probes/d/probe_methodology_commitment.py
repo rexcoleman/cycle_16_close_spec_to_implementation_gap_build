@@ -67,13 +67,53 @@ def _commitment_source_exists(path: str, token: str) -> tuple[bool, str]:
     return False, f"commitment_token_absent={token}"
 
 
+# Files the BE-M harness itself writes into outputs/ — EXCLUDED from the scan
+# so the probe never reads the harness's own (or a sibling probe's) fire output
+# = circular contamination (validate-the-validator hazard). Mirrors the harness's
+# own exclusion set; independently authored here, NOT imported.
+_HARNESS_OWN_SINKS = {"probe_accuracy_events.jsonl"}
+
+
+def _is_harness_own_sink(path: pathlib.Path) -> bool:
+    return path.name in _HARNESS_OWN_SINKS or path.name.startswith(".acc_probe_fire_")
+
+
+def _token_in_structured_field(rec: dict, needles: set) -> bool:
+    """Structured-field match (independently authored to mirror the GT's
+    `_token_in_structured_field`, NOT imported): the token must appear inside a
+    STRUCTURED field of the parsed JSON record — event_class OR run_id OR a
+    string value of the payload dict — NOT as an incidental substring anywhere
+    in the raw line."""
+    ec = str(rec.get("event_class") or "")
+    rid = str(rec.get("run_id") or "")
+    for n in needles:
+        if n and (n in ec or n in rid):
+            return True
+    payload = rec.get("payload")
+    if isinstance(payload, dict):
+        for v in payload.values():
+            if isinstance(v, str):
+                for n in needles:
+                    if n and n in v:
+                        return True
+    return False
+
+
 def _downstream_jsonl_fire(
     runnable_artifact_ref: str | None,
     jsonl_search_roots: Iterable[str],
     commitment_token: str,
     recency_window_minutes: int,
 ) -> tuple[bool, str]:
-    """Behavioral evidence (i): runnable artifact has FIRED ≥1 time post-authoring."""
+    """Behavioral evidence (i): runnable artifact has FIRED ≥1 time post-authoring.
+
+    A fire is a downstream JSONL record where the artifact stem / commitment token
+    appears as a STRUCTURED FIELD VALUE (event_class | run_id | payload string
+    value) of the parsed record — NOT an incidental substring anywhere in the
+    line (the raw-substring match over-counted generic tokens such as HC-11 /
+    DP#44 / Binding 6/7 → 28 FPs). Harness-own sink files are excluded to avoid
+    circular contamination.
+    """
     if not runnable_artifact_ref:
         return False, "no_runnable_artifact_ref_declared"
     artifact_stem = pathlib.Path(runnable_artifact_ref).stem
@@ -90,27 +130,34 @@ def _downstream_jsonl_fire(
         if not rp.exists():
             continue
         for jsonl in rp.rglob("*_events.jsonl"):
+            if _is_harness_own_sink(jsonl):
+                continue
             try:
                 if jsonl.stat().st_mtime < cutoff:
                     continue
                 with jsonl.open("r", encoding="utf-8", errors="replace") as f:
                     for lineno, line in enumerate(f, 1):
-                        if not line.strip():
+                        line = line.strip()
+                        if not line:
                             continue
-                        # Require the artifact stem AND a recognisable fire event_class
-                        if any(n in line for n in needles) and (
-                            '"event_class"' in line or '"namespace"' in line
-                        ):
+                        # cheap prefilter before JSON parse
+                        if not any(n in line for n in needles):
+                            continue
+                        try:
+                            rec = json.loads(line)
+                        except json.JSONDecodeError:
+                            continue
+                        if _token_in_structured_field(rec, needles):
                             hits.append(f"{jsonl}:{lineno}")
                             if len(hits) >= 2:
                                 return (
                                     True,
-                                    f"downstream_jsonl_fire: {hits[0]}",
+                                    f"downstream_jsonl_fire (structured-field): {hits[0]}",
                                 )
             except OSError:
                 continue
     if hits:
-        return True, f"downstream_jsonl_fire: {hits[0]}"
+        return True, f"downstream_jsonl_fire (structured-field): {hits[0]}"
     return False, "no_downstream_jsonl_fire_found"
 
 
@@ -120,11 +167,20 @@ def _warmup_transcript_citation(
     md_search_roots: Iterable[str],
 ) -> tuple[bool, str]:
     """Behavioral evidence (ii): downstream warmup transcript / FINDINGS Layer 5
-    cites the commitment by trace_id OR by structural token in a downstream
-    cycle (NOT the cycle where the commitment was authored)."""
-    if not (trace_id or commitment_token):
-        return False, "no_trace_id_or_token_for_warmup_search"
-    needles = {n for n in (trace_id, commitment_token) if n}
+    cites the commitment by a STRUCTURED, collision-free trace_id ONLY.
+
+    GT (gt_class_d) recognises NO md-citation path; it labels implemented purely
+    on token-in-source AND a structured-field JSONL fire. A bare commitment_token
+    substring in a downstream FINDINGS/warmup md is an incidental documentary
+    mention (HC #72: citation-only is documentary, not behavioral) and collides
+    with countless rule citations (HC-11 / DP#44 / Binding 6/7 / Pattern N) →
+    28 FPs vs GT. We therefore restrict this fallback to a unique trace_id needle
+    and DROP the generic commitment_token substring match, so the probe label
+    matches GT semantics. With no trace_id (the aggregate-cycle default) this path
+    does not fire, exactly mirroring GT's no-citation-path stance."""
+    if not trace_id:
+        return False, "no_trace_id_for_warmup_citation (token-only citation is documentary, not behavioral — GT-aligned)"
+    needles = {trace_id}
     cycle_cites: list[str] = []
     for root in md_search_roots:
         rp = pathlib.Path(os.path.expanduser(root))

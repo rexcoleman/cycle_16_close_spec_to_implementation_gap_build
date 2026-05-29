@@ -167,15 +167,15 @@ def _scan_transcripts_for_agent_invocations(
                                 inp = blk.get("input") or {}
                                 stype = inp.get("subagent_type", "")
                                 desc = inp.get("description", "") or ""
-                                desc_l = desc.lower()
-                                hit = (
-                                    stype in name_variants
-                                    or any(
-                                        n.lower() in desc_l
-                                        for n in name_variants
-                                        if len(n) > 4
-                                    )
-                                )
+                                # GT (gt_class_a) labels purely on strict
+                                # subagent_type dispatch: stype exactly equal to a
+                                # name variant. Description-only mentions are
+                                # `mention_only_hits` in GT (used only for the
+                                # contested flag), NOT a dispatch (S141: most
+                                # pipeline agents run as SEPARATE sessions, so a
+                                # name in a tool_use description is a MENTION, not
+                                # an Agent-tool dispatch). Match strict only.
+                                hit = stype in name_variants
                                 if hit:
                                     observations.append(
                                         {
@@ -203,10 +203,14 @@ def probe(
 ) -> dict[str, Any]:
     """Class A AgentContract behavioral probe.
 
-    Returns a probe_fire result dict. Behavioral acceptance evidence is
-    (i) ≥1 JSONL Agent tool_use observation of the named subagent_type;
-    preconditions (ii) spec md exists, (iii) structural invariants hold are
-    SHORT-CIRCUITS that mark implemented: false with evidence_type=precondition_missing.
+    Returns a probe_fire result dict. Behavioral acceptance evidence is the
+    SOLE determinant of `implemented`: (i) ≥1 JSONL Agent tool_use observation
+    of the named subagent_type. The spec-md-exists and structural-invariant
+    checks are DISCLOSED DIAGNOSTIC fields only — they do NOT short-circuit the
+    label. GT (gt_class_a) labels purely on strict subagent_type dispatch and
+    ignores md-existence / structural invariants; a genuinely-dispatched agent
+    whose spec md isn't found / whose invariants don't parse must still be
+    labelled implemented (the recall-0.0 root cause was these short-circuits).
     """
     run_id = f"s11_be_f_production_a_{_short_iri(spec_iri)}_{uuid.uuid4().hex[:6]}"
     ts = _utc_ts()
@@ -214,7 +218,7 @@ def probe(
         pathlib.Path(agent_spec_path).stem if agent_spec_path else _short_iri(spec_iri)
     )
 
-    # Precondition (ii): agent_spec md file exists
+    # Diagnostic (ii): agent_spec md file exists (DISCLOSED, not a short-circuit)
     if agent_spec_path is None:
         agent_spec_path = _resolve_agent_spec_path(
             name,
@@ -227,42 +231,15 @@ def probe(
         os.path.expanduser(agent_spec_path or "")
     ).exists()
 
-    if not md_exists:
-        return {
-            "probe_id": PROBE_ID,
-            "probe_version": PROBE_VERSION,
-            "probe_admission_lock_commit": PROBE_ADMISSION_LOCK_COMMIT,
-            "primitive_class": PRIMITIVE_CLASS,
-            "spec_iri": spec_iri,
-            "run_id": run_id,
-            "timestamp": ts,
-            "predicateType": PREDICATE_TYPE_FIRE,
-            "implemented": False,
-            "evidence": f"precondition_failed: agent_spec_md_not_found name={name}",
-            "evidence_type": "precondition_missing",
-            "behavioral_observation_count": 0,
-        }
+    # Diagnostic (iii): structural invariants in spec body (DISCLOSED, not a
+    # short-circuit). Only attempted when the md is found.
+    if md_exists:
+        spec_body = _read_spec_body(os.path.expanduser(agent_spec_path))
+        invariants_ok, invariant_issues = _has_structural_invariants(spec_body)
+    else:
+        invariants_ok, invariant_issues = False, ["agent_spec_md_not_found"]
 
-    # Precondition (iii): structural invariants in spec body
-    spec_body = _read_spec_body(os.path.expanduser(agent_spec_path))
-    invariants_ok, invariant_issues = _has_structural_invariants(spec_body)
-    if not invariants_ok:
-        return {
-            "probe_id": PROBE_ID,
-            "probe_version": PROBE_VERSION,
-            "probe_admission_lock_commit": PROBE_ADMISSION_LOCK_COMMIT,
-            "primitive_class": PRIMITIVE_CLASS,
-            "spec_iri": spec_iri,
-            "run_id": run_id,
-            "timestamp": ts,
-            "predicateType": PREDICATE_TYPE_FIRE,
-            "implemented": False,
-            "evidence": f"precondition_failed: {'; '.join(invariant_issues)}",
-            "evidence_type": "precondition_missing",
-            "behavioral_observation_count": 0,
-        }
-
-    # Behavioral evidence (i): scan transcripts
+    # Behavioral evidence (i): scan transcripts — the SOLE label determinant.
     roots = transcript_roots or [DEFAULT_TRANSCRIPT_GLOB]
     observations = _scan_transcripts_for_agent_invocations(
         name, roots, recency_window_minutes
@@ -276,6 +253,12 @@ def probe(
         if implemented
         else f"behavioral_observation: 0 Agent tool_use(s) matching subagent_type={name!r} "
         f"within recency_window={recency_window_minutes}m"
+    )
+    # Disclose the demoted precondition diagnostics inline (not deleted).
+    evidence_str += (
+        f" | diagnostic: md_exists={md_exists} "
+        f"structural_invariants_ok={invariants_ok}"
+        + (f" issues={'; '.join(invariant_issues)}" if invariant_issues else "")
     )
 
     return {
@@ -292,6 +275,9 @@ def probe(
         "evidence_type": "probe_fire_aggregate",
         "behavioral_observation_count": len(observations),
         "behavioral_observations_sample": observations[:2],
+        "diagnostic_md_exists": md_exists,
+        "diagnostic_structural_invariants_ok": invariants_ok,
+        "diagnostic_invariant_issues": invariant_issues,
     }
 
 

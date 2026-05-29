@@ -116,28 +116,92 @@ def _schema_parseable(path: str) -> tuple[bool, str]:
     return True, f"unknown_suffix_assume_parseable body_len={len(body)}"
 
 
+def _extract_resolved_target_classes(schema_path: str) -> list[tuple[str, str]]:
+    """Extract + prefix-resolve target classes from a .ttl/.shacl body.
+
+    Independently authored (mirrors gt_class_b's extraction, NOT imported):
+    collects `sh:targetClass <IRI>`, `sh:targetClass pfx:local`, and
+    `owl:Class` declarations (both <IRI> a owl:Class and pfx:local a owl:Class),
+    then resolves prefixed names via the file's `@prefix` declarations. Returns
+    a de-duplicated list of (resolved_iri, original_token) for resolvable classes.
+    """
+    p = pathlib.Path(os.path.expanduser(schema_path))
+    try:
+        body = p.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return []
+    prefixes = dict(re.findall(r"@prefix\s+([\w-]*):\s*<([^>]+)>", body))
+    target_classes = re.findall(r"sh:targetClass\s+<([^>]+)>", body)
+    target_classes += re.findall(r"sh:targetClass\s+([\w-]+:[\w-]+)", body)
+    decl_classes = re.findall(r"<([^>]+)>\s+a\s+owl:Class", body)
+    decl_classes += re.findall(r"([\w-]+:[\w-]+)\s+(?:a|rdf:type)\s+owl:Class", body)
+    probed_raw = list(dict.fromkeys(target_classes + decl_classes))
+
+    def _to_iri(tok: str) -> str | None:
+        if tok.startswith("http"):
+            return tok
+        if ":" in tok:
+            pfx, local = tok.split(":", 1)
+            base = prefixes.get(pfx)
+            if base:
+                return base + local
+        return None
+
+    resolved: list[tuple[str, str]] = []
+    for tok in probed_raw:
+        iri = _to_iri(tok)
+        if iri:
+            resolved.append((iri, tok))
+    return resolved
+
+
 def _shacl_has_conforming_instance(
     schema_path: str,
     target_class: str | None,
     target_graph: str | None,
+    target_classes: list[tuple[str, str]] | None = None,
 ) -> tuple[bool, str]:
-    """Behavioral evidence for SHACL schemas: ≥1 conforming instance present."""
-    if target_class:
-        graph_clause = f"GRAPH <{target_graph}>" if target_graph else "GRAPH ?g"
-        q = (
-            f"SELECT (COUNT(DISTINCT ?inst) AS ?c) WHERE {{ "
-            f"{graph_clause} {{ ?inst a <{target_class}> }} }}"
-        )
-        count = _sparql_select_count(q)
-        if count is None:
-            return False, "sparql_endpoint_unreachable"
-        if count > 0:
+    """Behavioral evidence for SHACL schemas: ≥1 conforming instance present.
+
+    GT (gt_class_b) labels a SHACL schema implemented iff ANY resolvable target
+    class has ≥1 conforming instance, counted across the named assertion graph,
+    any named graph (GRAPH ?g), AND the default graph. We mirror that: if
+    `target_classes` (resolved (iri, token) pairs) is provided we test each and
+    return True on the FIRST with count>0; else we fall back to a single
+    `target_class`. With neither, we short-circuit (matches the pre-fix behavior
+    only when extraction yields nothing — which GT itself treats as contested)."""
+    classes: list[tuple[str, str]]
+    if target_classes:
+        classes = target_classes
+    elif target_class:
+        classes = [(target_class, target_class)]
+    else:
+        return False, "shacl_target_class_unspecified"
+
+    graph_clauses = (
+        [f"GRAPH <{target_graph}>"] if target_graph else ["GRAPH ?g", ""]
+    )
+    endpoint_reachable = False
+    per_class: list[tuple[str, int]] = []
+    for iri, tok in classes[:6]:
+        best = 0
+        for gc in graph_clauses:
+            inner = f"{gc} {{ ?inst a <{iri}> }}" if gc else f"?inst a <{iri}>"
+            q = f"SELECT (COUNT(DISTINCT ?inst) AS ?c) WHERE {{ {inner} }}"
+            count = _sparql_select_count(q)
+            if count is not None:
+                endpoint_reachable = True
+                best = max(best, count)
+        per_class.append((tok, best))
+        if best > 0:
             return (
                 True,
-                f"shacl_conforming_instances_in_kg count={count} class={target_class}",
+                f"shacl_conforming_instances_in_kg count={best} class={tok} "
+                f"(any-class match; per_class={per_class})",
             )
-        return False, f"shacl_no_conforming_instances count=0 class={target_class}"
-    return False, "shacl_target_class_unspecified"
+    if not endpoint_reachable:
+        return False, "sparql_endpoint_unreachable"
+    return False, f"shacl_no_conforming_instances per_class={per_class}"
 
 
 def _module_validation_call_site(
@@ -300,10 +364,20 @@ def probe(
     # Behavioral evidence routing
     suf = pathlib.Path(schema_path).suffix.lower()
     if suf in (".ttl", ".shacl"):
-        ok, evidence = _shacl_has_conforming_instance(
-            schema_path, target_class, target_graph
+        # GT semantics: implemented iff ANY resolvable target class declared in
+        # the .ttl body has ≥1 conforming instance. When no explicit
+        # target_class is supplied (the aggregate-cycle production path), extract
+        # + prefix-resolve the class(es) from the schema body ourselves and test
+        # each. (Previously _aggregate_cycle passed no target_class, so this path
+        # short-circuited to shacl_target_class_unspecified -> a false negative on
+        # every SHACL spec — the Class B recall-0 root cause.)
+        resolved_classes = (
+            None if target_class else _extract_resolved_target_classes(schema_path)
         )
-        evidence_type = "probe_fire_aggregate" if ok else "probe_fire_aggregate"
+        ok, evidence = _shacl_has_conforming_instance(
+            schema_path, target_class, target_graph, target_classes=resolved_classes
+        )
+        evidence_type = "probe_fire_aggregate"
     elif suf == ".py":
         roots = search_roots or [
             "~/cycle_16_close_spec_to_implementation_gap_build/",
