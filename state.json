@@ -352,6 +352,12 @@
       "full_text": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_28e.md",
       "applied_at": "kc-50 lifecycle, post Cycle-16-S13 close / pre Cycle-16-S14 BE-I dispatch",
       "s14_be_i_extension": "Done #36 (hole E) EXTENDS S14 BE-I acceptance \u2014 fresh-scaffold behavioral dogfood (fire+block-on-proxy+pass-on-real); must be in S14 task context before dispatch"
+    },
+    "cycle_16_done_42_validate_before_remediate_2026_05_29": {
+      "authority": "kc-50, prompted by Rex 2026-05-29 'when do we fix them?'",
+      "rule": "detected inconsistencies NOT remediated until detector accuracy-validated; order Done#25->Phase11->Phase12->KG-correction->Phase13; BE-J 82-queue is a FLOOR from not-yet-validated probe; status-contradiction usually = genuinely-missing code not a flag error",
+      "true_close_f": "Done #32-#42",
+      "ref": "DECISION_LOG D-S15-1; workspace cycle_16_si_amendment_2026_05_28e.md"
     }
   },
   "decisions_log": [
