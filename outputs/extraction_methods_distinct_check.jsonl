@@ -1,0 +1,7 @@
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:02:57.552601+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:03:00.234164+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:04:18.444888+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:05:11.868875+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:13:34.256299+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:20:12.894146+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}
+{"event_class": "extraction_methods_distinct_check.fire.event", "timestamp": "2026-05-29T23:30:21.030046+00:00", "method_E1": "rule_based_clause_parser", "method_E2": "llm_extraction:claude-haiku-4-5", "distinct_bool": true}

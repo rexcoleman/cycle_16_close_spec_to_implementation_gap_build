@@ -231,3 +231,66 @@ Retract the synthetic dogfood spec `cycle16:spec_be_g_kill_dogfood_s12`; transit
 Kill discipline is ADR-gated: no kill without a recorded retraction (DP#44).
 
 | D-S13-1 | BE-H structural-prevention layer ships at cycle_16 scripts/structural_prevention/; ED section 5.9 govML paths translated to cycle_16 first-arc; threshold 5 (init_project.sh) N/A at S13, signature declared for BE-I; HC-BE-G-1/HC-BE-G-2 fixed in cycle_16 mirror, govML canonical copy carry flagged for BE-I | 2026-05-28 | Coach R3 |
+
+---
+
+## ADR-S21-1: BE-R built but denominator HOLD (not-yet-trustworthy); denominator scope disposed Option-1
+
+- **Date:** 2026-05-29
+- **Status:** Accepted (Coach S21 R3 verdict; kc-53 Round-2 affirmed HOLD + disposed scope)
+
+### Context
+S21 fired the BE-R Build-Runner (one foreground general-purpose Agent, S141). BE-R built the
+two foundational Phase-11 mechanisms — `scripts/authored_intent_scan.py` (#50 denominator,
+Method 2) + `scripts/spec_extraction_pipeline.py` (#49 E1+E2 → reconciled set V) — and
+self-reported 6/6 thresholds + "PROMOTED-candidate, pending Coach R3." Coach ran the
+independent third-method verification the dispatch + #18/#29 + Amendment 28h require.
+
+### Decision — BE-R = HOLD (honest not-yet) at the Coach-verification gate
+The **mechanisms are valid** (all four predicates import-and-execute real logic, not the KT-8
+string-match/status-read mode; Coach independently re-ran all three guards: independence
+`exit=0`, methods-distinct `exit=0`, detector-input `exit=0` with the single-reader negative
+fixture correctly REFUSED; additive only — harness/probes/fixtures/gates/templates UNTOUCHED;
+no fudging — the Build-Runner disclosed its findings honestly). But the **numbers they produce
+are NOT yet trustworthy**. Verdict corrected from "PROMOTED-candidate" to **HOLD-not-trusted**.
+Mechanisms committed; outputs recorded as untrusted, NOT promoted. BE-S/BE-T NOT run (they
+consume the untrusted denominator/V). #53 (KG reconcile to V) stays BLOCKED until V is trusted.
+
+### Three findings (the validate-the-validator catch, one level up)
+1. **Denominator not method-stable — #18 ±5% cross-method check FAILS.** M1 (recorded 4-class
+   audit) = 232; M1∪M2 (dual-method discoverable) = 354; Coach third method (identifier census
+   across 15 cycle repos, dedup by repo+token) = 898 distinct (repo,id) pairs. ~3.5× spread.
+   Root cause: "distinct spec" has no method-stable operational definition
+   (operational-definition-substitution one level up).
+2. **The "122 authored_but_unrecorded" is contaminated** — not a missing-specs measure. 122
+   entries from only 69 distinct tokens, dominated by DP#41/DP#30/DP#7… (46 DP#N
+   design-principle REFERENCES) + Cycle-16's own Done #N (54); ~8 are naming-mismatch
+   false-positives (present in M1's FINDINGS corpus, missed by the token-substring name test).
+   Method 2's absence-test conflates references-to-principles with authored specs.
+3. **Reconciled set V is ~97.6% one reader.** Aggregate Jaccard 0.0134 (∩=22/∪=1638): E1
+   (rule-based) nearly inert → V (|V|=1637, admit-on-either-reader) ≈ the E2 LLM extraction;
+   the T6 guard checks V's label/path, not its composition. "Two-independent-reader V" is
+   currently one reader.
+
+### Denominator scope — disposed OPERATIONALLY by kc-53 (Round 2): Option 1
+The denominator population = the **four RQS spec classes only** (agent contracts / schemas /
+design decisions / methodology commitments per RQS L17/L53 + H1 L246 + probe-library Class
+A/B/C/D). **DP#/HC#/GPL/Pattern/Binding are pipeline-governance principles** enforced
+continuously via the gate stack + agent specs (and audited by guard-the-guards #47) — they are
+**references, not denominator members**; counting them is a category error (the contamination
+finding #2 above is the proof). NOT presented to Rex: resolved by the SI's own RQS; Rex's
+architectural judgment does not change it (gotcha #16 NO / S176 protocol-supersedes YES).
+
+### S22 carry — RP-authored refinement (Binding 6; NOT Coach-direct), all 3 findings as inputs
+- (a) Make spec-class definition method-stable: scope enumeration to the four RQS classes;
+  exclude DP/HC/GPL principle-references AND current-cycle (Cycle 16) Done-items from the
+  cycles-1-15 denominator; reconcile granularity across methods to the same class definition.
+- (b) Fix E1 (inert at Jaccard 0.0134) so it materially contributes before V is "reconciled."
+- (c) Strengthen the #49 acceptance criterion (T6): require both readers to materially
+  contribute (per-reader contribution floor / non-trivial Jaccard) — RP re-authors the criterion
+  to match spec intent (#27), reported to kc-53; NOT a Coach-direct gate edit (Binding 7).
+- (d) ANTI-GAMING (#28/#29): re-verify ±5% must EMERGE from independent methods applying the
+  same principled definition — NOT from tuning the definition until the numbers agree (that
+  would Goodhart the ±5% gate — the substitution one level up). Residual disclosed, never zeroed.
+
+| D-S21-1 | BE-R mechanisms BUILT + valid (4 predicates import-and-execute, 3 guards re-run exit 0, additive); denominator/V HOLD (not-trusted): #18 ±5% FAILS (232/354/898), "122" contaminated (DP#N refs + Cycle-16 Done#N + naming-mismatch), V ~97.6% E2-only (Jaccard 0.0134, E1 inert). Scope disposed Option-1 (four RQS classes; principles = references not members). BE-S/BE-T NOT run; #53 blocked. S22 RP refinement carry (a-d). | 2026-05-29 | Coach S21 R3 + kc-53 R2 |
