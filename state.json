@@ -1,7 +1,7 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "cycle_16_phase_9_3_stage_5_be_h_structural_prevention_layer_built_pending_promotion_s14_stage_5_be_i_dispatch_next",
+  "current_phase": "cycle_16_phase_9_4_stage_5_be_i_govml_v2_8_6_back_port_built_AND_PROMOTED_done_16_h_recovery_6_closed_done_36_behavioral_dogfood_proven_pending_promotion_s15_stage_5_be_j_dispatch_next",
   "current_stage_orchestrator": "build",
   "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28) + Amendment 2026-05-28d (kc-49 autonomous authoring; Rex review gate WAIVED 2026-05-28; 7 chain-failure holes folded into binding completion criteria Done #25-#31 + HC #79-#85 + KT-15-18)",
   "stage_0_2_complete": true,
@@ -693,11 +693,11 @@
     "HC-BE-G-1 NEW at S12 (kc-49 R3 independent verification): advisory session-close gate (scripts/be_g_mirror/spec_implementation_session_close_gate.sh) masks a probe-evaluation CRASH into PASS -- DORMANCY=$(python3 ... 2>&1 || true) then DORMANT_OVER_COUNT=$(... || echo 0) treats a non-JSON/crash result as 0-dormant -> PASS. Decorative-gate shape (gate green when its evidence-computation actually failed), one notch down on the ADVISORY (non-blocking, Done #19) gate; did NOT corrupt S12 close. The BLOCKING cycle-close gate (spec_implementation_present_gate.sh) is fail-CLOSED (probe crash -> total_fired=0 -> FAIL exit 1; kc-49 live-fire verified fired=268/impl=72). FIX at BE-H (S13): advisory gate fail-closed on probe crash + library self-test (Done #15e) catches probe crashes. kc-49 embeds at S13 BE-H dispatch task context.",
     "HC-BE-G-2 NEW at S12 (kc-49 R3 independent verification): probe-fire dormancy window is a HEURISTIC proxy (rows[-window*64:] 'generous recent window') not a true session-index partition for 'last 3 sessions' (Done #19). Reads probe-fire evidence (correct anti-substitution) but the window boundary is approximate. Refine at BE-H (S13) to a real session-index partition; also independently cross-checked by Phase 11 exhaustive enumeration discipline (HC #76). kc-49 embeds at S13 BE-H dispatch task context."
   ],
-  "next_action": "cycle_16_phase_9_4_stage_5_be_i_govml_v2_8_6_additive_append_back_port_plus_hc_be_g_1_2_carry_fix__EXTENDED_by_amendment_28e_done_36_fresh_scaffold_behavioral_dogfood",
-  "last_action": "cycle_16_s12_stage_5_be_g_write_boundary_enforcement_composite_built",
-  "last_action_ts": "2026-05-28T20:35:00Z",
-  "last_action_timestamp": "2026-05-28T20:35:00Z",
-  "last_action_description": "BE-G 10 deliverables BUILT: pre-commit hook + inotify watcher + forward_apply_emit wiring + 3-registry reconciliation + Done #17 cycle-close gate probe-fire UPGRADE (ASK-currentStatus removed) + kill_spec() + Done #19 dormancy gate probe-fire UPGRADE + Done #29 coverage matrix + CI bypass closure + Done #30 guard-the-guards + Class E/F stubs. All 10 ACCEPTANCE \u00a715.1 rows 37-46 PASS; KT-7 + KT-8 PASS. NO govML commit at S12.",
+  "next_action": "cycle_16_s15_phase_9_5_stage_5_be_j_class_e_kg_fidelity_probe_per_done_23_then_be_k_done_24_26_then_probe_accuracy_gate_done_25_38_then_phase_11_14_done_27_31_then_be_l_durability_plus_done_40_close_gate_suite_inheritance__all_completion_blocking_per_amendment_28d_28e",
+  "last_action": "cycle_16_s14_stage_5_be_i_govml_v2_8_6_back_port_built_committed_pushed",
+  "last_action_ts": "2026-05-29T00:35:00Z",
+  "last_action_timestamp": "2026-05-29T00:35:00Z",
+  "last_action_description": "BE-I BUILT + PROMOTED: govML v2.8.6 ADDITIVE-APPEND (HC #45 chain n=5->6) 3 install fns (probe_library + substitution_gate + structural_prevention) + templates/build/{probes,structural_prevention}/ + canonical session_close_gate Check 2 substitution-removal (registry-enum ASK -> probe-fire aggregate carrying HC-BE-G-1 fail-closed + HC-BE-G-2 real partition) + VERSION/CHANGELOG. KT-11 STRICT: 4 prior install-fn bodies byte-identical vs 72a039a (Coach R3 independently verified). Done #16 + H_recovery_6 CLOSED. Done #36 (28e) behavioral dogfood PROVEN: fresh scaffold inherited Substitution Gate BLOCKS on proxy (exit 1) / PASSES on probe-ref (exit 0), Coach-reproduced. Done #40 NEW signed in-cycle completion-blocking deferral RECORDED (close-gate suite not yet scaffold-inherited -> BE-L). govML committed by Build-Runner (content 20a8d80) + Coach ship-SHA provenance-fill (HEAD 54f4cde). Coach R3: all 7 acceptance items PASS + KT-11 + dogfood + deliverable-3 + HC#72 CLEAN; 1 defect found+fixed (orphaned ship-SHA).",
   "stage_5_be_f_complete": true,
   "stage_5_be_f_complete_at": "2026-05-28T17:30:00Z",
   "stage_5_be_f_close_timestamp": "2026-05-28T17:30:00Z",
@@ -709,15 +709,25 @@
       "id": "HC-BE-G-1",
       "status": "RESOLVED-at-BE-H (cycle_16 mirror)",
       "be_h_resolution": "dormancy compute FAIL-CLOSED: crash (non-JSON / non-zero rc) is a distinct crash verdict (FAIL blocking / loud non-PASS WARN advisory), never silent PASS=0; library_self_test treats crashing probe as self-test FAIL (crash:true)",
-      "govml_copy_carry": "govML canonical scripts/be_g_mirror session_close_gate STILL fail-open; govML untouched at S13; back-port -> BE-I/S14",
-      "repo_scope": "cycle_16 mirror RESOLVED; govML canonical carry -> BE-I"
+      "govml_copy_carry": "RESOLVED-at-BE-I (S14): govML canonical session_close_gate Check 2 back-ported to probe-fire aggregate with HC-BE-G-1 fail-closed DORMANCY_CRASH branch; Coach R3 body-read confirmed (no `|| echo 0` crash-swallow). Note: the literal `de467f9` defect framing was stale per S14 warmup discrepancy resolution — canonical never had magic-64/fail-open; it had the registry-enum ASK proxy (worse for this cycle), now removed.",
+      "repo_scope": "cycle_16 mirror RESOLVED at BE-H; govML canonical RESOLVED at BE-I/S14"
     },
     {
       "id": "HC-BE-G-2",
       "status": "RESOLVED-at-BE-H (cycle_16 mirror)",
       "be_h_resolution": "real session-index partition (run_id sNN_ prefix / payload.session; last 3 DISTINCT sessions) replaces rows[-max(1,window)*64:]; live 5-session fixture confirms fires=3 last-3-distinct-sessions vs all-rows magic-64",
-      "govml_copy_carry": "govML canonical copy STILL rows[-window*64:]; back-port -> BE-I/S14",
-      "repo_scope": "cycle_16 mirror RESOLVED; govML canonical carry -> BE-I"
+      "govml_copy_carry": "RESOLVED-at-BE-I (S14): govML canonical Check 2 back-ported with HC-BE-G-2 real `_session_key` partition (last 3 DISTINCT sessions); Coach R3 body-read confirmed `_session_key` present, no `*64`.",
+      "repo_scope": "cycle_16 mirror RESOLVED at BE-H; govML canonical RESOLVED at BE-I/S14"
+    },
+    {
+      "id": "Done #40",
+      "status": "OPEN — SIGNED IN-CYCLE COMPLETION-BLOCKING DEFERRAL (recorded at BE-I/S14, surfaced by Coach R2, declared by kc-50 Disposition C)",
+      "gap": "session/cycle-close gate SUITE not wired into fresh-scaffold install: BE-C/BE-G close-gates exist as govML operational copies only (templates/build/spec_implementation_gates/ ships obligation doc only); hook/watcher/reconciliation absent from scaffold install path; close-gate generalization off cycle16: ontology not done. Hole in Amendment 28e FUTURE guarantee — proven only for the Substitution Gate at BE-I, not the close-gate suite.",
+      "owner": "kc-50 (declared + set parameters)",
+      "named_target": "BE-L durability-gate session (close-gate-class; Done #34 durability gate also requires close-gate generalized off cycle16:)",
+      "expiry": "Cycle 16 close",
+      "reactivation": "before TRUE-close (close-gate-suite inheritance must be built + behaviorally proven before Cycle 16 may close)",
+      "discipline": "NOT a paper-over, NOT an out-of-cycle carry; Cycle 16 does not close until Done #40 met; DECISION_LOG D-S14"
     }
   ]
 }
