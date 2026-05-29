@@ -306,6 +306,148 @@ fi
 rm -f "$DORMANCY_ERR" 2>/dev/null || true
 echo ""
 
+# ── Check 2.5: BE-J Class E KG-FIDELITY SWEEP + KT-12 (Done #23 surface 3) ──────
+# Per Cycle-16-S15 BE-J dispatch substrate §3 item 4 + §5 item 6 + Done #41.
+# Fires the Class E KG-fidelity probe across the REAL named-graph population
+# (--aggregate-cycle), computes fidelity-fail %.
+#   KT-12 (NEW this session; recorded here + JSONL + close report only — NOT in HR;
+#   the RP formalizes KT-12 in HR at a later Stage-3 touch): if fidelity-fail
+#   > 10% => emit a CONSERVATIVE SURFACE event + write a remediation queue
+#   (outputs/be_j_kg_fidelity_remediation_queue.json) for Phase 13.
+#   This is a SURFACE + QUEUE, NEVER a human-blocking halt (Done #41 — ambiguity
+#   / failure never blocks the close path; it is an after-the-fact report line).
+echo "--- Check 2.5: BE-J Class E KG-fidelity sweep + KT-12 (Done #23 surface 3) ---"
+CLASS_E_PROBE="$DIR/scripts/probes/e/probe_kg_fidelity.py"
+KT12_THRESHOLD_PCT=10
+FIDELITY_SWEEP_SINK="$DIR/outputs/be_j_kg_fidelity_close_sweep.jsonl"
+REMEDIATION_QUEUE="$DIR/outputs/be_j_kg_fidelity_remediation_queue.json"
+CLASS_E_QUERY_ENDPOINT="${CYCLE6_QUERY_ENDPOINT:-http://localhost:3030/cycle6/query}"
+CLASS_E_NAMED_GRAPH="${CYCLE16_ASSERTION_GRAPH:-http://cycle16.local/registry/assertion}"
+if [ -f "$CLASS_E_PROBE" ]; then
+    set +e
+    python3 "$CLASS_E_PROBE" --aggregate-cycle 16 \
+        --run-id-prefix s15_be_j_close_gate_e \
+        --query-endpoint "$CLASS_E_QUERY_ENDPOINT" \
+        --named-graph "$CLASS_E_NAMED_GRAPH" \
+        --sink "$FIDELITY_SWEEP_SINK" >"$DIR/outputs/.class_e_sweep_stdout.tmp" 2>"$DIR/outputs/.class_e_sweep_stderr.tmp"
+    CLASS_E_RC=$?
+    set -e
+    CLASS_E_SUMMARY=$(cat "$DIR/outputs/.class_e_sweep_stdout.tmp" 2>/dev/null || true)
+    rm -f "$DIR/outputs/.class_e_sweep_stdout.tmp" 2>/dev/null || true
+    if [ "$CLASS_E_RC" -ne 0 ]; then
+        # Conservative: a sweep crash is a loud non-PASS, NEVER coerced to faithful.
+        echo "  WARN: Class E fidelity sweep compute failed (rc=$CLASS_E_RC); NOT coerced to PASS." >&2
+        add_check 25 "Class E KG-fidelity sweep" "WARN" "sweep_crash rc=$CLASS_E_RC (conservative non-PASS)"
+    else
+        # Compute fidelity-fail % from the sweep sink (faithful vs total Class E rows).
+        FIDELITY_STATS=$(python3 - "$FIDELITY_SWEEP_SINK" <<'PY'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+total = faithful = infidelity = unverifiable = 0
+queue = []
+if p.exists():
+    with p.open() as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            pay = row.get("payload") or {}
+            if pay.get("primitive_class") != "E":
+                continue
+            if row.get("run_id", "").startswith("s15_be_j_close_gate_e") is False and \
+               pay.get("probe_id") != "probe_kg_fidelity_v0.1":
+                continue
+            total += 1
+            if pay.get("fidelity_ok") is True:
+                faithful += 1
+            else:
+                sc = pay.get("sub_checks") or {}
+                if not sc.get("source_traceability") or "UNVERIFIABLE" in (pay.get("evidence") or ""):
+                    unverifiable += 1
+                else:
+                    infidelity += 1
+                queue.append({
+                    "spec_iri": pay.get("spec_iri"),
+                    "kg_spec_type": pay.get("kg_spec_type"),
+                    "kg_current_status": pay.get("kg_current_status"),
+                    "disposition": pay.get("disposition"),
+                    "sub_checks": sc,
+                    "evidence": (pay.get("evidence") or "")[:280],
+                })
+fail = total - faithful
+pct = (fail / total * 100.0) if total else 0.0
+print(json.dumps({
+    "total": total, "faithful": faithful, "infidelity": infidelity,
+    "unverifiable": unverifiable, "fail": fail,
+    "fidelity_fail_pct": round(pct, 2), "queue": queue,
+}))
+PY
+)
+        FAIL_PCT=$(echo "$FIDELITY_STATS" | python3 -c "import sys,json;print(json.loads(sys.stdin.read())['fidelity_fail_pct'])")
+        FAITHFUL_N=$(echo "$FIDELITY_STATS" | python3 -c "import sys,json;print(json.loads(sys.stdin.read())['faithful'])")
+        TOTAL_N=$(echo "$FIDELITY_STATS" | python3 -c "import sys,json;print(json.loads(sys.stdin.read())['total'])")
+        # KT-12 disposition: > threshold => SURFACE + remediation queue, NOT a halt.
+        KT12_FIRED=$(python3 -c "print('true' if float('$FAIL_PCT') > $KT12_THRESHOLD_PCT else 'false')")
+        if [ "$KT12_FIRED" = "true" ]; then
+            echo "  KT-12 SURFACE: fidelity-fail ${FAIL_PCT}% > ${KT12_THRESHOLD_PCT}% — writing remediation queue (NOT a halt; Done #41)." >&2
+            echo "$FIDELITY_STATS" | python3 -c "
+import sys, json, datetime
+d = json.loads(sys.stdin.read())
+out = {
+  'kt_12': 'kg_fidelity_population_fail_over_threshold',
+  'generated_at': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+  'threshold_pct': $KT12_THRESHOLD_PCT,
+  'fidelity_fail_pct': d['fidelity_fail_pct'],
+  'total': d['total'], 'faithful': d['faithful'],
+  'infidelity': d['infidelity'], 'unverifiable': d['unverifiable'],
+  'disposition': 'SURFACE_AND_QUEUE_FOR_PHASE_13 (after-the-fact report line; no human-blocking halt per Done #41)',
+  'remediation_queue': d['queue'],
+}
+open('$REMEDIATION_QUEUE','w').write(json.dumps(out, indent=2))
+print('remediation queue written:', '$REMEDIATION_QUEUE', 'entries=', len(d['queue']))
+"
+            # Conservative WARN (advisory surface), NEVER a FAIL that halts the close.
+            add_check 25 "Class E KG-fidelity sweep (KT-12 SURFACE)" "WARN" "fidelity_fail=${FAIL_PCT}% > ${KT12_THRESHOLD_PCT}%; remediation_queue=$REMEDIATION_QUEUE (surface+queue, not a halt)"
+        else
+            echo "  PASS: Class E fidelity-fail ${FAIL_PCT}% <= ${KT12_THRESHOLD_PCT}% (faithful=$FAITHFUL_N / $TOTAL_N); no remediation queue needed."
+            add_check 25 "Class E KG-fidelity sweep" "PASS" "fidelity_fail=${FAIL_PCT}% faithful=$FAITHFUL_N/$TOTAL_N"
+        fi
+        # Emit a SURFACE event regardless of KT-12 disposition (after-the-fact report line).
+        CLASS_E_SINK="$DIR/outputs/spec_implementation_gates_events.jsonl"
+        [ -f "$CLASS_E_SINK" ] || touch "$CLASS_E_SINK"
+        echo "$FIDELITY_STATS" | KT12="$KT12_FIRED" TS="$TIMESTAMP" python3 -c "
+import sys, json, os, uuid
+d = json.loads(sys.stdin.read())
+ev = {
+  'schema_version': '0.1',
+  'namespace': 'cycle_16.be_j.kg_fidelity',
+  'event_class': 'spec_implementation_session_close_gate.class_e_fidelity_sweep.fire.event',
+  'timestamp': os.environ['TS'],
+  'run_id': 's15_be_j_close_gate_e_surface_' + uuid.uuid4().hex[:8],
+  'payload': {
+    'surface': 'cycle_close_gate',
+    'kt_12_fired': os.environ['KT12'] == 'true',
+    'kt_12_threshold_pct': $KT12_THRESHOLD_PCT,
+    'total': d['total'], 'faithful': d['faithful'],
+    'infidelity': d['infidelity'], 'unverifiable': d['unverifiable'],
+    'fidelity_fail_pct': d['fidelity_fail_pct'],
+    'disposition': 'surface_and_queue (Done #41 — never a human-blocking halt)',
+  }
+}
+open(os.path.join('$DIR','outputs','spec_implementation_gates_events.jsonl'),'a').write(json.dumps(ev)+'\n')
+"
+    fi
+    rm -f "$DIR/outputs/.class_e_sweep_stderr.tmp" 2>/dev/null || true
+else
+    echo "  WARN: Class E probe not found at $CLASS_E_PROBE (skip-WARN; not a halt)"
+    add_check 25 "Class E KG-fidelity sweep" "WARN" "probe_not_found (skip; not a halt)"
+fi
+echo ""
+
 # ── Check 3: SESSIONS_BETWEEN primitive computable ──
 echo "--- Check 3: SESSIONS_BETWEEN computed from JSONL session.start markers ---"
 if [ "$SESSIONS_BETWEEN" -ge 0 ]; then

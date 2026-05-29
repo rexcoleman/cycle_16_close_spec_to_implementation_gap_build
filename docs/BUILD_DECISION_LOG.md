@@ -222,3 +222,7 @@ paths NOT inlined here.
 | 8 | BE-H | Ship structural-prevention layer at cycle_16 first-arc (govML untouched; BE-I back-port); every implementation-judging predicate subprocess-executes a named BE-F probe (KT-8); fix HC-BE-G-1 fail-open->fail-closed crash verdict + HC-BE-G-2 magic-64->real session-index partition in be_g_mirror session_close_gate | S13 |
 
 (Stage 5 BE-H section 2 row 8 ADDITIVE per Cycle-16-S13; rows 1-7 LOCKED.)
+
+| 9 | BE-J | Ship Class E KG-fidelity probe (Done #23) at cycle_16 first-arc (NO govML; later-BE back-port). VERDICT: BUILT. The probe IMPORTs+EXECUTEs the real KG-vs-reality comparison — resolves+reads the source-of-record, re-derives+diffs fields, fires the live BE-F probe for status-match (KT-8). A status-enum string-match or KG self-assert-flag trust is the FORBIDDEN proxy this cycle exists to kill (substrate §2). Done #41 autonomy floor: conservative fail-safe disposition (infidelity_or_unverified, never faithful) on any ambiguity; KT-12 (>10% fidelity-fail → SURFACE + remediation queue, NOT a halt) — no mandatory human step in the probe/gate/close path. 3 Done #23 surfaces live-wired; real /cycle6 dogfood (242 nodes, faithful=160/infidelity=72/unverifiable=10). HC #70 HONEST: BE-J does NOT prove Class E population-level ACCURACY (that is Done #25) — no "KG is 100% faithful" claim. | S15 |
+
+(Stage 5 BE-J section 2 row 9 ADDITIVE per Cycle-16-S15; rows 1-8 LOCKED.)

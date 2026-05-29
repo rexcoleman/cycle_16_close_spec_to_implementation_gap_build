@@ -166,3 +166,7 @@ recording in [BUILD_DECISION_LOG](BUILD_DECISION_LOG.tmpl.md) §2:
 | 2026-05-28 | BE-H | structural-prevention 8-piece layer (substitution #14 + stage-0 #15a + reality-vs-intent #15b + number-tag #15c + coverage #15d + self-test #15e + deferral #15f + design-anchor #15g) + HC-BE-G-1/2 carry fixes | cycle_16 scripts/structural_prevention/ + be_g_mirror/ | S13 |
 
 (Stage 5 BE-H ADDITIVE row per Cycle-16-S13; prior rows + BE-G row LOCKED preserved.)
+
+| 2026-05-29 | BE-J | Class E KG-fidelity probe (Done #23) — "does the KG tell the truth about reality?"; 3 execution-grounded sub-checks (source-resolve+read / re-derive+diff / live BE-F probe import+execute) — NO status-enum string-match, NO KG self-assert-flag trust; Done #41 autonomy floor (conservative fail-safe, no human step) + KT-12 (>10% fidelity-fail → surface+remediation-queue, NOT a halt); 3 Done #23 surfaces live-wired (write-time hook + aggregate CLI + close-gate Check 2.5); real /cycle6 dogfood 242 nodes (faithful=160/infidelity=72/unverifiable=10). NO govML. | cycle_16 scripts/probes/e/ + spec_registry_authoring.py hook + be_g_mirror close-gate | S15 |
+
+(Stage 5 BE-J ADDITIVE row per Cycle-16-S15; prior rows + BE-H/BE-G rows LOCKED preserved.)

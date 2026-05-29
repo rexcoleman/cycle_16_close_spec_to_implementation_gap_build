@@ -1,0 +1,26 @@
+{
+  "fixture_id": "known_bad_e_1",
+  "fixture_class": "known_bad",
+  "primitive_class": "E",
+  "spec_iri": "cycle16:spec_retroactive_e14a3ffc",
+  "query_endpoint": "http://localhost:3030/cycle6/query",
+  "named_graph": "http://cycle16.local/registry/assertion",
+  "scan_rec": {
+    "spec_id": "cycle16:spec_retroactive_e14a3ffc",
+    "spec_class": "a_agent_contract",
+    "spec_type": "AgentContract",
+    "name_truncated": "build-runner",
+    "current_status": "dormant-silent",
+    "cycle_authored": 15,
+    "session_authored": "Cycle-15-S7",
+    "audit_tuple": [
+      "Moonshots_Career_Thesis_v2",
+      "~/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
+      "agent_spec"
+    ],
+    "owner": "pipeline"
+  },
+  "source_ref_override": "/home/azureuser/Moonshots_Career_Thesis_v2/.claude/agents/__DELIBERATELY_DANGLING_SOURCE_REF_DOES_NOT_EXIST__.md",
+  "expected_fidelity": false,
+  "rationale": "DELIBERATELY-CORRUPTED KG entry (the negative test): the KG node asserts an auditTrailLink (a traceable source) BUT the source-of-record reference is a DANGLING path that does not exist on disk. The probe EXECUTES the resolve+read: source-traceability FAILs (os.path.exists False), and field-match detects a source_existence MISMATCH (KG claims a traceable source that reality lacks). A naive flag-checker trusting source_present:true would WRONGLY count this faithful; the correctly-calibrated Class E probe catches it => fidelity_ok=False, disposition=infidelity_or_unverified. This is the KT-12 / anti-substitution firing-surface negative test."
+}

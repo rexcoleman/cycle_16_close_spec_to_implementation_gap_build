@@ -51,6 +51,7 @@ import datetime
 import hashlib
 import json
 import os
+import subprocess
 import sys
 import urllib.parse
 import urllib.request
@@ -618,15 +619,62 @@ INSERT DATA {{
 def _class_e_integration_hook(
     spec: dict[str, Any], spec_iri: str, project_dir: Path
 ) -> None:
-    """BE-G Done #23 Class E integration-hook STUB (BE-J live wiring at S15).
+    """BE-G Done #23 Class E integration-hook — LIVE-WIRED at BE-J / S15.
 
-    Architectural call-site for a future Class E probe at the spec write-time path.
-    NOT IMPLEMENTED at S12 — implementing the Class E probe is forbidden per
-    BE-G dispatch substrate §2 item 10. When BE-J ships the Class E probe primitive
-    at `scripts/probes/e/probe_<class_e>.py`, this hook subprocess-invokes it
-    (mirroring the gate-body KT-8 pattern). Today: no-op.
+    Write-time call-site (surface 1 of the three Done #23 surfaces). Subprocess-
+    invokes the Class E KG-fidelity probe against the just-written spec, mirroring
+    the gate-body KT-8 import+execute discipline.
+
+    ADDITIVE + NON-LOAD-BEARING (Done #41 autonomy floor + substrate §3 item 3):
+    the fidelity fire is fired in --spec-iri single-spec mode and ALL exceptions /
+    non-zero exits are swallowed to a warn-emit. The spec-write path must NEVER
+    break on a probe failure — this hook is wrapped by the caller's
+    `except Exception as fa_exc` warn-path, and we additionally swallow here so a
+    probe defect cannot corrupt a successful registry write. No human step.
     """
-    return None  # STUB — live wiring at BE-J / S15
+    try:
+        probe_path = (
+            Path(__file__).resolve().parent / "probes" / "e" / "probe_kg_fidelity.py"
+        )
+        if not probe_path.exists():
+            return None
+        proc = subprocess.run(
+            [
+                sys.executable,
+                str(probe_path),
+                "--spec-iri",
+                spec_iri,
+                "--query-endpoint",
+                SPARQL_QUERY_ENDPOINT,
+                "--named-graph",
+                ASSERTION_GRAPH,
+            ],
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        fidelity_ok = None
+        try:
+            fidelity_ok = json.loads(proc.stdout).get("fidelity_ok")
+        except (json.JSONDecodeError, ValueError):
+            fidelity_ok = None
+        _emit(
+            project_dir,
+            "cycle_16.be_j.kg_fidelity",
+            "spec_registry.class_e_write_time_fidelity.event",
+            {
+                "spec_iri": spec_iri,
+                "class_e_probe_exit": proc.returncode,
+                "fidelity_ok": fidelity_ok,
+                "surface": "write_time_hook",
+                "_run_id": f"s15_be_j_write_hook_e_{uuid.uuid4().hex[:8]}",
+            },
+        )
+    except Exception:  # noqa: BLE001 — additive, never load-bearing for the write path
+        # Conservative: a probe error at write-time is swallowed (Done #41 — never
+        # blocks the write; surfaced via the caller's forward_apply_warn path).
+        return None
+    return None
 
 
 def _class_f_integration_hook(

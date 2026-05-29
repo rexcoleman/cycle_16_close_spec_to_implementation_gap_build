@@ -1,0 +1,25 @@
+{
+  "fixture_id": "known_good_e_1",
+  "fixture_class": "known_good",
+  "primitive_class": "E",
+  "spec_iri": "cycle16:spec_retroactive_e14a3ffc",
+  "query_endpoint": "http://localhost:3030/cycle6/query",
+  "named_graph": "http://cycle16.local/registry/assertion",
+  "scan_rec": {
+    "spec_id": "cycle16:spec_retroactive_e14a3ffc",
+    "spec_class": "a_agent_contract",
+    "spec_type": "AgentContract",
+    "name_truncated": "build-runner",
+    "current_status": "dormant-silent",
+    "cycle_authored": 15,
+    "session_authored": "Cycle-15-S7",
+    "audit_tuple": [
+      "Moonshots_Career_Thesis_v2",
+      "~/Moonshots_Career_Thesis_v2/.claude/agents/build-runner.md",
+      "agent_spec"
+    ],
+    "owner": "pipeline"
+  },
+  "expected_fidelity": true,
+  "rationale": "FAITHFUL KG entry: the live /cycle6 named-graph node spec_retroactive_e14a3ffc is an AgentContract whose source-of-record (the build-runner.md agent spec) RESOLVES + READS (source-traceability OK), whose re-derived spec_type matches the KG specType AND whose KG-asserted auditTrailLink corresponds to a source that actually resolves (field-match OK with no mismatch), and whose live BE-F Class A probe fire (import+execute) is consistent with the KG current_status (status-match OK). All three execution-grounded sub-checks pass => fidelity_ok=True. This is a REAL node + REAL source + LIVE BE-F probe fire, not a flag check."
+}
