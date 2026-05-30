@@ -206,3 +206,36 @@ Per Amendment 28g TRUE-close extension: Cycle 16 closes ONLY when (a)-(h) per Am
 <!-- /gate:requirements done_definition_phase11 -->
 
 <!-- amendment_2026_05_29_phase11_end -->
+
+<!-- amendment_2026_05_30_s22_refinement_start -->
+
+## Per-Deliverable Acceptance Criteria — S22 refinement (a) frozen spec-class definition + (c) two-reader V composition (Cycle-16-S22 RP refinement; root fix of the S21 HOLD)
+
+<!-- source: S21 Coach R3 HOLD findings 1-3 (cycle_16 01a165d, ADR-S21-1, BUILD_DECISION_LOG row 14-R3) -->
+<!-- source: docs/spec_class_frozen_definition.md + ED §5.phase11.1-R threshold 6′/7/8 + HR §3.phase11.1-R rows (this same S22 RP fill) -->
+<!-- source: cycle_16_s22_rp_refinement_dispatch_substrate §3 (anti-gaming guards) + §4 (frozen def) + §5 (T6′) -->
+<!-- source: .claude/strategic_frame.md Binding 6 (RP authors, Coach does not) + Binding 7 (process-guided; no Coach-direct gate edit) + Binding 8 (HC-07/HC-11) -->
+<!-- gate:requirements done_definition_phase11_refinement -->
+
+**Scope LOCKED (four RQS spec classes ONLY; substrate §1).** The denominator population is AgentContract + Schema + DesignDecision + MethodologyCommitment. `DP#N / HC#N / GPL / Pattern / Binding` are references, NOT denominator members. This is the RQS's own answer; it is NOT a Rex question and is NOT reopened.
+
+**Deliverable (a) — the frozen spec-class definition (RP authors this S22; the freeze-before-count artifact).** Acceptance:
+1. Canonical artifact `docs/spec_class_frozen_definition.md` exists and specifies, for the cycles-1-15 denominator: (i) ONE method-stable counting unit (one distinct spec = one `(spec_class, canonical-definition-site)` tuple, deduped by `sha256(repo|realpath|spec_class)`); (ii) a per-class membership predicate for all four classes, each derived top-down from the `cycle16:SpecType` `rdfs:comment` + HR §3c/H2 verifier; (iii) the three exclusions — `DP#N/HC#N/GPL/Pattern/Binding` principle-references, Cycle-16-own `Done #N` items, naming-FP substring matches (removed by canonical-identity dedup); (iv) the cycles-1-15 scope rule (`cycle_authored ∈ {1..15}`; Cycle-16 authorship excluded); (v) a one-sentence derivation rationale per boundary + per exclusion, grounded in class semantics NOT a target count.
+2. **Freeze-before-count (the order is the whole point; substrate §3.1).** The artifact is committed FIRST, BEFORE any re-count. The Build-Runner re-run (deliverable (b), next dispatch) cites it by path + commit SHA; the cited commit is an ancestor of the re-run commit (`git merge-base --is-ancestor` exits 0). A re-run that does not cite a prior-committed frozen definition is REFUSED.
+3. **±5% must EMERGE, never tuned-to-agree (substrate §3.2).** Under the frozen definition the three-method spread is MEASURED. If the methods STILL diverge beyond ±5%, that is an HONEST FINDING, disclosed — the definition is NOT loosened/redrawn to force agreement (a stable-because-tuned number is REFUSED). On residual divergence, the most-defensible single denominator is stated as "100% of the discoverable population, residual R disclosed"; R is disclosed, never zeroed.
+
+**Deliverable (c) — the strengthened #49 T6 acceptance criterion (RP authors this S22 as threshold 6′; Build-Runner implements the code).** Acceptance:
+1. ED §5.phase11.1-R threshold 6′ checks V's COMPOSITION, not its label: per-reader contribution share `e1_share, e2_share` each ≥ 0.20 AND neither solo share > 0.80; aggregate Jaccard ≥ 0.20. The floors are derived from what two-reader validation MEANS (a reader contributing < 1/5 of V is a garnish; 0.20 = 1/(readers+3) lenient principled minimum) — NOT set to any number the current run passes.
+2. The guard HARD-FAILS on a single-reader-dominated V: the S21 state (Jaccard 0.0134 / E1 share 2.4% / E2_only 97.6% `[measured]`) MUST FAIL 6′. Negative fixture (artificially single-reader-dominated V) REFUSED; positive fixture (genuine two-reader V, both shares ≥ 0.20, Jaccard ≥ 0.20) PASSES.
+3. E1 and E2 stay genuinely independent (threshold 4 `extraction_methods_distinct` preserved). The Build-Runner fixes the inert E1 by making it read the spec's definition-site prose COMPETENTLY, NOT by tuning it to mimic E2. A 6′ PASS achieved by collapsing E1 into E2 is REFUSED.
+4. **Binding 7 boundary:** RP authors the CRITERION (this S22). The Build-Runner (deliverable (b), next dispatch) extends `scripts/spec_extraction_pipeline.py::assert_detector_input` from label-check to composition-check + authors the two fixtures. This is RP spec work reported to kc-53, NOT a Coach-direct gate edit.
+
+**BE-R close-eval becomes PASS-all (8 of 8):** original thresholds 1-5 + threshold 6 superseded-by-6′ + new threshold 7 (freeze-before-count binding) + new threshold 8 (±5%-must-emerge / residual-disclosed). Coach R3 independently re-verifies after the Build-Runner re-run.
+
+**Reality-vs-intent baseline (HR §3.phase11.1-R):** at S21 the denominator is method-unstable (232/354/898 spread `[measured]`) and V is single-reader (E1 share 2.4% `[measured]`); the S22 refinement (a)+(c) is the ROOT fix of both HOLD findings; the Build-Runner re-runs under it. The S21 V FAILS 6′ — the guard working, not a regression.
+
+**HC-11 partition (Binding 8).** The frozen definition + the composition-criterion methodology + the principled floors = PUBLISHABLE. Per-spec V contents + per-spec provenance + the divergence list = PIPELINE-IP-PRIVATE.
+
+<!-- /gate:requirements done_definition_phase11_refinement -->
+
+<!-- amendment_2026_05_30_s22_refinement_end -->

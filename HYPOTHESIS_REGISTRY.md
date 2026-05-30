@@ -251,3 +251,25 @@ This DP#26 carve-out is the KT-3 firing risk surface for methodology commitments
 <!-- /gate:hypothesis_registry §3.phase11 h_phase11_pre_registered:3 reality_vs_intent_rows:3 -->
 
 <!-- amendment_2026_05_29_phase11_end -->
+
+<!-- amendment_2026_05_30_s22_refinement_start -->
+
+## §3.phase11.1-R S22 refinement reality-vs-intent row (Done #15b shape; method-stable denominator + two-reader V; Cycle-16-S22 RP refinement (a)+(c))
+
+<!-- source: S21 Coach R3 HOLD findings 1-3 (cycle_16 01a165d, ADR-S21-1, BUILD_DECISION_LOG row 14-R3) -->
+<!-- source: docs/spec_class_frozen_definition.md + ED §5.phase11.1-R threshold 6′/7/8 (this same S22 RP fill) -->
+<!-- source: outputs/extraction_completeness.json + outputs/validated_commitment_set.json S21 run [measured] -->
+<!-- gate:hypothesis_registry §3.phase11.1-R reality_vs_intent_rows:1 -->
+
+Per memory binding `feedback_cycle_close_reality_vs_intent_diagnostic.md` (honest reality-vs-intent BEFORE accepting close) + `feedback_operational_definition_substitution.md` (the meta-failure this refinement is closing at its own denominator) + `feedback_validate_the_validator.md` (the V-composition guard is itself a validator whose principled-not-tuned floor is under scrutiny):
+
+| Item | Pre-registered intent | Operational metric (verbatim) | Implementation-baseline (honest does-it-hold-today verdict) |
+|---|---|---|---|
+| **#50-R (denominator method-stability)** | The cycles-1-15 spec denominator has a single method-stable operational definition (a counting unit + per-class membership predicates + exclusions) that all three enumeration methods apply identically; ±5% cross-method agreement EMERGES from the frozen definition, never tuned. | Three per-method counts under the frozen unit `[measured]` (M1 recorded-registry / M2 authored-intent / M3 identifier-census) + measured cross-method spread; freeze-before-count: `frozen_definition_commit` is an ancestor of the re-run commit (`git merge-base --is-ancestor` exits 0) `[measured, boolean]`; residual R disclosed never zeroed; no bare un-scoped "100%". | **Baseline: NO.** At S21 the three enumerations gave M1 = 232 / dual-method-union = 354 / M3 identifier-census = 898 `[measured]` — a ~3.5× spread, because "distinct spec" had NO method-stable operational definition (the operational-definition substitution one level up). The "122 authored_but_unrecorded" was CONTAMINATED `[measured]`: 46 DP#N references + 54 Cycle-16-own Done#N + ~8 naming-FP — references and the current cycle's own recovery scope mis-counted as cycles-1-15 specs. The frozen definition (`docs/spec_class_frozen_definition.md`) + threshold 7/8 close this; the Build-Runner re-runs under it (deliverable (b), next dispatch). Until then the denominator is method-unstable — exactly the gap #50-R exists to close. |
+| **#49-R (two-reader V composition)** | The reconciled validated set V is a genuine TWO-READER set — each independent reader (E1 rule-based, E2 LLM) materially contributes; intersection is non-trivial — not E2-alone with an E1 garnish. The composition guard checks V's COMPOSITION, not its label. | Per-reader contribution share `e1_share, e2_share` each ≥ 0.20 AND neither solo share > 0.80 `[measured]`; aggregate `jaccard = |E1∩E2|/|E1∪E2|` ≥ 0.20 `[measured]`; `extraction_methods_distinct == True` preserved `[measured, boolean]`; negative fixture (single-reader-dominated V) REFUSED + positive fixture (genuine two-reader V) PASSES `[measured, boolean]`. | **Baseline: NO.** At S21 V was 97.6% one reader `[measured]`: aggregate Jaccard 0.0134 (∩22/∪1638); v_size 1637 = E1∩E2 21 (1.3%) + adjudicated:E2_only 1598 (97.6%) + adjudicated:E1_only 18 (1.1%); E1 solo contribution share = 39/1637 = 2.4% `[measured]` — E1 effectively inert. The S21 `--assert-detector-input` guard checked only V's filename + the `detector_input_is_reconciled_validated_set` label, which PASSED on this single-reader V. The strengthened threshold 6′ checks composition (E1 share 2.4% < 0.20 ⇒ FAIL, the criterion working); the Build-Runner fixes E1 to read the definition-site prose competently (NOT mimic E2) + extends the guard. Until then V is single-reader — exactly the gap #49-R exists to close. |
+
+**Refinement reality-vs-intent row-count verification.** 2 rows authored (#50-R denominator method-stability + #49-R two-reader V composition). Each carries pre-registered intent + operational metric verbatim (the principled floors: 0.20 contribution share / 0.20 Jaccard / freeze-before-count ancestor check) + the honest does-it-hold-today baseline (denominator method-unstable; V single-reader) with measured/heuristic/anecdotal tags. The numeric floors are derived from what two-reader validation MEANS (a reader contributing < 1/5 is a garnish), NOT from any S21 number — and the S21 V FAILS 6′, which is the guard working, per `feedback_validate_the_validator.md` (the floor is principled or it is the substitution recurring inside the guard).
+
+<!-- /gate:hypothesis_registry §3.phase11.1-R reality_vs_intent_rows:1 -->
+
+<!-- amendment_2026_05_30_s22_refinement_end -->
