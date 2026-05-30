@@ -777,3 +777,23 @@ Layer four: **registry-fidelity drift + spec-implementation drift.** A KG entry 
 **Sequencing (operational).** S24 first action UNCHANGED (BE-S → BE-T → gap list → #53). Done #59 is a Phase-13-class deliverable (register the governance specs alongside the others once the registration machinery runs); does NOT block the gap list. Build-mechanism spec (KG schema + validation gate) RP-authored per Binding 6 — NOT kc-direct.
 
 **TRUE-close.** Cycle 16 closes ONLY when (a)-(j) per 28e+28f+28g+28h AND **(k) Done #59 lands**.
+
+## D-S23-3 — SI Amendment 28j: finding→spec fidelity IN-SCOPE + empirically-earned autonomy floor + four chain-holes folded into the bar (Done #60-#65 + TRUE-close (l)/(m) + reframe (i)); kc-54 Step 3.5; Rex two paradigm rulings 2026-05-30
+
+**Decision.** The Cycle 16 completion bar is EXTENDED by Done #60-#65 + TRUE-close (l)+(m) + a reframe of criterion (i)/#25, per Rex's two paradigm rulings (2026-05-30 executive-briefing conversation while warming up kc-54: "I agree with your recommendations, yes for finding → spec fidelity in scope for cycle 16, yes to empirically earned"). Full text `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_30j.md`. ADDITIVE per DP#42; 28a-28i stand.
+
+**Rex Ruling 1 — finding→spec fidelity IN SCOPE.** The chain validates code→spec; it must ALSO validate spec→finding (each spec faithfully carries the research finding it operationalizes, confirmed by an independent second reader). Without it, "100% implemented per spec" can certify while the finding never reaches the running system — a silent loss upstream of extraction-completeness (#28) + well-formedness (#35). **Done #60; general discipline #40; TRUE-close (l). Mechanism RP-authored per Binding 6 — NOT kc-direct.**
+
+**Rex Ruling 2 — autonomy floor empirically earned.** Full no-human-close (#25) CANNOT be claimed by regression-testing the auditor against the human's past catches (#36) — that proves KNOWN-class coverage only; novel classes are by definition absent from the history. Cycle 16 closes with the human retained as novel-class watcher (after-the-fact audit, never a close-blocking step); full no-human-close is a post-16 graduation earned at ≥3 consecutive cycles with zero Rex-found novel failure-classes. **Done #61; general discipline #41; reframes criterion (i)/#25.**
+
+**Four chain-holes folded (kc-54 proactive audit; Rex agreed "I agree with your recommendations").**
+- **Done #62 — anti-rot continuous re-validation** (discipline #42): "100% implemented" is a snapshot; re-run the full-population sweep at EVERY cycle close (regression on already-implemented specs), not only authoring-time gating. Mechanism RP-authored. TRUE-close (m).
+- **Done #63 — vertical-slice-first de-risk** (discipline #43): push ONE spec end-to-end before scaling the gap-list build-out; 23 sessions proved the instruments but zero specs ran through them. Sequencing at S24/S25.
+- **Done #64 — cycle-management deferral ban** (reinforces HC #74): Cycle 16 cannot close by handing actual implementation to a Cycle-17 "recovery." Closing-by-deferral of the implementation is a FAILURE, not a plan.
+- **Done #65 — bounded enforcement-infra recursion** (clause on #22): the core enforcement set is certified once under the strict bar then frozen; guard-the-guards must reach a fixed point.
+
+**General disciplines graduated (durable; all homes, one pass — persistence mechanism 4).** foundational_grounding §Leadership Discipline **#40-#43** (FULL text) + validation_prompt R3 block (#40-#43 by reference, both lists) + Cycle 10 spec §8.12 (#40-#43 by reference) + the #22 termination-bound clause.
+
+**Sequencing (operational).** S24 first action UNCHANGED (BE-S → BE-T → gap list → #53), with Done #63 inserting a vertical-slice as the FIRST implementation at S24/S25. Done #60 + #62 mechanisms RP-authored at the relevant build session per Binding 6. Done #61's post-16 graduation tracked from Cycle 17. Done #64 + #65 bind now. state.json next_action updated by the S24 Coach at close (machine-checkable-state ownership); kc-54 folds the reshaped bar into the S24 task-context dispatch.
+
+**TRUE-close.** Cycle 16 closes ONLY when (a)-(k) per 28e+28f+28g+28h+28i AND **(l) finding→spec fidelity validated across the disclosed-bound population** AND **(m) the anti-rot full-population re-validation sweep runs at close + is wired to every future close**, with criterion (i)/#25 REFRAMED per Done #61 (human-as-novel-class-watcher; full no-human-close is the post-16 empirical graduation, NOT a Cycle-16 blocker).
