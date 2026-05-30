@@ -5,3 +5,8 @@
 {"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-29T23:20:08.139695+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
 {"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-29T23:20:12.853508+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
 {"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-29T23:30:20.074445+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
+{"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-30T00:35:21.237908+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
+{"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-30T00:35:21.622106+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
+{"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-30T00:37:17.366467+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
+{"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-30T00:38:58.326132+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}
+{"event_class": "denominator_independence_check.fire.event", "timestamp": "2026-05-30T00:49:04.536636+00:00", "disjoint_bool": true, "class_overlap": [], "path_overlap": []}

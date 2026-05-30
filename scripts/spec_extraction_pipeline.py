@@ -83,7 +83,84 @@ def load_population(limit=None):
     return recs
 
 
-def spec_prose_window(rec, n=700):
+def _json_prose_for_key(path, name, n):
+    """state.json dispositions/decisions specs name an interior key
+    ('paradigm_dispositions:<k>' / 'decisions_log:<k>'). The DEFINITION-SITE prose
+    is that key's value object (scope / authority / rationale text), NOT the file
+    header. Resolve the block by locating the key inside its container and
+    serializing its value; if the value is a string, return it directly. Returns
+    None when the key cannot be resolved (caller falls back to text search)."""
+    try:
+        d = json.load(open(path, encoding="utf-8", errors="replace"))
+    except Exception:
+        return None
+    container, _, key = name.partition(":")
+    block = d.get(container)
+    val = None
+    if isinstance(block, dict):
+        if key and key in block:
+            val = block[key]
+        else:
+            # key may be a truncated/normalized form — match by prefix
+            for k, v in block.items():
+                if key and (k.startswith(key) or key.startswith(k)):
+                    val = v
+                    break
+    elif isinstance(block, list):
+        for item in block:
+            if isinstance(item, dict) and key and key in json.dumps(item):
+                val = item
+                break
+    if val is None:
+        return None
+    if isinstance(val, str):
+        return val[:n]
+    # dict/list → join the human-readable text fields (scope/decision/rationale/...)
+    parts = []
+
+    def _walk(o):
+        if isinstance(o, str):
+            parts.append(o)
+        elif isinstance(o, dict):
+            for vv in o.values():
+                _walk(vv)
+        elif isinstance(o, list):
+            for vv in o:
+                _walk(vv)
+
+    _walk(val)
+    return (". ".join(parts))[:n] if parts else None
+
+
+def _findings_block(txt, name, n):
+    """FINDINGS.md methodology-commitment specs name a Layer-5 token
+    ('Binding 6', 'DP#44', 'Pattern 9', 'R1', 'HC-11', 'Discipline #13', ...). The
+    DEFINITION-SITE prose is the block where that token is AUTHORED (the row/line
+    that introduces it), not the first occurrence in a downstream citation. Prefer a
+    line that introduces the token (start-of-line, optionally bolded / in a table
+    cell); fall back to first occurrence. Take a window FORWARD from there so the
+    obligation clauses that follow the token are inside the window."""
+    esc = re.escape(name.strip())
+    # introduction patterns: '**Binding 6**', '| Binding 6 |', '- Binding 6:', '### DP#44'
+    intro = re.search(r"(?m)^[ \t|#>*\-]{0,8}\**\s*" + esc + r"\b", txt)
+    m = intro or re.search(esc, txt)
+    if not m:
+        return None
+    start = max(0, m.start() - 30)
+    return txt[start:start + n]
+
+
+def spec_prose_window(rec, n=900):
+    """Resolve the spec's ACTUAL definition-site prose, class-aware (frozen def §6).
+
+    The S21 bug: a bare `name` find + 700-char window degraded to the FILE HEADER
+    (YAML frontmatter / .ttl prefixes / state.json top) for 152/232 specs whose name
+    is not a literal substring of the file, leaving E1 to read no obligation prose.
+    The competent reader resolves the definition SITE per class:
+      - state.json dispositions/decisions (c_design_decision) → the keyed value block;
+      - FINDINGS.md tokens (d_methodology_commitment) → the authoring Layer-5 block;
+      - agent .md / schema .ttl/.json/.py → the body/definition block (skip frontmatter).
+    Only degrades to the bare name when the file is genuinely unreadable."""
     at = rec.get("audit_tuple", [])
     path = at[1].replace("~", HOME) if len(at) > 1 else None
     name = rec.get("name_truncated", "")
@@ -93,12 +170,36 @@ def spec_prose_window(rec, n=700):
         txt = open(path, encoding="utf-8", errors="replace").read()
     except Exception:
         return name
+    base = os.path.basename(path).lower()
+
+    # (1) state.json keyed dispositions/decisions — resolve the keyed value block.
+    if base == "state.json" and ":" in name:
+        blk = _json_prose_for_key(path, name, n)
+        if blk:
+            return blk
+
+    # (2) FINDINGS.md (+ DECISION_LOG.md) token specs — resolve the authoring block.
+    if base.endswith(".md") and (
+        rec.get("spec_class") in ("d_methodology_commitment", "c_design_decision")
+    ):
+        blk = _findings_block(txt, name, n)
+        if blk:
+            return blk
+
+    # (3) agent .md / schema files — locate the name, else the body after the header.
     i = txt.find(name)
     if i < 0 and ":" in name:
         i = txt.find(name.split(":")[-1])
-    if i < 0:
-        return (name + " " + txt[:n]).strip()
-    return txt[max(0, i - 60): i + n]
+    if i >= 0:
+        return txt[max(0, i - 60): i + n]
+    # name not present: for markdown skip YAML frontmatter; for schema take the
+    # definition region. Avoid degrading to the bare top-of-file header alone.
+    body = txt
+    if txt.startswith("---"):
+        end = txt.find("\n---", 3)
+        if end > 0:
+            body = txt[end + 4:]
+    return (name + "\n" + body[:n]).strip()
 
 
 # ---------------------------------------------------------------------------
@@ -148,26 +249,53 @@ def _commitments_match(text_a, text_b, min_overlap=2):
 # Modal/obligation anchors that START a checkable commitment. E1 splits the prose at each
 # anchor and takes the clause that FOLLOWS it (one obligation per anchor), so E1 produces
 # atomic commitments comparable to E2 instead of one run-on clause.
+# E1's obligation anchors are the modal/imperative markers that, IN THIS CORPUS'S
+# DEFINITION-SITE PROSE, begin a checkable commitment. These are real obligation
+# vocabulary surveyed from the spec prose itself (agent .md / FINDINGS Layer-5 /
+# state.json dispositions / schema comments) — NOT tuned to mimic E2's output. E1
+# stays a deterministic clause-splitter: it finds an anchor and takes the predicate
+# clause that follows. Any anchor here denotes "a thing that MUST/MUST-NOT happen,
+# is REQUIRED/BINDING, is asserted/enforced/verified, HALTs/FAILs/BLOCKs, or is
+# REFUSED/LOCKED" — the principled definition of a checkable commitment.
 E1_ANCHOR = re.compile(
-    r"\b(MUST NOT|MUST|SHALL NOT|SHALL|SHOULD NOT|SHOULD|REQUIRED|enforces?|asserts?|"
-    r"HARD-FAILs?|REFUSED|verif(?:y|ies)|exits? non-zero|returns? True)\b",
+    r"\b(MUST NOT|MUST|SHALL NOT|SHALL|SHOULD NOT|SHOULD|REQUIRED|BINDING|BLOCKING|"
+    r"enforces?|asserts?|requires?|ensures?|HARD-?FAILs?|REFUSED?|REFUSE|"
+    r"verif(?:y|ies|ied)|exits? non-zero|returns? True|HALTs?|BLOCKs?|"
+    r"FAILs?|PASS(?:es)?|LOCKED|UNCHANGED|forbidden|prohibited|"
+    r"NOT (?:appear|route|edit|commit|drop|exceed)|may not|cannot)\b",
     re.I,
 )
 
 
 def extract_e1(prose):
     """Rule-based: each modal/obligation anchor begins one checkable commitment; the clause
-    is the anchor plus the predicate up to the next anchor or clause boundary."""
+    is the anchor PLUS the substantive predicate up to the next anchor / clause boundary.
+
+    Quality rule (deterministic, NOT E2-mimicking): a checkable commitment is an obligation
+    anchor FOLLOWED BY a predicate naming what is obligated. A lone anchor keyword with no
+    following predicate ('BINDING' on its own line; a bare 'PASS' table cell) is NOT a
+    checkable commitment — it is dropped. The predicate must carry >=2 content tokens
+    (after stop-word removal) so 'MUST' / 'BINDING' alone do not mint a junk commitment."""
     commitments = {}
     anchors = list(E1_ANCHOR.finditer(prose))
     for idx, m in enumerate(anchors):
         start = m.start()
         # predicate ends at next anchor OR a sentence/clause boundary, whichever is first
         nxt = anchors[idx + 1].start() if idx + 1 < len(anchors) else len(prose)
-        bound = re.search(r"[.;\n]", prose[start:nxt])
+        bound = re.search(r"[.;\n|]", prose[start:nxt])
         end = start + bound.start() if bound else nxt
         clause = prose[start:end].strip()
-        if len(clause) < 6:
+        if len(clause) < 10:
+            continue
+        # the clause must carry a predicate beyond the anchor keyword itself: >=2 content
+        # tokens that are not themselves the anchor modal (drops lone 'BINDING'/'MUST').
+        anchor_tok = m.group(0).lower().replace("-", "").replace(" ", "")
+        pred_tokens = {t for t in _content_tokens(clause)
+                       if t.replace("-", "") != anchor_tok and t not in
+                       ("must", "shall", "should", "required", "binding", "blocking",
+                        "refused", "refuse", "locked", "pass", "fail", "hardfail",
+                        "halt", "block", "unchanged", "forbidden", "prohibited")}
+        if len(pred_tokens) < 2:
             continue
         sig = normalize_commitment(clause)
         commitments.setdefault(sig, clause[:120])
@@ -319,18 +447,139 @@ def reconcile_spec(spec_id, e1, e2):
 # ---------------------------------------------------------------------------
 # Detector-input guard (T6)
 # ---------------------------------------------------------------------------
+# Threshold 6′ composition floors — FROZEN by EXPERIMENTAL_DESIGN.md §5.phase11.1-R
+# (derived: 0.20 = 1/(2 readers + 3), the lenient principled per-reader floor; 0.80 =
+# 1 − 0.20, the symmetric solo-dominance ceiling; Jaccard ≥ 0.20 = material agreement).
+# These are NOT set to whatever the current run scores — DO NOT change them to pass.
+T6P_CONTRIB_FLOOR = 0.20
+T6P_SOLO_CEILING = 0.80
+T6P_JACCARD_FLOOR = 0.20
+
+
+def v_composition(members, aggregate_jaccard):
+    """Compute V's two-reader composition shares from the member `source` tags
+    ('E1∩E2' / 'adjudicated:E1_only' / 'adjudicated:E2_only') for the 6′ check."""
+    n = len(members)
+    inter = sum(1 for m in members if m.get("source") == "E1∩E2")
+    e1_only = sum(1 for m in members if m.get("source") == "adjudicated:E1_only")
+    e2_only = sum(1 for m in members if m.get("source") == "adjudicated:E2_only")
+    e1_share = (inter + e1_only) / n if n else 0.0
+    e2_share = (inter + e2_only) / n if n else 0.0
+    e1_solo_share = e1_only / n if n else 0.0
+    e2_solo_share = e2_only / n if n else 0.0
+    return {
+        "v_size": n,
+        "intersection": inter,
+        "e1_only": e1_only,
+        "e2_only": e2_only,
+        "e1_share": round(e1_share, 4),
+        "e2_share": round(e2_share, 4),
+        "e1_solo_share": round(e1_solo_share, 4),
+        "e2_solo_share": round(e2_solo_share, 4),
+        "aggregate_jaccard": round(aggregate_jaccard, 4),
+    }
+
+
 def assert_detector_input(manifest):
-    """HARD-FAIL if detector input is a single-reader extraction (E1-alone / E2-alone).
-    Pass only when input is the reconciled validated set V."""
+    """HARD-FAIL if detector input is NOT a genuine reconciled TWO-READER validated set.
+
+    Threshold 6′ (ED §5.phase11.1-R) strengthens the original label/path check with a
+    COMPOSITION check over V (the S21 V passed the label check while 97.6% one reader):
+      - each reader's contribution share (intersection + its solo) >= 0.20;
+      - neither reader's SOLO share > 0.80 (no single-reader-dominated V under a garnish);
+      - aggregate Jaccard >= 0.20 (the two readers materially agree on shared prose).
+    Composition is read from the manifest's `composition` block (or computed from
+    `members` + `aggregate_jaccard`). The original single-reader-path/label checks are
+    retained (a single-reader extraction wired as input still HARD-FAILS on label too)."""
     path = manifest.get("detector_input_path", "")
     is_v = manifest.get("detector_input_is_reconciled_validated_set", False)
     base = os.path.basename(path)
+    # --- original label/path check (retained) ---
     single_reader = base in ("e1_extraction.json", "e2_extraction.json") or \
         manifest.get("source_kind") in ("E1_alone", "E2_alone", "single_reader")
     if single_reader or not is_v or base != "validated_commitment_set.json":
         return False, (f"detector input '{base}' is a single-reader / un-reconciled "
-                       f"extraction (is_V={is_v}) — REFUSED")
-    return True, "detector input == reconciled validated set V (E1∩E2 + adjudicated E1△E2)"
+                       f"extraction (is_V={is_v}) — REFUSED [label check]")
+    # --- threshold 6′ composition check ---
+    comp = manifest.get("composition")
+    if comp is None:
+        members = manifest.get("members")
+        if members is None:
+            return False, ("threshold 6′: no composition/members available to verify "
+                           "V is a genuine two-reader set — REFUSED")
+        comp = v_composition(members, manifest.get("aggregate_jaccard", 0.0))
+    e1s, e2s = comp.get("e1_share", 0.0), comp.get("e2_share", 0.0)
+    e1solo, e2solo = comp.get("e1_solo_share", 0.0), comp.get("e2_solo_share", 0.0)
+    jac = comp.get("aggregate_jaccard", 0.0)
+    fails = []
+    if e1s < T6P_CONTRIB_FLOOR:
+        fails.append(f"e1_share {e1s:.4f} < {T6P_CONTRIB_FLOOR} floor")
+    if e2s < T6P_CONTRIB_FLOOR:
+        fails.append(f"e2_share {e2s:.4f} < {T6P_CONTRIB_FLOOR} floor")
+    if e1solo > T6P_SOLO_CEILING:
+        fails.append(f"e1_solo_share {e1solo:.4f} > {T6P_SOLO_CEILING} ceiling")
+    if e2solo > T6P_SOLO_CEILING:
+        fails.append(f"e2_solo_share {e2solo:.4f} > {T6P_SOLO_CEILING} ceiling")
+    if jac < T6P_JACCARD_FLOOR:
+        fails.append(f"aggregate_jaccard {jac:.4f} < {T6P_JACCARD_FLOOR} floor")
+    if fails:
+        return False, ("threshold 6′ FAIL — V is single-reader-dominated / low-agreement: "
+                       + "; ".join(fails) + " — REFUSED")
+    return True, (f"detector input == genuine two-reader V "
+                  f"(e1_share={e1s:.4f} e2_share={e2s:.4f} jaccard={jac:.4f}; "
+                  f"6′ floors {T6P_CONTRIB_FLOOR}/{T6P_SOLO_CEILING}/{T6P_JACCARD_FLOOR})")
+
+
+def _members_from_counts(inter, e1_only, e2_only):
+    """Build a V `members` list with the given composition (for fixtures)."""
+    mem = []
+    for i in range(inter):
+        mem.append({"commitment_sig": f"i{i}", "source": "E1∩E2"})
+    for i in range(e1_only):
+        mem.append({"commitment_sig": f"e1_{i}", "source": "adjudicated:E1_only"})
+    for i in range(e2_only):
+        mem.append({"commitment_sig": f"e2_{i}", "source": "adjudicated:E2_only"})
+    return mem
+
+
+def build_positive_fixture_v():
+    """POSITIVE fixture: a GENUINE two-reader V that 6′ must ACCEPT. Composition:
+    intersection 40 / E1_only 30 / E2_only 30 over |V|=100 ⇒ e1_share=e2_share=0.70,
+    each solo 0.30 (< 0.80 ceiling), Jaccard |∩|/|∪| = 40/100 = 0.40 (>= 0.20).
+    Hand-authored composition (NOT the live run) so the accept-path is exercised."""
+    inter, e1o, e2o = 40, 30, 30
+    members = _members_from_counts(inter, e1o, e2o)
+    union = inter + e1o + e2o
+    jac = inter / union
+    return {
+        "detector_input_path": "validated_commitment_set.json",
+        "detector_input_is_reconciled_validated_set": True,
+        "source_kind": "reconciled_V",
+        "members": members,
+        "aggregate_jaccard": jac,
+        "composition": v_composition(members, jac),
+        "_fixture": "positive_genuine_two_reader_V",
+    }
+
+
+def build_negative_fixture_v():
+    """NEGATIVE fixture: the S21 single-reader-dominated V that 6′ must REFUSE.
+    Composition (S21 [measured]): intersection 21 / E1_only 18 / E2_only 1598 over
+    |V|=1637 ⇒ e1_share=0.0238 (< 0.20 floor), e2_solo_share=0.9762 (> 0.80 ceiling),
+    Jaccard ∩22/∪1638 = 0.0134 (< 0.20). Multiple 6′ failures — REFUSED."""
+    inter, e1o, e2o = 21, 18, 1598
+    members = _members_from_counts(inter, e1o, e2o)
+    # S21 aggregate Jaccard was 0.0134 (∩22/∪1638) — use the reported value.
+    jac = 0.0134
+    return {
+        "detector_input_path": "validated_commitment_set.json",
+        "detector_input_is_reconciled_validated_set": True,
+        "source_kind": "reconciled_V",
+        "members": members,
+        "aggregate_jaccard": jac,
+        "composition": v_composition(members, jac),
+        "_fixture": "negative_single_reader_dominated_V_S21",
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -423,6 +672,8 @@ def run_full(limit=None):
         len(full_ledger) == total_sym
     )
 
+    members = list(v_all.values())
+    composition = v_composition(members, agg_jaccard)
     validated = {
         "schema_version": "be_r_validated_commitment_set.v1",
         "build_event": "BE-R part 2 — reconciled validated set V (detector input)",
@@ -430,7 +681,10 @@ def run_full(limit=None):
         "detector_input_is_reconciled_validated_set": True,
         "reconciliation_rule": "V = (E1∩E2) ∪ adjudicated(E1△E2); admit-on-either-reader",
         "v_size": len(v_all),
-        "members": list(v_all.values()),  # PIPELINE-IP-PRIVATE
+        # threshold 6′ composition (read by --assert-detector-input); FROZEN floors
+        "composition": composition,
+        "aggregate_jaccard": round(agg_jaccard, 4),
+        "members": members,  # PIPELINE-IP-PRIVATE
     }
 
     os.makedirs(OUTPUTS, exist_ok=True)
@@ -470,32 +724,55 @@ def main():
         sys.exit(0)
 
     if args.assert_detector_input:
-        # positive: the materialized V
-        if not os.path.isfile(VALIDATED_SET_PATH):
-            print("validated_commitment_set.json not found — run full pipeline first.",
-                  file=sys.stderr)
-            sys.exit(2)
-        pos_manifest = {
-            "detector_input_path": VALIDATED_SET_PATH,
-            "detector_input_is_reconciled_validated_set": True,
-            "source_kind": "reconciled_V",
-        }
-        ok_pos, msg_pos = assert_detector_input(pos_manifest)
-        print(f"[positive: V]  pass={ok_pos}  {msg_pos}")
-        # negative fixture: a single-reader (E1-alone) extraction wired as detector input
-        neg_manifest = {
-            "detector_input_path": os.path.join(OUTPUTS, "e1_extraction.json"),
-            "detector_input_is_reconciled_validated_set": False,
-            "source_kind": "E1_alone",
-        }
-        ok_neg, msg_neg = assert_detector_input(neg_manifest)
-        print(f"[negative: E1-alone fixture]  pass={ok_neg}  {msg_neg}")
-        # exit 0 only if positive passes AND negative is correctly REFUSED
+        # ----- POSITIVE fixture: a GENUINE two-reader V (both shares >=0.20,
+        # Jaccard >=0.20). Authored here as a frozen fixture so the guard's
+        # accept-path is exercised even when the live re-run V fails 6′ (the live
+        # V is checked SEPARATELY below as the real run). -----
+        pos_fixture = build_positive_fixture_v()
+        ok_pos, msg_pos = assert_detector_input(pos_fixture)
+        print(f"[positive fixture: genuine two-reader V]  pass={ok_pos}  {msg_pos}")
+
+        # ----- NEGATIVE fixture: the S21 single-reader-dominated V (Jaccard 0.0134,
+        # E1 share 2.4%, E2_only 97.6%). MUST be REFUSED by 6′. -----
+        neg_fixture = build_negative_fixture_v()
+        ok_neg, msg_neg = assert_detector_input(neg_fixture)
+        print(f"[negative fixture: single-reader-dominated V (S21 shape)]  "
+              f"pass={ok_neg}  {msg_neg}")
+
+        # ----- the LIVE re-run V (real measured state; reported, not gated to pass) -----
+        ok_live, msg_live, live_comp = None, "validated_commitment_set.json not found", None
+        if os.path.isfile(VALIDATED_SET_PATH):
+            v = json.load(open(VALIDATED_SET_PATH))
+            live_manifest = {
+                "detector_input_path": VALIDATED_SET_PATH,
+                "detector_input_is_reconciled_validated_set":
+                    v.get("detector_input_is_reconciled_validated_set", False),
+                "source_kind": "reconciled_V",
+                "composition": v.get("composition"),
+                "members": v.get("members"),
+                "aggregate_jaccard": v.get("aggregate_jaccard", 0.0),
+            }
+            ok_live, msg_live = assert_detector_input(live_manifest)
+            live_comp = v.get("composition")
+        print(f"[LIVE re-run V]  passes_6prime={ok_live}  {msg_live}")
+        if live_comp:
+            print(f"    composition: {json.dumps(live_comp)}")
+
+        # The GUARD itself is correct iff it ACCEPTS the genuine positive and REFUSES
+        # the single-reader negative. Exit 0 attests guard correctness. The live V's
+        # 6′ pass/fail is an HONEST MEASURED finding reported above (HC #70) — a live
+        # FAIL is disclosed for the Coach's HOLD-vs-record decision, NOT a reason to
+        # tune the floors or the fixtures.
         if ok_pos and not ok_neg:
-            print("PASS: V accepted, single-reader fixture REFUSED.")
+            print("PASS: guard correct (genuine two-reader V accepted, "
+                  "single-reader-dominated V REFUSED).")
+            if ok_live is False:
+                print("DISCLOSE (HC #70): the LIVE re-run V FAILS threshold 6′ — "
+                      "honest measured state, surfaced for Coach HOLD-vs-record. "
+                      "NOT tuned away.")
             sys.exit(0)
-        print("HARD-FAIL: detector-input guard did not behave (V must pass, "
-              "single-reader must be refused).", file=sys.stderr)
+        print("HARD-FAIL: guard did not behave (genuine V must pass, "
+              "single-reader-dominated V must be REFUSED).", file=sys.stderr)
         sys.exit(1)
 
     run_full(limit=args.limit)

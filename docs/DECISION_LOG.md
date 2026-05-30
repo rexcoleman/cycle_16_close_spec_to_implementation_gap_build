@@ -294,3 +294,18 @@ architectural judgment does not change it (gotcha #16 NO / S176 protocol-superse
   would Goodhart the ±5% gate — the substitution one level up). Residual disclosed, never zeroed.
 
 | D-S21-1 | BE-R mechanisms BUILT + valid (4 predicates import-and-execute, 3 guards re-run exit 0, additive); denominator/V HOLD (not-trusted): #18 ±5% FAILS (232/354/898), "122" contaminated (DP#N refs + Cycle-16 Done#N + naming-mismatch), V ~97.6% E2-only (Jaccard 0.0134, E1 inert). Scope disposed Option-1 (four RQS classes; principles = references not members). BE-S/BE-T NOT run; #53 blocked. S22 RP refinement carry (a-d). | 2026-05-29 | Coach S21 R3 + kc-53 R2 |
+
+## ADR-S22-1: spec-class definition FROZEN (a) + V-composition guard strengthened (c) + E1 fixed/re-run (b) — Coach R3 = HOLD-AGAIN (honest not-yet)
+
+- **Date:** 2026-05-30
+- **Status:** Accepted (Coach S22 R3 verdict; freeze-before-count honored; nothing tuned-to-pass)
+
+### Context
+Per S21 carry + S22 task context (kc-53 R1 PASS, Rex-authorized 2026-05-30). Goal: a method-stable denominator + a genuine two-reader V, OR an honest HOLD with residual disclosed. Work split per Binding 6: RP authored (a) the frozen spec-class definition (`docs/spec_class_frozen_definition.md`, committed FIRST at `1e43a04`) + (c) strengthened ED §5.phase11.1-R threshold 6′/7/8; Build-Runner then implemented (b) the E1 fix + frozen-exclusions/unit + composition guard + re-run. Coach independently re-verified (DP#43).
+
+### Decision — HOLD-AGAIN (honest not-yet); both #50 and #49 IMPROVED but not-yet-trustworthy
+- **#50 denominator:** contamination fixed (authored_but_unrecorded 122→17 [measured]); Coach-re-derived M1'=193 [measured]. But independent 3rd-method census lands 63→424 vs 193/210 — DesignDecision "ADR row OR state.json block" sub-predicate not grain-pinned → ±5% does NOT emerge (disclosed per threshold 8, not engineered). Most-defensible denominator = M1'=193, residual disclosed.
+- **#49 V:** E1 genuinely fixed 2.4%→11.8% [measured] (NOT tuned to mimic E2; methods-distinct True) but V (1818) still FAILS 6′ (e1_share 0.1177<0.20, e2_solo 0.8823>0.80, Jaccard 0.0655<0.20). Strengthened guard correctly REFUSES it (CLI exit 0: negative+live REFUSED, positive PASS) — the composition floor is now a structural HARD-FAIL, not a Coach judgment call.
+
+### Honest residuals (never zeroed)
+(i) DesignDecision count-grain unpinned (state.json-block vs ADR-row vs classifier); (ii) rule-based E1 under-contributes vs LLM on prose-heavy specs — fix the extractor/reconciliation-unit, NOT the floor; (iii) BE-S/BE-T + #53 stay BLOCKED on the untrusted V/denominator; BE-J 33.88% SUSPECT. Durable gains: frozen def + strengthened guard + contamination exclusion + 5× E1 survive to S23. See root D-S22 + BUILD_DECISION_LOG row 14-S22.

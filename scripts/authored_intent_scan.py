@@ -45,6 +45,40 @@ METHOD1_PATH = os.path.join(OUTPUTS, "retroactive_scan_cycle_1_15_run.json")
 DUAL_METHOD_PATH = os.path.join(OUTPUTS, "denominator_dual_method.json")
 INDEP_CHECK_JSONL = os.path.join(OUTPUTS, "denominator_independence_check.jsonl")
 
+# The frozen spec-class definition is the AUTHORITY for this re-run (freeze-before-count).
+# It is committed FIRST (commit 1e43a04) and cited here by path + SHA; the re-run commit
+# (made by the Coach) will have 1e43a04 as an ancestor. See docs/spec_class_frozen_definition.md.
+FROZEN_DEFINITION_PATH = "docs/spec_class_frozen_definition.md"
+FROZEN_DEFINITION_COMMIT = "1e43a04"
+
+# §3.1 EXCLUSION — principle-reference tokens are NOT specs (the four cycle16:SpecType
+# classes are the ONLY denominator population). DP#N / HC#N / HC #N / GPL-N / Pattern N /
+# Binding N are references to the standing-principle layer the specs are governed BY; a
+# spec MAY cite them (citation ≠ membership). These are filtered OUT of the denominator.
+PRINCIPLE_REF_RE = re.compile(
+    r"^\s*(DP\s*#?\s*\d+|HC\s*[-#]?\s*\d+|GPL[-\s]?\d+|Pattern\s+\d+|Binding\s+\d+|"
+    r"Discipline\s*#?\s*\d+|Check\s*#?\s*\d+|Trap\s*#?\s*\d+|MR\s*#?\s*\d+|"
+    r"MC\s*#?\s*\d+|PL\s*#?\s*\d+|LL[-\s]?\d+|OBS[-\s]?\d+)\s*$",
+    re.I,
+)
+
+# §3.2 EXCLUSION — Cycle-16-own `Done #N` items are Cycle 16's OWN recovery scope (the
+# auditing instrument), not cycles-1-15 specs. In this corpus the `Done #N` markers are
+# authored in the Cycle-16 SI amendments / transcripts, so every `Done #N` token is
+# Cycle-16-authored and excluded from the cycles-1-15 denominator.
+DONE_ITEM_RE = re.compile(r"^\s*Done\s*#\s*\d+\s*$", re.I)
+
+
+def is_excluded_token(authored_name):
+    """True iff the authored marker is excluded from the cycles-1-15 denominator per the
+    frozen def: a principle-reference (§3.1) or a Cycle-16-own Done #N item (§3.2)."""
+    nm = (authored_name or "").strip()
+    if PRINCIPLE_REF_RE.match(nm):
+        return "principle_reference_3_1"
+    if DONE_ITEM_RE.match(nm):
+        return "cycle16_own_done_item_3_2"
+    return None
+
 HOME = os.path.expanduser("~")
 PARENT_REPO = os.path.join(HOME, "Moonshots_Career_Thesis_v2")
 WORKSPACE = os.path.join(PARENT_REPO, ".claude", "workspace")
@@ -137,7 +171,13 @@ COMMIT_MARKER_RE = re.compile(
     r"write-boundary|spec[- ]registry|acceptance|enforcement)",
     re.I,
 )
-SPEC_TOKEN_RE = re.compile(r"\b(BE-[A-Z]|Done #\d+|H_phase11_\d+|HC #\d+|DP#\d+|KT-\d+)\b")
+# SPEC_TOKEN_RE still CAPTURES DP#N / HC #N so the §3.1 exclusion is COUNTED + auditable
+# (the contamination removed is disclosed as a number, not silently never-matched). The
+# captured principle-refs + Cycle-16-own Done #N are filtered by is_excluded_token() at
+# the §3 gate in run_full_scan, where they are tallied into the exclusion report.
+SPEC_TOKEN_RE = re.compile(
+    r"\b(BE-[A-Z]|Done #\d+|H_phase11_\d+|KT-\d+|DP#\d+|HC ?#?\d+|GPL-\d+|"
+    r"Pattern \d+|Binding \d+)\b")
 
 
 def _sanitize_quote(text):
@@ -197,7 +237,9 @@ def enumerate_prose_rulings():
             txt = open(path, encoding="utf-8", errors="replace").read()
         except Exception:
             continue
-        for m in re.finditer(r"(Done #\d+|ruling \([a-z]\)|HC #\d+)", txt):
+        # frozen def §3.1: HC #N principle-references dropped from candidate minting.
+        # capture principle-refs too so the §3.1 exclusion is counted/auditable at the gate.
+        for m in re.finditer(r"(Done #\d+|ruling \([a-z]\)|HC ?#?\d+|DP#\d+|Pattern \d+|Binding \d+)", txt):
             tok = m.group(1)
             ctx = txt[max(0, m.start() - 20): m.start() + 80].replace("\n", " ").strip()
             specs.append({
@@ -222,8 +264,11 @@ def enumerate_transcripts():
     )[:6]
     # commitment markers in the session record: Done #N, BE-<L>, H_phase11_N,
     # HC #N, DP#N, KT-N, and "<X> SHIPPED" verdicts.
+    # capture principle-refs too so the §3.1 exclusion is counted/auditable at the gate
+    # (they were the dominant S21 transcript contamination); filtered at the §3 gate.
     tx_re = re.compile(
-        r"(Done #\d+|BE-[A-Z](?![A-Za-z])|H_phase11_\d+|HC #\d+|DP#\d+|KT-\d+)"
+        r"(Done #\d+|BE-[A-Z](?![A-Za-z])|H_phase11_\d+|KT-\d+|DP#\d+|HC ?#?\d+|"
+        r"GPL-\d+|Pattern \d+|Binding \d+)"
     )
     seen = set()
     for fp in files:
@@ -245,6 +290,64 @@ def enumerate_transcripts():
         except Exception:
             continue
     return specs
+
+
+def _canonical_identity(repo, canonical_path, spec_class, anchor=""):
+    """Frozen def §1 counting UNIT: one distinct spec = one (spec_class, canonical
+    DEFINITION-SITE) pair, deduplicated by the SHA-256 of (repo, realpath#anchor, class).
+
+    Critical §1↔§2 resolution: the "canonical definition site" is the spec's single
+    AUTHORITATIVE-DEFINITION ANCHOR, not the bare containing file. Per §1.1 + §2:
+      - DesignDecision → the DECISION_LOG / state.json structured-ROW anchor (the keyed
+        disposition / decisions_log entry) — many distinct decisions live in ONE
+        state.json, each its OWN site (§2: "one recorded decision row = one spec");
+      - MethodologyCommitment → the FINDINGS.md Layer-5 TOKEN anchor (Binding 6 / R1 /
+        Pattern 9) — many commitments live in ONE FINDINGS.md, each its own site;
+      - AgentContract → the .claude/agents/<name>.md FILE (one file = one contract, no anchor);
+      - Schema → the schema-definition site (file, or named shape within a .ttl).
+    The `anchor` is the in-file definition key (name_truncated). Deduping on
+    (repo, realpath#anchor, class) collapses idempotent duplicates of the SAME definition
+    site WITHOUT collapsing distinct decisions/commitments that merely share a file."""
+    rp = os.path.realpath(canonical_path.replace("~", HOME)) if canonical_path else ""
+    site = f"{rp}#{anchor}" if anchor else rp
+    return hashlib.sha256(
+        f"{repo}|{site}|{spec_class}".encode("utf-8")
+    ).hexdigest()[:16]
+
+
+def compute_m1_prime():
+    """Re-count M1 under the FROZEN scope (frozen def §4): the cycles-1-15 denominator
+    excludes Cycle-16-authored records (cycle_authored == 16). Returns
+    (m1_raw_distinct, m1_prime_cycles_1_15, cycle16_excluded) all [measured], where
+    m1_prime applies the §1 canonical-identity unit over the cycles-1-15 records."""
+    with open(METHOD1_PATH) as f:
+        m1 = json.load(f)
+    recs = m1.get("per_spec_evidence_IP_PRIVATE", [])
+    # M1 raw distinct (existing minted count, by spec_id)
+    raw_distinct = m1.get("distinct_after_idempotent_minting")
+    # distinct by spec_id (matches the recorded minting), then split by authoring cycle
+    seen = {}
+    for r in recs:
+        sid = r.get("spec_id")
+        if sid not in seen:
+            seen[sid] = r
+    distinct = list(seen.values())
+    cycle16 = [r for r in distinct if r.get("cycle_authored") == 16]
+    cyc_1_15 = [r for r in distinct if r.get("cycle_authored") in range(1, 16)]
+    # apply the §1 canonical-identity unit over the cycles-1-15 records (re-dedup by the
+    # frozen tuple; this is idempotent over already-minted definition sites but is applied
+    # identically by all three methods per the frozen contract).
+    canon = set()
+    for r in cyc_1_15:
+        at = r.get("audit_tuple", [])
+        repo = at[0] if len(at) > 0 else ""
+        path = at[1] if len(at) > 1 else ""
+        # the in-file definition anchor = the spec's authoritative-definition key
+        # (the disposition/decisions_log key for DesignDecision; the Layer-5 token for
+        # MethodologyCommitment; AgentContract/Schema collapse on the file alone).
+        anchor = (r.get("name_truncated") or "").strip()
+        canon.add(_canonical_identity(repo, path, r.get("spec_class", ""), anchor))
+    return raw_distinct, len(canon), len(cycle16), len(cyc_1_15)
 
 
 def load_method1_recorded_names():
@@ -283,7 +386,23 @@ def run_full_scan():
     git_specs = enumerate_git_history()
     prose_specs = enumerate_prose_rulings()
     tx_specs = enumerate_transcripts()
-    all_s2 = git_specs + prose_specs + tx_specs
+    all_s2_raw = git_specs + prose_specs + tx_specs
+
+    # ----- FROZEN DEFINITION §3 exclusions (the S21 contamination fix) -----
+    # §3.1 principle-references (DP/HC/GPL/Pattern/Binding/...) + §3.2 Cycle-16-own
+    # Done #N items are NOT cycles-1-15 specs. Filter them out of the candidate stream,
+    # tallying WHAT was excluded (disclosed as the contamination removed).
+    all_s2 = []
+    excluded_tally = {"principle_reference_3_1": 0, "cycle16_own_done_item_3_2": 0}
+    excluded_examples = {"principle_reference_3_1": [], "cycle16_own_done_item_3_2": []}
+    for s in all_s2_raw:
+        reason = is_excluded_token(s["authored_name"])
+        if reason:
+            excluded_tally[reason] += 1
+            if len(excluded_examples[reason]) < 5:
+                excluded_examples[reason].append(s["authored_name"])
+            continue
+        all_s2.append(s)
 
     # distinct S2 specs (idempotent mint over authored_name + provenance_source)
     distinct = {}
@@ -294,6 +413,8 @@ def run_full_scan():
     s2_specs = list(distinct.values())
 
     recorded_names, recorded_raw, m1_distinct = load_method1_recorded_names()
+    # M1' under the frozen scope (cycles-1-15 only, canonical-identity unit)
+    m1_raw, m1_prime, m1_cycle16_excluded, m1_cyc_1_15 = compute_m1_prime()
 
     authored_but_unrecorded = []
     for s in s2_specs:
@@ -332,9 +453,21 @@ def run_full_scan():
     )
 
     out = {
-        "schema_version": "be_r_denominator_dual_method.v1",
-        "build_event": "BE-R part 1 — denominator dual-method (Done #50 / H_phase11_50)",
+        "schema_version": "be_r_denominator_dual_method.v2_frozen",
+        "build_event": "BE-R part 1 — denominator dual-method, frozen-def re-run "
+                       "(Done #50 / H_phase11_50; S22 deliverable (b.1))",
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        # freeze-before-count binding (threshold 7): cite the frozen def by path + SHA.
+        "frozen_definition_path": FROZEN_DEFINITION_PATH,
+        "frozen_definition_commit": FROZEN_DEFINITION_COMMIT,
+        "frozen_definition_exclusions_applied": {
+            "principle_references_3_1": excluded_tally["principle_reference_3_1"],
+            "cycle16_own_done_items_3_2": excluded_tally["cycle16_own_done_item_3_2"],
+            "examples": excluded_examples,
+            "note": ("§3.1 DP/HC/GPL/Pattern/Binding refs + §3.2 Cycle-16-own Done #N "
+                     "filtered from the candidate stream BEFORE counting (citation ≠ "
+                     "membership; recovery scope ≠ cycles-1-15 audited population)."),
+        },
         "independence": {
             "methods_read_disjoint_sources": disjoint,
             "S1_source_classes": sorted(s1["source_classes"]),
@@ -346,15 +479,33 @@ def run_full_scan():
         "method_1_recorded": {
             "source": "outputs/retroactive_scan_cycle_1_15_run.json",
             "distinct_after_idempotent_minting": m1_distinct,
+            # M1' under the frozen scope (frozen def §4 + §1 unit)
+            "m1_raw_distinct": m1_raw,
+            "m1_cycle16_authored_excluded": m1_cycle16_excluded,
+            "m1_cycles_1_15_records": m1_cyc_1_15,
+            "m1_prime_cycles_1_15_frozen_unit": m1_prime,
+            "m1_prime_note": ("M1' = cycles-1-15 records (cycle_authored ∈ 1..15) after "
+                              "the §1 canonical-identity unit; Cycle-16-authored records "
+                              "filtered out per §4."),
         },
         "method_2_authored_intent": {
             "git_history_specs": len(git_specs),
             "prose_ruling_specs": len(prose_specs),
             "transcript_specs": len(tx_specs),
+            "candidates_before_exclusion": len(all_s2_raw),
+            "candidates_after_exclusion": len(all_s2),
             "distinct_s2_specs": len(s2_specs),
+            "m2_prime_note": ("M2' = distinct authored-intent specs after the §3.1/§3.2 "
+                              "exclusions + idempotent mint; DP/HC/GPL/Pattern/Binding "
+                              "refs + Cycle-16-own Done #N removed."),
         },
         "divergence": {
             "authored_but_unrecorded_count": len(authored_but_unrecorded),
+            "authored_but_unrecorded_note": ("authored_but_unrecorded' under the frozen "
+                "predicate: distinct authored-intent specs (post §3.1/§3.2 exclusion) "
+                "with no matching canonical-identity in the M1 recorded set — the genuine "
+                "recorded-vs-authored gap (#50 finding). Whatever it is, it is disclosed; "
+                "not engineered to a target."),
             "authored_but_unrecorded": authored_but_unrecorded,  # PIPELINE-IP-PRIVATE contents
         },
         "residual_R": residual_block,
@@ -406,12 +557,20 @@ def main():
         json.dump(out, f, indent=2)
     emit_independence_event(disjoint, overlap)
     # bare "100%" guard (T3): the only "100%" token must be inside the scoped close_claim
-    print(f"Method 1 recorded distinct: {out['method_1_recorded']['distinct_after_idempotent_minting']}")
-    print(f"Method 2 distinct S2 specs: {out['method_2_authored_intent']['distinct_s2_specs']} "
-          f"(git={out['method_2_authored_intent']['git_history_specs']} "
-          f"prose={out['method_2_authored_intent']['prose_ruling_specs']} "
-          f"transcript={out['method_2_authored_intent']['transcript_specs']})")
-    print(f"authored_but_unrecorded: {out['divergence']['authored_but_unrecorded_count']}")
+    m1r = out["method_1_recorded"]
+    m2 = out["method_2_authored_intent"]
+    exc = out["frozen_definition_exclusions_applied"]
+    print(f"frozen_definition: {out['frozen_definition_path']} @ {out['frozen_definition_commit']}")
+    print(f"§3 exclusions applied — principle-refs: {exc['principle_references_3_1']}, "
+          f"Cycle-16-own Done #N: {exc['cycle16_own_done_items_3_2']}")
+    print(f"Method 1 raw distinct: {m1r['distinct_after_idempotent_minting']} "
+          f"(cycle16 excluded: {m1r['m1_cycle16_authored_excluded']})")
+    print(f"M1' (cycles-1-15, frozen unit): {m1r['m1_prime_cycles_1_15_frozen_unit']}")
+    print(f"M2' distinct S2 specs (post-exclusion): {m2['distinct_s2_specs']} "
+          f"(candidates {m2['candidates_before_exclusion']}->{m2['candidates_after_exclusion']}; "
+          f"git={m2['git_history_specs']} prose={m2['prose_ruling_specs']} "
+          f"transcript={m2['transcript_specs']})")
+    print(f"authored_but_unrecorded' (frozen predicate): {out['divergence']['authored_but_unrecorded_count']}")
     print(f"methods_read_disjoint_sources: {disjoint}")
     print(f"close_claim: {out['close_claim']}")
     print("Sample provenance rows (authored_but_unrecorded):")
