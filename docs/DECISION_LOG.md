@@ -309,3 +309,25 @@ Per S21 carry + S22 task context (kc-53 R1 PASS, Rex-authorized 2026-05-30). Goa
 
 ### Honest residuals (never zeroed)
 (i) DesignDecision count-grain unpinned (state.json-block vs ADR-row vs classifier); (ii) rule-based E1 under-contributes vs LLM on prose-heavy specs — fix the extractor/reconciliation-unit, NOT the floor; (iii) BE-S/BE-T + #53 stay BLOCKED on the untrusted V/denominator; BE-J 33.88% SUSPECT. Durable gains: frozen def + strengthened guard + contamination exclusion + 5× E1 survive to S23. See root D-S22 + BUILD_DECISION_LOG row 14-S22.
+
+
+## ADR-S23-1: Denominator RESOLVED disclosed-bound (M1'=193) + V TRUSTED — grain-pin (a') + form-appropriate second reader (b') succeeded; disclosed-bound exit confirmed (kc-53 R2)
+
+- **Date:** 2026-05-30
+- **Status:** Accepted (Coach S23 R3 verdict; kc-53 R2 confirmed the disclosed-bound exit operationally; freeze-before-count honored; nothing tuned-to-pass)
+
+### Context
+S22 HOLD-AGAIN localized two residuals: DesignDecision count-grain unpinned (63->424 spread) + V single-reader-on-prose. S23 task context (kc-53 R1 PASS, Rex-authorized) split per Binding 6: RP authored (a') the decision-identity grain-pin (frozen def §7, committed FIRST `d50b6e9`) + (b') threshold 6'' (form-appropriate second reader; floors UNCHANGED); Build-Runner implemented both + re-ran. Coach independently re-verified (DP#43); kc-53 R2 disposed the verdict.
+
+### Decision — denominator RESOLVED disclosed-bound; V TRUSTED
+- **V TRUSTED:** live V PASSES 6' (e1_share 0.4333 / e2_solo 0.5667 / Jaccard 0.269 — all floors clear, UNCHANGED; S22 was 0.1177/0.8823/0.0655). Second reader genuinely independent (E1'=claude-sonnet-4-6/alt-prompt != E2=claude-haiku-4-5 on model AND prompt; not seeded from E2). Guard fixtures intact (negative REFUSED, positive PASS); #49 methods-distinct + #50 disjoint PASS. 6-spec structured edge (E1 solo=0) flagged lower-confidence.
+- **Denominator RESOLVED disclosed-bound = M1'=193:** grain-pin collapsed within-method ambiguity by construction (23/445 -> 172 decision-identities). pm5% cross-method does NOT emerge (M1=119 classified / M3=172 raw-census) because the methods apply different inclusion criteria — irreducible classify-vs-census difference; forcing convergence destroys cross-method independence. No method-independent "true count" exists; disclosed per discipline #29, not engineered.
+
+### kc-53 R2 guard refinement (recorded)
+Exit criterion is **reducibility, not size**: a large residual that is irreducible + demonstrated is the disclosed-bound finding (not a HOLD). kc-53 carries the refined wording into durable surfaces (kc-54 transition).
+
+### Residuals (DISCLOSED, carried forward, never zeroed)
+(1) +53 DesignDecision classification-surplus (M3 raw-census 172 vs M1 classified 119) — carried into BE-T gap list / #53 / FINDINGS. (2) 6-spec V edge (2 bare-date degenerate + 4 at p~=0.44) — lower extraction confidence. Close claim: "100% of the disclosed-bound discoverable population, residual R disclosed."
+
+### Consequences
+UNBLOCKS BE-S (#51) / BE-T (#47 + trusted-detector run -> honest gap list) / #53 (KG reconcile to V) / Phase 12. Done #42 BE-J 33.88% lock holds (re-derive on the trusted denominator downstream). NO govML this session. See root D-S23 + BUILD_DECISION_LOG row 14-S23.
