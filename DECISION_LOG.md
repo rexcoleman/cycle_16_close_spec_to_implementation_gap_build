@@ -765,3 +765,15 @@ Layer four: **registry-fidelity drift + spec-implementation drift.** A KG entry 
 **Close claim.** "100% of the disclosed-bound discoverable population, residual R disclosed." Denominator = M1'=193. V = trusted (6 edge specs lower-confidence-flagged).
 
 **UNBLOCKED -> S24.** BE-S (#51 validation-tier), BE-T (#47 guard-the-guards + the trusted-detector run that produces the honest spec->implementation gap list), #53 (reconcile KG to V), and Phase 12 are now unblocked. NOT run in S23 (clean sub-boundary). S24 picks up the gap list -> the path to actual implementation. See ADR-S23-1 + BUILD_DECISION_LOG row 14-S23.
+
+## D-S23-2 — SI Amendment 28i: governance-layer durability via the knowledge graph (Done #59 + TRUE-close (k)); kc-53 Step 3.5; Rex "fold it in" 2026-05-30
+
+**Decision.** The Cycle 16 completion bar is EXTENDED by Done #59 + TRUE-close criterion (k), per Rex's authorization "fold it in" (2026-05-30 durability conversation while warming up kc-54). The kernel-coach disciplines + validation-prompt R3 enforcement rules are registered as **spec nodes in the KG** (id/body/status/version/required-surfaces); the markdown "durable homes" are validated-against-the-graph by a gate at every close (drift = failing query, not a behavioral checklist); the enforcement layer enters the audited population (guard-the-guards). KG = source of truth; markdown = generated/validated paste surface. Full text `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_30i.md`. ADDITIVE per DP#42; 28a-28h stand.
+
+**Why.** kc-53's S23 transition designated three markdown files as the "durable homes" for the disciplines and enforced their agreement with a BEHAVIORAL graduation checklist — the structural-vs-behavioral gap. Live proof it fails: #31-#36 lived in one home for several sessions while two others stayed stale, caught only by hand. The governance layer also lives OUTSIDE the system-of-record it governs (guard-the-guards hole) — and Cycle 16's own thesis is that the KG is the governance kernel and specs register there. The disciplines ARE governance specs → they belong in the KG. So "all specs in the KG, validated, 100% accurate" now explicitly includes the governance/enforcement specs.
+
+**General discipline graduated (durable; all homes, one pass — first use of persistence mechanism 4).** foundational_grounding §Leadership Discipline **#39** (durable means in the system-of-record, validated by a gate, never convention-synced prose) + validation_prompt R3 block (#39 by reference) + Cycle 10 spec §8.12 (#39 by reference). #39 is the structural form of §8.13-§8.15.
+
+**Sequencing (operational).** S24 first action UNCHANGED (BE-S → BE-T → gap list → #53). Done #59 is a Phase-13-class deliverable (register the governance specs alongside the others once the registration machinery runs); does NOT block the gap list. Build-mechanism spec (KG schema + validation gate) RP-authored per Binding 6 — NOT kc-direct.
+
+**TRUE-close.** Cycle 16 closes ONLY when (a)-(j) per 28e+28f+28g+28h AND **(k) Done #59 lands**.
