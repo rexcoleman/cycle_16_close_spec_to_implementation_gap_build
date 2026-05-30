@@ -810,3 +810,38 @@ sections 1-3 + BE-B 10 + BE-C 11 + BE-D 12 + BE-E 13 + BE-F 14 + BE-G 15 preserv
 - Exit 0 on a completed measurement run (a FULL-RIGOR-FAIL is still exit 0 — it is a measurement result, not a harness error).
 
 (Stage 5 BE-M ADDITIVE-APPEND per Cycle-16-S17; BE-A §1-3 + BE-B..BE-H sections preserved verbatim.)
+
+---
+
+## §17 BE-S + BE-T build artifacts (Cycle-16-S24 — validation-tier verdict + guard-the-guards + the spec→implementation gap list)
+
+| | |
+|---|---|
+| **Build cycle** | Cycle 16 (Stage 5 BE-S + BE-T, gap-list build) |
+| **Contract owner** | Build-Runner (S24 authoring) → Coach R3 independent verify + commit |
+
+**§17.1 Pre-conditions (MUST hold)**
+
+- Trusted V present: `outputs/validated_commitment_set.json` (RESOLVED at S23; v_size 2047 / 206 distinct spec_ids; `detector_input_is_reconciled_validated_set: true`).
+- Disclosed-bound denominator present: `outputs/denominator_dual_method.json` (M1′=193, grain-pin `d50b6e9`).
+- Probes runnable at `scripts/probes/{a..f}/` + harness at `scripts/probe_accuracy_harness.py` (consumed UNMODIFIED — byte-identical; floors `0.20/0.80/0.20` and the independence attestation untouched).
+- Live judge models reachable: one real call to `claude-haiku-4-5` AND `claude-sonnet-4-6` succeeds before the judged run; else the fail-safe (NOT-VALIDATED) fires (never a fabricated verdict).
+
+**§17.2 Post-conditions (GUARANTEED)**
+
+- `scripts/validation_tier_verdict.py` → `outputs/validation_tier_verdicts.json` (per-spec `tier` ∈ {execution_checkable, semantically_judged} + verdict + the two-tier completion claim, CONTESTED specs NOT counted validated) + `outputs/judge_diversity_check.jsonl` + `outputs/validation_tier_failsafe_events.jsonl`.
+- `scripts/guard_the_guards.py` → `outputs/guard_the_guards_population.json` (denominator M1′=193 + 37 infra entries each `is_enforcement_infra: true`; audited-population 230) + `outputs/guard_the_guards_run.jsonl` (≥1 detector-fire per infra class: probe/gate/agent_spec/accuracy_harness).
+- `scripts/trusted_detector_run.py` → `outputs/trusted_detector_run.json` (per-spec implemented/not-implemented/contested + tier; aggregate tier-partitioned rate `[measured]`; `independence_clean: true`; `detector_input_path == validated_commitment_set.json`; honest §1ee gaps verbatim; the scoped close-claim string).
+- `close_verdict()` takes 0 human inputs (signature-inspected); the close path is fully automated (human audit strictly after-the-fact, read-only).
+- NO consumed-machinery modification (harness/probes/floors/fixtures/gates/templates byte-identical). The large spec→implementation gap is the HONEST deliverable, never engineered up.
+
+**§17.3 Outward-facing API**
+
+- `validation_tier_verdict.py --judge-diversity-check` → exit 0 iff GT model ≠ probe model OR cross-check is a different method; emits `judge_diversity_check.fire.event`.
+- `validation_tier_verdict.py --inspect-human-inputs` → exit 0 iff `close_verdict_fn_human_inputs == 0`.
+- `validation_tier_verdict.py --negative-failsafe-fixture` → exit 0 iff two disagreeing judges yield CONTESTED (no coerced agreement).
+- `validation_tier_verdict.py --run` → full per-spec verdict over V (live diverse judges; subprocess-invokes the real F execution detector — KT-8 import-and-execute, never a string-match).
+- `guard_the_guards.py --build` → builds the audited population (folds infra in) + fires the trusted detectors over the infra entries (the guards audit themselves).
+- `trusted_detector_run.py --run` → emits the gap list; REFUSES if independence is not clean (T5) or input is not the reconciled V (T3).
+
+(Stage 5 BE-S+BE-T ADDITIVE-APPEND per Cycle-16-S24; §16 BE-M + BE-A..BE-H sections preserved verbatim.)

@@ -745,3 +745,31 @@ Thresholds expressed as MEASURABLE counts (Amendment 28f Done #44 rigor split). 
 - F: FULL-RIGOR-PASS-LOW-POWER — TP2/FP0, n_eval=2 (264/269 DP#26 carve-outs); 2 judge-fallback DEFERRED-GAP-2.
 
 (Stage 5 BE-M ADDITIVE-APPEND per Cycle-16-S17; BE-A..BE-H preserved verbatim. Pre-registered thresholds T-BE-M-0..5; measured outcome recorded post-run per Done #25 honest-outcome framing.)
+
+---
+
+## §BE-S Validation-tier close-path verdict acceptance criteria (Cycle-16-S24, ED §5.phase11.2 — PASS-all 6/6)
+
+| # | Threshold | `[measured]` evidence | PASS/FAIL |
+|---|---|---|---|
+| T1 | Per-spec tier classifier; every spec in V has `tier` ∈ {execution_checkable, semantically_judged} | every_spec_has_tier=True; execution_checkable=3 / semantically_judged=203 over V's 206 spec_ids | **PASS** |
+| T2 | Execution tier = full-rigor OR honest LOW-POWER (no silent upgrade) | 0 execution specs labelled VALIDATED-FULL-RIGOR without FP==0 ∧ recall≥0.90; all execution verdicts PASS-LOW-POWER (F-detector n_eval=2 per §1ee) | **PASS** |
+| T3 | Judgment tier requires diverse judges else REFUSED | `--judge-diversity-check` exit 0; diverse_bool=True (GT `claude-sonnet-4-6` ≠ probe `claude-haiku-4-5`; cross-check = deterministic code-token grep = different method) | **PASS** |
+| T4 | Fail-safe on disagreement/ambiguity → NOT-VALIDATED (never engineered agreement) | negative_fixture (judge=True,xcheck=False) → CONTESTED (pass=True); 194 fail-safe events; judgment-tier contested_fraction 0.9557 (the S19 ~45%+ C-disagreement reproduces as CONTESTED→NOT-VALIDATED — the bar working) | **PASS** |
+| T5 | No human in the close path (structural) | `inspect.signature(close_verdict)` → `close_verdict_fn_human_inputs == 0`; signature `(spec_iri, *, _scan=None)`; negative manual-override REFUSED (no such param) | **PASS** |
+| T6 | Tier-labelled claim; uniform "100% validated" REFUSED | two-tier completion claim + judgment-tier residual disclosed; CONTESTED specs NOT counted validated; grep `100% validated` count = 0 | **PASS** |
+
+## §BE-T Guard-the-guards + trusted-detector run acceptance criteria (Cycle-16-S24, ED §5.phase11.3 — PASS-all 6/6)
+
+| # | Threshold | `[measured]` evidence | PASS/FAIL |
+|---|---|---|---|
+| T1 | Enforcement infra enumerated INTO the audited population (#47) | audited_population_count = 230 = denominator M1′=193 + 37 infra entries (probe 6 / gate 21 / agent_spec 9 / accuracy_harness 1); every entry `is_enforcement_infra: true`; all 4 infra classes present | **PASS** |
+| T2 | Detectors run over the infra entries too (guards audit themselves) | ≥1 `guard_the_guards.fire.event` per infra class (6/21/9/1); the harness's OWN status MEASURED (self-attests, rc 0), not assumed; 37/37 self-attest pass | **PASS** |
+| T3 | Detector input == reconciled V (single-reader BE-D scan REFUSED) | `detector_input_path == outputs/validated_commitment_set.json`; `detector_input_is_reconciled_validated_set: true`; not wired to `retroactive_scan_cycle_1_15_run.json` | **PASS** |
+| T4 | Per-spec tier-labelled implemented-rate emitted (THE FINDING) | execution tier: 1 implemented / 2 not-implemented / 0 contested; judgment tier: 9 diverse-judge-validated / 71 judge-not-implemented / 123 CONTESTED→not-counted; aggregate (incl. judgment-validated) 0.0485 `[measured]`; execution-proven-over-V 0.0049; tier-partitioned; CONTESTED NOT counted implemented | **PASS** |
+| T5 | Independence preserved at run-time (validate-the-validator) | `probe_accuracy_harness.py --self-test` `independence_clean == true` (rc 0) re-asserted BEFORE accepting the run; carried into `trusted_detector_run.json`; run REFUSES if not clean | **PASS** |
+| T6 | No un-scoped "100%"; §1ee gaps disclosed honestly (HC #70) | mechanical scan: 0 un-scoped "100%" (the sole "100%" is the scoped close-claim); 3 §1ee honest gaps verbatim (6/9 AgentContracts no executable observable; 3/10 KG ontologies no SHACL; 228/232 E-status not independently re-derivable) | **PASS** |
+
+(Stage 5 BE-S+BE-T ADDITIVE-APPEND per Cycle-16-S24; BE-M + BE-A..BE-H preserved verbatim. The LARGE spec→implementation gap — execution-proven 1/206; judgment tier 194/203 fail-safe → CONTESTED/NOT-VALIDATED — is the HONEST deliverable per HC #70, never a number engineered to pass.)
+
+> **BE-T S24 narrow disclosure re-emit (additive ONLY; no verdict change, no detector re-run):** `trusted_detector_run.json` now adds a three-population reconciliation (M1′=193 disclosed-bound / V=206=167+39 [167/193=86.5% coverage] / guard-pop=230=193+37 infra, the 37-infra cut DISTINCT from V's 39 cycle-16 specs), the **26-absent** extraction-coverage finding (193−167; disclosed, NOT counted implemented-or-not), per-era tier-partitioned rates (cycles-1-15 past + cycle-16 present/in-flight, summing to the aggregate), and an era-reconciled `close_claim`. Every prior per-spec verdict + gap_list count (exec 1/2/0; judgment 9/71/123) + aggregate rate is byte-identical (asserted recomputed==prior before write); residuals (6 single-reader edge ids + caveat, +53 DD surplus, BE-J 33.88% not-promoted, honest-gaps-verbatim) preserved unchanged.

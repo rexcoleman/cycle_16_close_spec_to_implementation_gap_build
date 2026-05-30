@@ -889,3 +889,26 @@ Sink: `outputs/probe_accuracy_events.jsonl`. Two event classes.
 Cardinality: 1 measure.event per evaluable/contested/deferred spec per class; 1 summary.event per measured class. The summary JSON (`outputs/probe_accuracy_summary.json`, NOT a JSONL event) additionally carries the `independence_attestation` block.
 
 (Stage 5 BE-M ADDITIVE-APPEND per Cycle-16-S17; BE-A..BE-H preserved verbatim.)
+
+---
+
+## §BE-S + BE-T event classes (Cycle-16-S24 — validation-tier verdict + guard-the-guards + trusted-detector run)
+
+**Event class `judge_diversity_check.fire.event`** (BE-S T3) — sink `outputs/judge_diversity_check.jsonl`; one row per diversity assertion. Payload:
+- `gt_judge_model` (str — `claude-sonnet-4-6`), `probe_judge_model` (str — `claude-haiku-4-5`)
+- `different_model` (bool), `cross_check_is_different_method` (bool)
+- `diverse_bool` (bool — True iff different model OR different method; HARD-FAIL if both judges share model AND method)
+- `assertion` (str — `judge_uses_different_model_or_method(judge_GT, judge_probe)`)
+
+**Event class `validation_tier_failsafe.fire.event`** (BE-S T4) — sink `outputs/validation_tier_failsafe_events.jsonl`; one row per spec routed to a conservative NOT-VALIDATED / CONTESTED (disagreement / unparseable / no-key / missing-signal). Payload:
+- `spec_iri` (str), `tier` (str ∈ {execution_checkable, semantically_judged})
+- `verdict` (str ∈ {NOT-VALIDATED, CONTESTED}), `evidence` (str — measured detail behind the fail-safe)
+
+**Event class `guard_the_guards.fire.event`** (BE-T T2) — sink `outputs/guard_the_guards_run.jsonl`; one row per enforcement-infra entry the trusted detector fires over (the guards audit themselves). Payload:
+- `infra_id` (str), `infra_class` (str ∈ {probe, gate, agent_spec, accuracy_harness}), `is_enforcement_infra` (bool, True)
+- `detector` (str — the import-and-execute check used: `--self-test` for .py probes/harness; `bash -n` + executable-bit for gates; governed-artifact resolve+read for agent_specs)
+- `self_attests` (bool — the infra surface's OWN measured status, not assumed), `evidence` (str), `rc` (int | absent)
+
+**Gap-list artifact `outputs/trusted_detector_run.json`** (BE-T T4 — NOT a JSONL event): per-spec implemented/not-implemented/contested + `tier` + the aggregate tier-partitioned implemented-rate `[measured]` + `independence_clean: true` + the scoped close-claim + the §1ee honest gaps verbatim. The per-spec F-detector dispositions consumed are the `probe_library.fire.event` rows the F probe emits (UNMODIFIED).
+
+(Stage 5 BE-S+BE-T ADDITIVE-APPEND per Cycle-16-S24; BE-M + BE-A..BE-H preserved verbatim.)

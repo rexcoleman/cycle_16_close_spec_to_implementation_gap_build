@@ -1,0 +1,1 @@
+{"event_class": "judge_diversity_check.fire.event", "timestamp": "2026-05-30T03:52:09.664017+00:00", "gt_judge_model": "claude-sonnet-4-6", "probe_judge_model": "claude-haiku-4-5", "different_model": true, "cross_check_is_different_method": true, "diverse_bool": true, "assertion": "judge_uses_different_model_or_method(judge_GT, judge_probe)"}
