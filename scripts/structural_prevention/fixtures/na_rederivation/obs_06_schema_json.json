@@ -1,0 +1,6 @@
+{
+  "_doc": "Drift telemetry signal schema. A producer MUST emit a drift.telemetry.signal event conforming to this schema; a consumer validator MUST reject events missing run_id or schema_version. This is an enforced runtime contract requiring code to emit and validate.",
+  "schema_version": "0.1",
+  "required": ["run_id", "schema_version", "event_class", "payload"],
+  "event_class": "drift.telemetry.signal"
+}

@@ -1,0 +1,17 @@
+{
+  "_doc": "Out-of-band ground-truth labels for the na_rederivation accuracy fixtures. These are AUTHORED synthetic test data (NOT a human label in the live close path). needs_implementation=true means the fixture spec clearly commits a runtime-observable / emitted event / gate-fire / validator obligation that requires code; false means it is a pure design-decision / methodology / ontology / rationale record that needs no code. Stratified 6 genuine-n/a + 6 commits-observable.",
+  "labels": {
+    "na_01_design_decision.md": {"needs_implementation": false, "stratum": "genuine_na"},
+    "na_02_methodology.md": {"needs_implementation": false, "stratum": "genuine_na"},
+    "na_03_ontology.md": {"needs_implementation": false, "stratum": "genuine_na"},
+    "na_04_rationale.md": {"needs_implementation": false, "stratum": "genuine_na"},
+    "na_05_paradigm_ruling.md": {"needs_implementation": false, "stratum": "genuine_na"},
+    "na_06_naming_convention.md": {"needs_implementation": false, "stratum": "genuine_na"},
+    "obs_01_agent_contract_emit.md": {"needs_implementation": true, "stratum": "commits_observable"},
+    "obs_02_schema_shacl.ttl": {"needs_implementation": true, "stratum": "commits_observable"},
+    "obs_03_gate_fire.md": {"needs_implementation": true, "stratum": "commits_observable"},
+    "obs_04_event_class.md": {"needs_implementation": true, "stratum": "commits_observable"},
+    "obs_05_validator.md": {"needs_implementation": true, "stratum": "commits_observable"},
+    "obs_06_schema_json.json": {"needs_implementation": true, "stratum": "commits_observable"}
+  }
+}

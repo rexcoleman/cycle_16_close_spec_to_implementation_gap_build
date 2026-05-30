@@ -1,0 +1,7 @@
+# Schema: provenance orphan refusal SHACL shape
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+:OrphanRefusalShape a sh:NodeShape ;
+  sh:targetClass :ProvNode ;
+  sh:property [ sh:path :wasDerivedFrom ; sh:minCount 1 ] .
+# A SHACL validator MUST enforce this shape: every ProvNode that lacks wasDerivedFrom
+# MUST fail conformance (a gate that blocks). This requires a running validator to check.
