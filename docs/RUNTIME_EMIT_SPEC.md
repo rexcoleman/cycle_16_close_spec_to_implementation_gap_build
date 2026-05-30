@@ -912,3 +912,30 @@ Cardinality: 1 measure.event per evaluable/contested/deferred spec per class; 1 
 **Gap-list artifact `outputs/trusted_detector_run.json`** (BE-T T4 — NOT a JSONL event): per-spec implemented/not-implemented/contested + `tier` + the aggregate tier-partitioned implemented-rate `[measured]` + `independence_clean: true` + the scoped close-claim + the §1ee honest gaps verbatim. The per-spec F-detector dispositions consumed are the `probe_library.fire.event` rows the F probe emits (UNMODIFIED).
 
 (Stage 5 BE-S+BE-T ADDITIVE-APPEND per Cycle-16-S24; BE-M + BE-A..BE-H preserved verbatim.)
+
+---
+
+## §BE-JTV Judgment-tier verifier event classes (Cycle-16-S28 — design spec `docs/judgment_tier_verifier_mechanism.md`)
+
+ADDITIVE-APPEND per Cycle-16-S28. All prior sections preserved verbatim. Sink: `outputs/judgment_tier_verifier_events.jsonl` (append-only). Namespace: `cycle_16.s28.judgment_tier_verifier`. Schema version `0.1`.
+
+**Event class `judgment_tier_verifier.judge.event`** — one row per (spec, judge) verdict. Payload:
+- `spec_iri` (str), `judge_id` (str ∈ {J1, J2, J3}), `judge_kind` (str ∈ {llm_model_a, llm_model_b, structural_nonllm}), `judge_model` (str | null — model id for J1/J2, null for J3)
+- `verdict` (str ∈ {implemented, not_implemented, abstain}), `evidence` (str — file:line OR refusal reason), `abstain_reason` (str | absent)
+
+**Event class `judgment_tier_verifier.verdict.event`** — one row per spec (the quorum result). Payload:
+- `spec_iri` (str), `j1` / `j2` / `j3` (str verdicts), `quorum_verdict` (str ∈ {VALIDATED-IMPLEMENTED, VALIDATED-NOT-IMPLEMENTED, CONTESTED}), `failsafe_fired` (bool), `n_reasoners_nonabstain` (int)
+
+**Event class `judgment_tier_verifier.independence_selftest.event`** — emitted by `--independence-self-test`. Payload:
+- `judges_share_no_code_path` (bool), `j1_model` (str), `j2_model` (str), `j1_model_ne_j2_model` (bool), `pass` (bool — true iff both prior bools true)
+
+**Event class `judgment_tier_accuracy.measure.event`** — emitted by the accuracy harness. Payload:
+- `arm` (str ∈ {arm1_construct, arm2_real_sample}), `stratum` (str — spec class | "pooled"), `tp`/`fp`/`fn`/`tn` (int), `precision`/`recall`/`fnr` (float | null), `gt_sample_n` (int), `ci95_halfwidth` (float)
+- `precision_ci_low_for_implemented_class` (float), `gt_labels_blind_to_verifier` (bool), `judges_not_tuned_to_agree` (bool)
+
+**Event class `judgment_tier_accuracy.verdict.event`** — the headline trustworthiness result (single fire). Payload:
+- `trustworthy` (bool — true iff `precision_ci_low_for_implemented_class > 0.60`), `honest_statement` (str — leads with range/CI, not a point), `inter_judge_agreement` (float — reported SEPARATELY from accuracy), `residual_R_disclosed` (bool), `now_trustworthy_build_queue_count` (int | null — null unless `trustworthy`), `no_human_in_close_path` (bool)
+
+**Drift class `judgment_tier_verifier.runtime_failure.event`** (severity HALT) — fires on: independence self-test FAIL, verifier ran non-blind to GT, GT N < 40, any judge code changed mid-run, or no LLM key for J1/J2 (→ conservative fail-safe, never fabricated verdict). Payload: `failure_class`, `evidence`, `recovery_path`.
+
+(Stage 5 BE-JTV ADDITIVE-APPEND per Cycle-16-S28; prior sections preserved verbatim.)

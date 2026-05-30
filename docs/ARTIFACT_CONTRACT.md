@@ -845,3 +845,45 @@ sections 1-3 + BE-B 10 + BE-C 11 + BE-D 12 + BE-E 13 + BE-F 14 + BE-G 15 preserv
 - `trusted_detector_run.py --run` → emits the gap list; REFUSES if independence is not clean (T5) or input is not the reconciled V (T3).
 
 (Stage 5 BE-S+BE-T ADDITIVE-APPEND per Cycle-16-S24; §16 BE-M + BE-A..BE-H sections preserved verbatim.)
+
+---
+
+## §18 BE-JTV — Judgment-tier verifier (Cycle-16-S28; design spec `docs/judgment_tier_verifier_mechanism.md`)
+
+ADDITIVE-APPEND per Cycle-16-S28. §0-§17 (BE-A LOCKED + BE-B..BE-T) preserved verbatim. RP-authored
+per Binding 6; Build-Runner implements the verifier + accuracy harness from `docs/judgment_tier_verifier_mechanism.md`;
+Coach DP#43-verifies. Frozen paths consumed UNMODIFIED (`scripts/probes/probe_spec_impl_fidelity.py`,
+floors 0.20/0.80/0.20, `fixtures/**`, gap-list outputs, `probe_accuracy_harness.py` interface). The
+verifier is a NEW successor file — it does NOT edit the frozen harness.
+
+| | |
+|---|---|
+| **Build cycle** | Cycle 16 (Stage 5 BE-JTV — judgment-tier verifier-of-record + blind powered accuracy validation) |
+| **Artifacts** | `scripts/judgment_tier_verifier.py` (NEW — J1/J2/J3 diverse ensemble + agreement→verdict mapping); `scripts/judgment_tier_accuracy.py` (NEW — blind accuracy harness); `scripts/structural_prevention/fixtures/judgment_tier_gt/` (NEW — N≥40 construct-by-design labeled pairs + `labels.json`, authored blind to the verifier); `outputs/judgment_tier_verifier_run.json` (NEW); `outputs/judgment_tier_accuracy.json` (NEW); `outputs/judgment_tier_verifier_events.jsonl` (NEW) |
+| **Contract owner** | Build-Runner (S28 authoring) → Coach R3 independent verify |
+
+**§18.1 Pre-conditions (MUST hold)**
+
+- Judgment-tier population pinned: `outputs/validation_tier_verdicts.json` present with `T1_tier_counts.semantically_judged == 203` (= judgment tier; 194 contested + 9 validated at S24). Every number traces here (HC-07).
+- Frozen harness + probes byte-identical: `git diff --stat` empty on `scripts/probe_accuracy_harness.py`, `scripts/probes/probe_spec_impl_fidelity.py`, floors, `fixtures/**`, gap-list outputs.
+- LLM keys reachable for J1 (model A) AND J2 (model B, DIFFERENT model id). Multi-key (`.env` ORCHESTRATION_ANTHROPIC_API_KEY ↔ `.env.backup` ANTHROPIC_API_KEY) — usage-limit is an operational key-switch, NOT a blocker. No key at all → conservative fail-safe (DP#44), never a fabricated verdict.
+- GT corpus authored BLIND to the verifier (`labels.json` not visible to the verifier process at verify time).
+
+**§18.2 Post-conditions (GUARANTEED)**
+
+- `judgment_tier_verifier.py` emits per-spec verdicts ∈ {VALIDATED-IMPLEMENTED, VALIDATED-NOT-IMPLEMENTED, CONTESTED→NOT-VALIDATED} via the J1/J2/J3 quorum + asymmetric fail-safe (any disagreement / insufficient quorum / no-key → CONTESTED). NEVER coerced agreement.
+- `--independence-self-test` asserts J1/J2/J3 share NO extraction/prose-window/spec-parsing code path AND J1 model id ≠ J2 model id; emits `judges_share_no_code_path` (bool) + `j1_model != j2_model` (bool). Acceptance BLOCKS on either false.
+- `judgment_tier_accuracy.py` runs the verifier BLIND to GT, then computes precision/recall/FNR for the implemented class (per stratum + pooled) against GT Arm 1 (N≥40 construct-by-design pairs, target 60) + GT Arm 2 (n≥30 blind random real-sample partial oracle), with the realized 95% CI half-width disclosed. Inter-judge agreement reported in a SEPARATE block from accuracy.
+- Output artifact leads with an honest range/number (not a raw point field); emits a "now-trustworthy build-queue count" ONLY if `precision_ci_low_for_implemented_class > 0.60` (beats-and-proves the S27 0.6 baseline). If the bar is not met, the artifact emits the honest NOT-YET-TRUSTWORTHY finding and NO build-queue count.
+- Residual R disclosed (construct-validity gap + LLM-judgment-not-execution gap); the uniform "verifier is X% accurate over the judgment tier with no residual / proven correct / 100%" claim is FORBIDDEN (lint-asserted).
+- Vertical slice (≈5–8 real judgment-tier specs across ≥3 strata) run end-to-end with measured accuracy BEFORE any full-tier run; result recorded, NOT a closure claim.
+- NO human in the verify/accuracy-compute close path (signature/argument-inspected); NO frozen-path modification; NO judge tuned to agree (judge code byte-identical across the accuracy run; `git diff --stat` empty on judge code).
+
+**§18.3 Outward-facing API**
+
+- `judgment_tier_verifier.py --independence-self-test` → exit 0 iff J1/J2/J3 share no code path AND J1 model ≠ J2 model.
+- `judgment_tier_verifier.py --run` → per-spec quorum verdicts over the judgment tier (blind to GT).
+- `judgment_tier_verifier.py --vertical-slice` → the small end-to-end demonstration run.
+- `judgment_tier_accuracy.py --run` → precision/recall/FNR (per stratum + pooled) + CI + the agreement-vs-accuracy split + the trustworthiness verdict; REFUSES if the verifier was not run blind, if GT N < 40, or if any judge code changed during the run.
+
+(Stage 5 BE-JTV ADDITIVE-APPEND per Cycle-16-S28; §0-§17 preserved verbatim.)

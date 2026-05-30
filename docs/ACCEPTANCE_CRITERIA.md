@@ -773,3 +773,26 @@ Thresholds expressed as MEASURABLE counts (Amendment 28f Done #44 rigor split). 
 (Stage 5 BE-S+BE-T ADDITIVE-APPEND per Cycle-16-S24; BE-M + BE-A..BE-H preserved verbatim. The LARGE spec→implementation gap — execution-proven 1/206; judgment tier 194/203 fail-safe → CONTESTED/NOT-VALIDATED — is the HONEST deliverable per HC #70, never a number engineered to pass.)
 
 > **BE-T S24 narrow disclosure re-emit (additive ONLY; no verdict change, no detector re-run):** `trusted_detector_run.json` now adds a three-population reconciliation (M1′=193 disclosed-bound / V=206=167+39 [167/193=86.5% coverage] / guard-pop=230=193+37 infra, the 37-infra cut DISTINCT from V's 39 cycle-16 specs), the **26-absent** extraction-coverage finding (193−167; disclosed, NOT counted implemented-or-not), per-era tier-partitioned rates (cycles-1-15 past + cycle-16 present/in-flight, summing to the aggregate), and an era-reconciled `close_claim`. Every prior per-spec verdict + gap_list count (exec 1/2/0; judgment 9/71/123) + aggregate rate is byte-identical (asserted recomputed==prior before write); residuals (6 single-reader edge ids + caveat, +53 DD surplus, BE-J 33.88% not-promoted, honest-gaps-verbatim) preserved unchanged.
+
+---
+
+## §BE-JTV Judgment-tier verifier acceptance criteria (Cycle-16-S28 — design spec `docs/judgment_tier_verifier_mechanism.md`; PRE-REGISTERED before running)
+
+ADDITIVE-APPEND per Cycle-16-S28. All prior sections preserved verbatim. Thresholds are binary/deterministic, pre-registered BEFORE the verifier is run for measurement. Verdict path per §4 grid (PASS / FAIL / FAILS-WITH-DIAGNOSED-SHAPE). The verifier is a NEW successor file; frozen paths consumed UNMODIFIED.
+
+| # | Threshold (binary) | Measurement | Verdict path |
+|---|---|---|---|
+| JTV-1 | `judges_share_no_code_path == true` AND `j1_model != j2_model` (genuine diverse quorum, the §A.1 independence fix) | `judgment_tier_verifier.py --independence-self-test` exits 0; `judgment_tier_verifier.independence_selftest.event` `pass == true` | PASS / FAIL |
+| JTV-2 | `gt_sample_n >= 40` (powered; target Arm-1 N=60 + Arm-2 n=30); realized N + 95% CI half-width disclosed | `judgment_tier_accuracy.json` `gt_sample_n` + `ci95_halfwidth` present | PASS / FAIL |
+| JTV-3 | `gt_labels_blind_to_verifier == true` AND `no_human_in_close_path == true` (#25/#61) | verifier verdicts written before GT read (ordering asserted); accuracy-compute path takes 0 human inputs (signature-inspected); GT corpus authored independently of verifier logic | PASS / FAIL |
+| JTV-4 | `accuracy_measured_against_independent_gt == true`: precision/recall/FNR for implemented class computed per stratum + pooled against Arm-1 construct GT + Arm-2 real-sample partial oracle | `judgment_tier_accuracy.json` confusion + P/R/FNR present per stratum | PASS / FAIL |
+| JTV-5 | Inter-judge agreement reported SEPARATELY from accuracy (distinct labelled blocks; never merged into one "X% good" number) | `judgment_tier_accuracy.json` has distinct `inter_judge_agreement` block AND `accuracy` block | PASS / FAIL |
+| JTV-6 | Trustworthiness bar (beat-and-prove S27 0.6): TRUSTWORTHY iff `precision_ci_low_for_implemented_class > 0.60`; otherwise honest NOT-YET-TRUSTWORTHY finding emitted and NO build-queue count | `judgment_tier_accuracy.verdict.event` `trustworthy` consistent with the CI lower bound; `now_trustworthy_build_queue_count` null unless trustworthy | PASS (either outcome is a valid PASS — a measured NOT-YET-TRUSTWORTHY is an honest finding, NOT a fail) |
+| JTV-7 | `judges_not_tuned_to_agree == true`: judge prompts/models/thresholds byte-identical across the accuracy run (`git diff --stat` empty on judge code) | attested in artifact + git diff | PASS / FAIL |
+| JTV-8 | `residual_R_disclosed == true` AND NO uniform "X% accurate, no residual / proven correct / 100%" claim (lint) | artifact discloses R (construct-validity + LLM-not-execution gaps); lint scan returns 0 forbidden strings | PASS / FAIL |
+| JTV-9 | Vertical slice (≈5–8 real judgment-tier specs across ≥3 strata) run end-to-end with measured accuracy BEFORE any full-tier run; fail-safe fires on a planted disagreement | slice result recorded in `judgment_tier_verifier_run.json`; NOT a closure claim | PASS / FAIL |
+| JTV-10 | `frozen_paths_unmodified == true` (`probe_spec_impl_fidelity.py`, floors 0.20/0.80/0.20, `fixtures/**`, gap-list outputs, `probe_accuracy_harness.py` interface — all byte-identical) | `git diff --stat` empty on frozen paths | PASS / FAIL |
+
+**Honest pre-registration note:** the EXPECTED outcome of JTV-6 is NOT pre-determined. If the diverse-judge ensemble cannot reach `precision_ci_low > 0.60` on blind powered GT, the honest result is "judgment tier stays not-yet-trustworthy; S29 scaling waits" — and that is a PASSING build outcome (an honest measured negative), never a fail to be patched by tuning judges to agree (HC; #19/#46).
+
+(Stage 5 BE-JTV ADDITIVE-APPEND per Cycle-16-S28; prior sections preserved verbatim.)

@@ -1,0 +1,430 @@
+{
+  "schema_version": "0.1",
+  "arm": "arm1_construct_by_design",
+  "authored": "Cycle-16-S28 BE-JTV; labels true by construction; blind to verifier logic",
+  "n_total": 60,
+  "n_implemented": 30,
+  "n_not_implemented": 30,
+  "labels": {
+    "pair_001_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_001_a_agent_contract_impl.spec.md",
+      "code_file": "pair_001_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_002_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_002_a_agent_contract_impl.spec.md",
+      "code_file": "pair_002_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_003_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_003_a_agent_contract_impl.spec.md",
+      "code_file": "pair_003_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_004_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_004_a_agent_contract_impl.spec.md",
+      "code_file": "pair_004_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_005_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_005_a_agent_contract_impl.spec.md",
+      "code_file": "pair_005_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_006_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_006_a_agent_contract_impl.spec.md",
+      "code_file": "pair_006_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_007_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_007_a_agent_contract_impl.spec.md",
+      "code_file": "pair_007_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_008_a_agent_contract_impl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_008_a_agent_contract_impl.spec.md",
+      "code_file": "pair_008_a_agent_contract_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "enforce def wired into reachable run/main call path"
+    },
+    "pair_009_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_009_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_009_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_010_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_010_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_010_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_011_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_011_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_011_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_012_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_012_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_012_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb name does the wrong thing"
+    },
+    "pair_013_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_013_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_013_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_014_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_014_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_014_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_015_a_agent_contract_nimpl": {
+      "stratum": "a_agent_contract",
+      "spec_file": "pair_015_a_agent_contract_nimpl.spec.md",
+      "code_file": "pair_015_a_agent_contract_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_016_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_016_b_schema_impl.spec.md",
+      "code_file": "pair_016_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_017_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_017_b_schema_impl.spec.md",
+      "code_file": "pair_017_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_018_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_018_b_schema_impl.spec.md",
+      "code_file": "pair_018_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_019_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_019_b_schema_impl.spec.md",
+      "code_file": "pair_019_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_020_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_020_b_schema_impl.spec.md",
+      "code_file": "pair_020_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_021_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_021_b_schema_impl.spec.md",
+      "code_file": "pair_021_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_022_b_schema_impl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_022_b_schema_impl.spec.md",
+      "code_file": "pair_022_b_schema_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "validate def wired into reachable run/main call path"
+    },
+    "pair_023_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_023_b_schema_nimpl.spec.md",
+      "code_file": "pair_023_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_024_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_024_b_schema_nimpl.spec.md",
+      "code_file": "pair_024_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_025_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_025_b_schema_nimpl.spec.md",
+      "code_file": "pair_025_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_026_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_026_b_schema_nimpl.spec.md",
+      "code_file": "pair_026_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb name does the wrong thing"
+    },
+    "pair_027_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_027_b_schema_nimpl.spec.md",
+      "code_file": "pair_027_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_028_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_028_b_schema_nimpl.spec.md",
+      "code_file": "pair_028_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_029_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_029_b_schema_nimpl.spec.md",
+      "code_file": "pair_029_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_030_b_schema_nimpl": {
+      "stratum": "b_schema",
+      "spec_file": "pair_030_b_schema_nimpl.spec.md",
+      "code_file": "pair_030_b_schema_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb name does the wrong thing"
+    },
+    "pair_031_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_031_c_design_decision_impl.spec.md",
+      "code_file": "pair_031_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_032_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_032_c_design_decision_impl.spec.md",
+      "code_file": "pair_032_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_033_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_033_c_design_decision_impl.spec.md",
+      "code_file": "pair_033_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_034_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_034_c_design_decision_impl.spec.md",
+      "code_file": "pair_034_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_035_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_035_c_design_decision_impl.spec.md",
+      "code_file": "pair_035_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_036_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_036_c_design_decision_impl.spec.md",
+      "code_file": "pair_036_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_037_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_037_c_design_decision_impl.spec.md",
+      "code_file": "pair_037_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_038_c_design_decision_impl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_038_c_design_decision_impl.spec.md",
+      "code_file": "pair_038_c_design_decision_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "gate def wired into reachable run/main call path"
+    },
+    "pair_039_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_039_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_039_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_040_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_040_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_040_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_041_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_041_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_041_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_042_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_042_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_042_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb name does the wrong thing"
+    },
+    "pair_043_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_043_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_043_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_044_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_044_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_044_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_045_c_design_decision_nimpl": {
+      "stratum": "c_design_decision",
+      "spec_file": "pair_045_c_design_decision_nimpl.spec.md",
+      "code_file": "pair_045_c_design_decision_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_046_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_046_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_046_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_047_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_047_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_047_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_048_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_048_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_048_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_049_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_049_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_049_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_050_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_050_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_050_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_051_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_051_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_051_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_052_d_methodology_commitment_impl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_052_d_methodology_commitment_impl.spec.md",
+      "code_file": "pair_052_d_methodology_commitment_impl.code.py",
+      "true_label": "implemented",
+      "rationale": "check def wired into reachable run/main call path"
+    },
+    "pair_053_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_053_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_053_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_054_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_054_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_054_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_055_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_055_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_055_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_056_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_056_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_056_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb name does the wrong thing"
+    },
+    "pair_057_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_057_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_057_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb only in comment/docstring"
+    },
+    "pair_058_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_058_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_058_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb def never called"
+    },
+    "pair_059_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_059_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_059_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb is a pass-stub"
+    },
+    "pair_060_d_methodology_commitment_nimpl": {
+      "stratum": "d_methodology_commitment",
+      "spec_file": "pair_060_d_methodology_commitment_nimpl.spec.md",
+      "code_file": "pair_060_d_methodology_commitment_nimpl.code.py",
+      "true_label": "not_implemented",
+      "rationale": "adversarial near-miss: verb name does the wrong thing"
+    }
+  }
+}

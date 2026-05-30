@@ -1,0 +1,18 @@
+{
+  "trust_decision": "TRUSTWORTHY",
+  "implemented_class_precision": 1.0,
+  "precision_ci_95": [
+    0.8864829086095221,
+    1.0
+  ],
+  "recall": 1.0,
+  "fnr": 0.0,
+  "gt_sample_n": 60,
+  "arm1_n": 60,
+  "arm2_scored_n": 0,
+  "arm2_abstained": 30,
+  "inter_judge_agreement_j1j2": 1.0,
+  "judges_share_no_code_path": true,
+  "judges_not_tuned_to_agree": true,
+  "out": "/home/azureuser/cycle_16_close_spec_to_implementation_gap_build/outputs/judgment_tier_verifier_accuracy.json"
+}
