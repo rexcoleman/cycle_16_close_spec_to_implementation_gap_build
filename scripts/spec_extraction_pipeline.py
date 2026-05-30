@@ -50,16 +50,56 @@ HOME = os.path.expanduser("~")
 E1_MECHANISM = "rule_based_clause_parser"
 E2_MECHANISM = "llm_extraction:claude-haiku-4-5"
 E2_MODEL = "claude-haiku-4-5"
+E2_PROMPT_ID = "E2_checkable_commitments_v1"
 ENV_BACKUP = os.path.join(HOME, "Moonshots_Career_Thesis_v2", ".env.backup")
 
+# S23 (b′) — the diverse second LLM E1′ for PROSE-HEAVY specs (ED §5.phase11.1-R-S23 6″).
+# E1′ is a DIFFERENT model from E2's claude-haiku-4-5 (a Sonnet-class model) AND uses a
+# GENUINELY DIFFERENT prompt (obligation-by-obligation enumeration with a different role
+# frame — NOT E2_PROMPT reworded). The same .env.backup ANTHROPIC_API_KEY is used (model is
+# a request param). On prose, E1′ reads at a capability comparable to E2 — closing the
+# rule-vs-prose capability gap that floored the S22 V. Live-API pre-checked before the run.
+E1_PRIME_MODEL = "claude-sonnet-4-6"
+E1_PRIME_MECHANISM = "llm_extraction:claude-sonnet-4-6/alt-prompt"
+E1_PRIME_PROMPT_ID = "E1prime_obligation_enumeration_v1"
+
+# S23 (b′) form-classifier midpoint (ED §5.phase11.1-R-S23 6″) — principled prose-majority
+# boundary, NOT tuned to a target classification of the current corpus.
+PROSE_FRACTION_BOUNDARY = 0.50
+
 
 # ---------------------------------------------------------------------------
-# Independence assertion (T4)
+# Independence assertion (T4 → upgraded by S23 (b′) threshold 6″)
 # ---------------------------------------------------------------------------
-def extraction_methods_distinct(method_e1, method_e2):
-    """True iff the two extraction mechanism identifiers differ. A single reader twice
-    (identical mechanism) is REFUSED."""
-    return method_e1 != method_e2
+def extraction_methods_distinct(method_e1, method_e2,
+                                model_e1=None, model_e2=None,
+                                prompt_e1=None, prompt_e2=None,
+                                e1_seeded_from_e2=False):
+    """S23 (b′) threshold 6″ upgrade of the bare `method_e1 != method_e2` string-compare.
+
+    Two readers are independent iff EITHER (rule-based vs LLM) OR (LLM vs LLM with a
+    DIFFERENT model AND a DIFFERENT prompt) — and in NO case the same mechanism twice, and
+    in NO case the second reader tuned/seeded to reproduce the first. Asserts:
+      (a) the two reader mechanisms differ;
+      (b) when BOTH are LLMs, their model identifiers differ AND their prompt ids/hashes differ;
+      (c) the second reader was NOT parameterized/few-shot-seeded from the first reader's output.
+    Returns (distinct_bool, reason)."""
+    if method_e1 == method_e2:
+        return False, "same mechanism twice (single reader twice REFUSED)"
+    if e1_seeded_from_e2:
+        return False, "second reader seeded/parameterized from the first's output — REFUSED"
+    both_llm = (method_e1 or "").startswith("llm_extraction:") and \
+               (method_e2 or "").startswith("llm_extraction:")
+    if both_llm:
+        if model_e1 == model_e2:
+            return False, (f"both readers are LLMs with the SAME model '{model_e1}' — "
+                           f"REFUSED (different model required)")
+        if prompt_e1 is not None and prompt_e2 is not None and prompt_e1 == prompt_e2:
+            return False, (f"both readers are LLMs with the SAME prompt id '{prompt_e1}' — "
+                           f"REFUSED (different prompt required)")
+    return True, (f"distinct readers: {method_e1} vs {method_e2}"
+                  + (f" (models {model_e1}!={model_e2}, prompts {prompt_e1}!={prompt_e2})"
+                     if both_llm else ""))
 
 
 # ---------------------------------------------------------------------------
@@ -200,6 +240,42 @@ def spec_prose_window(rec, n=900):
         if end > 0:
             body = txt[end + 4:]
     return (name + "\n" + body[:n]).strip()
+
+
+# ---------------------------------------------------------------------------
+# S23 (b′) form-classifier — prose fraction p over the definition-site window
+# ---------------------------------------------------------------------------
+# structured tokens = JSON/code/markup syntax: keys/quotes/brackets/braces/colons,
+# .ttl/.py/.json punctuation, table-cell delimiters, list/markdown markers.
+_STRUCT_TOKEN_RE = re.compile(r'[{}\[\]()<>:;,"\'`|/\\=]+|^\s*[#>*\-\d.]+', re.M)
+# prose tokens = natural-language word tokens (alphabetic, length>=2)
+_PROSE_WORD_RE = re.compile(r"[A-Za-z]{2,}")
+
+
+def prose_fraction(window):
+    """ED §5.phase11.1-R-S23 6″ form-classifier. Compute
+    `p = prose_tokens / (prose_tokens + structured_tokens)` over the spec's resolved
+    definition-site window. structured = JSON/code/markup syntax tokens; prose =
+    natural-language word tokens OUTSIDE structured spans. A spec is `structured` iff
+    p < 0.50 and `prose-heavy` iff p >= 0.50. Returns (p, prose_tokens, struct_tokens)."""
+    if not window:
+        return 0.0, 0, 0
+    # structured tokens: count syntax-punctuation runs + leading-line markers
+    struct_tokens = len(_STRUCT_TOKEN_RE.findall(window))
+    # prose tokens: alphabetic words in the text with structured spans neutralized so a
+    # JSON key string is not double-counted as prose. Remove quoted/bracketed spans first.
+    stripped = _STRUCT_TOKEN_RE.sub(" ", window)
+    prose_tokens = len(_PROSE_WORD_RE.findall(stripped))
+    denom = prose_tokens + struct_tokens
+    p = (prose_tokens / denom) if denom else 0.0
+    return p, prose_tokens, struct_tokens
+
+
+def classify_form(window):
+    """structured (p < 0.50) → rule-based E1 is an adequate second reader;
+    prose-heavy (p >= 0.50) → the diverse second LLM E1′ is the second reader."""
+    p, pt, st = prose_fraction(window)
+    return ("prose_heavy" if p >= PROSE_FRACTION_BOUNDARY else "structured"), p, pt, st
 
 
 # ---------------------------------------------------------------------------
@@ -369,6 +445,83 @@ def extract_e2(prose, max_retries=4):
             # transient JSON / network — one short retry then give up for this spec
             time.sleep(1)
     raise RuntimeError(f"E2 failed after {max_retries} retries: {last_err}")
+
+
+# ---------------------------------------------------------------------------
+# E1′ — diverse second LLM (claude-sonnet-4-6) for PROSE-HEAVY specs (S23 (b′))
+# ---------------------------------------------------------------------------
+# A GENUINELY DIFFERENT prompt from E2_PROMPT (NOT a rewording): E2 asks for a flat JSON
+# array of "checkable commitment strings"; E1′ uses a different role frame (a contract
+# auditor) and a different extraction procedure (walk the fragment obligation-by-obligation,
+# emit one normalized OBLIGATION per distinct rule with an explicit actor+action framing).
+# This is a different reading procedure, not E2's prompt restated. NOT seeded from E2's output.
+E1_PRIME_PROMPT = (
+    "ROLE: You are a contract auditor reviewing a software/specification fragment to build a "
+    "compliance checklist. PROCEDURE: Walk the fragment top to bottom. Each time you reach a "
+    "distinct RULE the system or its operators are bound to (something that is required, "
+    "forbidden, enforced, asserted, refused, or that gates/halts/fails), record ONE checklist "
+    "item phrased as <actor/component> <obligation>. Merge restatements of the same rule into a "
+    "single item. Ignore narrative, rationale, and examples that bind no one. OUTPUT: a JSON "
+    "array of short checklist-item strings, one obligation each, no commentary. If the fragment "
+    "binds no one, output []. FRAGMENT:\n\n"
+)
+
+
+def extract_e1_prime(prose, max_retries=4):
+    """Diverse second LLM E1′ for prose-heavy specs: a DIFFERENT model (sonnet-4-6) reading the
+    SAME prose with a DIFFERENT prompt. Same client/key as E2 (model is a request param).
+    DP#44: refuse on missing key — never fabricate."""
+    client = _e2_client()  # same Anthropic client (same .env.backup key); model differs per-call
+    last_err = None
+    for attempt in range(max_retries):
+        try:
+            r = client.messages.create(
+                model=E1_PRIME_MODEL,
+                max_tokens=400,
+                messages=[{"role": "user", "content": E1_PRIME_PROMPT + prose[:1500]}],
+            )
+            raw = r.content[0].text.strip()
+            mm = re.search(r"\[.*\]", raw, re.S)
+            arr = json.loads(mm.group(0)) if mm else []
+            commitments = {}
+            for c in arr:
+                if not isinstance(c, str) or len(c.strip()) < 4:
+                    continue
+                sig = normalize_commitment(c)
+                commitments.setdefault(sig, c.strip()[:120])
+            return commitments
+        except Exception as e:
+            last_err = e
+            msg = str(e)
+            if "529" in msg or "overload" in msg.lower() or "rate" in msg.lower():
+                time.sleep(2 ** attempt)
+                continue
+            time.sleep(1)
+    raise RuntimeError(f"E1′ failed after {max_retries} retries: {last_err}")
+
+
+def live_api_precheck():
+    """S185→S186 live-API pre-check: make ONE real call to E2's model AND E1′'s model with
+    the .env.backup key; confirm both return parsed text. REFUSE (raise) if either is
+    unreachable — do NOT fabricate E1′ (surface for Coach key-switch; multi-key is operational)."""
+    client = _e2_client()
+    results = {}
+    for label, model in (("E2", E2_MODEL), ("E1prime", E1_PRIME_MODEL)):
+        try:
+            r = client.messages.create(
+                model=model, max_tokens=16,
+                messages=[{"role": "user", "content": "Reply with exactly: OK"}],
+            )
+            txt = r.content[0].text.strip()
+            results[label] = {"model": model, "reachable": True, "reply": txt[:20]}
+        except Exception as e:
+            results[label] = {"model": model, "reachable": False, "error": str(e)[:200]}
+    unreachable = [k for k, v in results.items() if not v["reachable"]]
+    if unreachable:
+        raise RuntimeError(
+            f"DP#44 REFUSE: live-API pre-check failed for {unreachable} "
+            f"({results}) — E1′/E2 cannot be fabricated; surface for Coach key-switch.")
+    return results
 
 
 # ---------------------------------------------------------------------------
@@ -586,13 +739,28 @@ def build_negative_fixture_v():
 # Drivers
 # ---------------------------------------------------------------------------
 def emit_distinct_event():
+    """S23 (b′): assert BOTH second-reader pairings are independent under the upgraded 6″ rule —
+    (E1 rule-based vs E2 LLM) for structured AND (E1′ sonnet vs E2 haiku, different prompt) for
+    prose-heavy. Fires one event per pairing. HARD-FAILS if EITHER pairing is non-distinct."""
     os.makedirs(OUTPUTS, exist_ok=True)
-    distinct = extraction_methods_distinct(E1_MECHANISM, E2_MECHANISM)
+    # structured pairing: rule-based E1 vs LLM E2
+    d_struct, r_struct = extraction_methods_distinct(E1_MECHANISM, E2_MECHANISM)
+    # prose pairing: diverse LLM E1′ (sonnet, alt-prompt) vs LLM E2 (haiku, E2 prompt)
+    d_prose, r_prose = extraction_methods_distinct(
+        E1_PRIME_MECHANISM, E2_MECHANISM,
+        model_e1=E1_PRIME_MODEL, model_e2=E2_MODEL,
+        prompt_e1=E1_PRIME_PROMPT_ID, prompt_e2=E2_PROMPT_ID,
+        e1_seeded_from_e2=False)
+    distinct = d_struct and d_prose
     ev = {
         "event_class": "extraction_methods_distinct_check.fire.event",
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "method_E1": E1_MECHANISM,
-        "method_E2": E2_MECHANISM,
+        "structured_pairing": {"second_reader": E1_MECHANISM, "first_reader": E2_MECHANISM,
+                               "distinct": bool(d_struct), "reason": r_struct},
+        "prose_pairing": {"second_reader": E1_PRIME_MECHANISM, "first_reader": E2_MECHANISM,
+                          "second_model": E1_PRIME_MODEL, "first_model": E2_MODEL,
+                          "second_prompt": E1_PRIME_PROMPT_ID, "first_prompt": E2_PROMPT_ID,
+                          "distinct": bool(d_prose), "reason": r_prose},
         "distinct_bool": bool(distinct),
     }
     with open(DISTINCT_CHECK_JSONL, "a", encoding="utf-8") as f:
@@ -607,28 +775,73 @@ def run_full(limit=None):
               file=sys.stderr)
         sys.exit(1)
 
+    # S23 (b′): live-API pre-check BOTH models BEFORE the prose run (S185→S186). REFUSE
+    # (raise) if either is unreachable — surfaced for Coach key-switch, never fabricated.
+    api_precheck = live_api_precheck()
+    print(f"live-API pre-check: E2={api_precheck['E2']['model']} reachable="
+          f"{api_precheck['E2']['reachable']}; E1′={api_precheck['E1prime']['model']} "
+          f"reachable={api_precheck['E1prime']['reachable']}")
+
     recs = load_population(limit=limit)
     per_spec = []
     full_ledger = []
     v_all = {}
     n_inter = n_union = 0
     e2_errors = 0
+    e1prime_errors = 0
+    # S23 (b′) form-classification + per-form solo tracking (no-shared-blind-spot)
+    n_structured = n_prose = 0
+    # second-reader solo contribution by form (must be > 0 on its appropriate form)
+    structured_second_reader_solo = 0   # E1 (rule-based) solo on structured specs
+    prose_second_reader_solo = 0        # E1′ (diverse LLM) solo on prose-heavy specs
+    form_split = []  # per-spec p + form (PIPELINE-IP-PRIVATE detail trimmed to counts)
     for rec in recs:
         spec_id = rec.get("spec_id")
         prose = spec_prose_window(rec)
-        e1 = extract_e1(prose)
+        form, p, prose_tok, struct_tok = classify_form(prose)
+        # FIRST reader = E2 (the LLM, claude-haiku-4-5) in BOTH regimes.
         try:
             e2 = extract_e2(prose)
         except RuntimeError as e:
-            # DP#44 missing-key is fatal; per-spec E2 failure after retries is disclosed
             if "DP#44" in str(e):
                 raise
             e2_errors += 1
             e2 = {}
-        res = reconcile_spec(spec_id, e1, e2)
-        per_spec.append({k: res[k] for k in
-                         ("spec_id", "e1_count", "e2_count", "intersection",
-                          "union", "symmetric_difference", "jaccard")})
+        # SECOND reader chosen by form: E1 (rule-based) for structured, E1′ (diverse LLM) for prose.
+        if form == "prose_heavy":
+            n_prose += 1
+            try:
+                second = extract_e1_prime(prose)
+            except RuntimeError as e:
+                if "DP#44" in str(e):
+                    raise
+                e1prime_errors += 1
+                second = {}
+            second_reader = E1_PRIME_MECHANISM
+        else:
+            n_structured += 1
+            second = extract_e1(prose)
+            second_reader = E1_MECHANISM
+        # reconcile_spec treats arg `e1` as the SECOND reader (E1-or-E1′); `e2` as the first.
+        # Member source tags 'E1∩E2'/'adjudicated:E1_only' therefore mean "second-reader".
+        res = reconcile_spec(spec_id, second, e2)
+        # track the second reader's solo contribution on its appropriate form
+        second_solo = sum(1 for m in res["v_members"]
+                          if m.get("source") == "adjudicated:E1_only")
+        if form == "prose_heavy":
+            prose_second_reader_solo += second_solo
+        else:
+            structured_second_reader_solo += second_solo
+        ps = {k: res[k] for k in
+              ("spec_id", "e1_count", "e2_count", "intersection",
+               "union", "symmetric_difference", "jaccard")}
+        ps["form"] = form
+        ps["prose_fraction"] = round(p, 4)
+        ps["second_reader"] = second_reader
+        per_spec.append(ps)
+        form_split.append({"spec_id": spec_id, "form": form, "p": round(p, 4),
+                           "prose_tokens": prose_tok, "structured_tokens": struct_tok,
+                           "second_reader": second_reader})
         full_ledger.extend(res["ledger"])
         n_inter += res["intersection"]
         n_union += res["union"]
@@ -638,6 +851,17 @@ def run_full(limit=None):
 
     agg_jaccard = (n_inter / n_union) if n_union else 1.0
     total_sym = sum(p["symmetric_difference"] for p in per_spec)
+
+    # ----- S23 (b′) no-shared-blind-spot check -----
+    # The second reader's solo contribution MUST be > 0 on its appropriate form (a strict
+    # subset of the first reader = reading inside its blind spot → REFUSED). Evaluated per
+    # form actually present in the corpus.
+    nbs_fails = []
+    if n_structured > 0 and structured_second_reader_solo <= 0:
+        nbs_fails.append("structured: rule-based E1 solo == 0 (subset of E2 → shared blind spot)")
+    if n_prose > 0 and prose_second_reader_solo <= 0:
+        nbs_fails.append("prose-heavy: diverse-LLM E1′ solo == 0 (subset of E2 → shared blind spot)")
+    no_shared_blind_spot_pass = (len(nbs_fails) == 0)
 
     completeness = {
         "schema_version": "be_r_extraction_completeness.v1",
@@ -653,6 +877,28 @@ def run_full(limit=None):
         "symmetric_difference_total": total_sym,
         "symmetric_difference_ledger_length": len(full_ledger),
         "e2_per_spec_failures_after_retry": e2_errors,
+        "e1prime_per_spec_failures_after_retry": e1prime_errors,
+        # S23 (b′) form-classification + the form-appropriate second reader (threshold 6″)
+        "form_classification": {
+            "boundary": PROSE_FRACTION_BOUNDARY,
+            "structured_specs": n_structured,
+            "prose_heavy_specs": n_prose,
+            "second_reader_structured": E1_MECHANISM,
+            "second_reader_prose_heavy": E1_PRIME_MECHANISM,
+            "note": ("p = prose_tokens/(prose_tokens+structured_tokens) over the definition-"
+                     "site window; structured (p<0.50) → rule-based E1, prose-heavy (p>=0.50) "
+                     "→ diverse second LLM E1′ (claude-sonnet-4-6 + alt prompt). E2 (the FIRST "
+                     "reader) is claude-haiku-4-5 in both regimes."),
+        },
+        "no_shared_blind_spot": {
+            "structured_second_reader_solo": structured_second_reader_solo,
+            "prose_second_reader_solo": prose_second_reader_solo,
+            "pass": no_shared_blind_spot_pass,
+            "fails": nbs_fails,
+            "note": ("the second reader's solo contribution must be > 0 on its appropriate form; "
+                     "a strict subset of the first reader (zero solo) = reading inside the first's "
+                     "blind spot → REFUSED."),
+        },
         "scope_honesty": (
             "Measured = E1/E2 AGREEMENT (completeness PROXY), not ground-truth completeness. "
             "E2 is itself judgment-tier (an LLM reader). High E1/E2 disagreement is a DISCLOSED "
@@ -679,11 +925,25 @@ def run_full(limit=None):
         "build_event": "BE-R part 2 — reconciled validated set V (detector input)",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "detector_input_is_reconciled_validated_set": True,
-        "reconciliation_rule": "V = (E1∩E2) ∪ adjudicated(E1△E2); admit-on-either-reader",
+        "reconciliation_rule": ("V = (E2 ∩ second-reader) ∪ adjudicated(E2 △ second-reader); "
+                                "admit-on-either-reader. Second reader is form-appropriate "
+                                "(E1 rule-based for structured / E1′ diverse-LLM for prose-heavy)."),
         "v_size": len(v_all),
-        # threshold 6′ composition (read by --assert-detector-input); FROZEN floors
+        # threshold 6′ composition (read by --assert-detector-input); FROZEN floors.
+        # NOTE the composition's `e1_*` keys denote the SECOND reader (E1-or-E1′); `e2_*`
+        # the first reader (the LLM E2). The 6′ floor logic is UNCHANGED.
         "composition": composition,
+        "second_reader_share": composition.get("e1_share"),
+        "second_reader_solo_share": composition.get("e1_solo_share"),
+        "first_reader_solo_share": composition.get("e2_solo_share"),
         "aggregate_jaccard": round(agg_jaccard, 4),
+        # S23 (b′) form-classification + no-shared-blind-spot summary on V
+        "form_classification": {
+            "structured_specs": n_structured, "prose_heavy_specs": n_prose,
+            "boundary": PROSE_FRACTION_BOUNDARY,
+        },
+        "no_shared_blind_spot_pass": no_shared_blind_spot_pass,
+        "no_shared_blind_spot_fails": nbs_fails,
         "members": members,  # PIPELINE-IP-PRIVATE
     }
 
@@ -694,13 +954,18 @@ def run_full(limit=None):
         json.dump(validated, f, indent=2)
 
     print(f"population: {len(recs)} specs")
-    print(f"method_E1={E1_MECHANISM}  method_E2={E2_MECHANISM}  distinct={distinct}")
+    print(f"form split: structured={n_structured} (second reader {E1_MECHANISM}) | "
+          f"prose-heavy={n_prose} (second reader {E1_PRIME_MECHANISM})")
+    print(f"first reader (both regimes) = {E2_MECHANISM}; distinct(struct+prose)={distinct}")
     print(f"aggregate Jaccard: {completeness['aggregate_jaccard']} "
           f"(∩={n_inter} ∪={n_union})")
-    print(f"|E1 △ E2| total: {total_sym}  ledger length: {len(full_ledger)}  "
+    print(f"|△| total: {total_sym}  ledger length: {len(full_ledger)}  "
           f"equal: {completeness['ledger_equals_symmetric_difference']}")
-    print(f"|V|: {len(v_all)}")
-    print(f"E2 per-spec failures after retry: {e2_errors}")
+    print(f"|V|: {len(v_all)}  composition: {json.dumps(composition)}")
+    print(f"no-shared-blind-spot: pass={no_shared_blind_spot_pass} "
+          f"(structured-second-solo={structured_second_reader_solo}, "
+          f"prose-second-solo={prose_second_reader_solo}) fails={nbs_fails}")
+    print(f"E2 failures after retry: {e2_errors}; E1′ failures after retry: {e1prime_errors}")
     return completeness, validated
 
 
