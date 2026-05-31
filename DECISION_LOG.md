@@ -971,4 +971,18 @@ New general disciplines graduated to the canonical surfaces this transition: **#
 
 **Commits (3-repo paired, push-verified).** *Appended at S30 close (continuation entry below).*
 
+## D-S31 — Stage 2→3 checkpoint RESOLVED: Rex ruled PROCEED to Session B (design) + internal-cross-validation-scope addition (append-only; D-S29 / SI Amendment 28m / D-S30 STAND)
+
+**Decision (Rex, 2026-05-31).** At the sub-cycle Stage 2→3 checkpoint, Rex reviewed the S30 external landscape (`~/cycle_16_sdlc_build_cycle_redesign/docs/LANDSCAPE_ASSESSMENT.md`, 12 external disciplines) and ruled **PROCEED to Session B (Stages 3-4 design)** — the external landscape is sufficient; the one gap (thin internal cross-validation) is closed at design time, not via a Stage-2 redo. The proceed/deepen fork is CLOSED (settled #45), not an open Rex touchpoint.
+
+**Addition (Rex, 2026-05-31).** The Session B design must cross-validate against the **vetted internal corpus** enumerated in the sharpened strategic input §"Internal cross-validation scope" (our research process + its gates / the two proven shift-left projects [proof-of-mechanism ONLY] / govML build-class substrate / the current incomplete build-type cycle as failure evidence / the KG as current-state cross-check / business+architecture docs NARROW = agent-operated operating model). Held to ≤20% (Binding 2) — cross-check, NEVER the design anchor; "we shifted-left twice, just generalize" = the AAEM drift, forbidden.
+
+**What STANDS (append-only; not rewritten).** D-S29 / SI Amendment 28m (reframe: research-and-redesign SUB-CYCLE WITHIN Cycle 16; not a new cycle; no deferral; kc-47 BLOCKED) STANDS. D-S30 (S29 problem-statement+RQ framing found unclear by Rex → re-baselined clean on the sharpened strategic input; clean-room structural) STANDS. The bound STANDS: the redesign proves itself by building ONE real backlog slice (vertical slice) to verified code before refreshing all 16; it terminates in building, does not recurse as process design, does not defer the build.
+
+**HC-07 quote-count reconcile (kc-57 Step 1 finding; non-blocking).** The S30 narration (handoff §1ep + the S31 checkpoint package) states "62 verbatim quotes" in the LANDSCAPE; the artifact's §0 metadata self-states "37." A mechanical count of the §1.A–§1.L discipline body (lines 60-253) found ~64 attributed quote-spans (≥25 chars, multiword) — corroborating the "62" narration, NOT the §0 "37." The artifact is internally inconsistent: its §0 metadata UNDERCOUNTS its own body. Per Binding 6/7 the Coach does NOT edit the RP's Stage-2 LANDSCAPE artifact; the in-artifact §0-metadata fix (37→~62/64) is FLAGGED and folded into the Session B RP touch (the RP reconciles §0 to its own body + §7 gate-checklist line). Narration left at 62 (corroborated by the body count). Either number clears the ≥3×10 quote bar — NON-BLOCKING.
+
+**Authority.** Rex Stage 2→3 ruling 2026-05-31 (PROCEED + internal-cross-validation-scope) per the sharpened strategic input (ACTIVE 2026-05-30) + kc-57 R1 PASS task-context dispatch to Cycle-16-S31. Cycle 16 OPEN (TRUE-close (a)–(o) unmet).
+
+**Commits (3-repo paired, push-verified).** *Appended at S31 close.*
+
 <!-- next entry appends below -->
