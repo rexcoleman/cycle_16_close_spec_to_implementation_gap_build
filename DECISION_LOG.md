@@ -955,4 +955,20 @@ New general disciplines graduated to the canonical surfaces this transition: **#
 
 **Commits (3-repo paired, push-verified).** *Appended at S29 close (continuation entry below).*
 
+## D-S30 — sub-cycle RE-BASELINED: the S29 problem-statement + RQ framing found unclear by Rex; re-derived clean against the sharpened strategic input (append-only correction; D-S29 / Amendment 28m STANDS)
+
+**What stands (do NOT re-read as live).** The D-S29 / SI Amendment 28m *reframe decision* — Cycle 16 steps aside into a research-and-redesign SUB-CYCLE within Cycle 16 (not a new cycle; no deferral; kc-47 BLOCKED) — is CORRECT and unchanged. Only the sub-cycle's *initial framing* was unclear.
+
+**What was found unclear (Rex, 2026-05-30).** The S29 sub-cycle problem-statement + research question (and the embedded six-branch "research-defined" decomposition recorded in D-S29 above) (a) conflated the sub-cycle's deliverable (a *design*) with Cycle 16's deliverable (built/validated/enforced code), and (b) were silent on the software-development-lifecycle + autonomous-/agentic-organization framing. That framing produced an unclear question and is therefore SUPERSEDED.
+
+**Re-baseline (the live anchor).** The sub-cycle is re-baselined on the sharpened strategic input `~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_subcycle_lifecycle_redesign_rex_strategic_input.md` (ACTIVE 2026-05-30, authored by kc-57 from Rex's sharpened direction). Sharpened RQ: *how should we design a build-type research cycle that carries a research finding through the full software development lifecycle to verified, working code, in an organization where AI agents do the majority of the operational work?* The decomposition (stages, typology, where verification/enforcement sit, the KG's role, growth over time) is the **Researcher's to derive from external evidence — NOT pre-authored.** The D-S29 six-branch tree is **superseded as inherited scaffolding** (do not treat it as the live decomposition).
+
+**Clean-room isolation (structural).** A FRESH sub-cycle repo `~/cycle_16_sdlc_build_cycle_redesign` (research-synthesis; `22755f3`) was scaffolded; the Researcher's only framing anchor is the sharpened strategic input. The S29 sub-cycle (its Stage 0-2 artifacts, the superseded strategic input, the S29 checkpoint/DP43 package, the dead proceed/deepen transition) was archived OUT of the active path by kc-57 — the repo at `~/_superseded/cycle_16_build_type_lifecycle_redesign_s29_unclear_framing` (`3acc936`, audit intact, never ingested) and the workspace artifacts under `.claude/workspace/archive/`. The landscape is re-run **blind** to S29's landscape.
+
+**The bound (unchanged).** The redesign must prove itself by building ONE real cycle's backlog through it (a vertical slice) before refreshing all 16. The sub-cycle is a MEANS to Cycle 16's LOCKED proof-based end; it terminates in building, does not recurse as process design, does not defer the build.
+
+**Authority.** Rex strategic direction 2026-05-30 ("proceed — everything that flows is operational") + the sharpened strategic input + kc-57 PD + strategic_frame Bindings 1-8. kc-57 re-baseline commits (Moonshots): `e5c3196` (supersede dead proceed/deepen transition + handoff overlay) + `a3198af` (STRUCTURAL anti-anchor — remove S29 unclear framing from the warmup path) + `ac0817b` (archive S29 sub-cycle repo out of path + handoff audit-fact). Cycle 16 OPEN (TRUE-close (a)–(o) unmet).
+
+**Commits (3-repo paired, push-verified).** *Appended at S30 close (continuation entry below).*
+
 <!-- next entry appends below -->

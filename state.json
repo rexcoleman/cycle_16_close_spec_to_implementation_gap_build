@@ -1,7 +1,7 @@
 {
   "cycle_id": 16,
   "project_name": "cycle_16_close_spec_to_implementation_gap_build",
-  "current_phase": "cycle_16_s29_SUBCYCLE_SESSION_A(build_type_cycle_redesign)__Stages_0_2:frame_research_question+run_EXTERNAL_landscape(>=10_methodologies,>=80pct_external,>=3_verbatim_quotes_each)_then_Stage_2_3_checkpoint_to_Rex__REFRAME(SI_Amendment_28m/D-S29):S28_text_spec_blindness(Arm-2_abstained_30/30,real_tier_accuracy_UNMEASURED)_disposed_by_Rex_as_STRUCTURAL_symptom=build_type_cycle_never_designed_as_complete_research_to_software_lifecycle__research_and_redesign_SUB-CYCLE_WITHIN_cycle_16(NOT_new_cycle,NO_deferral,kc-47_BLOCKED)__narrow_real_tier_validation_plan_SUPERSEDED+SUBSUMED_as_typology+validation_branch__3_guardrails:G1_external_research_first(internal=cross_validation_only_AFTER_external_taxonomy_drives_decomposition,never_anchor;Binding_2/AAEM_drift),G2_research_DEFINES_answers(no_first_thought_pre_seed),G3_no_proxy_substitution_in_operational_definitions(execution/behavior_grounded)__RP_fills_Stage_0_2_canonical_templates(Binding_6);Coach_dispatches+DP43_verifies,does_NOT_fill__BOUND:redesign_proves_itself_by_building_ONE_real_cycle_backlog(vertical_slice)_before_refreshing_all_16;means_to_built_code_NOT_end_in_itself__Session_A_ENDS_at_Stage_2_3_checkpoint(Rex_decision)__additive_only_DP42__NO_govML__cycle_16_OPEN(TRUE_close_a_to_o_unmet)",
+  "current_phase": "cycle_16_s30_SUBCYCLE_RE-BASELINED(sdlc_build_cycle_redesign)__Stages_0_2_re-derived_CLEAN: S29 problem-statement+RQ found UNCLEAR by Rex 2026-05-30 (conflated sub-cycle deliverable=design with Cycle_16 deliverable=built/validated/enforced_code; silent on SDLC+autonomous/agentic-org framing) -> SUPERSEDED. Re-baselined on sharpened strategic input ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_subcycle_lifecycle_redesign_rex_strategic_input.md (ACTIVE 2026-05-30). D-S29/SI_Amendment_28m REFRAME DECISION STANDS (sub-cycle within Cycle_16; NOT new cycle; NO deferral; kc-47 BLOCKED); only the initial framing was unclear (see D-S30). Fresh sub-cycle repo ~/cycle_16_sdlc_build_cycle_redesign (research-synthesis; 22755f3; LOCAL-PRIVATE). Clean-room STRUCTURAL: S29 Stage_0_2 artifacts + superseded input + checkpoint/DP43 + dead proceed/deepen transition archived OUT of path (repo ~/_superseded/...s29_unclear_framing 3acc936; workspace .claude/workspace/archive/); landscape re-run BLIND to S29. Sharpened RQ: how to design a build-type research cycle that carries a finding through the full SDLC to verified working code, in an org where AI agents do the majority of operational work. Decomposition RESEARCHER-derived (NOT pre-seeded; D-S29 six-branch tree superseded as inherited scaffolding). 3 guardrails: G1 external-research-first(>=80pct,>=10 disciplines incl autonomous/agentic-org SDLC,>=3 verbatim quotes each;internal=cross-validation only,Binding 2); G2 research DEFINES stages/typology/decomposition(no pre-seed); G3 no Cycle-16-outcome bleed into the sub-cycle design question. RP fills Stage_0_2 canonical templates(Binding 6); Coach dispatches+DP43-verifies, does NOT fill. Session ENDS at fresh Stage_2_3 checkpoint to Rex(do NOT cross into Stage 3). BOUND: redesign proves itself by building ONE real cycle backlog(vertical slice) before refreshing all 16; means to verified code, not an end; terminates in building, kc-47 BLOCKED. additive_only DP42. NO govML. cycle_16 OPEN(TRUE-close a..o unmet)",
   "current_stage_orchestrator": "build",
   "plan_reference": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_rex_strategic_input.md (ACTIVE 2026-05-27 + Amendment 2026-05-27a + Amendment 2026-05-27b + Amendment 2026-05-28a kc-47 Step 3.5 walk-back of S8 FORMAL CLOSE + Amendment 2026-05-28b kc-47 Step 3.5 post-self-audit Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold explicit + framing tightening + HC-AUDIT-1 + HC #74 BINDING kernel-coach cycle-management disposition paradigm-class) + Amendment 2026-05-28c (kc-48 Step 3.5 Draft-for-Approval Rex \"approve\" 2026-05-28) + Amendment 2026-05-28d (kc-49 autonomous authoring; Rex review gate WAIVED 2026-05-28; 7 chain-failure holes folded into binding completion criteria Done #25-#31 + HC #79-#85 + KT-15-18) + Amendment 2026-05-28e/28f (Done #32-#48 + TRUE-close (a)-(h)) + Amendment 2026-05-29g (kc-52 Step 3.5; Rex 'a go' 2026-05-29; Done #49-#51 spec-extraction-completeness + denominator-honesty + validation-tier-disclosure; ruling (a) no-human-in-close-path; TRUE-close (i); full text ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_29g.md) + Amendment 2026-05-29h (kc-53 Step 3.5; Rex 'proceed with your recommendations' 2026-05-29; SEVEN chain-holes folded into the bar -> Done #52-#58 + TRUE-close (j); 6 new GENERAL disciplines #31-#36 graduated to foundational_grounding; full text ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_29h.md; cycle_16 DECISION_LOG D-S20-2) + Amendment 2026-05-30i (kc-53 Step 3.5; Rex 'fold it in' 2026-05-30; Done #59 governance-layer-durability-via-KG + TRUE-close (k); general discipline #39 graduated all-durable-homes; full text ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_30i.md; DECISION_LOG D-S23-2)",
   "stage_0_2_complete": true,
@@ -64,17 +64,17 @@
     "kc45_r1_pass_cycle_16_s3_disposition_a_stage_5_be_a_close": {
       "authority": "kc-45 R1 PASS task-context dispatch 2026-05-27 via Rex paste-bridge",
       "scope": "Cycle-16-S3 Stage 5 BE-A schema + SPARQL write-boundary build (ROADMAP Phase 2 + Branch 4.1 + Done #5)",
-      "verdict": "S3 close LANDED with 13 artifacts shipped (5 BE-class templates + 3 docs/ build artifacts + 5 outputs/ supporting artifacts); R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS; H6+H7 CONFIRMATION CANDIDATES surfaced; KT-4 + KT-6 DO NOT FIRE; D-S2-1 refined-metric KT-1 disposition preserved; HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path α",
-      "rex_step_3_5_disposition": "Path A approval for Brief 2 SPARQL UPDATE verification at curl-harness-denial — operational cheapest-empirical-first per S178 + HC #59 default-operational countermeasure; NOT a paradigm escalation",
-      "calibration_delta": "HC #50 zero-Rex-escalation baseline MAINTAINED at S3 (0 genuine paradigm escalations + 1 Rex Step 3.5 disposition Path A operational approval); HC #48 (a) single-Write at compose CONFIRMED sufficient at BE-A dispatch substrate density (first-arc-WITHIN-CAP 15940B/0.7970×) — recovers first-arc-within-cap discipline broken at S2 n=24",
+      "verdict": "S3 close LANDED with 13 artifacts shipped (5 BE-class templates + 3 docs/ build artifacts + 5 outputs/ supporting artifacts); R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS; H6+H7 CONFIRMATION CANDIDATES surfaced; KT-4 + KT-6 DO NOT FIRE; D-S2-1 refined-metric KT-1 disposition preserved; HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path \u03b1",
+      "rex_step_3_5_disposition": "Path A approval for Brief 2 SPARQL UPDATE verification at curl-harness-denial \u2014 operational cheapest-empirical-first per S178 + HC #59 default-operational countermeasure; NOT a paradigm escalation",
+      "calibration_delta": "HC #50 zero-Rex-escalation baseline MAINTAINED at S3 (0 genuine paradigm escalations + 1 Rex Step 3.5 disposition Path A operational approval); HC #48 (a) single-Write at compose CONFIRMED sufficient at BE-A dispatch substrate density (first-arc-WITHIN-CAP 15940B/0.7970\u00d7) \u2014 recovers first-arc-within-cap discipline broken at S2 n=24",
       "applied_at": "Cycle-16-S3 close"
     },
     "kc45_r1_pass_cycle_16_s4_disposition_a_stage_5_be_b_close": {
       "authority": "kc-45 R1 PASS task-context dispatch 2026-05-27 via Rex paste-bridge",
       "scope": "Cycle-16-S4 Stage 5 BE-B SPARQL UPDATE authoring discipline build + Rex back-port directive 4-repo paired commit (cycle_16 + EMABS + Moonshots + govML)",
-      "verdict": "S4 close LANDED with 11+ deliverables shipped (spec_registry_authoring.py wrapper 29.8KB + install_spec_registry_authoring_discipline.sh + 3 §10 BE-B appends at ARTIFACT_CONTRACT+RUNTIME_EMIT_SPEC+ACCEPTANCE_CRITERIA + DEPLOYMENT_LOG §2 row 2 + BUILD_DECISION_LOG §2 row 2 + 3 NEW outputs/ artifacts incl be_b_dogfooding_results.json + spec_registry_events.jsonl + envelope.yaml overwrite + govML v2.8.3 install_hook ADDITIVE-APPEND + govML templates/build/spec_registry/ NEW dir with 5 files); R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS; 3-TB dogfooding to PRODUCTION /cycle6 registry graphs ALL PASS (TB-1 13 triples + TB-2 13 triples + TB-3 15 triples DP#26 n_a_rationale present); KT-3 firing surface evaluation: 0 author refusals captured across all 4 classes - KT-3 DOES NOT FIRE; Done #6 SHIPPED at BE-B close",
+      "verdict": "S4 close LANDED with 11+ deliverables shipped (spec_registry_authoring.py wrapper 29.8KB + install_spec_registry_authoring_discipline.sh + 3 \u00a710 BE-B appends at ARTIFACT_CONTRACT+RUNTIME_EMIT_SPEC+ACCEPTANCE_CRITERIA + DEPLOYMENT_LOG \u00a72 row 2 + BUILD_DECISION_LOG \u00a72 row 2 + 3 NEW outputs/ artifacts incl be_b_dogfooding_results.json + spec_registry_events.jsonl + envelope.yaml overwrite + govML v2.8.3 install_hook ADDITIVE-APPEND + govML templates/build/spec_registry/ NEW dir with 5 files); R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS; 3-TB dogfooding to PRODUCTION /cycle6 registry graphs ALL PASS (TB-1 13 triples + TB-2 13 triples + TB-3 15 triples DP#26 n_a_rationale present); KT-3 firing surface evaluation: 0 author refusals captured across all 4 classes - KT-3 DOES NOT FIRE; Done #6 SHIPPED at BE-B close",
       "rex_back_port_directive": "2026-05-27: 4-repo paired commit (govML scaffold-time install via install_spec_registry_authoring_discipline() at init_project.sh + templates/build/spec_registry/ NEW dir + VERSION v2.8.2 -> v2.8.3); without back-port, Cycle 17+ fresh-scaffolded projects do NOT inherit authoring discipline -> spec-implementation gap reopens at meta-cycle level",
-      "calibration_delta": "HC #50 zero-Rex-escalation baseline MAINTAINED at S4 (0 genuine paradigm escalations + 1 Rex back-port directive operational scope-expansion - NOT paradigm); HC #48 (a) single-Write at compose CONFIRMED INSUFFICIENT at BE-B substrate density (first-arc OVER-CAP 23749B/1.1874× -> 6-Edit-round second-pass recovery to 19591B/0.9796× WITHIN-CAP); HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass per dispatch directive - empirically: BE-B substrate density HEAVIER than BE-A peer due to Brief 1 govML back-port hardening (cross-system scope = density-multiplier); BE-B density profile closer to Stage 3-4 RP than to BE-A; HC #59 BINDING countermeasure NOT TRIGGERED (no KT-trigger metric ambiguity)",
+      "calibration_delta": "HC #50 zero-Rex-escalation baseline MAINTAINED at S4 (0 genuine paradigm escalations + 1 Rex back-port directive operational scope-expansion - NOT paradigm); HC #48 (a) single-Write at compose CONFIRMED INSUFFICIENT at BE-B substrate density (first-arc OVER-CAP 23749B/1.1874\u00d7 -> 6-Edit-round second-pass recovery to 19591B/0.9796\u00d7 WITHIN-CAP); HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass per dispatch directive - empirically: BE-B substrate density HEAVIER than BE-A peer due to Brief 1 govML back-port hardening (cross-system scope = density-multiplier); BE-B density profile closer to Stage 3-4 RP than to BE-A; HC #59 BINDING countermeasure NOT TRIGGERED (no KT-trigger metric ambiguity)",
       "applied_at": "Cycle-16-S4 close"
     },
     "kc45_r1_pass_cycle_16_s5_disposition_a_stage_5_be_c_close": {
@@ -129,27 +129,27 @@
       "authority": "Rex 2026-05-28 'proceed' directive following kc-47 self-audit at this session presenting 6 recommended corrections per Step 3.5 Draft-for-Approval per feedback_rex_step_3_5_draft_for_approval.md BINDING + HC #45 ADDITIVE-APPEND precedent class",
       "scope": "Cycle 16 SI Amendment 2026-05-28b: appends Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 dormancy threshold preservation explicit + framing tightening + HC-AUDIT-1 honest carry + NEW HC #74 BINDING (kernel-coach cycle-management disposition paradigm-class); ADDITIVE-APPEND per HC #45 precedent class; Done #1-#16 preserved verbatim; LOCKED bodies UNMODIFIED",
       "self_audit_findings": [
-        "Substantive plan gap: SI disjunct (b) 'implemented running code by the close of the authoring cycle' not structurally enforced — original Cycle 16 BE-C cycle-close gate predicate is registry-field check; Done #11-#16 did not upgrade predicate to probe-fire evidence; Done #17 NEW closes this gap",
-        "Substantive plan gap: SI disjunct (d) 'explicitly killed with audit trail' not structurally enforced — Cycle 16 BE-D scan found 0 killed across 4 classes; Done #11-#16 mentioned 'kill with ADR retraction' as triage option but had no structural mechanism; Done #18 NEW closes this gap",
-        "SI disjunct under-specified: 'structural detection of dormancy within ≤3 sessions of authoring via the runtime emit mechanism' implicit in Done #12 but not explicit; Done #19 NEW makes explicit",
+        "Substantive plan gap: SI disjunct (b) 'implemented running code by the close of the authoring cycle' not structurally enforced \u2014 original Cycle 16 BE-C cycle-close gate predicate is registry-field check; Done #11-#16 did not upgrade predicate to probe-fire evidence; Done #17 NEW closes this gap",
+        "Substantive plan gap: SI disjunct (d) 'explicitly killed with audit trail' not structurally enforced \u2014 Cycle 16 BE-D scan found 0 killed across 4 classes; Done #11-#16 mentioned 'kill with ADR retraction' as triage option but had no structural mechanism; Done #18 NEW closes this gap",
+        "SI disjunct under-specified: 'structural detection of dormancy within \u22643 sessions of authoring via the runtime emit mechanism' implicit in Done #12 but not explicit; Done #19 NEW makes explicit",
         "Framing drift: 'recovery scope' softens vs Rex's 'actual completion' + 'actually solve the fucking problem' language; future text uses 'Done definition extended' / 'completion criteria' / 'fulfilling SI's research question structurally' instead",
         "Audit coverage gap: kc-47 audit covered substantial Cycle 16 files but NOT literally every file; 15+ unaudited files including docs/spec_authoring_discipline.md + Cycle 14 four-gate skeleton docs + coach/impl-coach/kernel-coach event sinks + scripts/run_gates.sh + governance.yaml; HC-AUDIT-1 honest carry surfaced; kc-48 Pass 1 RE-AUDITS at Cycle-16-S9 entry"
       ],
       "new_done_items_pre_registered": [
         "Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate (gate-script body invokes named probe primitive via Python subprocess at gate-fire time per Done #14 import-and-execute discipline; hard block on missing probe fires for any spec authored in-cycle; accepts killed-with-ADR-retraction OR dormant-with-explicit-deferral-with-Rex-authorization+named-target-session+re-activation-condition+maximum-dormancy-window as valid terminal states)",
         "Done #18 kill discipline structural mechanism (NEW kill_spec(spec_iri, adr_retraction_ref, killing_session) function in scripts/spec_registry_authoring.py: validates ADR-style retraction in DECISION_LOG + emits spec_killed_event + SPARQL UPDATE transitions cycle16:currentStatus to cycle16:killed + records retraction reference at cycle16:auditTrailLink; Done #11 owner-triage routes 'kill this spec' decisions through this mechanism)",
-        "Done #19 ≤3-session dormancy threshold preservation made explicit (existing BE-C session-close ADVISORY gate threshold check preserved post-recovery; FINDINGS close verification that threshold continues to fire correctly on probe-fire evidence not registry-field evidence)"
+        "Done #19 \u22643-session dormancy threshold preservation made explicit (existing BE-C session-close ADVISORY gate threshold check preserved post-recovery; FINDINGS close verification that threshold continues to fire correctly on probe-fire evidence not registry-field evidence)"
       ],
-      "new_hc_binding": "HC #74 — kernel-coach cycle-management disposition (new cycle vs reopen vs fold; cycle close timing; cycle-management-layer scope re-sequencing) IS paradigm-class because cycle-management layer is structurally identical to spec-implementation layer for meta-failure pattern (close-something-that-didn't-deliver → open-recovery-elsewhere → recursive failure persists one level up); surface to Rex via Pattern 11 Step 3.5; do NOT dispose operationally via pre-escalation gate. Source: kc-47 audit at this session diagnosing slip — proposed new Cycle 17 = recovery; Rex caught and corrected via paradigm ruling 2026-05-28. Memory binding feedback_kernel_coach_cycle_management_disposition_paradigm.md NEW.",
-      "encoded_at": "Cycle 16 SI Amendment 2026-05-28b body + state.json paradigm_dispositions (this entry) + state.json decisions_log S8-D3 + DECISION_LOG D-S8-3 + handoff §1dr + feedback_kernel_coach_cycle_management_disposition_paradigm.md NEW memory entry + MEMORY.md index update + kc-48 PD update appending Done #17-#19 + HC-AUDIT-1 + HC #74 + new BLOCK criterion (r)",
+      "new_hc_binding": "HC #74 \u2014 kernel-coach cycle-management disposition (new cycle vs reopen vs fold; cycle close timing; cycle-management-layer scope re-sequencing) IS paradigm-class because cycle-management layer is structurally identical to spec-implementation layer for meta-failure pattern (close-something-that-didn't-deliver \u2192 open-recovery-elsewhere \u2192 recursive failure persists one level up); surface to Rex via Pattern 11 Step 3.5; do NOT dispose operationally via pre-escalation gate. Source: kc-47 audit at this session diagnosing slip \u2014 proposed new Cycle 17 = recovery; Rex caught and corrected via paradigm ruling 2026-05-28. Memory binding feedback_kernel_coach_cycle_management_disposition_paradigm.md NEW.",
+      "encoded_at": "Cycle 16 SI Amendment 2026-05-28b body + state.json paradigm_dispositions (this entry) + state.json decisions_log S8-D3 + DECISION_LOG D-S8-3 + handoff \u00a71dr + feedback_kernel_coach_cycle_management_disposition_paradigm.md NEW memory entry + MEMORY.md index update + kc-48 PD update appending Done #17-#19 + HC-AUDIT-1 + HC #74 + new BLOCK criterion (r)",
       "applied_at": "kc-47 lifecycle self-audit-follow-up commit post Moonshots 94befe8 + cycle_16 5b1e8d6 + Moonshots a7593f6 kc-48 PD primary",
       "non_destructive_supersedure": "S8 FINDINGS 481L LOCKED UNMODIFIED; Cycles 13/14/15 LOCKED bodies UNMODIFIED; Cycle 6 LOCKED ontology UNMODIFIED; prior Amendments 27a/27b/28a body UNMODIFIED; Done #1-#16 preserved verbatim; Done #17-#19 ADDITIVE-APPEND per HC #45 precedent class"
     },
     "rex_2026_05_28_paradigm_ruling_walk_back_s8_formal_close_kc47_amendment_2026_05_28a": {
       "ts": "2026-05-28",
-      "authority": "Rex 2026-05-28 paradigm ruling verbatim 'if we move to a new cycle the problem will persist... should we keep it to cycle 16 so we actually solve the fucking problem' + Rex 2026-05-28 reality-reporting directive 'we are not building reliable solutions from our research... we are burning months on this' + Rex 2026-05-28 deep-research directive 'we need to make sure we take cycle 16 to completion and implement the entire spec... do not take short cuts with this. do complete work' + kc-47 audit at this session diagnosing recursive failure mode HC #67 + structural-prevention 9-piece layer pressure-tested per kc-47 PD §2 first obligation + Step 3.5 Draft-for-Approval per feedback_rex_step_3_5_draft_for_approval.md BINDING",
+      "authority": "Rex 2026-05-28 paradigm ruling verbatim 'if we move to a new cycle the problem will persist... should we keep it to cycle 16 so we actually solve the fucking problem' + Rex 2026-05-28 reality-reporting directive 'we are not building reliable solutions from our research... we are burning months on this' + Rex 2026-05-28 deep-research directive 'we need to make sure we take cycle 16 to completion and implement the entire spec... do not take short cuts with this. do complete work' + kc-47 audit at this session diagnosing recursive failure mode HC #67 + structural-prevention 9-piece layer pressure-tested per kc-47 PD \u00a72 first obligation + Step 3.5 Draft-for-Approval per feedback_rex_step_3_5_draft_for_approval.md BINDING",
       "scope": "Cycle 16 SI Amendment 2026-05-28a: walks back S8 FORMAL CLOSE designation booked at commits fb3a0fe Moonshots + 25eff54 EMABS + 6c80afb cycle_16; Cycle 16 stays OPEN; recovery scope appended via Done #11-#16 + Phase 8+ + BE-F..BE-I + KT-7..KT-11; structural-prevention 9-piece layer back-ports to govML v2.8.6 ADDITIVE-APPEND chain extension to n=6 inherited at scaffolding time by every future build-type cycle",
-      "diagnosis_source_of_cycle_16_failure": "UPSTREAM at research-to-spec authoring per kc-47 audit at handoff §1dq: Researcher-Planner at Stage 0-2 and Stage 3-4 silently substituted registry-state semantics for SI's running-code semantics; H1/H3/H6/H8/KT-2/KT-5 thresholds read registry field values not code-active probe results; BE-D enumeration_methodology is ls+find+grep+token-occurrence filesystem/text proxies (137 dormant-silent is citation-density estimate not measurement); BE-B register_spec wrapper validates 14 fields when called but nothing forces it to be called (no pre-commit hook + no filesystem watcher + no admission control); BE-C two-surface gates query registry only and cannot see specs that bypassed registration; BE-E forward_apply_emit helper exists with zero production callers (4 events at outputs/forward_apply_observation_events.jsonl are all smoke-test fixtures tagged run_id=be_e_smoke_97e980c9 + test_bed=TB-1/2); three split registries (filesystem 9 / KG 9 / prompt_inventory 7) with build-orchestrator + build-runner agent_specs absent from prompt_inventory despite running every BE dispatch (recursive failure: the very agent_specs running this cycle are not in the registry the cycle claims to govern); ROADMAP §7 L231 acknowledged narrowing explicitly but team accepted as scope rather than refused as binding violation of SI 4.2",
+      "diagnosis_source_of_cycle_16_failure": "UPSTREAM at research-to-spec authoring per kc-47 audit at handoff \u00a71dq: Researcher-Planner at Stage 0-2 and Stage 3-4 silently substituted registry-state semantics for SI's running-code semantics; H1/H3/H6/H8/KT-2/KT-5 thresholds read registry field values not code-active probe results; BE-D enumeration_methodology is ls+find+grep+token-occurrence filesystem/text proxies (137 dormant-silent is citation-density estimate not measurement); BE-B register_spec wrapper validates 14 fields when called but nothing forces it to be called (no pre-commit hook + no filesystem watcher + no admission control); BE-C two-surface gates query registry only and cannot see specs that bypassed registration; BE-E forward_apply_emit helper exists with zero production callers (4 events at outputs/forward_apply_observation_events.jsonl are all smoke-test fixtures tagged run_id=be_e_smoke_97e980c9 + test_bed=TB-1/2); three split registries (filesystem 9 / KG 9 / prompt_inventory 7) with build-orchestrator + build-runner agent_specs absent from prompt_inventory despite running every BE dispatch (recursive failure: the very agent_specs running this cycle are not in the registry the cycle claims to govern); ROADMAP \u00a77 L231 acknowledged narrowing explicitly but team accepted as scope rather than refused as binding violation of SI 4.2",
       "done_extension_appended": [
         "Done #11 Past: probe-grounded measurement via 4 code-active probe primitives (Class A AgentContract agent-invocation observer + Class B Schema validator-emit + Class C DesignDecision ADR-to-code embodiment with git-grep+LLM-judge + Class D MethodologyCommitment citation-and-application scanner) with self-tests against known-good+known-bad fixtures + retroactive scan re-run replaces heuristic 137 + owner triage",
         "Done #12 Present: write-boundary closure (HC-BE-D-1) via pre-commit hook + filesystem watcher + forward_apply_emit wiring + 3-registry reconciliation",
@@ -161,7 +161,7 @@
       "new_kt_triggers_pre_registered": [
         "KT-7 probe primitive ships without passing self-test",
         "KT-8 Substitution Gate predicate string-matches instead of imports+executes",
-        "KT-9 probe-library generic-emission escape primitive proposed → paradigm escalation",
+        "KT-9 probe-library generic-emission escape primitive proposed \u2192 paradigm escalation",
         "KT-10 probe-coverage check at FINDINGS shows zero production fires (recursive meta-failure refutes H_main_recovery)",
         "KT-11 govML back-port modifies LOCKED bodies of prior install functions"
       ],
@@ -171,7 +171,7 @@
         "BE-H = structural-prevention 8-component layer",
         "BE-I = govML v2.8.6 ADDITIVE-APPEND chain extension"
       ],
-      "encoded_at": "Cycle 16 SI Amendment 2026-05-28a body + state.json paradigm_dispositions (this entry) + DECISION_LOG D-S8-2 + handoff §1dq",
+      "encoded_at": "Cycle 16 SI Amendment 2026-05-28a body + state.json paradigm_dispositions (this entry) + DECISION_LOG D-S8-2 + handoff \u00a71dq",
       "lock_commit": "(this commit; will fill at commit time)",
       "applied_at": "Cycle-16-S8 close-arc post-S8-commit walk-back; Cycle-16-S9 entry per Amendment 2026-05-28a forward",
       "non_destructive_supersedure": "S8 FINDINGS 481L LOCKED at fb3a0fe+25eff54+6c80afb stands as phase-checkpoint Layer 1-5 retrospective; superseded at Cycle 16 TRUE close-arc FINDINGS per DP#42 non-destructive supersedure pattern; NO modification to S8 FINDINGS body"
@@ -217,15 +217,15 @@
       }
     },
     "kc48_r1_pass_cycle_16_s9_disposition_a_stage_0_2_rp_fill_phase_8_entry": {
-      "authority": "kc-48 R1 PASS task-context dispatch 2026-05-28 via Rex paste-bridge per kc-48 PD §3.2 default SINGLE-SHOT round structure",
-      "scope": "Cycle-16-S9 Phase 8 entry Stage 0-2 RP fill (3 canonical artifacts: OBSERVATION_LOG §1.recovery extension + RESEARCH_QUESTION_SPEC §3.recovery H_recovery_1..9 + KT-7..KT-11 + LANDSCAPE_ASSESSMENT §6.recovery surgical addendum) per Amendment 2026-05-28a Done #11-#16 + Amendment 2026-05-28b Done #17-#19",
+      "authority": "kc-48 R1 PASS task-context dispatch 2026-05-28 via Rex paste-bridge per kc-48 PD \u00a73.2 default SINGLE-SHOT round structure",
+      "scope": "Cycle-16-S9 Phase 8 entry Stage 0-2 RP fill (3 canonical artifacts: OBSERVATION_LOG \u00a71.recovery extension + RESEARCH_QUESTION_SPEC \u00a73.recovery H_recovery_1..9 + KT-7..KT-11 + LANDSCAPE_ASSESSMENT \u00a76.recovery surgical addendum) per Amendment 2026-05-28a Done #11-#16 + Amendment 2026-05-28b Done #17-#19",
       "verdict": "S9 close LANDED with 3 artifacts filled +206 insertions / -0 deletions / 0 placeholders + 10 disciplines x 30 verbatim quotes + 19 primary-source citations + HC-AUDIT-1 UPSTREAM-at-research-to-spec CONFIRMED with 6 refinements + HC #72 substitution-detection sweep CLEAN (independent Coach verification) + Cycle 6 KG re-verification CORRECTED IRI named-graph-scoped 235 MATCH stored snapshot + R3 T1-T13 PASS-WITH-FLAG+CARRY (4 FLAG+CARRY items; 0 BLOCK threshold violations; 0 paradigm escalations to Rex) + HC #70 reality-vs-intent diagnostic structured table COMPLETE per Done #15b structural extension"
     },
     "kc48_r1_pass_cycle_16_s10_disposition_a_stage_3_4_rp_fill_phase_8_continuation": {
       "session_id": "cycle_16_s10",
       "phase": "phase_8_stage_3_4_rp_fill",
-      "authority": "kc-48 R1 PASS task-context dispatch 2026-05-28 via Rex paste-bridge per kc-48 PD §3.2 default SINGLE-SHOT round structure",
-      "scope_completed": "4 canonical artifacts ADDITIVELY APPENDED via amendment_2026_05_28a_extension markers: HR §3.recovery (+48L 9 H_recovery + 5 KT-7..11) + ED §5.7-5.10 (+110L 4 BE-N blocks BE-F/G/H/I 24 PASS-all thresholds) + REQUIREMENTS §1.recovery (+61L Done #11-#19 verbatim + 11-criterion close gate) + ROADMAP §8/§9/§10 (+149L Phase 8/9/10). Total +368 / -0 across 4 files. LOCKED-body discipline strict per Binding 7 + DP#42; git diff zero deletions verified.",
+      "authority": "kc-48 R1 PASS task-context dispatch 2026-05-28 via Rex paste-bridge per kc-48 PD \u00a73.2 default SINGLE-SHOT round structure",
+      "scope_completed": "4 canonical artifacts ADDITIVELY APPENDED via amendment_2026_05_28a_extension markers: HR \u00a73.recovery (+48L 9 H_recovery + 5 KT-7..11) + ED \u00a75.7-5.10 (+110L 4 BE-N blocks BE-F/G/H/I 24 PASS-all thresholds) + REQUIREMENTS \u00a71.recovery (+61L Done #11-#19 verbatim + 11-criterion close gate) + ROADMAP \u00a78/\u00a79/\u00a710 (+149L Phase 8/9/10). Total +368 / -0 across 4 files. LOCKED-body discipline strict per Binding 7 + DP#42; git diff zero deletions verified.",
       "discipline_compliance": {
         "hc_72_substitution_detection_sweep_at_substrate_compose": "CLEAN_0_substitution_candidates_retained",
         "hc_72_substitution_detection_sweep_at_r3_close_eval": "CLEAN_all_matches_legitimate_mechanism_action_explicit_refutation_failed_gate_enumerations_cross_references",
@@ -250,8 +250,8 @@
     },
     "kc48_r1_pass_cycle_16_s11_disposition_a_stage_5_be_f": {
       "timestamp": "2026-05-28T17:30:00Z",
-      "disposition": "Cycle-16-S11 BE-F probe library 4 primitives ship as canonical vocabulary per Done #13 + H_recovery_3; admission gate refuses non-passing probes per DP#44; version-lock at creation (PROBE_VERSION + PROBE_ADMISSION_LOCK_COMMIT pinned); modifications require Builder-ARCH paradigm dispatch (HC #74 BINDING); dogfooding-within-cycle ≥12 production fires per Done #15d strict; smoke-only fires REFUSED as acceptance evidence; KT-7 + KT-9 + KT-10 firing surfaces evaluated and DO NOT FIRE at BE-F admission + dogfooding close",
-      "authority": "kc-48 R1 PASS S10 disposition (a) + Cycle-16-S11 task-context dispatch authorization + ED §5.7 evidence-path translation governance (cycle_16 first-arc at S11; govML upstream at BE-I S14+ per HC #45 chain extension precedent)",
+      "disposition": "Cycle-16-S11 BE-F probe library 4 primitives ship as canonical vocabulary per Done #13 + H_recovery_3; admission gate refuses non-passing probes per DP#44; version-lock at creation (PROBE_VERSION + PROBE_ADMISSION_LOCK_COMMIT pinned); modifications require Builder-ARCH paradigm dispatch (HC #74 BINDING); dogfooding-within-cycle \u226512 production fires per Done #15d strict; smoke-only fires REFUSED as acceptance evidence; KT-7 + KT-9 + KT-10 firing surfaces evaluated and DO NOT FIRE at BE-F admission + dogfooding close",
+      "authority": "kc-48 R1 PASS S10 disposition (a) + Cycle-16-S11 task-context dispatch authorization + ED \u00a75.7 evidence-path translation governance (cycle_16 first-arc at S11; govML upstream at BE-I S14+ per HC #45 chain extension precedent)",
       "additive": true
     },
     "rex_2026_05_28_paradigm_authorization_approve_option_a_plus_new_verification_mechanisms_kc48_amendment_2026_05_28c": {
@@ -345,13 +345,13 @@
       "commit_pending": "3_repo_paired_commit_cycle_16_emabs_moonshots_NO_govML (Coach at R3)"
     },
     "rex_2026_05_28e_kc50_holes_a_g_plus_39": {
-      "authority": "Rex paradigm authorization 2026-05-28 'i agree with your recommendation' (fold holes A-G into Cycle 16 completion criteria) + 'i do not want to review and approve. audit your draft and make updates' — review gate WAIVED, audit+parameters delegated to kc-50 (28d/D-S11-2 pattern)",
+      "authority": "Rex paradigm authorization 2026-05-28 'i agree with your recommendation' (fold holes A-G into Cycle 16 completion criteria) + 'i do not want to review and approve. audit your draft and make updates' \u2014 review gate WAIVED, audit+parameters delegated to kc-50 (28d/D-S11-2 pattern)",
       "amendment": "Cycle 16 SI Amendment 2026-05-28e (DECISION_LOG D-S13-2)",
       "new_done_items": "Done #32-#39 (A behavioral-fidelity bar / B bidirectional-orphan check / C continuous re-verification durability / D guard-kills+reconcile-100pct / E future-inheritance-by-behavior / F surface-census / G human-blind-label recursion floor / #39 unverifiable-spec disposition)",
       "revised_true_close": "(a)#11-19 (b)#20-22 (c)#23 (d)#24 (e)#25-31 (f)#32-39 (g) 5-layer FINDINGS + independent audit (distinct actor) agrees",
       "full_text": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_28e.md",
       "applied_at": "kc-50 lifecycle, post Cycle-16-S13 close / pre Cycle-16-S14 BE-I dispatch",
-      "s14_be_i_extension": "Done #36 (hole E) EXTENDS S14 BE-I acceptance — fresh-scaffold behavioral dogfood (fire+block-on-proxy+pass-on-real); must be in S14 task context before dispatch"
+      "s14_be_i_extension": "Done #36 (hole E) EXTENDS S14 BE-I acceptance \u2014 fresh-scaffold behavioral dogfood (fire+block-on-proxy+pass-on-real); must be in S14 task context before dispatch"
     },
     "cycle_16_done_42_validate_before_remediate_2026_05_29": {
       "authority": "kc-50, prompted by Rex 2026-05-29 'when do we fix them?'",
@@ -370,7 +370,7 @@
       "verdict": "Done #25 NOT passed; KT-15 fires; A recall0 / D prec0.15 / B contested / C+E-status+F-judge DEFERRED-GAP-2",
       "consequence": "no percent-implemented/faithful number permitted (Done #42 lock holds); BE-J 33.88% figure itself not yet trustworthy",
       "gap2": "config fixed; genuine Anthropic billing cap confirmed (branch c) -> Rex escalation; BE-K liveness NOT cleared",
-      "guard_the_guards": "Done #47 PARTIAL FAIL — Cycle 16 own deliverables largely absent from audited KG population",
+      "guard_the_guards": "Done #47 PARTIAL FAIL \u2014 Cycle 16 own deliverables largely absent from audited KG population",
       "ts": "2026-05-29T13:10:37Z"
     },
     "rex_2026_05_30_cycle_16_close_bar_rulings": {
@@ -386,7 +386,7 @@
     "kc55_r3_cycle_16_s28_build_pass_persistence_refix_s29_ratified": {
       "ts": "2026-05-30",
       "session": "cycle_16_s28",
-      "disposition": "kc-55 R3: BUILD PASS; narrow close-persistence re-fix (D-S28 + state.json had not landed in 2522e3e — attestation defect caught by kc-55 live check, HC#75); S29 sequencing RATIFIED (operational, #46-forced): establish real-tier validation BEFORE scaling, with a disclosed-bound exit to prevent measurement recursion",
+      "disposition": "kc-55 R3: BUILD PASS; narrow close-persistence re-fix (D-S28 + state.json had not landed in 2522e3e \u2014 attestation defect caught by kc-55 live check, HC#75); S29 sequencing RATIFIED (operational, #46-forced): establish real-tier validation BEFORE scaling, with a disclosed-bound exit to prevent measurement recursion",
       "cycle16_content_commit": "2522e3e",
       "real_tier_status": "UNMEASURED (Arm-2 0/30); construct-GT precision 1.0 only",
       "forward": "S29 reaches endpoint (a) real-tier validation method + disclosed-bound exit OR (b) demonstrate bound + disclosed-residual fallback; no oracle-hunt recursion; no partial close; no deferral to recovery"
@@ -449,25 +449,25 @@
     },
     {
       "id": "S3-D2",
-      "decision": "HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path α (reuse c6:rank + c6:supersedesRef via cycle16:Spec rdfs:subClassOf c6:Statement inheritance). Wikidata-canonical-namespace-absence documented at FINDINGS Layer 4 carry. Path γ (modify Cycle 6 LOCKED ontology) NOT TAKEN per Binding 7.",
+      "decision": "HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path \u03b1 (reuse c6:rank + c6:supersedesRef via cycle16:Spec rdfs:subClassOf c6:Statement inheritance). Wikidata-canonical-namespace-absence documented at FINDINGS Layer 4 carry. Path \u03b3 (modify Cycle 6 LOCKED ontology) NOT TAKEN per Binding 7.",
       "timestamp": "2026-05-27",
       "evidence": "DECISION_LOG D-S3-1 HC-BE-A-2 + Cycle 6 LOCKED body git diff = 0"
     },
     {
       "id": "S3-D3",
-      "decision": "Live SPARQL UPDATE write-boundary smoke ALL_PASS at 3 test beds (TB-1 AgentContract + TB-2 Schema + TB-3 MethodologyCommitment). pyshacl conforms=True for conforming fixture + 8 violations for non-conforming fixture (≥4 threshold). H6 + H7 CONFIRMATION CANDIDATES surfaced; KT-4 + KT-6 DO NOT FIRE; KT-1 D-S2-1 refined-metric disposition preserved.",
+      "decision": "Live SPARQL UPDATE write-boundary smoke ALL_PASS at 3 test beds (TB-1 AgentContract + TB-2 Schema + TB-3 MethodologyCommitment). pyshacl conforms=True for conforming fixture + 8 violations for non-conforming fixture (\u22654 threshold). H6 + H7 CONFIRMATION CANDIDATES surfaced; KT-4 + KT-6 DO NOT FIRE; KT-1 D-S2-1 refined-metric disposition preserved.",
       "timestamp": "2026-05-27",
       "evidence": "outputs/cross_system_validation_be_a.json + outputs/build_runner_events.jsonl SHA256 18c832ed..."
     },
     {
       "id": "S3-D4",
-      "decision": "Pattern 19 trajectory n=25 cumulative: BE-A dispatch substrate first-arc 15,940B/0.7970× (first-arc-WITHIN-CAP); 2-pass added Brief 3 carry-forward +591B → final 16,531B/0.8266×. HC #48 (a) single-Write at compose CONFIRMED sufficient at BE-A dispatch substrate density (lighter than Stage 3-4 RP substrate at S2 which required 7-round Edit recovery). Recovers first-arc-within-cap discipline broken at S2 n=24.",
+      "decision": "Pattern 19 trajectory n=25 cumulative: BE-A dispatch substrate first-arc 15,940B/0.7970\u00d7 (first-arc-WITHIN-CAP); 2-pass added Brief 3 carry-forward +591B \u2192 final 16,531B/0.8266\u00d7. HC #48 (a) single-Write at compose CONFIRMED sufficient at BE-A dispatch substrate density (lighter than Stage 3-4 RP substrate at S2 which required 7-round Edit recovery). Recovers first-arc-within-cap discipline broken at S2 n=24.",
       "timestamp": "2026-05-27",
       "encoded_at": "S3 22-PRC Items 14+15"
     },
     {
       "id": "S3-D5",
-      "decision": "3 NEW honest carries from BE-A: HC-BE-A-1 (AC §1 row 4 readback wording over-specification) + HC-BE-A-2 (HC-RP-S2-3 RESOLVED via Path α) + HC-BE-A-3 (scaffolded templates at docs/ vs Cycle 14 root path divergence; operationally correct architectural disclosure). All FLAG+CARRY non-blocking per Mechanical Check #22 classifier.",
+      "decision": "3 NEW honest carries from BE-A: HC-BE-A-1 (AC \u00a71 row 4 readback wording over-specification) + HC-BE-A-2 (HC-RP-S2-3 RESOLVED via Path \u03b1) + HC-BE-A-3 (scaffolded templates at docs/ vs Cycle 14 root path divergence; operationally correct architectural disclosure). All FLAG+CARRY non-blocking per Mechanical Check #22 classifier.",
       "timestamp": "2026-05-27",
       "evidence": "DECISION_LOG D-S3-1 + Build-Runner envelope issues row"
     },
@@ -475,7 +475,7 @@
       "id": "S4-D1",
       "decision": "Cycle-16-S4 Stage 5 BE-B close: SPARQL UPDATE authoring discipline operationalized as runnable Python wrapper + govML scaffold-time install hook v2.8.3 + 3-TB dogfooding to PRODUCTION /cycle6 registry graphs. 11+ deliverables shipped. Build-Runner status=completed. R3 close-eval T1-T13 + DP#43 + Coach Check #23 + HC #26 3-gate ALL PASS. Done #6 SHIPPED. HC #50 zero-Rex-escalation baseline MAINTAINED.",
       "timestamp": "2026-05-27",
-      "evidence": "DECISION_LOG D-S4-1 + 11+ artifacts at cycle_16/{scripts/,docs/§10 appends,outputs/} + govML init_project.sh ADDITIVE-APPEND L211+ + templates/build/spec_registry/ NEW dir 5 files + VERSION v2.8.3 + Build-Runner envelope.yaml"
+      "evidence": "DECISION_LOG D-S4-1 + 11+ artifacts at cycle_16/{scripts/,docs/\u00a710 appends,outputs/} + govML init_project.sh ADDITIVE-APPEND L211+ + templates/build/spec_registry/ NEW dir 5 files + VERSION v2.8.3 + Build-Runner envelope.yaml"
     },
     {
       "id": "S4-D2",
@@ -485,15 +485,15 @@
     },
     {
       "id": "S4-D3",
-      "decision": "Pattern 19 trajectory n=26 cumulative: BE-B dispatch substrate first-arc OVER-CAP 23749B/1.1874×/-3749B margin/157L; 6-Edit-round second-pass compression recovery to 19591B/0.9796×/409B margin/121L WITHIN-CAP per HC #48 (a) 2-pass discipline + dispatch directive 'if first-arc breach surfaces, second-pass compression-via-Edit + flag HC #48 (d) at R3'. HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass. Empirically: BE-B substrate density HEAVIER than BE-A peer due to Brief 1 govML back-port hardening (cross-system scope = density-multiplier); BE-B density profile closer to Stage 3-4 RP than to BE-A. Recurrence of S2 n=24 pattern; BE-A n=25 first-arc-within-cap was dispatch-class density exception, not new pattern.",
+      "decision": "Pattern 19 trajectory n=26 cumulative: BE-B dispatch substrate first-arc OVER-CAP 23749B/1.1874\u00d7/-3749B margin/157L; 6-Edit-round second-pass compression recovery to 19591B/0.9796\u00d7/409B margin/121L WITHIN-CAP per HC #48 (a) 2-pass discipline + dispatch directive 'if first-arc breach surfaces, second-pass compression-via-Edit + flag HC #48 (d) at R3'. HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass. Empirically: BE-B substrate density HEAVIER than BE-A peer due to Brief 1 govML back-port hardening (cross-system scope = density-multiplier); BE-B density profile closer to Stage 3-4 RP than to BE-A. Recurrence of S2 n=24 pattern; BE-A n=25 first-arc-within-cap was dispatch-class density exception, not new pattern.",
       "timestamp": "2026-05-27",
       "encoded_at": "S4 22-PRC Items 14+15 + handoff section 1dl Pattern Calibration"
     },
     {
       "id": "S4-D4",
-      "decision": "Brief 3 HC-BE-A-1 ACCEPTANCE_CRITERIA wording refinement REFINED at §10.3 as 5-row per-state conditional-readback table (running=13 / dormant-with-explicit-deferral=14 / DP#26-dormant=15 / long-running=14 / killed=13-14). Operational refinement; no CONTRACT_CHANGE required. HC-BE-A-1 RESOLVED at §10.3.",
+      "decision": "Brief 3 HC-BE-A-1 ACCEPTANCE_CRITERIA wording refinement REFINED at \u00a710.3 as 5-row per-state conditional-readback table (running=13 / dormant-with-explicit-deferral=14 / DP#26-dormant=15 / long-running=14 / killed=13-14). Operational refinement; no CONTRACT_CHANGE required. HC-BE-A-1 RESOLVED at \u00a710.3.",
       "timestamp": "2026-05-27",
-      "evidence": "docs/ACCEPTANCE_CRITERIA.md §10.3 conditional-readback table"
+      "evidence": "docs/ACCEPTANCE_CRITERIA.md \u00a710.3 conditional-readback table"
     },
     {
       "id": "S4-D5",
@@ -504,31 +504,31 @@
     {
       "id": "S5-D1",
       "ts": "2026-05-27",
-      "decision": "Stage 5 BE-C TWO-surface BLOCKING gate operationalized: cycle-close (BLOCKING) + session-close (ADVISORY default) gates at govML canonical scripts/ mirror k_register_present_gate.sh skeleton via H6 metric (structural skeleton equivalence; predicate body SUBSTITUTED via SPARQL ASK per spec_authoring_discipline.md §4 Operations 3+4)",
+      "decision": "Stage 5 BE-C TWO-surface BLOCKING gate operationalized: cycle-close (BLOCKING) + session-close (ADVISORY default) gates at govML canonical scripts/ mirror k_register_present_gate.sh skeleton via H6 metric (structural skeleton equivalence; predicate body SUBSTITUTED via SPARQL ASK per spec_authoring_discipline.md \u00a74 Operations 3+4)",
       "authority": "kc-45 R1 PASS task-context dispatch via Rex paste-bridge 2026-05-27 + S141 BINDING + Cycle 14 four-gate skeleton precedent"
     },
     {
       "id": "S5-D2",
       "ts": "2026-05-27",
-      "decision": "govML v2.8.3 → v2.8.4 ADDITIVE-APPEND with install_spec_implementation_gates() at init_project.sh L306 + call-site L632 + templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md NEW + check_all_gates.sh build-class branch BLOCKING-loop 5th-gate append + NEW ADVISORY loop append",
+      "decision": "govML v2.8.3 \u2192 v2.8.4 ADDITIVE-APPEND with install_spec_implementation_gates() at init_project.sh L306 + call-site L632 + templates/build/spec_implementation_gates/SPEC_IMPLEMENTATION_GATES_OBLIGATION.md NEW + check_all_gates.sh build-class branch BLOCKING-loop 5th-gate append + NEW ADVISORY loop append",
       "authority": "Rex back-port directive STANDING 2026-05-27 + HC #45 ADDITIVE-APPEND precedent class extended to 4 members"
     },
     {
       "id": "S5-D3",
       "ts": "2026-05-27",
       "decision": "H6 CONFIRMED with HC-BE-C-1 operational honest carry (Coach disposition: ACCEPT per HC #59 BINDING + gotcha #16 + Discipline #10 anchoring-slip countermeasure)",
-      "authority": "Coach R3 close-eval kc-44 PD §3.3 T1-T13 + HC #59 BINDING literal-vs-intent metric-revision-within-intent OPERATIONAL disposition"
+      "authority": "Coach R3 close-eval kc-44 PD \u00a73.3 T1-T13 + HC #59 BINDING literal-vs-intent metric-revision-within-intent OPERATIONAL disposition"
     },
     {
       "id": "S5-D4",
       "ts": "2026-05-27",
       "decision": "KT-4 DOES NOT FIRE at 3-TB dogfooding: all 3 firing-surface signals negative (kt_4_fires=false; false_negative_tb_3=false; false_positive_tb_1=false; false_positive_tb_2=false; hc_59_screen_applied=true). SPARQL ASK substitution at gate-script-shell-script primitive layer sufficient; no new primitive class warranted",
-      "authority": "ED §Field 6 KT-4 row + Brief 2 R3 primary objective"
+      "authority": "ED \u00a7Field 6 KT-4 row + Brief 2 R3 primary objective"
     },
     {
       "id": "S5-D5",
       "ts": "2026-05-27",
-      "decision": "Pattern 19 BREAK at n=27 RECOVERED via 6-Edit-round 2-pass compression-via-Edit per dispatch directive (first-arc 28329B/1.4164×/-8329B → final 19733B/0.9867×/+267B WITHIN-CAP). HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass at reproducible n=2 cross-system back-port BE-class density (S4 n=26 + S5 n=27)",
+      "decision": "Pattern 19 BREAK at n=27 RECOVERED via 6-Edit-round 2-pass compression-via-Edit per dispatch directive (first-arc 28329B/1.4164\u00d7/-8329B \u2192 final 19733B/0.9867\u00d7/+267B WITHIN-CAP). HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass at reproducible n=2 cross-system back-port BE-class density (S4 n=26 + S5 n=27)",
       "authority": "HC #48 (a) 2-pass discipline + HC #34/#51 substrate cap"
     },
     {
@@ -601,23 +601,23 @@
       "id": "S8-D2",
       "ts": "2026-05-28",
       "decision": "Cycle 16 SI Amendment 2026-05-28a landed (kc-47 Step 3.5 Draft-for-Approval per Rex paradigm ruling 2026-05-28). Walks back S8 FORMAL CLOSE designation. Rex 2026-05-28 verbatim: 'if we move to a new cycle the problem will persist... should we keep it to cycle 16 so we actually solve the fucking problem.' Cycle 16 stays OPEN. Recovery scope appended via Done #11-#16 + Phase 8+ + BE-F..BE-I + KT-7..KT-11. Source-of-failure diagnosis from kc-47 audit: UPSTREAM at research-to-spec authoring (Researcher-Planner silently substituted registry-state semantics for SI's running-code semantics across H1/H3/H6/H8/KT-2/KT-5 + BE-D heuristic enumeration + BE-B wrapper-not-admission-control + BE-C registry-only query + BE-E zero-production-callers + three-split-registries with build-orchestrator+build-runner absent from prompt_inventory). Structural-prevention 9-piece layer back-ports to govML v2.8.6 ADDITIVE-APPEND chain extension to n=6 inherited at scaffolding time. Cycle 16 FORMAL CLOSE happens at TRUE close-arc when Done #11-#16 land + probe-grounded measurement replaces heuristic 137 + write-boundary closed + 7 structural-prevention pieces in govML v2.8.6 + TRUE-close 5-layer FINDINGS authored superseding S8 phase-checkpoint FINDINGS via DP#42 non-destructive supersedure pattern.",
-      "authority": "Rex 2026-05-28 paradigm ruling + kc-47 audit at this session + Step 3.5 Draft-for-Approval per feedback_rex_step_3_5_draft_for_approval.md BINDING + kc-47 PD §2 first obligation + kc-47 PD §3.11 Pattern 11 STANDING + HC #45 ADDITIVE-APPEND precedent class for Done definition extension preserving Done #1-#10 verbatim + DP#42 non-destructive supersedure pattern preserving S8 FINDINGS at fb3a0fe+25eff54+6c80afb LOCKED",
-      "evidence": "Cycle 16 SI body Amendment 2026-05-28a paragraph at supersedure history list + Status block update + Authority chain update + End-of-SI signature update + state.json paradigm_dispositions rex_2026_05_28_paradigm_ruling_walk_back_s8_formal_close_kc47_amendment_2026_05_28a + handoff §1dq + feedback_operational_definition_substitution.md NEW memory entry + MEMORY.md index update"
+      "authority": "Rex 2026-05-28 paradigm ruling + kc-47 audit at this session + Step 3.5 Draft-for-Approval per feedback_rex_step_3_5_draft_for_approval.md BINDING + kc-47 PD \u00a72 first obligation + kc-47 PD \u00a73.11 Pattern 11 STANDING + HC #45 ADDITIVE-APPEND precedent class for Done definition extension preserving Done #1-#10 verbatim + DP#42 non-destructive supersedure pattern preserving S8 FINDINGS at fb3a0fe+25eff54+6c80afb LOCKED",
+      "evidence": "Cycle 16 SI body Amendment 2026-05-28a paragraph at supersedure history list + Status block update + Authority chain update + End-of-SI signature update + state.json paradigm_dispositions rex_2026_05_28_paradigm_ruling_walk_back_s8_formal_close_kc47_amendment_2026_05_28a + handoff \u00a71dq + feedback_operational_definition_substitution.md NEW memory entry + MEMORY.md index update"
     },
     {
       "id": "S8-D3",
       "ts": "2026-05-28",
-      "decision": "Cycle 16 SI Amendment 2026-05-28b landed (kc-47 Step 3.5 Draft-for-Approval per Rex 'proceed' directive 2026-05-28 following kc-47 self-audit at this session). Self-audit findings: 2 substantive plan gaps in Amendment 2026-05-28a Done #11-#16 (cycle-close gate predicate not upgraded to probe-fire evidence; kill discipline structural mechanism missing) + 1 SI disjunct under-specified (≤3-session dormancy threshold preservation implicit) + 1 framing drift ('recovery scope' softens vs Rex's 'actual completion' / 'actually solve' language) + 1 audit coverage gap (substantial but not literally exhaustive; 15+ Cycle 16 files unaudited). Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 ≤3-session dormancy threshold preservation explicit appended. Framing tightening encoded. HC-AUDIT-1 honest carry surfaced (kc-48 Pass 1 re-audits unaudited files). NEW HC #74 BINDING: kernel-coach cycle-management disposition is paradigm-class. Done #1-#16 preserved verbatim; LOCKED bodies UNMODIFIED.",
+      "decision": "Cycle 16 SI Amendment 2026-05-28b landed (kc-47 Step 3.5 Draft-for-Approval per Rex 'proceed' directive 2026-05-28 following kc-47 self-audit at this session). Self-audit findings: 2 substantive plan gaps in Amendment 2026-05-28a Done #11-#16 (cycle-close gate predicate not upgraded to probe-fire evidence; kill discipline structural mechanism missing) + 1 SI disjunct under-specified (\u22643-session dormancy threshold preservation implicit) + 1 framing drift ('recovery scope' softens vs Rex's 'actual completion' / 'actually solve' language) + 1 audit coverage gap (substantial but not literally exhaustive; 15+ Cycle 16 files unaudited). Done #17 cycle-close BLOCKING gate upgrade to probe-fire predicate + Done #18 kill discipline structural mechanism + Done #19 \u22643-session dormancy threshold preservation explicit appended. Framing tightening encoded. HC-AUDIT-1 honest carry surfaced (kc-48 Pass 1 re-audits unaudited files). NEW HC #74 BINDING: kernel-coach cycle-management disposition is paradigm-class. Done #1-#16 preserved verbatim; LOCKED bodies UNMODIFIED.",
       "authority": "Rex 2026-05-28 'proceed' directive + kc-47 self-audit at this session presenting 6 recommended corrections + Step 3.5 Draft-for-Approval per feedback_rex_step_3_5_draft_for_approval.md BINDING + HC #45 ADDITIVE-APPEND precedent class + DP#42 non-destructive supersedure pattern + Binding 7 LOCKED-body discipline strict",
-      "evidence": "Cycle 16 SI body Amendment 2026-05-28b paragraph appended after Amendment 2026-05-28a + Status block + Authority chain + End-of-SI signature update + state.json paradigm_dispositions rex_2026_05_28_proceed_directive_post_kc47_self_audit_amendment_2026_05_28b ADDITIVE + state.json decisions_log S8-D3 (this entry) + DECISION_LOG D-S8-3 ADDITIVE-APPEND + handoff §1dr ADDITIVE-APPEND + feedback_kernel_coach_cycle_management_disposition_paradigm.md NEW memory entry + MEMORY.md index update + kc-48 PD update (Moonshots-paired follow-up commit) appending Done #17-#19 + HC-AUDIT-1 + HC #74 + new BLOCK criterion (r)"
+      "evidence": "Cycle 16 SI body Amendment 2026-05-28b paragraph appended after Amendment 2026-05-28a + Status block + Authority chain + End-of-SI signature update + state.json paradigm_dispositions rex_2026_05_28_proceed_directive_post_kc47_self_audit_amendment_2026_05_28b ADDITIVE + state.json decisions_log S8-D3 (this entry) + DECISION_LOG D-S8-3 ADDITIVE-APPEND + handoff \u00a71dr ADDITIVE-APPEND + feedback_kernel_coach_cycle_management_disposition_paradigm.md NEW memory entry + MEMORY.md index update + kc-48 PD update (Moonshots-paired follow-up commit) appending Done #17-#19 + HC-AUDIT-1 + HC #74 + new BLOCK criterion (r)"
     },
     {
       "id": "S9-D1",
       "session": "Cycle-16-S9",
       "kind": "stage_0_2_rp_fill_close",
       "date": "2026-05-28",
-      "summary": "Phase 8 entry Stage 0-2 RP fill complete. 3 canonical artifacts filled (OBSERVATION_LOG +81L §1.recovery + RESEARCH_QUESTION_SPEC +46L §3.recovery 9 H_recovery + 5 KT-7..KT-11 rows + LANDSCAPE_ASSESSMENT +79L §6.recovery 5 sub-sections A/B/C/D). 10 disciplines x 30 verbatim quotes + 19 unique primary-source citations. HC-AUDIT-1 UPSTREAM CONFIRMED with 6 refinements (BE-C gates DO fire 8 production events; BE-A registry write-boundary works WHEN register_spec called 283 events but bypass paths unenforced; BE-E zero production callers confirmed; 3 coach-role event sinks 0 bytes; spec_authoring_discipline.md has 0 hits for write-boundary keywords; run_gates.sh has no probe invocation). Cycle 6 KG re-verification CORRECTED IRI (http://cycle16.local/ontology#Spec) named-graph-scoped (<http://cycle16.local/registry/assertion>) count = 235 MATCH stored snapshot. HC #72 substitution-detection independent sweep CLEAN. R3 T1-T13 + DP#43 + Check #23 + HC #70 reality-vs-intent table COMPLETE per Done #15b extension PASS-WITH-FLAG+CARRY. LOCKED scope 0 deletions across 3 files. 0 paradigm escalations to Rex.",
-      "encoded_at": "state.json paradigm_dispositions.kc48_r1_pass_cycle_16_s9_disposition_a + state.json current_phase + state.json next_action + DECISION_LOG D-S9-1 + Moonshots handoff §1dr + Moonshots workspace files (S9 substrate + S9 22-PRC + S9 HC#70 R3 table + S10 transition prompt + coach_warmup)"
+      "summary": "Phase 8 entry Stage 0-2 RP fill complete. 3 canonical artifacts filled (OBSERVATION_LOG +81L \u00a71.recovery + RESEARCH_QUESTION_SPEC +46L \u00a73.recovery 9 H_recovery + 5 KT-7..KT-11 rows + LANDSCAPE_ASSESSMENT +79L \u00a76.recovery 5 sub-sections A/B/C/D). 10 disciplines x 30 verbatim quotes + 19 unique primary-source citations. HC-AUDIT-1 UPSTREAM CONFIRMED with 6 refinements (BE-C gates DO fire 8 production events; BE-A registry write-boundary works WHEN register_spec called 283 events but bypass paths unenforced; BE-E zero production callers confirmed; 3 coach-role event sinks 0 bytes; spec_authoring_discipline.md has 0 hits for write-boundary keywords; run_gates.sh has no probe invocation). Cycle 6 KG re-verification CORRECTED IRI (http://cycle16.local/ontology#Spec) named-graph-scoped (<http://cycle16.local/registry/assertion>) count = 235 MATCH stored snapshot. HC #72 substitution-detection independent sweep CLEAN. R3 T1-T13 + DP#43 + Check #23 + HC #70 reality-vs-intent table COMPLETE per Done #15b extension PASS-WITH-FLAG+CARRY. LOCKED scope 0 deletions across 3 files. 0 paradigm escalations to Rex.",
+      "encoded_at": "state.json paradigm_dispositions.kc48_r1_pass_cycle_16_s9_disposition_a + state.json current_phase + state.json next_action + DECISION_LOG D-S9-1 + Moonshots handoff \u00a71dr + Moonshots workspace files (S9 substrate + S9 22-PRC + S9 HC#70 R3 table + S10 transition prompt + coach_warmup)"
     },
     {
       "id": "S10-D1",
@@ -626,8 +626,8 @@
       "authority": "kc-48 R1 PASS task-context dispatch 2026-05-28 via Rex paste-bridge",
       "decision": "cycle_16_s10_stage_3_4_rp_fill_close_phase_8_continuation_4_canonical_artifacts_368_lines_additive_LOCKED_body_diff_zero_HC_72_substitution_detection_CLEAN_HC_70_reality_vs_intent_table_COMPLETE_R3_PASS_WITH_FLAG_CARRY_0_paradigm_escalations_to_rex",
       "rationale": "Cycle 16 SI Amendment 2026-05-28a + 2026-05-28b walk-back of S8 FORMAL CLOSE per Rex paradigm ruling 2026-05-28 keeps Cycle 16 OPEN; Done definition extended via Done #11-#19; fulfilling SI research question structurally; S10 Stage 3-4 RP fill authors acceptance criteria with probe-fire-evidence grounding throughout; PRE-REGISTRATION is structural pressure on BE-F + BE-G + BE-H + BE-I to ship code-active validation (NOT documentation-active substitutes); Done #15b reality-vs-intent diagnostic moved forward to Stage 4 ED R3 close-eval as mandatory structured table.",
-      "evidence": "4 canonical artifact appends additive at HR §3.recovery (+48L 9 H_recovery + 5 KT-7..11 evidence schemata) + ED §5.7-5.10 (+110L 4 BE-N blocks BE-F + BE-G + BE-H + BE-I 24 PASS-all acceptance thresholds) + REQUIREMENTS §1.recovery (+61L Done #11-#19 verbatim + 11-criterion Cycle 16 TRUE close-arc FORMAL CLOSE gate criteria) + ROADMAP §8/§9/§10 (+149L Phase 8 SHIPPED + Phase 9 BE-F/G/H/I Stage 5 builds + Phase 10 probe-grounded retroactive scan + TRUE close-arc FINDINGS per DP#42); HC #72 substitution-detection sweep CLEAN at substrate-compose AND R3 boundaries (all matches legitimate context); HC #70 reality-vs-intent structured table at cycle_16_s10_hc70_reality_vs_intent_diagnostic.md per Done #15b extension COMPLETE 9 H_recovery rows + 5 KT-7..11 rows + 4 BE-N aggregate rows + verdict section; T1-T13 mechanical tests PASS; Pattern 19 n=32 NEW density class data point within-cycle Stage-3-4 RP fill first-arc OVER-CAP 23908B 3-Edit-shrink-recovery 19872B WITHIN-CAP.",
-      "follow_up": "Cycle-16-S11 Stage 5 BE-F dispatch (4 probe primitives Class A/B/C/D with self-tests + admission gate + version-lock + library admission discipline) per kc-48 PD §2.2 Stage 5 BE-class sequencing.",
+      "evidence": "4 canonical artifact appends additive at HR \u00a73.recovery (+48L 9 H_recovery + 5 KT-7..11 evidence schemata) + ED \u00a75.7-5.10 (+110L 4 BE-N blocks BE-F + BE-G + BE-H + BE-I 24 PASS-all acceptance thresholds) + REQUIREMENTS \u00a71.recovery (+61L Done #11-#19 verbatim + 11-criterion Cycle 16 TRUE close-arc FORMAL CLOSE gate criteria) + ROADMAP \u00a78/\u00a79/\u00a710 (+149L Phase 8 SHIPPED + Phase 9 BE-F/G/H/I Stage 5 builds + Phase 10 probe-grounded retroactive scan + TRUE close-arc FINDINGS per DP#42); HC #72 substitution-detection sweep CLEAN at substrate-compose AND R3 boundaries (all matches legitimate context); HC #70 reality-vs-intent structured table at cycle_16_s10_hc70_reality_vs_intent_diagnostic.md per Done #15b extension COMPLETE 9 H_recovery rows + 5 KT-7..11 rows + 4 BE-N aggregate rows + verdict section; T1-T13 mechanical tests PASS; Pattern 19 n=32 NEW density class data point within-cycle Stage-3-4 RP fill first-arc OVER-CAP 23908B 3-Edit-shrink-recovery 19872B WITHIN-CAP.",
+      "follow_up": "Cycle-16-S11 Stage 5 BE-F dispatch (4 probe primitives Class A/B/C/D with self-tests + admission gate + version-lock + library admission discipline) per kc-48 PD \u00a72.2 Stage 5 BE-class sequencing.",
       "session_id": "cycle_16_s10"
     },
     {
@@ -635,14 +635,14 @@
       "timestamp": "2026-05-28T17:30:00Z",
       "session": "Cycle-16-S11",
       "stage": "Stage 5 BE-F",
-      "decision": "BE-F BUILT — probe library 4 primitives + admission gate + version-lock + dogfooding-within-cycle ≥12 production fires; Done #13 + H_recovery_3 closed; ED §5.7 PASS-all 6/6 thresholds; KT-7+8+9+10 DOES NOT FIRE; LOCKED §0-§13 preserved; NO govML touch at S11 (back-port → BE-I S14+)",
-      "evidence": "scripts/probes/{a,b,c,d}/probe_*.py + scripts/probes/__init__.py + scripts/probe_library_admission.sh + scripts/probes/c/llm_judge_prompt.md + tests/probes/fixtures/known_*.json (8) + outputs/probe_fire_events.jsonl (16 production fires) + outputs/probe_library_self_test_events.jsonl (≥8) + outputs/probe_library_admission_events.jsonl (5: 4 PASS + 1 REFUSE T12) + 3 §14 BE-F appends + DEPLOYMENT_LOG.md §2 row 6 + BUILD_DECISION_LOG.md §2 row 6 + outputs/build_runner_envelope.yaml + outputs/build_runner_events.jsonl (+1 be_f_probe_library_ship.event)",
+      "decision": "BE-F BUILT \u2014 probe library 4 primitives + admission gate + version-lock + dogfooding-within-cycle \u226512 production fires; Done #13 + H_recovery_3 closed; ED \u00a75.7 PASS-all 6/6 thresholds; KT-7+8+9+10 DOES NOT FIRE; LOCKED \u00a70-\u00a713 preserved; NO govML touch at S11 (back-port \u2192 BE-I S14+)",
+      "evidence": "scripts/probes/{a,b,c,d}/probe_*.py + scripts/probes/__init__.py + scripts/probe_library_admission.sh + scripts/probes/c/llm_judge_prompt.md + tests/probes/fixtures/known_*.json (8) + outputs/probe_fire_events.jsonl (16 production fires) + outputs/probe_library_self_test_events.jsonl (\u22658) + outputs/probe_library_admission_events.jsonl (5: 4 PASS + 1 REFUSE T12) + 3 \u00a714 BE-F appends + DEPLOYMENT_LOG.md \u00a72 row 6 + BUILD_DECISION_LOG.md \u00a72 row 6 + outputs/build_runner_envelope.yaml + outputs/build_runner_events.jsonl (+1 be_f_probe_library_ship.event)",
       "authority": "kc-48 R1 PASS Cycle-16-S11 task-context dispatch + Rex 2026-05-28 paradigm ruling walking back S8 FORMAL CLOSE + Rex 2026-05-28 'proceed' + SI Amendments 27a/27b/28a/28b + DECISION_LOG D-S2..D-S10 + S141 BINDING foreground Agent dispatch",
       "verdict": "PASS-WITH-FLAG+CARRY (pending Coach R3 independent verification per T1-T13 + HC #72 sweep + HC #70 reality-vs-intent table)"
     },
     {
       "id": "S8-D4",
-      "summary": "Cycle 16 SI Amendment 2026-05-28c — kc-48 Step 3.5 Draft-for-Approval mid-conversation paradigm-class scope expansion per Rex \"approve\" 2026-05-28 (Option A + two NEW verification mechanisms)",
+      "summary": "Cycle 16 SI Amendment 2026-05-28c \u2014 kc-48 Step 3.5 Draft-for-Approval mid-conversation paradigm-class scope expansion per Rex \"approve\" 2026-05-28 (Option A + two NEW verification mechanisms)",
       "authority": "Rex 2026-05-28 paradigm authorization \"approve\" + kc-48 pre-escalation gate paradigm-class verdict per HC #74 BINDING + Step 3.5 Draft-for-Approval BINDING + HC #45 ADDITIVE-APPEND precedent class strict",
       "done_definition_extension": "Done #20-#24 ADDITIVE-APPEND (#1-#19 LOCKED preserved)",
       "new_BE": [
@@ -678,11 +678,11 @@
     },
     {
       "id": "S12-D1",
-      "note": "BE-G write-boundary enforcement composite BUILT; D-S12-1; ACCEPTANCE §15.1 rows 37-46 PASS-all"
+      "note": "BE-G write-boundary enforcement composite BUILT; D-S12-1; ACCEPTANCE \u00a715.1 rows 37-46 PASS-all"
     },
     {
       "id": "S21-D1",
-      "decision": "BE-R mechanisms BUILT+valid but denominator/V HOLD (not-trusted): #18 ±5% FAILS (232/354/898); 122-divergence contaminated (DP#N refs + Cycle-16 Done#N + naming-mismatch); V ~97.6% E2-only (Jaccard 0.0134). Scope disposed Option-1 (four RQS classes; principles=references). BE-S/BE-T NOT run; #53 blocked. S22 RP refinement (a-d).",
+      "decision": "BE-R mechanisms BUILT+valid but denominator/V HOLD (not-trusted): #18 \u00b15% FAILS (232/354/898); 122-divergence contaminated (DP#N refs + Cycle-16 Done#N + naming-mismatch); V ~97.6% E2-only (Jaccard 0.0134). Scope disposed Option-1 (four RQS classes; principles=references). BE-S/BE-T NOT run; #53 blocked. S22 RP refinement (a-d).",
       "timestamp": "2026-05-29",
       "verifier": "Coach S21 R3 + kc-53 R2 affirmation",
       "evidence": "ADR-S21-1; BUILD_DECISION_LOG rows 14 + 14-R3; Coach 3 guards re-run exit 0; 3rd-method census=898"
@@ -733,10 +733,10 @@
       "disposition": "AUDIT-ONLY; 3-TB dogfooding cycle_close_gate_holistic + session_close_gate_holistic at outputs/cross_system_validation_be_c.json captures intent",
       "forward_cycle_inheritance": "Holistic-gate-verdict semantic preserved at S6+ BE-D + future BE-E"
     },
-    "HC-BE-B-1 NEW at S4: Pattern 19 BREAK at n=26 first-arc OVER-CAP (23749B/1.1874×) recovered via 6-Edit-round second-pass to 19591B/0.9796× WITHIN-CAP; HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass per dispatch directive; BE-B substrate density HEAVIER than BE-A peer due to Brief 1 govML back-port hardening (cross-system scope = density-multiplier); BE-B density profile closer to Stage 3-4 RP than to BE-A; recurrence of S2 n=24 pattern",
-    "HC-BE-B-2 NEW at S4: Production registry graphs forward-applied at /cycle6 without DROP-GRAPH cleanup (intentional per 'no spec lands without registry row' discipline + ROADMAP Phase 3 Branch 4.5); rollback procedure documented at ARTIFACT_CONTRACT §10.5 but NOT end-to-end tested at BE-B; supersedure (Op 5) is correct repair path at Cycle-16-S5 BE-C scope (TWO-surface BLOCKING gate evaluation may exercise rollback)",
-    "HC-BE-A-1 RESOLVED at S4: ACCEPTANCE_CRITERIA section 1 row 4 wording refinement landed at §10.3 as 5-row per-state conditional-readback table (running=13 / dormant-with-explicit-deferral=14 / DP#26-dormant=15 / long-running=14 / killed=13-14); operational refinement; no CONTRACT_CHANGE required",
-    "HC-BE-A-2 NEW at S3: HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path α (reuse c6:rank + c6:supersedesRef predicates via cycle16:Spec rdfs:subClassOf c6:Statement SHACL polymorphism inheritance); sub-KT-6 candidate disposed; main KT-6 DOES NOT FIRE; FINDINGS Layer 4 carry for namespace-canonicity documentation",
+    "HC-BE-B-1 NEW at S4: Pattern 19 BREAK at n=26 first-arc OVER-CAP (23749B/1.1874\u00d7) recovered via 6-Edit-round second-pass to 19591B/0.9796\u00d7 WITHIN-CAP; HC #48 (d) sub-cycle scope-decomposition refinement candidate FLAGGED for kc-45 PD next-pass per dispatch directive; BE-B substrate density HEAVIER than BE-A peer due to Brief 1 govML back-port hardening (cross-system scope = density-multiplier); BE-B density profile closer to Stage 3-4 RP than to BE-A; recurrence of S2 n=24 pattern",
+    "HC-BE-B-2 NEW at S4: Production registry graphs forward-applied at /cycle6 without DROP-GRAPH cleanup (intentional per 'no spec lands without registry row' discipline + ROADMAP Phase 3 Branch 4.5); rollback procedure documented at ARTIFACT_CONTRACT \u00a710.5 but NOT end-to-end tested at BE-B; supersedure (Op 5) is correct repair path at Cycle-16-S5 BE-C scope (TWO-surface BLOCKING gate evaluation may exercise rollback)",
+    "HC-BE-A-1 RESOLVED at S4: ACCEPTANCE_CRITERIA section 1 row 4 wording refinement landed at \u00a710.3 as 5-row per-state conditional-readback table (running=13 / dormant-with-explicit-deferral=14 / DP#26-dormant=15 / long-running=14 / killed=13-14); operational refinement; no CONTRACT_CHANGE required",
+    "HC-BE-A-2 NEW at S3: HC-RP-S2-3 RESOLVED-VIA-NAMESPACE-EQUIVALENCE via Path \u03b1 (reuse c6:rank + c6:supersedesRef predicates via cycle16:Spec rdfs:subClassOf c6:Statement SHACL polymorphism inheritance); sub-KT-6 candidate disposed; main KT-6 DOES NOT FIRE; FINDINGS Layer 4 carry for namespace-canonicity documentation",
     "HC-BE-A-3 NEW at S3: Scaffolded BE-class templates at docs/ vs Cycle 14 precedent at project root; Cycle 16 init_project.sh scaffolding path divergence; operationally correct architectural disclosure per build-runner.md Canonical marker preservation BINDING; potential govML template scaffolding-path normalization candidate at future cycle if pattern recurs",
     "HC-RP1: RQS line count 498L vs target 380-460 (+38 over upper band; FLAG+CARRY per Mechanical Check #22)",
     "HC #55 candidate: Stage-gate scripts gate-design mismatch; Stage 3-4 canonicals at project root resolve at S2; refinement carry for kc-44 PD inheritance",
@@ -751,11 +751,11 @@
     "BE-K-LIVENESS: >=1 successful live judge verdict (real code -> real faithful/not_faithful) NOT yet observed; BLOCKING carry to S17; gated on GAP-1(fixed)+GAP-2(Anthropic usage-limit, Rex infra). NOT deferred-done, NOT folded into Done #26 done.",
     "GAP-2: ORCHESTRATION_ANTHROPIC_API_KEY at usage-limit (HTTP 400); blocks live judge + Done #25 probe-accuracy validation; likely degrades --backend anthropic classify cron + newsletter T3 now; Rex infra/billing disposition."
   ],
-  "next_action": "cycle_16_s29: SUB-CYCLE SESSION A (Stages 0-2) — frame the build-type-cycle-redesign research question + run the EXTERNAL landscape, then Stage 2->3 checkpoint to Rex. Per SI Amendment 28m / D-S29 (LOCKED strategic input ~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_subcycle_lifecycle_redesign_rex_strategic_input.md): the prior 'ESTABLISH REAL-TIER VALIDATION BEFORE SCALING' plan is SUPERSEDED — S28's text-spec blindness is a structural symptom that the build-type cycle was never designed as a complete research->software lifecycle, so the next phase is a research-and-redesign SUB-CYCLE WITHIN Cycle 16 (NOT a new cycle; NO deferral; kc-47 BLOCKED); 'validate text-tier specs' is SUBSUMED as the typology+validation branch. Session A authorized scope (in order): (1) land reframe (DONE this write: D-S29/Amendment 28m + state.json + FLAGs); (2) scaffold the sub-cycle research project (scaffold_research_project.py + init_project.sh; canonical Stage 0-2 templates, do NOT hand-fill); (3) compose+fire ONE foreground general-purpose RP (S141) to fill OBSERVATION_LOG + RESEARCH_QUESTION_SPEC + LANDSCAPE_ASSESSMENT (Binding 6); (4) DP#43-verify (placeholder count 0; spot-read >=3 rows/section; landscape depth gate: >=10 methodologies, >=80pct external by volume, >=3 verbatim quotes/discipline). THREE HARD GUARDRAILS: G1 external-research-first (internal=cross-validation only AFTER external taxonomy drives stage decomposition, never the anchor; Binding 2 / AAEM-cycle-1 drift); G2 research DEFINES the process stages + spec/data typology + provenance model (no first-thought pre-seed); G3 no proxy-substitution in operational definitions (what 'implemented/consistent/complete/provenance-tracked' MEAN grounded in execution/behavior, not registry-state/status-flags/citation-counts). Session A ENDS at the Stage 2->3 checkpoint (Rex decision — do NOT cross). Session B = Stages 3-4 design, post-checkpoint. BOUND: the redesign must terminate in building ONE real cycle's backlog (vertical slice) before refreshing all 16 — it is a means to verified implemented code, not an end in itself. Standing LOCKED: proof-based close only (backlog built + records reconciled/machine-validated + 100pct graph<->source both directions + forward enforcement live-fire-proven + machine-auditor re-catches Rex hole history + NO mandatory human step); no partial close; no deferral to a recovery cycle. RP-design->Coach DP#43-verify per Binding 6. Cycle 16 OPEN.",
-  "last_action": "Cycle-16-S29 first machine-state write: landed SI Amendment 28m / D-S29 (sub-cycle reframe) + corrected next_action off stale real-tier-validation + normalized FLAGs (current_phase S26->S29; D-S28 heading ###->##)",
+  "next_action": "cycle_16_s30->s31: sub-cycle Stage 0-2 RE-DERIVATION (CLEAN) per D-S30 re-baseline. ACTIVE anchor = sharpened strategic input cycle_16_subcycle_lifecycle_redesign_rex_strategic_input.md. Scope (in order): (1) [DONE this write] D-S30 append-only correction + state.json mirror (D-S29/28m STANDS); (2) [DONE] fresh repo ~/cycle_16_sdlc_build_cycle_redesign scaffolded (research-synthesis, 22755f3); (3) compose clean-room RP dispatch substrate (ONLY framing input = sharpened strategic input; ZERO S29-artifact quotation/summary/reference) -> surface to kc-57 for one-shot R2 pre-fire clean-room check BEFORE firing; (4) on R2 PASS fire ONE foreground general-purpose RP (S141) to fill OBSERVATION_LOG+RESEARCH_QUESTION_SPEC+LANDSCAPE_ASSESSMENT (Binding 6); (5) DP#43-verify independently (0 placeholders; >=10 disciplines; >=3 verbatim quotes/discipline spot-checked vs live sources; gates run; clean-room grep for S29 leak=none); (6) compose fresh Stage 2->3 checkpoint package for Rex at .claude/workspace/cycle_16_s31_stage_2_3_checkpoint.md (do NOT cross into Stage 3). Guardrails G1 external-first / G2 research-defines-no-pre-seed / G3 no-Cycle-16-outcome-bleed. BOUND: terminates in building one vertical slice; no recursion; kc-47 BLOCKED. Cycle 16 OPEN.",
+  "last_action": "cycle_16_s30_re-baseline_machine_state_landing",
   "last_action_ts": "2026-05-30",
   "last_action_timestamp": "2026-05-30",
-  "last_action_description": "Reframe landed before any dispatch (Session A discipline). next_action now routes to Stage 0-2 sub-cycle work under the 3 hard guardrails. Scaffold + RP dispatch + DP#43-verify + Stage 2->3 checkpoint follow. Cycle 16 OPEN.",
+  "last_action_description": "D-S30 append-only correction (S29 framing unclear -> re-baselined; D-S29/28m STANDS) + state.json mirror + fresh sub-cycle repo scaffold; pre-RP-dispatch",
   "stage_5_be_f_complete": true,
   "stage_5_be_f_complete_at": "2026-05-28T17:30:00Z",
   "stage_5_be_f_close_timestamp": "2026-05-28T17:30:00Z",
@@ -767,7 +767,7 @@
       "id": "HC-BE-G-1",
       "status": "RESOLVED-at-BE-H (cycle_16 mirror)",
       "be_h_resolution": "dormancy compute FAIL-CLOSED: crash (non-JSON / non-zero rc) is a distinct crash verdict (FAIL blocking / loud non-PASS WARN advisory), never silent PASS=0; library_self_test treats crashing probe as self-test FAIL (crash:true)",
-      "govml_copy_carry": "RESOLVED-at-BE-I (S14): govML canonical session_close_gate Check 2 back-ported to probe-fire aggregate with HC-BE-G-1 fail-closed DORMANCY_CRASH branch; Coach R3 body-read confirmed (no `|| echo 0` crash-swallow). Note: the literal `de467f9` defect framing was stale per S14 warmup discrepancy resolution — canonical never had magic-64/fail-open; it had the registry-enum ASK proxy (worse for this cycle), now removed.",
+      "govml_copy_carry": "RESOLVED-at-BE-I (S14): govML canonical session_close_gate Check 2 back-ported to probe-fire aggregate with HC-BE-G-1 fail-closed DORMANCY_CRASH branch; Coach R3 body-read confirmed (no `|| echo 0` crash-swallow). Note: the literal `de467f9` defect framing was stale per S14 warmup discrepancy resolution \u2014 canonical never had magic-64/fail-open; it had the registry-enum ASK proxy (worse for this cycle), now removed.",
       "repo_scope": "cycle_16 mirror RESOLVED at BE-H; govML canonical RESOLVED at BE-I/S14"
     },
     {
@@ -779,8 +779,8 @@
     },
     {
       "id": "Done #40",
-      "status": "OPEN — SIGNED IN-CYCLE COMPLETION-BLOCKING DEFERRAL (recorded at BE-I/S14, surfaced by Coach R2, declared by kc-50 Disposition C)",
-      "gap": "session/cycle-close gate SUITE not wired into fresh-scaffold install: BE-C/BE-G close-gates exist as govML operational copies only (templates/build/spec_implementation_gates/ ships obligation doc only); hook/watcher/reconciliation absent from scaffold install path; close-gate generalization off cycle16: ontology not done. Hole in Amendment 28e FUTURE guarantee — proven only for the Substitution Gate at BE-I, not the close-gate suite.",
+      "status": "OPEN \u2014 SIGNED IN-CYCLE COMPLETION-BLOCKING DEFERRAL (recorded at BE-I/S14, surfaced by Coach R2, declared by kc-50 Disposition C)",
+      "gap": "session/cycle-close gate SUITE not wired into fresh-scaffold install: BE-C/BE-G close-gates exist as govML operational copies only (templates/build/spec_implementation_gates/ ships obligation doc only); hook/watcher/reconciliation absent from scaffold install path; close-gate generalization off cycle16: ontology not done. Hole in Amendment 28e FUTURE guarantee \u2014 proven only for the Substitution Gate at BE-I, not the close-gate suite.",
       "owner": "kc-50 (declared + set parameters)",
       "named_target": "BE-L durability-gate session (close-gate-class; Done #34 durability gate also requires close-gate generalized off cycle16:)",
       "expiry": "Cycle 16 close",
@@ -805,14 +805,14 @@
     "independence_clean": true,
     "per_class": {
       "A": "FULL-RIGOR-PASS on population (TP1/FP0/FN0/TN7 recall1.0 n_eval8 1contested small_n_disclosed) BUT probe --self-test FAIL: known_good_a_1 fixture mislabeled (encodes OR-branch/general-purpose-dispatch semantics; GT-strict says build-runner=False). PARADIGM Q surfaced to Rex/kc-52. A NOT-ADMITTED pending ruling.",
-      "B": "CONTESTED — not validated to bar (matrix clean TP6/FP0/FN0/TN1 recall1.0 but contested_frac0.30>0.20; 3/10 ontology .ttl no extractable target classes = population-shape, probe is GT-correct).",
+      "B": "CONTESTED \u2014 not validated to bar (matrix clean TP6/FP0/FN0/TN1 recall1.0 but contested_frac0.30>0.20; 3/10 ontology .ttl no extractable target classes = population-shape, probe is GT-correct).",
       "D": "FULL-RIGOR-PASS clean (TP5/FP0/FN0/TN49 recall1.0 contested_frac0.085); self-test pass. TRUSTWORTHY.",
       "C": "DEFERRED-GAP-2 / NOT-VALIDATED (live judge stubbed deferred C17+).",
       "E": "source/field sub-checks all-positive no-negatives (no FP-discrimination power); status-match NOT-VALIDATED (probe imports BE-F independence defect).",
       "F": "exec PASS-LOW-POWER (n_eval2); judge NOT-VALIDATED (live LLM BOTH anthropic keys usage-limit until 2026-06-01)."
     },
     "probe_fixes": "A=drop description OR-branch + demote md/invariant short-circuits to diagnostics; D=substring-anywhere->structured-field JSON match + harness-sink exclusion + trace_id-only md-citation; B=extract+prefix-resolve target classes in probe() SHACL branch, any-class-conforming->implemented. All 3 GT-aligned, Coach-verified by reading bodies.",
-    "verdict": "HOLD — D clean; A population-accurate but paradigm fixture conflict; B CONTESTED population-shape; judged tier blocked. Detectors NOT collectively trustworthy; Done #42 Phase-11 block HOLDS."
+    "verdict": "HOLD \u2014 D clean; A population-accurate but paradigm fixture conflict; B CONTESTED population-shape; judged tier blocked. Detectors NOT collectively trustworthy; Done #42 Phase-11 block HOLDS."
   },
   "stage_5_s19_detector_trustworthy": {
     "complete": true,
@@ -829,7 +829,7 @@
     "complete": true,
     "at": "2026-05-29T18:54:27Z",
     "deliverable": "Phase-11 RP fill (Stage 3-4): build specs for Done #49/#50/#51/#47 authored per Binding 6",
-    "authored_surfaces": "HR §3.phase11 (H_phase11_49/50/51 + 3 reality-vs-intent rows); ED §5.phase11 (BE-R/BE-S/BE-T 6-threshold acceptance each); REQUIREMENTS Done #47/#49/#50/#51 + close-gate criterion 12; ROADMAP §11 (Phase 11 + route to Phase 12->13)",
+    "authored_surfaces": "HR \u00a73.phase11 (H_phase11_49/50/51 + 3 reality-vs-intent rows); ED \u00a75.phase11 (BE-R/BE-S/BE-T 6-threshold acceptance each); REQUIREMENTS Done #47/#49/#50/#51 + close-gate criterion 12; ROADMAP \u00a711 (Phase 11 + route to Phase 12->13)",
     "substitution_traps_encoded_as_hard_fail": "methods_read_disjoint_sources (#50 dual-scan-of-recorded REFUSED); extraction_methods_distinct + detector_input_is_reconciled_validated_set (#49 single-reader REFUSED); judge_uses_different_model_or_method + close_verdict_fn_human_inputs==0 (#51 engineered-agreement + human-in-close-path REFUSED)",
     "coach_dp43": "additive-only 248 ins / 0 del; 0 placeholders; markers paired; harness/probes/fixtures byte-identical to S19 (git diff 0c7c1de -- scripts/ tests/ docs/ empty); 1 narrow BE-Q->BE-T cross-ref corrected Coach-direct per pipeline_identity.md L52",
     "be_r_build_runner": "dispatch substrate composed WITHIN-CAP (10856 chars / 0.543) and READY at moonshots workspace; fire DEFERRED to S21 (3x consecutive API 529 Overload + denominator verification deserves fresh context)",
@@ -849,9 +849,9 @@
     "verdict": "HOLD_denominator_not_trustworthy",
     "at": "2026-05-29T23:43:14.774294+00:00",
     "mechanisms_built_valid": "authored_intent_scan.py (#50 Method-2) + spec_extraction_pipeline.py (#49 E1+E2->V); 4 predicates import-and-execute (not KT-8); Coach re-ran 3 guards exit 0; single-reader fixture REFUSED; additive only; harness/probes/fixtures/gates/templates UNTOUCHED; no fudge",
-    "findings": "(1) #18 pm5pct FAILS: M1=232 / dual-union=354 / Coach 3rd-method census=898 (~3.5x); distinct-spec lacks method-stable operational definition. (2) 122 authored_but_unrecorded CONTAMINATED: 69 distinct tokens, 46 DP#N principle-refs + 54 Cycle-16-own Done#N + ~8 naming-mismatch FP. (3) V ~97.6% one reader: Jaccard 0.0134 (∩22/∪1638), E1 inert; T6 guard checks label not composition.",
+    "findings": "(1) #18 pm5pct FAILS: M1=232 / dual-union=354 / Coach 3rd-method census=898 (~3.5x); distinct-spec lacks method-stable operational definition. (2) 122 authored_but_unrecorded CONTAMINATED: 69 distinct tokens, 46 DP#N principle-refs + 54 Cycle-16-own Done#N + ~8 naming-mismatch FP. (3) V ~97.6% one reader: Jaccard 0.0134 (\u222922/\u222a1638), E1 inert; T6 guard checks label not composition.",
     "scope_disposition": "Option-1 (four RQS classes only: agent contracts/schemas/design decisions/methodology commitments); DP/HC/GPL = references not denominator members; kc-53 R2 operational disposition; gotcha #16 NO / S176 YES; NOT presented to Rex",
-    "s22_rp_carry": "(a) method-stable spec-class def scoped to four RQS classes, exclude principle-refs + Cycle-16 Done-items, reconcile granularity; (b) fix inert E1; (c) strengthen #49 T6 to per-reader-contribution floor (#27, RP-authored not Coach-direct); (d) anti-gaming: ±5% must emerge from independent methods on same principled def, not tuned-to-agree (#28/#29)",
+    "s22_rp_carry": "(a) method-stable spec-class def scoped to four RQS classes, exclude principle-refs + Cycle-16 Done-items, reconcile granularity; (b) fix inert E1; (c) strengthen #49 T6 to per-reader-contribution floor (#27, RP-authored not Coach-direct); (d) anti-gaming: \u00b15% must emerge from independent methods on same principled def, not tuned-to-agree (#28/#29)",
     "be_s_be_t": "NOT run (consume untrusted denominator/V); clean sub-boundary",
     "done_53_kg_reconcile": "BLOCKED until V trusted",
     "decision_ref": "ADR-S21-1 / D-S21-1 / BUILD_DECISION_LOG row 14 + 14-R3"
@@ -947,9 +947,9 @@
   },
   "completion_bar_extension_28i": {
     "status": "ACTIVE 2026-05-30 (kc-53 Step 3.5; Rex 'fold it in')",
-    "done_59": "governance-layer durability via the KG — kernel-coach disciplines + validation-prompt R3 rules registered as spec nodes in the KG (id/body/status/version/required-surfaces); markdown durable-homes validated-against-the-graph by a gate at every close (drift=failing query not checklist); enforcement layer enters the audited population (guard-the-guards); KG=source of truth, markdown=generated/validated paste surface",
+    "done_59": "governance-layer durability via the KG \u2014 kernel-coach disciplines + validation-prompt R3 rules registered as spec nodes in the KG (id/body/status/version/required-surfaces); markdown durable-homes validated-against-the-graph by a gate at every close (drift=failing query not checklist); enforcement layer enters the audited population (guard-the-guards); KG=source of truth, markdown=generated/validated paste surface",
     "true_close": "(a)-(j) per 28e+28f+28g+28h AND (k) Done #59 lands",
-    "general_discipline": "#39 durable-means-in-the-system-of-record-validated-by-gate-not-convention-synced-prose (foundational + validation_prompt + cycle_10 §8.12; first use of persistence mechanism 4 all-durable-homes-one-pass)",
+    "general_discipline": "#39 durable-means-in-the-system-of-record-validated-by-gate-not-convention-synced-prose (foundational + validation_prompt + cycle_10 \u00a78.12; first use of persistence mechanism 4 all-durable-homes-one-pass)",
     "sequencing": "S24 first action UNCHANGED (BE-S->BE-T->gap list->#53); Done #59 = Phase-13-class deliverable, does NOT block gap list; build-mechanism spec RP-authored per Binding 6 NOT kc-direct",
     "amendment_file": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_si_amendment_2026_05_30i.md",
     "decision_log": "D-S23-2"
@@ -1016,6 +1016,6 @@
     "no_done_100_gapclosed_claim": true,
     "coach_r3_eval": "~/Moonshots_Career_Thesis_v2/.claude/workspace/cycle_16_s27_coach_r3_eval.md"
   },
-  "last_session": "cycle_16_s28",
+  "last_session": "cycle_16_s30",
   "cycle_status": "OPEN"
 }
