@@ -211,7 +211,7 @@ Routing schema at `MEMORY_ROUTING.md` (decision-context bindings).
 | `reference_cycle_arc_canonical_sources.md` | "Canonical sources for the program's per-cycle scope definitions (Cycle N+1 through cycle-end). Read these before any ex |
 | `reference_gpd_architecture.md` | PSI's open-source research agent system — 23 agents, 61 workflows, most sophisticated research agent architecture found. |
 | `reference_linkedin_newsletter_url.md` | Stable LinkedIn URL for "Securing AI That Ships" newsletter. Used as share target in in-body CTAs (per-issue URLs are on |
-| `reference_mac_mini_specs.md` | Authoritative Mac Mini hardware specs. Pointer to compute_resources DB + runbook. Operating mode 2026-05-06: GPU-science |
+| `reference_mac_mini_specs.md` | Authoritative stable hardware and role summary. Verified 2026-09-01: live always-on build_cycle_sdlc production witness; |
 | `user_rex_strengths.md` | Rex excels at architectural/meta judgment (top quartile/1% grad school), NOT paper quality scoring. Remove Rex from rese |
 
 ## Per-Stage Quick Reference
