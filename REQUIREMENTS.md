@@ -1,5 +1,13 @@
 # Requirements: Cycle 16 — Close the spec-to-implementation gap
 
+> **CURRENT MAC MINI CONSTRAINT (2026-09-01):** The Mac Mini is reserved as
+> the `build_cycle_sdlc` production witness and is unavailable for general,
+> GPU, research, batch, or agent compute absent an explicit TCB-role change.
+> Any body language offering it as compute or a fallback is historical and
+> superseded by this constraint and the Moonshots `mac_mini_ops.md` CURRENT
+> AUTHORITY. Hardware inventory facts alone do not grant workload authority.
+
+
 <!-- version: 0.1 -->
 <!-- created: 2026-05-27 -->
 <!-- stage: 3 -->
